@@ -36,6 +36,8 @@ public class HomeActivity extends AppCompatActivity
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, homeFragment).commit();
+
+            drawer.openDrawer(GravityCompat.START);
         }
     }
 
