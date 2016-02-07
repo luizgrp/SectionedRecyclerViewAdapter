@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_item1"
+        android:title="@string/navigation_item1" >
+        <menu>
+            <item
+                android:id="@+id/nav_item1_sub1"
+                android:title="@string/navigation_item1_sub1"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+
+            <item
+                android:id="@+id/nav_item1_sub2"
+                android:title="@string/navigation_item1_sub2"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+
+            <item
+                android:id="@+id/nav_item1_sub3"
+                android:title="@string/navigation_item1_sub3"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_item2"
+        android:title="@string/navigation_item2" >
+        <menu>
+            <item
+                android:id="@+id/nav_item2_sub1"
+                android:title="@string/navigation_item2_sub1"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+        </menu>
+    </item>
+</menu>

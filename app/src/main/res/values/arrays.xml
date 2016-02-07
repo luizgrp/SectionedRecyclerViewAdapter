@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="names">
+        <item>Kristeen Coderre</item>
+        <item>Libby Leslie</item>
+        <item>Sherika Baynes</item>
+        <item>Coralie Mckinny</item>
+        <item>Jon Timms</item>
+        <item>Ezekiel Cousineau</item>
+        <item>Camila Mcgonigle</item>
+        <item>Lakesha Sewell</item>
+        <item>Hunter Kelsch</item>
+        <item>Wendie Meltzer</item>
+        <item>Doretha Preciado</item>
+        <item>Marybelle Staton</item>
+        <item>Angelo Robbins</item>
+        <item>Norene Baptista</item>
+        <item>Kathryn Mansfield</item>
+        <item>Jamee Botts</item>
+        <item>Jama Spiker</item>
+        <item>Eugene Lazenby</item>
+        <item>Tomika Blind</item>
+        <item>Johana Massengill</item>
+        <item>Randa Wommack</item>
+        <item>Lang Medina</item>
+        <item>Clyde Keena</item>
+        <item>Malisa Knopp</item>
+        <item>Yaeko Murakami</item>
+        <item>Pa Gilmore</item>
+        <item>Lashell Boyette</item>
+        <item>Sherri Hogans</item>
+        <item>Emelda Ahlquist</item>
+        <item>Kala Bardin</item>
+        <item>Alysia Parra</item>
+        <item>Harris Yopp</item>
+        <item>Claribel Freeney</item>
+        <item>Laila Ekstrom</item>
+        <item>Numbers Solomon</item>
+        <item>Desirae Endicott</item>
+        <item>Shandi Zahl</item>
+        <item>Venessa Brunson</item>
+        <item>Guillermo Abila</item>
+        <item>Kenna Boles</item>
+        <item>Daisey Mariscal</item>
+        <item>Marry Gartrell</item>
+        <item>Tyree Boateng</item>
+        <item>Caryl Matheney</item>
+        <item>Zenaida Perfecto</item>
+        <item>Izola Stivers</item>
+        <item>Rosario Rominger</item>
+        <item>Bennett Donelson</item>
+        <item>Sharell Hewes</item>
+        <item>Kirk Sim</item>
+    </string-array>
+
+    <string-array name="news_world">
+        <item>Signs of Life as Workers Scour Rubble of Taiwan Earthquake|Sun, 07 Feb 2016 12:19:26</item>
+        <item>How a Medical Mystery in Brazil Led Doctors to Zika|Sat, 06 Feb 2016 20:00:16</item>
+        <item>U.S. Judge Approves Extradition of Former Salvadoran Colonel|Sat, 06 Feb 2016 02:08:48</item>
+    </string-array>
+    <string-array name="news_biz">
+        <item>Airlines Reap Record Profits, and Passengers Get Peanuts|Sat, 06 Feb 2016 22:39:54</item>
+        <item>Inside Wealth: Revaluing Family Treasures for the Taxman|Sat, 06 Feb 2016 18:38:49</item>
+        <item>Fair Game: Fining Bankers, Not Shareholders, for Banks’ Misconduct|Sat, 06 Feb 2016 17:18:36</item>
+    </string-array>
+    <string-array name="news_tech">
+        <item>Farhad and Mike’s Week in Tech: Start-Ups and the Circle of Life|Sat, 06 Feb 2016 14:30:02</item>
+        <item>Tech Tip: Moving Files to a Mac From a PC|Fri, 05 Feb 2016 20:33:38</item>
+        <item>This Video Game Will Break Your Heart|Fri, 05 Feb 2016 15:56:01</item>
+    </string-array>
+    <string-array name="news_sports">
+        <item>Horse Racing: A Victory for a Baffert Horse|Sun, 07 Feb 2016 05:53:47</item>
+        <item>Tennis: Kerber Wins in Fed Cup|Sun, 07 Feb 2016 05:49:13</item>
+        <item>Baseball: Blue Jays Sign a Pitcher|Sun, 07 Feb 2016 05:46:18</item>
+    </string-array>
+</resources>

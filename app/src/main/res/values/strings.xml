@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">SectionedRecyclerViewAdapter Demo</string>
+
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="navigation_item1">Stateless Section</string>
+    <string name="navigation_item1_sub1">Section with Header</string>
+    <string name="navigation_item1_sub2">Section with Header and Footer</string>
+    <string name="navigation_item1_sub3">Expandable Section</string>
+    <string name="navigation_item2">Stateful Section</string>
+    <string name="navigation_item2_sub1">Section with Header and Footer</string>
+
+    <string name="world_topic">World</string>
+    <string name="biz_topic">Business</string>
+    <string name="tech_topic">Technology</string>
+    <string name="sports_topic">Sports</string>
+
+    <string name="see_more">See more..</string>
+    <string name="failed_load">Failed to load, tap to try again.</string>
+
+</resources>
