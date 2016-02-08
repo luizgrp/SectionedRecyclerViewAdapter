@@ -23,6 +23,8 @@ dependencies {
 ```java
 class MySection extends StatelessSection {
 
+    List<String> myList = Arrays.asList(new String[] {"Item1", "Item2", "Item3" });
+
     public MySection() {
         // call constructor with layout resources for this Section header and items 
         super(R.layout.section_header, R.layout.section_item);
@@ -30,7 +32,7 @@ class MySection extends StatelessSection {
 
     @Override
     public int getContentItemsTotal() {
-        return 10; // number of items of this section
+        return myList.size(); // number of items of this section
     }
 
     @Override
@@ -44,12 +46,12 @@ class MySection extends StatelessSection {
         MyItemViewHolder itemHolder = (MyItemViewHolder) holder;
 
         // bind your view here
-        itemHolder.tvItem.setText("Item #" + position);
+        itemHolder.tvItem.setText(myList.get(position));
     }
 }
 ```
 
-##### 2) Create a custom ViewHolder for the section items, header and footer
+##### 2) Create a custom ViewHolder for the section items:
 ```java
 class MyItemViewHolder extends RecyclerView.ViewHolder {
 
