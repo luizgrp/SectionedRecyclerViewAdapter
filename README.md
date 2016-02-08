@@ -12,7 +12,11 @@ In addition, each Section can have its state(Loading/Loaded/Failed) controlled i
 
 ## Gradle Dependency
 
-Soon.
+```groovy
+dependencies {
+    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.0'
+}
+```
 
 ## Basic usage:
 ##### 1) Create a custom Section class extending StatelessSection
