@@ -127,12 +127,12 @@ public class Example4Fragment extends Fragment {
         private final TextView tvTitle;
         private final ImageView imgArrow;
 
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
+        public HeaderViewHolder(View view) {
+            super(view);
 
-            rootView = itemView.findViewById(R.id.rootView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            imgArrow = (ImageView) itemView.findViewById(R.id.imgArrow);
+            rootView = view;
+            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            imgArrow = (ImageView) view.findViewById(R.id.imgArrow);
         }
     }
 
@@ -142,12 +142,12 @@ public class Example4Fragment extends Fragment {
         private final ImageView imgItem;
         private final TextView tvItem;
 
-        public ItemViewHolder(View itemView) {
-            super(itemView);
+        public ItemViewHolder(View view) {
+            super(view);
 
-            rootView = itemView.findViewById(R.id.rootView);
-            imgItem = (ImageView) itemView.findViewById(R.id.imgItem);
-            tvItem = (TextView) itemView.findViewById(R.id.tvItem);
+            rootView = view;
+            imgItem = (ImageView) view.findViewById(R.id.imgItem);
+            tvItem = (TextView) view.findViewById(R.id.tvItem);
         }
     }
 }
