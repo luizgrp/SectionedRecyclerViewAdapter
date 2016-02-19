@@ -205,17 +205,17 @@ public abstract class Section {
      * @return total of items of this section
      */
     public final int getSectionItemsTotal() {
-        int contentItemsTotal = 0;
+        int contentItemsTotal;
 
         switch (state) {
             case LOADING:
-                contentItemsTotal += 1;
+                contentItemsTotal = 1;
                 break;
             case LOADED:
-                contentItemsTotal += getContentItemsTotal();
+                contentItemsTotal = getContentItemsTotal();
                 break;
             case FAILED:
-                contentItemsTotal += 1;
+                contentItemsTotal = 1;
                 break;
             default:
                 throw new IllegalStateException("Invalid state");
