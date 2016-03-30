@@ -81,8 +81,8 @@ public class Example4Fragment extends Fragment {
         }
 
         @Override
-        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            ItemViewHolder itemHolder = (ItemViewHolder) holder;
+        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+            final ItemViewHolder itemHolder = (ItemViewHolder) holder;
 
             String name = list.get(position);
 
@@ -92,7 +92,7 @@ public class Example4Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", position, title), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", sectionAdapter.getSectionPosition(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show();
                 }
             });
         }

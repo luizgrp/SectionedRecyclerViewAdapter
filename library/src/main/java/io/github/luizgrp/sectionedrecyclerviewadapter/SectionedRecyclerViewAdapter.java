@@ -261,11 +261,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Returns the Section object for that position
-     * @param position position in the recyclerview
+     * Returns the Section object for a position in the adapter
+     * @param position position in the adapter
      * @return Section object for that position
      */
-    Section getSectionForPosition(int position) {
+    public Section getSectionForPosition(int position) {
 
         int currentPos = 0;
 
@@ -290,10 +290,10 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Return the item position relative to the section.
-     * @param position position of the item in the recyclerview
+     * @param position position of the item in the adapter
      * @return position of the item in the section
      */
-    int getSectionPosition(int position) {
+    public int getSectionPosition(int position) {
         int currentPos = 0;
 
         for (Map.Entry<String, Section> entry : sections.entrySet()) {

@@ -20,12 +20,14 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example1Fragment extends Fragment {
 
+    private SectionedRecyclerViewAdapter sectionAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex1, container, false);
 
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+        sectionAdapter = new SectionedRecyclerViewAdapter();
 
 
         for(char alphabet = 'A'; alphabet <= 'Z';alphabet++) {
@@ -78,8 +80,8 @@ public class Example1Fragment extends Fragment {
         }
 
         @Override
-        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            ItemViewHolder itemHolder = (ItemViewHolder) holder;
+        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+            final ItemViewHolder itemHolder = (ItemViewHolder) holder;
 
             String name = list.get(position);
 
@@ -89,7 +91,7 @@ public class Example1Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", position, title), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", sectionAdapter.getSectionPosition(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show();
                 }
             });
         }

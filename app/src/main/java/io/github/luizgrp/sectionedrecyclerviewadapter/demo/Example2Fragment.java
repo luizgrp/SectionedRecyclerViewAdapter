@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
@@ -20,12 +21,14 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example2Fragment extends Fragment {
 
+    private SectionedRecyclerViewAdapter sectionAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex2, container, false);
 
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+        sectionAdapter = new SectionedRecyclerViewAdapter();
 
         sectionAdapter.addSection(new NewsSection(NewsSection.WORLD));
         sectionAdapter.addSection(new NewsSection(NewsSection.BUSINESS));
@@ -83,13 +86,7 @@ public class Example2Fragment extends Fragment {
         }
 
         private List<String> getNews(int arrayResource) {
-            List<String> list = new ArrayList<>();
-
-            for (String item : getResources().getStringArray(arrayResource)) {
-                list.add(item);
-            }
-
-            return list;
+            return new ArrayList<>(Arrays.asList(getResources().getStringArray(arrayResource)));
         }
 
         @Override
@@ -103,8 +100,8 @@ public class Example2Fragment extends Fragment {
         }
 
         @Override
-        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            ItemViewHolder itemHolder = (ItemViewHolder) holder;
+        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+            final ItemViewHolder itemHolder = (ItemViewHolder) holder;
 
             String[] item = list.get(position).split("\\|");
 
@@ -115,7 +112,7 @@ public class Example2Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", position, title), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", sectionAdapter.getSectionPosition(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show();
                 }
             });
         }
