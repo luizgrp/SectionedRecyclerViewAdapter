@@ -73,4 +73,17 @@
         <item>Tennis: Kerber Wins in Fed Cup|Sun, 07 Feb 2016 05:49:13</item>
         <item>Baseball: Blue Jays Sign a Pitcher|Sun, 07 Feb 2016 05:46:18</item>
     </string-array>
+
+    <string-array name="top_rated_movies">
+        <item>The Shawshank Redemption|Crime, Drama</item>
+        <item>The Godfather|Crime, Drama</item>
+        <item>The Dark Knight|Action, Crime, Drama</item>
+        <item>Schindler\'s List|Biography, Drama, History</item>
+    </string-array>
+    <string-array name="most_popular_movies">
+        <item>Batman v Superman: Dawn of Justice|Action, Adventure, Fantasy </item>
+        <item>Captain America: Civil War|Action, Adventure, Sci-Fi</item>
+        <item>10 Cloverfield Lane|Drama, Horror, Mystery</item>
+        <item>Deadpool|Action, Adventure, Comedy</item>
+    </string-array>
 </resources>

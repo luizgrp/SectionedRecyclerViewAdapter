@@ -65,6 +65,9 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_item1_sub3:
                 replaceFragment(new Example4Fragment());
                 break;
+            case R.id.nav_item1_sub4:
+                replaceFragment(new Example5Fragment());
+                break;
             case R.id.nav_item2_sub1:
                 replaceFragment(new Example3Fragment());
                 break;

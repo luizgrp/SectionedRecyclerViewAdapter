@@ -18,6 +18,11 @@
                 android:id="@+id/nav_item1_sub3"
                 android:title="@string/navigation_item1_sub3"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+
+            <item
+                android:id="@+id/nav_item1_sub4"
+                android:title="@string/navigation_item1_sub4"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
         </menu>
     </item>
 
