@@ -18,6 +18,12 @@ import java.util.UUID;
  */
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public final static int VIEW_TYPE_HEADER = 0;
+    public final static int VIEW_TYPE_FOOTER = 1;
+    public final static int VIEW_TYPE_ITEM_LOADED = 2;
+    public final static int VIEW_TYPE_LOADING = 3;
+    public final static int VIEW_TYPE_FAILED = 4;
+
     private LinkedHashMap<String, Section> sections;
     private HashMap<String, Integer> sectionViewTypeNumbers;
     private int viewTypeCount = 0;
@@ -40,7 +46,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 int sectionViewType = viewType - entry.getValue();
 
                 switch (sectionViewType) {
-                    case 0: {
+                    case VIEW_TYPE_HEADER: {
                         Integer resId = section.getHeaderResourceId();
 
                         if (resId == null)
@@ -51,7 +57,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         viewHolder = section.getHeaderViewHolder(view);
                         break;
                     }
-                    case 1: {
+                    case VIEW_TYPE_FOOTER: {
                         Integer resId = section.getFooterResourceId();
 
                         if (resId == null)
@@ -62,13 +68,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         viewHolder = section.getFooterViewHolder(view);
                         break;
                     }
-                    case 2: {
+                    case VIEW_TYPE_ITEM_LOADED: {
                         view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(), parent, false);
                         // get the item viewholder from the section
                         viewHolder = section.getItemViewHolder(view);
                         break;
                     }
-                    case 3: {
+                    case VIEW_TYPE_LOADING: {
                         Integer resId = section.getLoadingResourceId();
 
                         if (resId == null) throw new NullPointerException("Missing 'loading state' resource id");
@@ -78,7 +84,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         viewHolder = section.getLoadingViewHolder(view);
                         break;
                     }
-                    case 4: {
+                    case VIEW_TYPE_FAILED: {
                         Integer resId = section.getFailedResourceId();
 
                         if (resId == null) throw new NullPointerException("Missing 'failed state' resource id");
@@ -258,6 +264,23 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
 
         throw new IndexOutOfBoundsException("Invalid position");
+    }
+
+    /**
+     * Returns the Section ViewType of an item based on the position in the adapter:
+     * - SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER
+     * - SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER
+     * - SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED
+     * - SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING
+     * - SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED
+     * @param position position in the adapter
+     * @return SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER, VIEW_TYPE_FOOTER,
+     * VIEW_TYPE_ITEM_LOADED, VIEW_TYPE_LOADING or VIEW_TYPE_FAILED
+     */
+    public int getSectionItemViewType(int position) {
+        int viewType = getItemViewType(position);
+
+        return viewType % VIEW_TYPE_QTY;
     }
 
     /**
