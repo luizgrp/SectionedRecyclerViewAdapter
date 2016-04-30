@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,19 +22,19 @@ import java.util.List;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
-public class Example5Fragment extends Fragment {
+public class Example6Fragment extends Fragment {
 
     private SectionedRecyclerViewAdapter sectionAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ex5, container, false);
+        View view = inflater.inflate(R.layout.fragment_ex6, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
 
-        sectionAdapter.addSection(new MovieSection(getString(R.string.top_rated_movies_topic), getTopRatedMoviesList()));
-        sectionAdapter.addSection(new MovieSection(getString(R.string.most_popular_movies_topic), getMostPopularMoviesList()));
+        sectionAdapter.addSection(new ExpandableMovieSection(getString(R.string.top_rated_movies_topic), getTopRatedMoviesList()));
+        sectionAdapter.addSection(new ExpandableMovieSection(getString(R.string.most_popular_movies_topic), getMostPopularMoviesList()));
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
@@ -62,7 +63,7 @@ public class Example5Fragment extends Fragment {
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
             if (activity.getSupportActionBar() != null)
-                activity.getSupportActionBar().setTitle(R.string.nav_example5);
+                activity.getSupportActionBar().setTitle(R.string.nav_example6);
         }
     }
 
@@ -94,13 +95,14 @@ public class Example5Fragment extends Fragment {
         return movieList;
     }
 
-    class MovieSection extends StatelessSection {
+    class ExpandableMovieSection extends StatelessSection {
 
         String title;
         List<Movie> list;
+        boolean expanded = true;
 
-        public MovieSection(String title, List<Movie> list) {
-            super(R.layout.section_ex5_header, R.layout.section_ex5_item);
+        public ExpandableMovieSection(String title, List<Movie> list) {
+            super(R.layout.section_ex6_header, R.layout.section_ex6_item);
 
             this.title = title;
             this.list = list;
@@ -108,7 +110,7 @@ public class Example5Fragment extends Fragment {
 
         @Override
         public int getContentItemsTotal() {
-            return list.size();
+            return expanded? list.size() : 0;
         }
 
         @Override
@@ -144,16 +146,18 @@ public class Example5Fragment extends Fragment {
 
         @Override
         public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
-            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
+            final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
 
             headerHolder.tvTitle.setText(title);
 
-            headerHolder.btnMore.setOnClickListener(new View.OnClickListener() {
+            headerHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on more button from the header of Section %s",
-                            title),
-                            Toast.LENGTH_SHORT).show();
+                    expanded = !expanded;
+                    headerHolder.imgArrow.setImageResource(
+                            expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
+                    );
+                    sectionAdapter.notifyDataSetChanged();
                 }
             });
         }
@@ -161,14 +165,16 @@ public class Example5Fragment extends Fragment {
 
     class HeaderViewHolder extends RecyclerView.ViewHolder {
 
+        private final View rootView;
         private final TextView tvTitle;
-        private final Button btnMore;
+        private final ImageView imgArrow;
 
         public HeaderViewHolder(View view) {
             super(view);
 
+            rootView = view;
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-            btnMore = (Button) view.findViewById(R.id.btnMore);
+            imgArrow = (ImageView) view.findViewById(R.id.imgArrow);
         }
     }
 

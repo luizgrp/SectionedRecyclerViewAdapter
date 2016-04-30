@@ -14,11 +14,13 @@ import android.view.MenuItem;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -56,20 +58,23 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_item1_sub1:
+            case R.id.nav_example1:
                 replaceFragment(new Example1Fragment());
                 break;
-            case R.id.nav_item1_sub2:
+            case R.id.nav_example2:
                 replaceFragment(new Example2Fragment());
                 break;
-            case R.id.nav_item1_sub3:
+            case R.id.nav_example3:
+                replaceFragment(new Example3Fragment());
+                break;
+            case R.id.nav_example4:
                 replaceFragment(new Example4Fragment());
                 break;
-            case R.id.nav_item1_sub4:
+            case R.id.nav_example5:
                 replaceFragment(new Example5Fragment());
                 break;
-            case R.id.nav_item2_sub1:
-                replaceFragment(new Example3Fragment());
+            case R.id.nav_example6:
+                replaceFragment(new Example6Fragment());
                 break;
         }
 

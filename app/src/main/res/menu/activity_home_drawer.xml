@@ -2,37 +2,42 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_item1"
-        android:title="@string/navigation_item1" >
+        android:title="@string/nav_stateless" >
         <menu>
             <item
-                android:id="@+id/nav_item1_sub1"
-                android:title="@string/navigation_item1_sub1"
+                android:id="@+id/nav_example1"
+                android:title="@string/nav_example1"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_item1_sub2"
-                android:title="@string/navigation_item1_sub2"
+                android:id="@+id/nav_example2"
+                android:title="@string/nav_example2"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_item1_sub3"
-                android:title="@string/navigation_item1_sub3"
+                android:id="@+id/nav_example4"
+                android:title="@string/nav_example4"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_item1_sub4"
-                android:title="@string/navigation_item1_sub4"
+                android:id="@+id/nav_example5"
+                android:title="@string/nav_example5"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+
+            <item
+                android:id="@+id/nav_example6"
+                android:title="@string/nav_example6"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
         </menu>
     </item>
 
     <item
         android:id="@+id/nav_item2"
-        android:title="@string/navigation_item2" >
+        android:title="@string/nav_stateful" >
         <menu>
             <item
-                android:id="@+id/nav_item2_sub1"
-                android:title="@string/navigation_item2_sub1"
+                android:id="@+id/nav_example3"
+                android:title="@string/nav_example3"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
         </menu>
     </item>
