@@ -1,11 +1,14 @@
 # SectionedRecyclerViewAdapter
 An Adapter that allows a RecyclerView to be split into Sections with headers and/or footers.
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SectionedRecyclerViewAdapter-green.svg?style=true)](https://android-arsenal.com/details/1/3471)
+
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc1.png" width="300" height="533" >
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc4.png" width="300" height="533" >
 <br><br>
 
 In addition, each Section can have its state(Loading/Loaded/Failed) controlled individually.
+
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc2.png" width="300" height="533" >
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc3.png" width="300" height="533" >
 
@@ -80,6 +83,11 @@ recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 recyclerView.setAdapter(sectionAdapter);
 ```
 
+## Demo app
+
+You can find a demo app [here](app).
+
+<img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/demosc.png" width="300" height="533" >
 
 ## Examples
 
