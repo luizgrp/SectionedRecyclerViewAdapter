@@ -6,12 +6,15 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="action_search">Search</string>
+
     <string name="nav_stateless">Stateless Section</string>
     <string name="nav_example1">Section with Header</string>
     <string name="nav_example2">Section with Header and Footer</string>
     <string name="nav_example4">Expandable Section</string>
     <string name="nav_example5">Grid Section with Header</string>
     <string name="nav_example6">Expandable Grid Section</string>
+    <string name="nav_example7">SearchView with Sections</string>
     <string name="nav_stateful">Stateful Section</string>
     <string name="nav_example3">Section with Header and Footer</string>
 

@@ -28,6 +28,11 @@
                 android:id="@+id/nav_example6"
                 android:title="@string/nav_example6"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+
+            <item
+                android:id="@+id/nav_example7"
+                android:title="@string/nav_example7"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
         </menu>
     </item>
 
