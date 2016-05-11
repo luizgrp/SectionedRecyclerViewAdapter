@@ -339,6 +339,14 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Return a map with all sections of this adapter
+     * @return a map with all sections
+     */
+    public LinkedHashMap<String, Section> getSectionsMap() {
+        return sections;
+    }
+
+    /**
      * A concrete class of an empty ViewHolder.
      * Should be used to avoid the boilerplate of creating a ViewHolder class for simple case
      * scenarios.
