@@ -18,7 +18,7 @@ In addition, each Section can have its state(Loading/Loaded/Failed) controlled i
 
 ```groovy
 dependencies {
-    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.3'
+    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.4'
 }
 ```
 
@@ -99,6 +99,7 @@ Stateless Section
 - [Expandable Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example4Fragment.java)
 - [Grid Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example5Fragment.java)
 - [Expandable Grid Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example6Fragment.java)
+- [SearchView with Sections](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example7Fragment.java)
 
 Stateful Section
 - [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
