@@ -27,7 +27,7 @@ dependencies {
 ```java
 class MySection extends StatelessSection {
 
-    List<String> myList = Arrays.asList(new String[] {"Item1", "Item2", "Item3" });
+    List<String> myList = Arrays.asList("Item1", "Item2", "Item3");
 
     public MySection() {
         // call constructor with layout resources for this Section header and items 
