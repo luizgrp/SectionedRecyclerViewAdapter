@@ -1,4 +1,4 @@
-package io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles;
+package io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
