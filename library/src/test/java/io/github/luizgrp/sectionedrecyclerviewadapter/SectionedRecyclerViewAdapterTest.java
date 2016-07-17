@@ -2,13 +2,13 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
 
 import org.junit.Test;
 
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingFootedStatelessSectionSpy;
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingHeadedFootedStatelessSectionSpy;
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingHeadedStatelessSectionSpy;
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingStatelessSectionSpy;
+import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.FootedSectionStub;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.FootedStatelessSectionStub;
+import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.HeadedFootedSectionStub;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.HeadedFootedStatelessSectionStub;
+import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.HeadedSectionStub;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.HeadedStatelessSectionStub;
+import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionStub;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.StatelessSectionStub;
 
 import static org.hamcrest.core.Is.is;
@@ -17,6 +17,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * @author Gustavo Pagani
+ */
 public class SectionedRecyclerViewAdapterTest {
 
     final int ITEMS_QTY = 10;
@@ -96,8 +99,8 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getItemCount_with4VisiblePlus2InvisibleSections_is44() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getItemCount_with8VisiblePlus2InvisibleSections_is44() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // invisible sections don't increase the total item count
         StatelessSectionStub invisibleSectionStub = addStatelessSectionStubToAdapter(sectionAdapter);
@@ -106,13 +109,13 @@ public class SectionedRecyclerViewAdapterTest {
         HeadedStatelessSectionStub invisibleHeadedSectionSub = addHeadedStatelessSectionStubToAdapter(sectionAdapter);
         invisibleHeadedSectionSub.setVisible(false);
 
-        // 10 + 11 + 11 + 12
-        assertThat(sectionAdapter.getItemCount(), is(44));
+        // 10 + 11 + 11 + 12 + 10 + 11 + 11 + 12
+        assertThat(sectionAdapter.getItemCount(), is(88));
     }
 
     @Test
-    public void getSectionsMap_with4VisiblePlus2InvisibleSections_hasSize6() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getSectionsMap_with8VisiblePlus2InvisibleSections_hasSize6() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         FootedStatelessSectionStub invisibleFootedSectionSub = addFootedStatelessSectionStubToAdapter(sectionAdapter);
         invisibleFootedSectionSub.setVisible(false);
@@ -120,7 +123,7 @@ public class SectionedRecyclerViewAdapterTest {
         HeadedFootedStatelessSectionStub invisibleHeadedFootedSectionSub = addHeadedFootedStatelessSectionStubToAdapter(sectionAdapter);
         invisibleHeadedFootedSectionSub.setVisible(false);
 
-        assertThat(sectionAdapter.getSectionsMap().size(), is(6));
+        assertThat(sectionAdapter.getSectionsMap().size(), is(10));
     }
 
     @Test
@@ -130,7 +133,7 @@ public class SectionedRecyclerViewAdapterTest {
 
     @Test
     public void getSection_with5Sections_returnsCorrectSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
         StatelessSectionStub sectionStub = addStatelessSectionStubToAdapter(sectionAdapter);
 
         final String SECTION_TAG = sectionAdapter.addSection(sectionStub);
@@ -139,7 +142,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionForPosition_with4Sections_returnsCorrectValuesForStatelessSection() {
+    public void getSectionForPosition_withManySections_returnsCorrectValuesForStatelessSection() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
         StatelessSectionStub sectionStub = addStatelessSectionStubToAdapter(sectionAdapter);
@@ -153,7 +156,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionForPosition_with4Sections_returnsCorrectValuesForHeadedStatelessSection() {
+    public void getSectionForPosition_withManySections_returnsCorrectValuesForHeadedStatelessSection() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
         addStatelessSectionStubToAdapter(sectionAdapter);
@@ -169,7 +172,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionForPosition_with4Sections_returnsCorrectValuesForFootedStatelessSection() {
+    public void getSectionForPosition_withManySections_returnsCorrectValuesForFootedStatelessSection() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
         addStatelessSectionStubToAdapter(sectionAdapter);
@@ -185,7 +188,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionForPosition_with4Sections_returnsCorrectValuesForHeadedFootedStatelessSection() {
+    public void getSectionForPosition_withManySections_returnsCorrectValuesForHeadedFootedStatelessSection() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
         addStatelessSectionStubToAdapter(sectionAdapter);
@@ -203,8 +206,8 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionItemViewType_with4Sections_returnsCorrectValuesForStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getSectionItemViewType_withManySections_returnsCorrectValuesForStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // StatelessSection - Items from 0 to 9
         assertThat(sectionAdapter.getSectionItemViewType(0), is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
@@ -212,8 +215,8 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionItemViewType_with4Sections_returnsCorrectValuesForHeadedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getSectionItemViewType_withManySections_returnsCorrectValuesForHeadedStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // HeadedStatelessSection - Header at 10
         assertThat(sectionAdapter.getSectionItemViewType(10), is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
@@ -223,8 +226,8 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionItemViewType_with4Sections_returnsCorrectValuesForFootedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getSectionItemViewType_withManySections_returnsCorrectValuesForFootedStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // FootedStatelessSection - Items from 21 to 30
         assertThat(sectionAdapter.getSectionItemViewType(21), is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
@@ -234,8 +237,8 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionItemViewType_with4Sections_returnsCorrectValuesForHeadedFootedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getSectionItemViewType_withManySections_returnsCorrectValuesForHeadedFootedStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // HeadedFootedStatelessSection - Header at 32
         assertThat(sectionAdapter.getSectionItemViewType(32), is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
@@ -247,111 +250,119 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getItemViewType_with4Sections_returnsCorrectValuesForStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getItemViewType_withManySections_returnsCorrectValuesForStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // StatelessSection [0-4] - Items are type 2
-        assertThat(sectionAdapter.getItemViewType(0), is(2));
-        assertThat(sectionAdapter.getItemViewType(9), is(2));
+        final int ITEM_TYPE = 2;
+
+        assertThat(sectionAdapter.getItemViewType(0), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(9), is(ITEM_TYPE));
     }
 
     @Test
-    public void getItemViewType_with4Sections_returnsCorrectValuesForHeadedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getItemViewType_withManySections_returnsCorrectValuesForHeadedStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // HeadedStatelessSection [5-9] - Header is type 5
-        assertThat(sectionAdapter.getItemViewType(10), is(5));
+        final int HEADER_TYPE = 5;
         // HeadedStatelessSection [5-9] - Items are type 7
-        assertThat(sectionAdapter.getItemViewType(11), is(7));
-        assertThat(sectionAdapter.getItemViewType(20), is(7));
+        final int ITEM_TYPE = 7;
+
+
+        assertThat(sectionAdapter.getItemViewType(10), is(HEADER_TYPE));
+
+        assertThat(sectionAdapter.getItemViewType(11), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(20), is(ITEM_TYPE));
     }
 
     @Test
-    public void getItemViewType_with4Sections_returnsCorrectValuesForFootedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getItemViewType_withManySections_returnsCorrectValuesForFootedStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // FootedStatelessSection [10-14] - Items are type 12
-        assertThat(sectionAdapter.getItemViewType(21), is(12));
-        assertThat(sectionAdapter.getItemViewType(30), is(12));
+        final int ITEM_TYPE = 12;
         // FootedStatelessSection [10-14] - Footer is type 11
-        assertThat(sectionAdapter.getItemViewType(31), is(11));
+        final int FOOTER_TYPE = 11;
+
+        assertThat(sectionAdapter.getItemViewType(21), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(30), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(31), is(FOOTER_TYPE));
     }
 
     @Test
-    public void getItemViewType_with4Sections_returnsCorrectValuesForHeadedFootedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void getItemViewType_withManySections_returnsCorrectValuesForHeadedFootedStatelessSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         // HeadedFootedStatelessSection [15-19] - Header is type 15
-        assertThat(sectionAdapter.getItemViewType(32), is(15));
+        final int HEADER_TYPE = 15;
         // HeadedFootedStatelessSection [15-19] - Items are type 17
-        assertThat(sectionAdapter.getItemViewType(33), is(17));
-        assertThat(sectionAdapter.getItemViewType(42), is(17));
+        final int ITEM_TYPE = 17;
         // HeadedFootedStatelessSection [15-19] - Footer is type 16
-        assertThat(sectionAdapter.getItemViewType(43), is(16));
+        final int FOOTER_TYPE = 16;
+
+        assertThat(sectionAdapter.getItemViewType(32), is(HEADER_TYPE));
+        assertThat(sectionAdapter.getItemViewType(33), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(42), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(43), is(FOOTER_TYPE));
     }
 
     @Test
-    public void onBindViewHolder_with4Sections_onBindIsCalledForStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+    public void getItemViewType_withManySections_returnsCorrectValuesForSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
-        BindingStatelessSectionSpy sectionSpy = new BindingStatelessSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
+        // Section [20-24] - Items are type 22
+        final int ITEM_TYPE = 22;
 
-        // Item
-        sectionAdapter.onBindViewHolder(null, 0);
-
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
+        assertThat(sectionAdapter.getItemViewType(44), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(53), is(ITEM_TYPE));
     }
 
     @Test
-    public void onBindViewHolder_with4Sections_onBindIsCalledForHeadedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+    public void getItemViewType_withManySections_returnsCorrectValuesForHeadedSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
-        BindingHeadedStatelessSectionSpy sectionSpy = new BindingHeadedStatelessSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
+        // HeadedSection [25-29] - Header is type 25
+        final int HEADER_TYPE = 25;
+        // HeadedSection [25-29] - Items are type 27
+        final int ITEM_TYPE = 27;
 
-        // Header
-        sectionAdapter.onBindViewHolder(null, 0);
-        // Item
-        sectionAdapter.onBindViewHolder(null, 1);
 
-        assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
+        assertThat(sectionAdapter.getItemViewType(54), is(HEADER_TYPE));
+
+        assertThat(sectionAdapter.getItemViewType(55), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(64), is(ITEM_TYPE));
     }
 
     @Test
-    public void onBindViewHolder_with4Sections_onBindIsCalledForFootedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+    public void getItemViewType_withManySections_returnsCorrectValuesForFootedSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
-        BindingFootedStatelessSectionSpy sectionSpy = new BindingFootedStatelessSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
+        // FootedSection [30-34] - Items are type 32
+        final int ITEM_TYPE = 32;
+        // FootedSection [30-34] - Footer is type 31
+        final int FOOTER_TYPE = 31;
 
-        // Item
-        sectionAdapter.onBindViewHolder(null, 0);
-        // Footer
-        sectionAdapter.onBindViewHolder(null, 10);
-
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
+        assertThat(sectionAdapter.getItemViewType(65), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(74), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(75), is(FOOTER_TYPE));
     }
 
     @Test
-    public void onBindViewHolder_with4Sections_onBindIsCalledForHeadedFootedStatelessSection() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+    public void getItemViewType_withManySections_returnsCorrectValuesForHeadedFootedSection() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
-        BindingHeadedFootedStatelessSectionSpy sectionSpy = new BindingHeadedFootedStatelessSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
+        // HeadedFootedSection [35-39] - Header is type 35
+        final int HEADER_TYPE = 35;
+        // HeadedFootedSection [35-39] - Items are type 37
+        final int ITEM_TYPE = 37;
+        // HeadedFootedSection [35-39] - Footer is type 36
+        final int FOOTER_TYPE = 36;
 
-        // Header
-        sectionAdapter.onBindViewHolder(null, 0);
-        // Item
-        sectionAdapter.onBindViewHolder(null, 1);
-        // Footer
-        sectionAdapter.onBindViewHolder(null, 11);
-
-        assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
+        assertThat(sectionAdapter.getItemViewType(76), is(HEADER_TYPE));
+        assertThat(sectionAdapter.getItemViewType(77), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(86), is(ITEM_TYPE));
+        assertThat(sectionAdapter.getItemViewType(87), is(FOOTER_TYPE));
     }
 
     @Test
@@ -392,8 +403,8 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void removeAllSections_with4Sections_succeeds() {
-        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWithFourDifferentSections();
+    public void removeAllSections_withManySections_succeeds() {
+        SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 
         sectionAdapter.removeAllSections();
 
@@ -401,13 +412,18 @@ public class SectionedRecyclerViewAdapterTest {
         assertTrue(sectionAdapter.getSectionsMap().isEmpty());
     }
 
-    private SectionedRecyclerViewAdapter getAdapterWithFourDifferentSections() {
+    private SectionedRecyclerViewAdapter getAdapterWith4StatelessSectionsAnd4Sections() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
         addStatelessSectionStubToAdapter(sectionAdapter);
         addHeadedStatelessSectionStubToAdapter(sectionAdapter);
         addFootedStatelessSectionStubToAdapter(sectionAdapter);
         addHeadedFootedStatelessSectionStubToAdapter(sectionAdapter);
+
+        addSectionStubToAdapter(sectionAdapter);
+        addHeadedSectionStubToAdapter(sectionAdapter);
+        addFootedSectionStubToAdapter(sectionAdapter);
+        addHeadedFootedSectionStubToAdapter(sectionAdapter);
 
         return sectionAdapter;
     }
@@ -418,8 +434,20 @@ public class SectionedRecyclerViewAdapterTest {
         return sectionStub;
     }
 
+    private SectionStub addSectionStubToAdapter(SectionedRecyclerViewAdapter sectionAdapter) {
+        SectionStub sectionStub = new SectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(sectionStub);
+        return sectionStub;
+    }
+
     private HeadedStatelessSectionStub addHeadedStatelessSectionStubToAdapter(SectionedRecyclerViewAdapter sectionAdapter) {
         HeadedStatelessSectionStub headedSectionSub = new HeadedStatelessSectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(headedSectionSub);
+        return headedSectionSub;
+    }
+
+    private HeadedSectionStub addHeadedSectionStubToAdapter(SectionedRecyclerViewAdapter sectionAdapter) {
+        HeadedSectionStub headedSectionSub = new HeadedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedSectionSub);
         return headedSectionSub;
     }
@@ -430,8 +458,20 @@ public class SectionedRecyclerViewAdapterTest {
         return footedSectionSub;
     }
 
+    private FootedSectionStub addFootedSectionStubToAdapter(SectionedRecyclerViewAdapter sectionAdapter) {
+        FootedSectionStub footedSectionSub = new FootedSectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(footedSectionSub);
+        return footedSectionSub;
+    }
+
     private HeadedFootedStatelessSectionStub addHeadedFootedStatelessSectionStubToAdapter(SectionedRecyclerViewAdapter sectionAdapter) {
         HeadedFootedStatelessSectionStub headedFootedSectionSub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(headedFootedSectionSub);
+        return headedFootedSectionSub;
+    }
+
+    private HeadedFootedSectionStub addHeadedFootedSectionStubToAdapter(SectionedRecyclerViewAdapter sectionAdapter) {
+        HeadedFootedSectionStub headedFootedSectionSub = new HeadedFootedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedFootedSectionSub);
         return headedFootedSectionSub;
     }
