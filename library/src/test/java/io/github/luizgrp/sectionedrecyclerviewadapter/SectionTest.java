@@ -33,6 +33,40 @@ public class SectionTest {
     }
 
     @Test
+    public void onBindLoadingViewHolder_Section_isCalled() {
+        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+
+        SectionStub sectionStub = new SectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(sectionStub);
+        BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
+        sectionAdapter.addSection(sectionSpy);
+
+        sectionSpy.setState(Section.State.LOADING);
+
+        // Section - Loading [10]
+        sectionAdapter.onBindViewHolder(null, 10);
+
+        assertTrue(sectionSpy.onBindLoadingViewHolderWasCalled);
+    }
+
+    @Test
+    public void onBindFailedViewHolder_Section_isCalled() {
+        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+
+        SectionStub sectionStub = new SectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(sectionStub);
+        BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
+        sectionAdapter.addSection(sectionSpy);
+
+        sectionSpy.setState(Section.State.FAILED);
+
+        // Section - Failed [10]
+        sectionAdapter.onBindViewHolder(null, 10);
+
+        assertTrue(sectionSpy.onBindFailedViewHolderWasCalled);
+    }
+
+    @Test
     public void onBindViewHolder_HeadedSection_isCalled() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
@@ -59,7 +93,7 @@ public class SectionTest {
         BindingFootedSectionSpy sectionSpy = new BindingFootedSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
-        // FootedSection - Items [11-20]
+        // FootedSection - Items [10-19]
         sectionAdapter.onBindViewHolder(null, 10);
         // FootedSection - Footer [20]
         sectionAdapter.onBindViewHolder(null, 20);

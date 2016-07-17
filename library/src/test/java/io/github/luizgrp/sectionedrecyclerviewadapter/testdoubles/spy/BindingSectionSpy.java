@@ -11,6 +11,8 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 public class BindingSectionSpy extends Section {
 
     public boolean onBindItemViewHolderWasCalled = false;
+    public boolean onBindLoadingViewHolderWasCalled = false;
+    public boolean onBindFailedViewHolderWasCalled = false;
 
     final int contentItemsTotal;
 
@@ -33,5 +35,15 @@ public class BindingSectionSpy extends Section {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         onBindItemViewHolderWasCalled = true;
+    }
+
+    @Override
+    public void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {
+        onBindLoadingViewHolderWasCalled = true;
+    }
+
+    @Override
+    public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
+        onBindFailedViewHolderWasCalled = true;
     }
 }

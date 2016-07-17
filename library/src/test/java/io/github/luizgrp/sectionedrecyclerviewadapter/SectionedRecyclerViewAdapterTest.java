@@ -319,6 +319,50 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
+    public void getItemViewType_withManySections_returnsCorrectValuesForSectionWithLoadingState() {
+        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+
+        addStatelessSectionStubToAdapter(sectionAdapter);
+        addHeadedStatelessSectionStubToAdapter(sectionAdapter);
+        addFootedStatelessSectionStubToAdapter(sectionAdapter);
+        addHeadedFootedStatelessSectionStubToAdapter(sectionAdapter);
+
+        Section section = addSectionStubToAdapter(sectionAdapter);
+        addHeadedSectionStubToAdapter(sectionAdapter);
+        addFootedSectionStubToAdapter(sectionAdapter);
+        addHeadedFootedSectionStubToAdapter(sectionAdapter);
+
+        section.setState(Section.State.LOADING);
+
+        // Section [20-24] - Loading state is type 23
+        final int LOADING_TYPE = 23;
+
+        assertThat(sectionAdapter.getItemViewType(44), is(LOADING_TYPE));
+    }
+
+    @Test
+    public void getItemViewType_withManySections_returnsCorrectValuesForSectionWithFailedState() {
+        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+
+        addStatelessSectionStubToAdapter(sectionAdapter);
+        addHeadedStatelessSectionStubToAdapter(sectionAdapter);
+        addFootedStatelessSectionStubToAdapter(sectionAdapter);
+        addHeadedFootedStatelessSectionStubToAdapter(sectionAdapter);
+
+        Section section = addSectionStubToAdapter(sectionAdapter);
+        addHeadedSectionStubToAdapter(sectionAdapter);
+        addFootedSectionStubToAdapter(sectionAdapter);
+        addHeadedFootedSectionStubToAdapter(sectionAdapter);
+
+        section.setState(Section.State.FAILED);
+
+        // Section [20-24] - Failed state is type 24
+        final int LOADING_TYPE = 24;
+
+        assertThat(sectionAdapter.getItemViewType(44), is(LOADING_TYPE));
+    }
+
+    @Test
     public void getItemViewType_withManySections_returnsCorrectValuesForHeadedSection() {
         SectionedRecyclerViewAdapter sectionAdapter = getAdapterWith4StatelessSectionsAnd4Sections();
 

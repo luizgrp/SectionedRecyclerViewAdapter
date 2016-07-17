@@ -12,6 +12,8 @@ public class BindingFootedSectionSpy extends Section {
 
     public boolean onBindItemViewHolderWasCalled = false;
     public boolean onBindFooterViewHolderWasCalled = false;
+    public boolean onBindLoadingViewHolderWasCalled = false;
+    public boolean onBindFailedViewHolderWasCalled = false;
 
     final int contentItemsTotal;
 
@@ -42,5 +44,15 @@ public class BindingFootedSectionSpy extends Section {
     @Override
     public void onBindFooterViewHolder(RecyclerView.ViewHolder holder) {
         onBindFooterViewHolderWasCalled = true;
+    }
+
+    @Override
+    public void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {
+        onBindLoadingViewHolderWasCalled = true;
+    }
+
+    @Override
+    public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
+        onBindFailedViewHolderWasCalled = true;
     }
 }
