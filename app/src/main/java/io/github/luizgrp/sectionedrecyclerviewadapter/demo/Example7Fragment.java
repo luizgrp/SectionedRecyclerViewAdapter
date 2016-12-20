@@ -33,7 +33,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ex1, container, false);
+        View view = inflater.inflate(R.layout.fragment_ex7, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
 
