@@ -118,7 +118,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         List<String> filteredList;
 
         public ContactsSection(String title, List<String> list) {
-            super(R.layout.section_ex1_header, R.layout.section_ex1_item);
+            super(R.layout.section_ex7_header, R.layout.section_ex7_item);
 
             this.title = title;
             this.list = list;
