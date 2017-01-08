@@ -27,6 +27,8 @@ public abstract class Section {
     private Integer loadingResourceId;
     private Integer failedResourceId;
 
+    private int sortOrder;
+
     /**
      * Package-level constructor
      */
@@ -307,5 +309,22 @@ public abstract class Section {
      */
     public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
+    }
+
+    /**
+     * Get the sort index for this section
+     * @return sort index
+     */
+    public int getSortOrder() {
+        return sortOrder;
+    }
+
+
+    /**
+     * Set the optional sort order so that Sections can be inserted and the reordered later
+     * @param order the order to display the Section
+     */
+    public void setSortOrder(int order){
+        this.sortOrder = order;
     }
 }

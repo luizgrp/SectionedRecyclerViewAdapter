@@ -1,6 +1,15 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.test.UiThreadTest;
+
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.FootedSectionStub;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.FootedStatelessSectionStub;
@@ -456,6 +465,37 @@ public class SectionedRecyclerViewAdapterTest {
         assertTrue(sectionAdapter.getSectionsMap().isEmpty());
     }
 
+    @Test
+    public void testSortOrder(){
+        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+
+        StatelessSectionStub sectionStub1 = new StatelessSectionStub(ITEMS_QTY);
+        sectionStub1.setSortOrder(1);
+
+        StatelessSectionStub sectionStub2 = new StatelessSectionStub(ITEMS_QTY);
+        sectionStub2.setSortOrder(0);
+
+        sectionAdapter.addSection(sectionStub1);
+        sectionAdapter.addSection(sectionStub2);
+
+
+        orderByValue(sectionAdapter.getSectionsMap(), new Comparator<Section>() {
+            @Override
+            public int compare(Section lhs, Section rhs) {
+                return lhs.getSortOrder() - rhs.getSortOrder();
+            }
+        });
+
+        assertThat(sectionAdapter.getSectionForPosition(0).getSortOrder(), is(0));
+        assertThat(sectionAdapter.getSectionForPosition(ITEMS_QTY + 1).getSortOrder(), is(1));
+
+
+
+    }
+
+
+
+
     private SectionedRecyclerViewAdapter getAdapterWith4StatelessSectionsAnd4Sections() {
         SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
@@ -518,5 +558,22 @@ public class SectionedRecyclerViewAdapterTest {
         HeadedFootedSectionStub headedFootedSectionSub = new HeadedFootedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedFootedSectionSub);
         return headedFootedSectionSub;
+    }
+
+    public static <K, V> void orderByValue(
+            LinkedHashMap<K, V> m, final Comparator<? super V> c) {
+        List<Map.Entry<K, V>> entries = new ArrayList<>(m.entrySet());
+
+        Collections.sort(entries, new Comparator<Map.Entry<K, V>>() {
+            @Override
+            public int compare(Map.Entry<K, V> lhs, Map.Entry<K, V> rhs) {
+                return c.compare(lhs.getValue(), rhs.getValue());
+            }
+        });
+
+        m.clear();
+        for(Map.Entry<K, V> e : entries) {
+            m.put(e.getKey(), e.getValue());
+        }
     }
 }
