@@ -1,7 +1,5 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
-import android.test.UiThreadTest;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
