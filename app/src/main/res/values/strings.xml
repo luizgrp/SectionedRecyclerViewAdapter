@@ -17,6 +17,8 @@
     <string name="nav_example7">SearchView with Sections</string>
     <string name="nav_stateful">Stateful Section</string>
     <string name="nav_example3">Section with Header and Footer</string>
+    <string name="nav_animation">Animations</string>
+    <string name="nav_example8">Section with Header</string>
 
     <string name="world_topic">World</string>
     <string name="biz_topic">Business</string>
@@ -29,5 +31,7 @@
     <string name="more">MORE</string>
     <string name="see_more">See more..</string>
     <string name="failed_load">Failed to load, tap to try again.</string>
+
+    <string name="add">ADD</string>
 
 </resources>

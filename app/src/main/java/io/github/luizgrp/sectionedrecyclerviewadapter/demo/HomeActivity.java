@@ -79,6 +79,9 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_example7:
                 replaceFragment(new Example7Fragment());
                 break;
+            case R.id.nav_example8:
+                replaceFragment(new Example8Fragment());
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
