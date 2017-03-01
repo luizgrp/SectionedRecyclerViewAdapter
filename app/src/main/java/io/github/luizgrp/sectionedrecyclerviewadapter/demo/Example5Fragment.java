@@ -125,7 +125,6 @@ public class Example5Fragment extends Fragment {
 
             itemHolder.tvItem.setText(name);
             itemHolder.tvSubItem.setText(category);
-            itemHolder.imgItem.setImageResource(R.drawable.ic_movie_black_48dp);
 
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
