@@ -178,7 +178,6 @@ public class Example6Fragment extends Fragment {
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
-        private final ImageView imgItem;
         private final TextView tvItem;
         private final TextView tvSubItem;
 
@@ -186,7 +185,6 @@ public class Example6Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            imgItem = (ImageView) view.findViewById(R.id.imgItem);
             tvItem = (TextView) view.findViewById(R.id.tvItem);
             tvSubItem = (TextView) view.findViewById(R.id.tvSubItem);
         }
