@@ -28,10 +28,13 @@
     <string name="top_rated_movies_topic">Top Rated Movies</string>
     <string name="most_popular_movies_topic">Most Popular Movies</string>
 
+    <string name="group_title">Group #%1$s</string>
+
     <string name="more">MORE</string>
     <string name="see_more">See more..</string>
     <string name="failed_load">Failed to load, tap to try again.</string>
 
     <string name="add">ADD</string>
+    <string name="add_group">ADD GROUP</string>
 
 </resources>

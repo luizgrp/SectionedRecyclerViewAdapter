@@ -1,7 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
-import android.support.annotation.ArrayRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,27 +24,15 @@ public class Example8Fragment extends Fragment {
 
     private static final Random RANDOM = new Random();
 
-    private final String TOP_RATED_MOVIES_SECTION_TAG = "topRatedMoviesSectionTag";
-    private final String MOST_POPULAR_MOVIES_SECTION_TAG = "mostPopularMoviesSectionTag";
-
     private SectionedRecyclerViewAdapter sectionAdapter;
-
-    private MovieSection topRatedMoviesSection;
-    private MovieSection mostPopularMoviesSection;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex8, container, false);
 
-        topRatedMoviesSection = new MovieSection(TOP_RATED_MOVIES_SECTION_TAG,
-                getString(R.string.top_rated_movies_topic), R.array.top_rated_movies);
-        mostPopularMoviesSection = new MovieSection(MOST_POPULAR_MOVIES_SECTION_TAG,
-                getString(R.string.most_popular_movies_topic), R.array.most_popular_movies);
-
         sectionAdapter = new SectionedRecyclerViewAdapter();
-        sectionAdapter.addSection(TOP_RATED_MOVIES_SECTION_TAG, topRatedMoviesSection);
-        sectionAdapter.addSection(MOST_POPULAR_MOVIES_SECTION_TAG, mostPopularMoviesSection);
 
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -59,38 +47,64 @@ public class Example8Fragment extends Fragment {
             }
         });
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(glm);
         recyclerView.setAdapter(sectionAdapter);
+
+        addNewSectionToAdapter();
+
+        addNewSectionToAdapter();
 
         view.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                onAddClicked();
+                addNewSectionToAdapter();
             }
         });
 
         return view;
     }
 
-    private String getRandomMovie(@ArrayRes int arrayRes) {
-        String[] movies = getResources().getStringArray(arrayRes);
-        return movies[RANDOM.nextInt(movies.length)];
+    private void addNewSectionToAdapter() {
+        String randomNumber = getRandomStringNumber();
+        String sectionTag = String.format("section%sTag", randomNumber);
+
+        NameSection section = new NameSection(sectionTag,
+                getString(R.string.group_title, randomNumber));
+
+        sectionAdapter.addSection(sectionTag, section);
+
+        int sectionPos = sectionAdapter.getSectionPosition(sectionTag);
+
+        sectionAdapter.notifyItemInserted(sectionPos);
+
+        recyclerView.smoothScrollToPosition(sectionPos);
     }
 
-    class MovieSection extends StatelessSection {
+    @NonNull
+    private String getRandomStringNumber() {
+        return String.valueOf(RANDOM.nextInt(100000));
+    }
+
+    private Person getRandomName() {
+        String[] names = getResources().getStringArray(R.array.names);
+
+        String[] randomName = names[RANDOM.nextInt(names.length)].split("\\|");
+
+        return new Person(randomName[0], "ID #" + getRandomStringNumber());
+    }
+
+    class NameSection extends StatelessSection {
 
         final String TAG;
         String title;
-        @ArrayRes int arrayRes;
-        List<Movie> list;
+        List<Person> list;
 
-        public MovieSection(String tag, String title, @ArrayRes int arrayRes) {
+        public NameSection(String tag, String title) {
             super(R.layout.section_ex8_header, R.layout.section_ex8_item);
 
             this.TAG = tag;
             this.title = title;
-            this.arrayRes = arrayRes;
             this.list = new ArrayList<>();
         }
 
@@ -109,11 +123,11 @@ public class Example8Fragment extends Fragment {
             final ItemViewHolder itemHolder = (ItemViewHolder) holder;
 
             String name = list.get(position).getName();
-            String category = list.get(position).getCategory();
+            String category = list.get(position).getId();
 
             itemHolder.tvItem.setText(name);
             itemHolder.tvSubItem.setText(category);
-            itemHolder.imgItem.setImageResource(R.drawable.ic_movie_black_48dp);
+            itemHolder.imgItem.setImageResource(name.hashCode() % 2 == 0 ? R.drawable.ic_face_black_48dp : R.drawable.ic_tag_faces_black_48dp);
 
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,8 +155,7 @@ public class Example8Fragment extends Fragment {
                 public void onClick(View v) {
                     int positionToInsertItemAt = 0;
 
-                    String[] array = getRandomMovie(arrayRes).split("\\|");
-                    list.add(positionToInsertItemAt, new Movie(array[0], array[1]));
+                    list.add(positionToInsertItemAt, getRandomName());
 
                     sectionAdapter.notifyItemInsertedInSection(TAG, positionToInsertItemAt);
                 }
@@ -180,13 +193,13 @@ public class Example8Fragment extends Fragment {
         }
     }
 
-    class Movie {
+    class Person {
         String name;
-        String category;
+        String id;
 
-        public Movie(String name, String category) {
+        public Person(String name, String id) {
             this.name = name;
-            this.category = category;
+            this.id = id;
         }
 
         public String getName() {
@@ -197,12 +210,12 @@ public class Example8Fragment extends Fragment {
             this.name = name;
         }
 
-        public String getCategory() {
-            return category;
+        public String getId() {
+            return id;
         }
 
-        public void setCategory(String category) {
-            this.category = category;
+        public void setId(String id) {
+            this.id = id;
         }
     }
 }
