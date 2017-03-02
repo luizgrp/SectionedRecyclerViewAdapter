@@ -203,7 +203,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 }
 
                 // delegate the binding to the section content
-                getSectionForPosition(position).onBindContentViewHolder(holder, getSectionPosition(position));
+                getSectionForPosition(position).onBindContentViewHolder(holder, getPositionInSection(position));
                 return;
             }
 

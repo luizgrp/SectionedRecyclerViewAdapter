@@ -36,8 +36,8 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void getSectionPosition_emptyAdapter_throwsException() {
-        new SectionedRecyclerViewAdapter().getSectionPosition(0);
+    public void getPositionInSection_emptyAdapter_throwsException() {
+        new SectionedRecyclerViewAdapter().getPositionInSection(0);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
