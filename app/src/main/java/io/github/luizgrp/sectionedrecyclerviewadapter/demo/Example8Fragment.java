@@ -132,7 +132,7 @@ public class Example8Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    list.remove(sectionAdapter.getSectionPosition(itemHolder.getAdapterPosition()));
+                    list.remove(sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()));
 
                     sectionAdapter.notifyItemRemoved(itemHolder.getAdapterPosition());
                 }
