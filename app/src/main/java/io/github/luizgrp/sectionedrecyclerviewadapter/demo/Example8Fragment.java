@@ -120,6 +120,7 @@ public class Example8Fragment extends Fragment {
 
         @Override
         public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+
             final ItemViewHolder itemHolder = (ItemViewHolder) holder;
 
             String name = list.get(position).getName();
@@ -132,9 +133,12 @@ public class Example8Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    list.remove(sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()));
+                    int adapterPosition = itemHolder.getAdapterPosition();
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        list.remove(sectionAdapter.getPositionInSection(adapterPosition));
 
-                    sectionAdapter.notifyItemRemoved(itemHolder.getAdapterPosition());
+                        sectionAdapter.notifyItemRemoved(adapterPosition);
+                    }
                 }
             });
         }
