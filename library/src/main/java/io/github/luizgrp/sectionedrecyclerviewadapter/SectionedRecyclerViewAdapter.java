@@ -428,12 +428,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Call {@link #notifyItemRangeRemoved notifyItemRangeRemoved} for the range of items of the
      * section.
      * @param tag unique identifier of the section
-     * @param contentItemsTotal number of items removed from the section
+     * @param itemCount number of items removed from the section
      */
-    public void notifyItemRangeRemovedFromSection(String tag, int contentItemsTotal) {
+    public void notifyItemRangeRemovedFromSection(String tag, int itemCount) {
         Section section = getValidSectionOrThrowException(tag);
 
-        notifyItemRangeRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0), contentItemsTotal);
+        notifyItemRangeRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0), itemCount);
     }
 
     @NonNull
