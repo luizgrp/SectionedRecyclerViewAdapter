@@ -135,9 +135,11 @@ public class Example8Fragment extends Fragment {
                 public void onClick(View v) {
                     int adapterPosition = itemHolder.getAdapterPosition();
                     if (adapterPosition != RecyclerView.NO_POSITION) {
-                        list.remove(sectionAdapter.getPositionInSection(adapterPosition));
+                        int positionInSection = sectionAdapter.getPositionInSection(adapterPosition);
 
-                        sectionAdapter.notifyItemRemoved(adapterPosition);
+                        list.remove(positionInSection);
+
+                        sectionAdapter.notifyItemRemovedFromSection(TAG, positionInSection);
                     }
                 }
             });

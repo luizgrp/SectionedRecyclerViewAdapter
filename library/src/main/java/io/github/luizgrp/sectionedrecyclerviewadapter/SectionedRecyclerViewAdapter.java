@@ -399,6 +399,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return sections;
     }
 
+    /**
+     * Find the position in the adapter from the position of the item in the section and call
+     * {@link #notifyItemInserted notifyItemInserted}
+     * @param tag unique identifier of the section
+     * @param position position of the item in the section
+     */
     public void notifyItemInsertedInSection(String tag, int position) {
         Section section = getSection(tag);
 
@@ -407,6 +413,22 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
 
         notifyItemInserted(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + position);
+    }
+
+    /**
+     * Find the position in the adapter from the position of the item in the section and call
+     * {@link #notifyItemRemoved notifyItemRemoved}.
+     * @param tag unique identifier of the section
+     * @param position position of the item in the section
+     */
+    public void notifyItemRemovedFromSection(String tag, int position) {
+        Section section = getSection(tag);
+
+        if (section == null) {
+            throw new IllegalArgumentException("Invalid tag: " + tag);
+        }
+
+        notifyItemRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + position);
     }
 
     /**
