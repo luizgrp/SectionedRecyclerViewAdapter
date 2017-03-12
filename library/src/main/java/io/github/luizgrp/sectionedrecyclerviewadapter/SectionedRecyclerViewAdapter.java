@@ -76,7 +76,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(), parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(),
+                parent, false);
         // get the item viewholder from the section
         return section.getItemViewHolder(view);
     }
@@ -204,7 +205,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 }
 
                 // delegate the binding to the section content
-                getSectionForPosition(position).onBindContentViewHolder(holder, getPositionInSection(position));
+                getSectionForPosition(position).onBindContentViewHolder(holder,
+                        getPositionInSection(position));
                 return;
             }
 
@@ -401,8 +403,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Find the position in the adapter from the position of the item in the section and call
-     * {@link #notifyItemInserted notifyItemInserted}
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemInserted notifyItemInserted}
      * @param tag unique identifier of the section
      * @param position position of the item in the section
      */
@@ -413,8 +415,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Find the position in the adapter from the position of the item in the section and call
-     * {@link #notifyItemRemoved notifyItemRemoved}.
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRemoved notifyItemRemoved}
      * @param tag unique identifier of the section
      * @param position position of the item in the section
      */
@@ -425,15 +427,17 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Call {@link #notifyItemRangeRemoved notifyItemRangeRemoved} for the range of items of the
-     * section.
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeRemoved notifyItemRangeRemoved}
      * @param tag unique identifier of the section
+     * @param positionStart previous position of the first item that was removed from the section
      * @param itemCount number of items removed from the section
      */
-    public void notifyItemRangeRemovedFromSection(String tag, int itemCount) {
+    public void notifyItemRangeRemovedFromSection(String tag, int positionStart, int itemCount) {
         Section section = getValidSectionOrThrowException(tag);
 
-        notifyItemRangeRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0), itemCount);
+        notifyItemRangeRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + positionStart,
+                itemCount);
     }
 
     @NonNull
