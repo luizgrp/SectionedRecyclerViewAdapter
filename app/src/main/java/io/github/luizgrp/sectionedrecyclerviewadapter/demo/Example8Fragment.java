@@ -186,7 +186,7 @@ public class Example8Fragment extends Fragment {
 
                     list.clear();
 
-                    sectionAdapter.notifyItemsClearedFromSection(TAG, contentItemsTotal);
+                    sectionAdapter.notifyItemRangeRemovedFromSection(TAG, contentItemsTotal);
                 }
             });
         }
