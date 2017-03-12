@@ -416,6 +416,20 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeInserted notifyItemRangeInserted}
+     * @param tag unique identifier of the section
+     * @param positionStart position of the first item that was inserted in the section
+     * @param itemCount number of items inserted in the section
+     */
+    public void notifyItemRangeInsertedInSection(String tag, int positionStart, int itemCount) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyItemRangeInserted(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + positionStart,
+                itemCount);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemRemoved notifyItemRemoved}
      * @param tag unique identifier of the section
      * @param position position of the item in the section
@@ -438,6 +452,62 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         notifyItemRangeRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + positionStart,
                 itemCount);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemChanged notifyItemChanged}
+     * @param tag unique identifier of the section
+     * @param position position of the item in the section
+     */
+    public void notifyItemChangedInSection(String tag, int position) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyItemChanged(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + position);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeChanged notifyItemRangeChanged}
+     * @param tag unique identifier of the section
+     * @param positionStart position of the first item that was inserted in the section
+     * @param itemCount number of items inserted in the section
+     */
+    public void notifyItemRangeChangedInSection(String tag, int positionStart, int itemCount) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyItemRangeChanged(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + positionStart,
+                itemCount);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeChanged notifyItemRangeChanged}
+     * @param tag unique identifier of the section
+     * @param positionStart position of the first item that was inserted in the section
+     * @param itemCount number of items inserted in the section
+     * @param payload optional parameter, use null to identify a "full" update
+     */
+    public void notifyItemRangeChangedInSection(String tag, int positionStart, int itemCount,
+                                                Object payload) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyItemRangeChanged(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + positionStart,
+                itemCount, payload);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemMoved notifyItemMoved}
+     * @param tag unique identifier of the section
+     * @param fromPosition previous position of the item in the section
+     * @param toPosition new position of the item in the section
+     */
+    public void notifyItemMovedInSection(String tag, int fromPosition, int toPosition) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyItemMoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + fromPosition,
+                toPosition);
     }
 
     @NonNull
