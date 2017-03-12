@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -406,11 +407,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param position position of the item in the section
      */
     public void notifyItemInsertedInSection(String tag, int position) {
-        Section section = getSection(tag);
-
-        if (section == null) {
-            throw new IllegalArgumentException("Invalid tag: " + tag);
-        }
+        Section section = getValidSectionOrThrowException(tag);
 
         notifyItemInserted(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + position);
     }
@@ -422,13 +419,32 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param position position of the item in the section
      */
     public void notifyItemRemovedFromSection(String tag, int position) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyItemRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + position);
+    }
+
+    /**
+     * Call {@link #notifyItemRangeRemoved notifyItemRangeRemoved} for the range of items of the
+     * section.
+     * @param tag unique identifier of the section
+     * @param contentItemsTotal total of content items of the section: {@link Section#getContentItemsTotal()} Section.getContentItemsTotal}
+     */
+    public void notifyItemsClearedFromSection(String tag, int contentItemsTotal) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyItemRangeRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0), contentItemsTotal);
+    }
+
+    @NonNull
+    private Section getValidSectionOrThrowException(String tag) {
         Section section = getSection(tag);
 
         if (section == null) {
             throw new IllegalArgumentException("Invalid tag: " + tag);
         }
 
-        notifyItemRemoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + position);
+        return section;
     }
 
     /**

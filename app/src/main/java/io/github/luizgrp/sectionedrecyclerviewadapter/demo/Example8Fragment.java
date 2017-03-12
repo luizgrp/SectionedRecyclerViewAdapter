@@ -178,6 +178,17 @@ public class Example8Fragment extends Fragment {
                     sectionAdapter.notifyItemInsertedInSection(TAG, positionToInsertItemAt);
                 }
             });
+
+            headerHolder.btnClear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int contentItemsTotal = getContentItemsTotal();
+
+                    list.clear();
+
+                    sectionAdapter.notifyItemsClearedFromSection(TAG, contentItemsTotal);
+                }
+            });
         }
     }
 
@@ -185,12 +196,14 @@ public class Example8Fragment extends Fragment {
 
         private final TextView tvTitle;
         private final Button btnAdd;
+        private final Button btnClear;
 
         public HeaderViewHolder(View view) {
             super(view);
 
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             btnAdd = (Button) view.findViewById(R.id.btnAdd);
+            btnClear = (Button) view.findViewById(R.id.btnClear);
         }
     }
 
