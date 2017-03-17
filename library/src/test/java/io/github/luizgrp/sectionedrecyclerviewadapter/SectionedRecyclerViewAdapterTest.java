@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.FootedSectionStub;
@@ -22,80 +23,114 @@ import static org.junit.Assert.assertTrue;
  */
 public class SectionedRecyclerViewAdapterTest {
 
-    final int ITEMS_QTY = 10;
-    final String SECTION_TAG = "tag";
+    private final int ITEMS_QTY = 10;
+    private final String SECTION_TAG = "tag";
+
+    private SectionedRecyclerViewAdapter sectionAdapter;
+
+    @Before
+    public void setup() {
+        sectionAdapter = new SectionedRecyclerViewAdapter();
+    }
 
     @Test
     public void getItemCount_emptyAdapter_isZero() {
-        assertThat(new SectionedRecyclerViewAdapter().getItemCount(), is(0));
+        // When
+        int result = sectionAdapter.getItemCount();
+
+        // Then
+        assertThat(result, is(0));
     }
 
     @Test
     public void getSectionsMap_emptyAdapter_isEmpty() {
-        assertTrue(new SectionedRecyclerViewAdapter().getSectionsMap().isEmpty());
+        // When
+        boolean result = sectionAdapter.getSectionsMap().isEmpty();
+
+        // Then
+        assertTrue(result);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void getPositionInSection_emptyAdapter_throwsException() {
-        new SectionedRecyclerViewAdapter().getPositionInSection(0);
+        // When
+        sectionAdapter.getPositionInSection(0);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void getSectionForPosition_emptyAdapter_throwsException() {
-        new SectionedRecyclerViewAdapter().getSectionForPosition(0);
+        // When
+        sectionAdapter.getSectionForPosition(0);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void getItemViewType_emptyAdapter_throwsException() {
-        new SectionedRecyclerViewAdapter().getItemViewType(0);
+        // When
+        sectionAdapter.getItemViewType(0);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void getSectionItemViewType_emptyAdapter_throwsException() {
-        new SectionedRecyclerViewAdapter().getSectionItemViewType(0);
+        // When
+        sectionAdapter.getSectionItemViewType(0);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void onBindViewHolder_emptyAdapter_throwsException() {
-        new SectionedRecyclerViewAdapter().onBindViewHolder(null, 0);
+        // When
+        sectionAdapter.onBindViewHolder(null, 0);
     }
 
     @Test
     public void addSection_emptyAdapter_succeeds() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
-        StatelessSectionStub sectionStub = addStatelessSectionStubToAdapter(sectionAdapter);
+        // Given
+        StatelessSectionStub statelessSection = new StatelessSectionStub(ITEMS_QTY);
+        String sectionTag = sectionAdapter.addSection(statelessSection);
 
-        final String SECTION_TAG = sectionAdapter.addSection(sectionStub);
+        // When
+        Section result = sectionAdapter.getSection(sectionTag);
+        Section result2 = sectionAdapter.getSectionsMap().get(sectionTag);
 
-        assertSame(sectionStub, sectionAdapter.getSection(SECTION_TAG));
-        assertSame(sectionStub, sectionAdapter.getSectionsMap().get(SECTION_TAG));
+        // Then
+        assertSame(statelessSection, result);
+        assertSame(statelessSection, result2);
     }
 
     @Test
     public void addSectionWithTag_emptyAdapter_succeeds() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
-        StatelessSectionStub sectionStub = addStatelessSectionStubToAdapter(sectionAdapter);
+        // Given
+        StatelessSectionStub statelessSection = new StatelessSectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(SECTION_TAG, statelessSection);
 
-        sectionAdapter.addSection(SECTION_TAG, sectionStub);
+        //When
+        Section result = sectionAdapter.getSection(SECTION_TAG);
+        Section result2 = sectionAdapter.getSectionsMap().get(SECTION_TAG);
 
-        assertSame(sectionStub, sectionAdapter.getSection(SECTION_TAG));
-        assertSame(sectionStub, sectionAdapter.getSectionsMap().get(SECTION_TAG));
+        // Then
+        assertSame(statelessSection, result);
+        assertSame(statelessSection, result2);
     }
 
     @Test
     public void getSectionWithTag_removedSection_returnsNull() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
-        StatelessSectionStub sectionStub = addStatelessSectionStubToAdapter(sectionAdapter);
+        // Given
+        StatelessSectionStub statelessSection = new StatelessSectionStub(ITEMS_QTY);
+        String sectionTag = sectionAdapter.addSection(statelessSection);
 
-        final String SECTION_TAG = sectionAdapter.addSection(sectionStub);
-        sectionAdapter.removeSection(SECTION_TAG);
+        // When
+        sectionAdapter.removeSection(sectionTag);
 
-        assertNull(sectionAdapter.getSection(SECTION_TAG));
+        // Then
+        assertNull(sectionAdapter.getSection(sectionTag));
     }
 
     @Test
     public void getSectionWithTag_emptyAdapter_returnsNull() {
-        assertNull(new SectionedRecyclerViewAdapter().getSection(SECTION_TAG));
+        // When
+        Section result = sectionAdapter.getSection(SECTION_TAG);
+
+        // Then
+        assertNull(result);
     }
 
     @Test
@@ -457,8 +492,6 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     private SectionedRecyclerViewAdapter getAdapterWith4StatelessSectionsAnd4Sections() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
-
         addStatelessSectionStubToAdapter(sectionAdapter);
         addHeadedStatelessSectionStubToAdapter(sectionAdapter);
         addFootedStatelessSectionStubToAdapter(sectionAdapter);
