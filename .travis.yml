@@ -9,6 +9,3 @@ android:
     - extra-android-support
     - extra-android-m2repository
     - extra-google-m2repository
-
-  licenses:
-    - '.+'
