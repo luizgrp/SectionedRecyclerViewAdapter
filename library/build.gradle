@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'io.github.luizgrp.sectionedrecyclerviewadapter'
     PUBLISH_ARTIFACT_ID = 'sectionedrecyclerviewadapter'
-    PUBLISH_VERSION = '1.0.4'
+    PUBLISH_VERSION = '1.0.5'
 }
 
 android {
@@ -26,9 +26,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.7.20"
 }
 
 apply from: 'android-release-aar.gradle'

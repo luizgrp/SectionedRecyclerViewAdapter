@@ -17,6 +17,7 @@
     <string name="nav_example7">SearchView with Sections</string>
     <string name="nav_stateful">Stateful Section</string>
     <string name="nav_example3">Section with Header and Footer</string>
+    <string name="nav_example8">Animations</string>
 
     <string name="world_topic">World</string>
     <string name="biz_topic">Business</string>
@@ -26,8 +27,14 @@
     <string name="top_rated_movies_topic">Top Rated Movies</string>
     <string name="most_popular_movies_topic">Most Popular Movies</string>
 
+    <string name="group_title">Group #%1$s</string>
+
     <string name="more">MORE</string>
     <string name="see_more">See more..</string>
     <string name="failed_load">Failed to load, tap to try again.</string>
+
+    <string name="add">ADD</string>
+    <string name="clear">CLEAR</string>
+    <string name="add_group">ADD GROUP</string>
 
 </resources>

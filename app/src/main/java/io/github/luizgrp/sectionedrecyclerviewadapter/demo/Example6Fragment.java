@@ -125,13 +125,12 @@ public class Example6Fragment extends Fragment {
 
             itemHolder.tvItem.setText(name);
             itemHolder.tvSubItem.setText(category);
-            itemHolder.imgItem.setImageResource(R.drawable.ic_movie_black_48dp);
 
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s",
-                            sectionAdapter.getSectionPosition(itemHolder.getAdapterPosition()), title),
+                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
                             Toast.LENGTH_SHORT).show();
                 }
             });
@@ -179,7 +178,6 @@ public class Example6Fragment extends Fragment {
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
-        private final ImageView imgItem;
         private final TextView tvItem;
         private final TextView tvSubItem;
 
@@ -187,7 +185,6 @@ public class Example6Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            imgItem = (ImageView) view.findViewById(R.id.imgItem);
             tvItem = (TextView) view.findViewById(R.id.tvItem);
             tvSubItem = (TextView) view.findViewById(R.id.tvSubItem);
         }

@@ -18,7 +18,7 @@ In addition, each Section can have its state(Loading/Loaded/Failed) controlled i
 
 ```groovy
 dependencies {
-    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.4'
+    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.5'
 }
 ```
 

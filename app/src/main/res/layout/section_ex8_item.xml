@@ -29,7 +29,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_movie_black_48dp"
+                android:src="@drawable/ic_android_black_48dp"
                 android:id="@+id/imgItem" />
         </FrameLayout>
 
