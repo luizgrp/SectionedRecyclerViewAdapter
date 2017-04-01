@@ -1,7 +1,7 @@
 # SectionedRecyclerViewAdapter
 An Adapter that allows a RecyclerView to be split into Sections with headers and/or footers.
 
-[![Travis-CI](https://travis-ci.org/luizgrp/SectionedRecyclerViewAdapter.svg?branch=master)]
+[![Build Status](https://travis-ci.org/luizgrp/SectionedRecyclerViewAdapter.svg?branch=master)](https://travis-ci.org/luizgrp/SectionedRecyclerViewAdapter)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SectionedRecyclerViewAdapter-green.svg?style=true)](https://android-arsenal.com/details/1/3471)
 
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc1.png" width="300" height="533" >
