@@ -100,6 +100,7 @@ Stateless Section
 - [Grid Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example5Fragment.java)
 - [Expandable Grid Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example6Fragment.java)
 - [SearchView with Sections](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example7Fragment.java)
+- [Animations](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example8Fragment.java)
 
 Stateful Section
 - [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
