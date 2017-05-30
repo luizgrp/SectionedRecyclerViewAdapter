@@ -292,10 +292,10 @@ public class SectionedRecyclerViewAdapterTest {
         int positionFooter = sectionAdapter.getItemViewType(43);
 
         // Then
-        assertThat(positionHeader, is(15));
-        assertThat(positionItemStart, is(17));
-        assertThat(positionItemEnd, is(17));
-        assertThat(positionFooter, is(16));
+        assertThat(positionHeader, is(18));
+        assertThat(positionItemStart, is(20));
+        assertThat(positionItemEnd, is(20));
+        assertThat(positionFooter, is(19));
     }
 
     @Test
@@ -317,7 +317,7 @@ public class SectionedRecyclerViewAdapterTest {
         int positionLoading = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionLoading, is(23));
+        assertThat(positionLoading, is(27));
     }
 
     @Test
@@ -339,7 +339,7 @@ public class SectionedRecyclerViewAdapterTest {
         int positionFailed = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionFailed, is(24));
+        assertThat(positionFailed, is(28));
     }
 
     @Test

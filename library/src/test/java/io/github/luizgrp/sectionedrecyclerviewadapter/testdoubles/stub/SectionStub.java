@@ -13,7 +13,7 @@ public class SectionStub extends Section {
     final int contentItemsTotal;
 
     public SectionStub(int contentItemsTotal) {
-        super(-1, -1, -1);
+        super(-1, -1, -1, -1);
 
         this.contentItemsTotal = contentItemsTotal;
     }
