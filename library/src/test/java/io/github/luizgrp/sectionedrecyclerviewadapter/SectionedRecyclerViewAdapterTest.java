@@ -342,6 +342,27 @@ public class SectionedRecyclerViewAdapterTest {
         assertThat(positionFailed, is(28));
     }
 
+    public void getItemViewType_withAdapterWithManySections_returnsCorrectValuesForSectionWithEmptyState() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addHeadedStatelessSectionStubToAdapter();
+        addFootedStatelessSectionStubToAdapter();
+        addHeadedFootedStatelessSectionStubToAdapter();
+
+        Section section = addSectionStubToAdapter();
+        section.setState(Section.State.EMPTY);
+
+        addHeadedSectionStubToAdapter();
+        addFootedSectionStubToAdapter();
+        addHeadedFootedSectionStubToAdapter();
+
+        // When
+        int positionFailed = sectionAdapter.getItemViewType(44);
+
+        // Then
+        assertThat(positionFailed, is(29));
+    }
+
     @Test
     public void onCreateViewHolder_withEmptyAdapter_returnsNull() {
         // When
@@ -384,6 +405,15 @@ public class SectionedRecyclerViewAdapterTest {
 
         // When
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void onCreateViewHolder_withStatelessSection_throwsExceptionForEmpty() {
+        // Given
+        addStatelessSectionStubToAdapter();
+
+        // When
+        sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY);
     }
 
     @Test
