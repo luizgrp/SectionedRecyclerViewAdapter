@@ -629,8 +629,20 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public void notifyItemMovedInSection(String tag, int fromPosition, int toPosition) {
         Section section = getValidSectionOrThrowException(tag);
 
-        callSuperNotifyItemMoved(getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + fromPosition,
-                getSectionPosition(tag) + (section.hasHeader ? 1 : 0) + toPosition);
+        notifyItemMovedInSection(section, fromPosition, toPosition);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemMoved notifyItemMoved}.
+     *
+     * @param section this section
+     * @param fromPosition previous position of the item in the section
+     * @param toPosition new position of the item in the section
+     */
+    public void notifyItemMovedInSection(Section section, int fromPosition, int toPosition) {
+        callSuperNotifyItemMoved(getSectionPosition(section) + (section.hasHeader ? 1 : 0) + fromPosition,
+                getSectionPosition(section) + (section.hasHeader ? 1 : 0) + toPosition);
     }
 
     @VisibleForTesting
