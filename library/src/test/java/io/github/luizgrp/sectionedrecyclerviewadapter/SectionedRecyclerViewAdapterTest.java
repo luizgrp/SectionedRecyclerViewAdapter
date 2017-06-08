@@ -12,6 +12,8 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.HeadedSta
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionStub;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.StatelessSectionStub;
 
+import static org.junit.Assert.assertEquals;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -427,6 +429,33 @@ public class SectionedRecyclerViewAdapterTest {
         // Then
         assertThat(sectionAdapter.getItemCount(), is(0));
         assertTrue(sectionAdapter.getSectionsMap().isEmpty());
+    }
+
+    @Test
+    public void getAdapterPositionUsingTag_withAdapterWithManySections_returnsCorrectAdapterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        assertEquals(11, spySectionedRecyclerViewAdapter.getAdapterPosition(SECTION_TAG, 0));
+    }
+
+    @Test
+    public void getAdapterPositionUsingSection_withAdapterWithManySections_returnsCorrectAdapterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedStatelessSectionStub);
+
+        // When
+        assertEquals(11, spySectionedRecyclerViewAdapter.getAdapterPosition(headedFootedStatelessSectionStub, 0));
     }
 
     @Test

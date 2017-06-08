@@ -473,6 +473,32 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Helper method that receives position in relation to the section, and returns the position in
+     * the adapter.
+     *
+     * @param tag unique identifier of the section
+     * @param position position of the item in the section
+     * @return position of the item in the adapter
+     */
+    public int getAdapterPosition(String tag, int position) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        return getAdapterPosition(section, position);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, and returns the position in
+     * the adapter.
+     *
+     * @param section this section
+     * @param position position of the item in the section
+     * @return position of the item in the adapter
+     */
+    public int getAdapterPosition(Section section, int position) {
+        return getSectionPosition(section) + (section.hasHeader ? 1 : 0) + position;
+    }
+
+    /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemInserted notifyItemInserted}.
      *
@@ -480,7 +506,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param position position of the item in the section
      */
     public void notifyItemInsertedInSection(Section section, int position) {
-        callSuperNotifyItemInserted(getSectionPosition(section) + (section.hasHeader ? 1 : 0) + position);
+        callSuperNotifyItemInserted(getAdapterPosition(section, position));
     }
 
     @VisibleForTesting
@@ -529,7 +555,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param position position of the item in the section
      */
     public void notifyItemRemovedFromSection(Section section, int position) {
-        callSuperNotifyItemRemoved(getSectionPosition(section) + (section.hasHeader ? 1 : 0) + position);
+        callSuperNotifyItemRemoved(getAdapterPosition(section, position));
     }
 
     @VisibleForTesting
@@ -599,7 +625,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemRangeChangedInSection(Section section, int positionStart, int itemCount) {
         callSuperNotifyItemRangeChanged(
-                getSectionPosition(section) + (section.hasHeader ? 1 : 0) + positionStart, itemCount);
+                getAdapterPosition(section, positionStart), itemCount);
     }
 
     @VisibleForTesting
@@ -653,8 +679,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param toPosition new position of the item in the section
      */
     public void notifyItemMovedInSection(Section section, int fromPosition, int toPosition) {
-        callSuperNotifyItemMoved(getSectionPosition(section) + (section.hasHeader ? 1 : 0) + fromPosition,
-                getSectionPosition(section) + (section.hasHeader ? 1 : 0) + toPosition);
+        callSuperNotifyItemMoved(getAdapterPosition(section, fromPosition),
+                getAdapterPosition(section, toPosition));
     }
 
     @VisibleForTesting
