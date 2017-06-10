@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Abstract Section with no States.
+ * Abstract {@link Section} with no States.
  *
  * @author Gustavo Pagani
  */

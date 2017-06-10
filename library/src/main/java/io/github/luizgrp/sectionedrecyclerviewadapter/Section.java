@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Abstract Section used by SectionedRecyclerViewAdapter.
+ * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
  *
  * @author Gustavo Pagani
  */

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * A custom RecyclerView with Sections with custom Titles.
+ * A custom RecyclerView Adapter that allows {@link Section Sections} to be added to it.
  * Sections are displayed in the same order they were added.
  *
  * @author Gustavo Pagani
@@ -342,7 +342,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * @deprecated Use {@link #getPositionInSection getPositionInSection} instead.
+     * @deprecated Use {@link #getPositionInSection} instead.
      */
     @Deprecated
     public int getSectionPosition(int position) {
@@ -415,7 +415,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemInserted notifyItemInserted}.
+     * position in the adapter and calls {@link #notifyItemInserted}.
      *
      * @param tag unique identifier of the section
      * @param position position of the item in the section
@@ -433,7 +433,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeInserted notifyItemRangeInserted}.
+     * position in the adapter and calls {@link #notifyItemRangeInserted}.
      *
      * @param tag unique identifier of the section
      * @param positionStart position of the first item that was inserted in the section
@@ -453,7 +453,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRemoved notifyItemRemoved}.
+     * position in the adapter and calls {@link #notifyItemRemoved}.
      *
      * @param tag unique identifier of the section
      * @param position position of the item in the section
@@ -471,7 +471,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeRemoved notifyItemRangeRemoved}.
+     * position in the adapter and calls {@link #notifyItemRangeRemoved}.
      *
      * @param tag unique identifier of the section
      * @param positionStart previous position of the first item that was removed from the section
@@ -491,7 +491,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemChanged notifyItemChanged}.
+     * position in the adapter and calls {@link #notifyItemChanged}.
      *
      * @param tag unique identifier of the section
      * @param position position of the item in the section
@@ -509,7 +509,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged notifyItemRangeChanged}.
+     * position in the adapter and calls {@link #notifyItemRangeChanged}.
      *
      * @param tag unique identifier of the section
      * @param positionStart position of the first item that was inserted in the section
@@ -529,7 +529,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged notifyItemRangeChanged}.
+     * position in the adapter and calls {@link #notifyItemRangeChanged}.
      *
      * @param tag unique identifier of the section
      * @param positionStart position of the first item that was inserted in the section
@@ -552,7 +552,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemMoved notifyItemMoved}.
+     * position in the adapter and calls {@link #notifyItemMoved}.
      *
      * @param tag unique identifier of the section
      * @param fromPosition previous position of the item in the section
