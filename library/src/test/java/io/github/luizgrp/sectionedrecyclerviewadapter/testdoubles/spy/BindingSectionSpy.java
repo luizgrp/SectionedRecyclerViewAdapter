@@ -17,7 +17,7 @@ public class BindingSectionSpy extends Section {
     final int contentItemsTotal;
 
     public BindingSectionSpy(int contentItemsTotal) {
-        super(-1, -1, -1);
+        super(-1, -1, -1, -1);
 
         this.contentItemsTotal = contentItemsTotal;
     }

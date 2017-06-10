@@ -18,7 +18,7 @@ public class BindingHeadedSectionSpy extends Section {
     final int contentItemsTotal;
 
     public BindingHeadedSectionSpy(int contentItemsTotal) {
-        super(-1, -1, -1 ,-1);
+        super(-1, -1, -1 ,-1, -1);
 
         this.contentItemsTotal = contentItemsTotal;
     }

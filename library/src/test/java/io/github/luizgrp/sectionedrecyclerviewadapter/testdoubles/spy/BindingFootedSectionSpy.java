@@ -18,7 +18,7 @@ public class BindingFootedSectionSpy extends Section {
     final int contentItemsTotal;
 
     public BindingFootedSectionSpy(int contentItemsTotal) {
-        super(-1, -1, -1, -1 , -1);
+        super(-1, -1, -1, -1 , -1, -1);
 
         // remove header
         this.setHasHeader(false);
