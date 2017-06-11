@@ -35,7 +35,7 @@ public abstract class Section {
     }
 
     /**
-     * Create a Section object with loading/failed states but no header and footer
+     * Create a Section object with loading/failed states, without header and footer
      * @param itemResourceId layout resource for its items
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
@@ -47,7 +47,7 @@ public abstract class Section {
     }
 
     /**
-     * Create a Section object with loading/failed states, a custom header but no footer
+     * Create a Section object with loading/failed states, with a custom header but without footer
      * @param headerResourceId layout resource for its header
      * @param itemResourceId layout resource for its items
      * @param loadingResourceId layout resource for its loading state
@@ -60,7 +60,7 @@ public abstract class Section {
     }
 
     /**
-     * Create a Section object with loading/failed states, a custom header and footer
+     * Create a Section object with loading/failed states, with a custom header and a custom footer
      * @param headerResourceId layout resource for its header
      * @param footerResourceId layout resource for its footer
      * @param itemResourceId layout resource for its items
