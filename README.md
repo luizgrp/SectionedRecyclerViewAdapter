@@ -1,4 +1,5 @@
 # SectionedRecyclerViewAdapter
+
 An Adapter that allows a RecyclerView to be split into Sections with headers and/or footers.
 
 [![Build Status](https://travis-ci.org/luizgrp/SectionedRecyclerViewAdapter.svg?branch=master)](https://travis-ci.org/luizgrp/SectionedRecyclerViewAdapter)
@@ -17,27 +18,28 @@ In addition, each Section can have its state(Loading/Loaded/Failed) controlled i
 
 ## Gradle Dependency
 
+Add this to the `dependencies` section in your project-level **build.gradle** file:
+
 ```groovy
-dependencies {
-    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.5'
-}
+compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.5'
 ```
 
-## Basic usage:
+## Basic usage
+
 ##### 1) Create a custom Section class extending StatelessSection
+
 ```java
 class MySection extends StatelessSection {
-
-    List<String> myList = Arrays.asList("Item1", "Item2", "Item3");
+    List<String> itemList = Arrays.asList("Item1", "Item2", "Item3");
 
     public MySection() {
-        // call constructor with layout resources for this Section header and items 
+        // call constructor with layout resources for this Section header and items
         super(R.layout.section_header, R.layout.section_item);
     }
 
     @Override
     public int getContentItemsTotal() {
-        return myList.size(); // number of items of this section
+        return itemList.size(); // number of items of this section
     }
 
     @Override
@@ -51,17 +53,17 @@ class MySection extends StatelessSection {
         MyItemViewHolder itemHolder = (MyItemViewHolder) holder;
 
         // bind your view here
-        itemHolder.tvItem.setText(myList.get(position));
+        itemHolder.tvItem.setText(itemList.get(position));
     }
 }
 ```
 
 ##### 2) Create a custom ViewHolder for the section items:
+
 ```java
 class MyItemViewHolder extends RecyclerView.ViewHolder {
-
     private final TextView tvItem;
-    
+
     public MyItemViewHolder(View itemView) {
         super(itemView);
 
@@ -71,8 +73,9 @@ class MyItemViewHolder extends RecyclerView.ViewHolder {
 ```
 
 ##### 3) Set up your ReclyclerView with the SectionedRecyclerViewAdapter
+
 ```java
-// Create an instance of SectionedRecyclerViewAdapter 
+// Create an instance of SectionedRecyclerViewAdapter
 SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
 
 // Add your Sections
@@ -106,23 +109,22 @@ Stateless Section
 Stateful Section
 - [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
 
-
 ## License
 
     The MIT License (MIT)
-    
+
     Copyright (c) 2016 Gustavo Pagani
-    
+
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
     in the Software without restriction, including without limitation the rights
     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
     copies of the Software, and to permit persons to whom the Software is
     furnished to do so, subject to the following conditions:
-    
+
     The above copyright notice and this permission notice shall be included in all
     copies or substantial portions of the Software.
-    
+
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
