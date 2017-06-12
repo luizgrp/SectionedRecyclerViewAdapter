@@ -657,7 +657,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void notifyItemRangeChangedInSectionWithPayload_withAdapterWithManySections_callsSuperNotifyItemRangeChanged() {
+    public void notifyItemRangeChangedInSectionWithPayloadUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeChanged() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeChanged(anyInt(), anyInt(), any());
@@ -667,6 +667,23 @@ public class SectionedRecyclerViewAdapterTest {
 
         // When
         spySectionedRecyclerViewAdapter.notifyItemRangeChangedInSection(SECTION_TAG, 0, 4, null);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeChanged(11, 4, null);
+    }
+
+    @Test
+    public void notifyItemRangeChangedInSectionWithPayloadUsingSection_withAdapterWithManySections_callsSuperNotifyItemRangeChanged() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeChanged(anyInt(), anyInt(), any());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyItemRangeChangedInSection(headedFootedStatelessSectionStub, 0, 4, null);
 
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeChanged(11, 4, null);

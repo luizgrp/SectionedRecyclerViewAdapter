@@ -674,6 +674,22 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 payload);
     }
 
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeChanged notifyItemRangeChanged}.
+     *
+     * @param section this section
+     * @param positionStart position of the first item that was inserted in the section
+     * @param itemCount number of items inserted in the section
+     * @param payload optional parameter, use null to identify a "full" update
+     */
+    public void notifyItemRangeChangedInSection(Section section, int positionStart, int itemCount,
+                                                Object payload) {
+        callSuperNotifyItemRangeChanged(
+                getAdapterPosition(section, positionStart), itemCount,
+                payload);
+    }
+
     @VisibleForTesting
     void callSuperNotifyItemRangeChanged(int positionStart, int itemCount, Object payload) {
         super.notifyItemRangeChanged(positionStart, itemCount, payload);
