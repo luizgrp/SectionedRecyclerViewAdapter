@@ -583,6 +583,18 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemRangeRemoved(getAdapterPosition(tag, positionStart), itemCount);
     }
 
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeRemoved notifyItemRangeRemoved}.
+     *
+     * @param section this section
+     * @param positionStart previous position of the first item that was removed from the section
+     * @param itemCount number of items removed from the section
+     */
+    public void notifyItemRangeRemovedFromSection(Section section, int positionStart, int itemCount) {
+        callSuperNotifyItemRangeRemoved(getAdapterPosition(section, positionStart), itemCount);
+    }
+
     @VisibleForTesting
     void callSuperNotifyItemRangeRemoved(int positionStart, int itemCount) {
         super.notifyItemRangeRemoved(positionStart, itemCount);
