@@ -126,7 +126,7 @@ public class SectionedRecyclerViewAdapterTest {
         // Then
         assertThat(result, is(10));
     }
-    
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void onBindViewHolder_withEmptyAdapter_throwsException() {
         // When
@@ -464,7 +464,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getAdapterPositionUsingTag_withAdapterWithManySections_returnsCorrectAdapterPosition() {
+    public void getPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterPosition() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
@@ -473,11 +473,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
 
         // When
-        assertEquals(11, spySectionedRecyclerViewAdapter.getAdapterPosition(SECTION_TAG, 0));
+        assertEquals(11, spySectionedRecyclerViewAdapter.getPositionInAdapter(SECTION_TAG, 0));
     }
 
     @Test
-    public void getAdapterPositionUsingSection_withAdapterWithManySections_returnsCorrectAdapterPosition() {
+    public void getPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterPosition() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
@@ -487,7 +487,7 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
 
         // When
-        assertEquals(11, spySectionedRecyclerViewAdapter.getAdapterPosition(headedFootedStatelessSectionStub, 0));
+        assertEquals(11, spySectionedRecyclerViewAdapter.getPositionInAdapter(headedFootedStatelessSectionStub, 0));
     }
 
     @Test
