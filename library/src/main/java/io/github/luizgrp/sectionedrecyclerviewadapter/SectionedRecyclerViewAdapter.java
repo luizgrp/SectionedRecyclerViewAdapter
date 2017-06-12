@@ -403,24 +403,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @return position of the section in the adapter
      */
     public int getSectionPosition(String tag) {
-        int currentPos = 0;
+        Section section = getValidSectionOrThrowException(tag);
 
-        for (Map.Entry<String, Section> entry : sections.entrySet()) {
-            Section section = entry.getValue();
-
-            // ignore invisible sections
-            if (!section.isVisible()) continue;
-
-            int sectionTotal = section.getSectionItemsTotal();
-
-            if (entry.getKey().equalsIgnoreCase(tag)) {
-                return currentPos;
-            }
-
-            currentPos += sectionTotal;
-        }
-
-        throw new IllegalArgumentException("Invalid tag: " + tag);
+        return getSectionPosition(section);
     }
 
     /**

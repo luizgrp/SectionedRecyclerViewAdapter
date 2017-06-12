@@ -66,13 +66,13 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getSectionPosition_withEmptyAdapter_throwsException() {
+    public void getSectionPositionUsingTag_withEmptyAdapter_throwsException() {
         // When
         sectionAdapter.getSectionPosition(SECTION_TAG);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getSectionPosition_withInvalidTag_throwsException() {
+    public void getSectionPositionUsingTag_withInvalidTag_throwsException() {
         // Given
         addStatelessSectionStubToAdapter();
         addStatelessSectionStubToAdapter();
@@ -82,7 +82,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionPosition_withAdapterWithInvisibleSection_returnsCorrectPosition() {
+    public void getSectionPositionUsingTag_withAdapterWithInvisibleSection_returnsCorrectPosition() {
         // Given
         addStatelessSectionStubToAdapter();
 
@@ -95,6 +95,38 @@ public class SectionedRecyclerViewAdapterTest {
         assertThat(result, is(10));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void getSectionPositionUsingSection_withEmptyAdapter_throwsException() {
+        // When
+        sectionAdapter.getSectionPosition(new StatelessSectionStub(ITEMS_QTY));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getSectionPositionUsingSection_withInvalidTag_throwsException() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addStatelessSectionStubToAdapter();
+
+        // When
+        sectionAdapter.getSectionPosition(new StatelessSectionStub(ITEMS_QTY));
+    }
+
+    @Test
+    public void getSectionPositionUsingSection_withAdapterWithInvisibleSection_returnsCorrectPosition() {
+        // Given
+        addStatelessSectionStubToAdapter();
+
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+
+        sectionAdapter.addSection(statelessSectionStub);
+
+        // When
+        int result = sectionAdapter.getSectionPosition(statelessSectionStub);
+
+        // Then
+        assertThat(result, is(10));
+    }
+    
     @Test(expected = IndexOutOfBoundsException.class)
     public void onBindViewHolder_withEmptyAdapter_throwsException() {
         // When
