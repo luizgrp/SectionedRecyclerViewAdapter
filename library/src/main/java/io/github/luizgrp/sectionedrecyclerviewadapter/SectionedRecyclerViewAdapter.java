@@ -459,16 +459,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return sections;
     }
 
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemInserted notifyItemInserted}.
-     *
-     * @param tag unique identifier of the section
-     * @param position position of the item in the section
-     */
-    public void notifyItemInsertedInSection(String tag, int position) {
-        callSuperNotifyItemInserted(getAdapterPosition(tag, position));
-    }
 
     /**
      * Helper method that receives position in relation to the section, and returns the position in
@@ -500,6 +490,17 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemInserted notifyItemInserted}.
      *
+     * @param tag unique identifier of the section
+     * @param position position of the item in the section
+     */
+    public void notifyItemInsertedInSection(String tag, int position) {
+        callSuperNotifyItemInserted(getAdapterPosition(tag, position));
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemInserted notifyItemInserted}.
+     *
      * @param section this section
      * @param position position of the item in the section
      */
@@ -523,6 +524,19 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public void notifyItemRangeInsertedInSection(String tag, int positionStart, int itemCount) {
         callSuperNotifyItemRangeInserted(
                 getAdapterPosition(tag, positionStart), itemCount);
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeInserted notifyItemRangeInserted}.
+     *
+     * @param section this section
+     * @param positionStart position of the first item that was inserted in the section
+     * @param itemCount number of items inserted in the section
+     */
+    public void notifyItemRangeInsertedInSection(Section section, int positionStart, int itemCount) {
+        callSuperNotifyItemRangeInserted(
+                getAdapterPosition(section, positionStart), itemCount);
     }
 
     @VisibleForTesting
