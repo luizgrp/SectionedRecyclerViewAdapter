@@ -23,6 +23,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Gustavo Pagani
  */
@@ -64,13 +66,13 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getSectionPosition_withEmptyAdapter_throwsException() {
+    public void getSectionPositionUsingTag_withEmptyAdapter_throwsException() {
         // When
         sectionAdapter.getSectionPosition(SECTION_TAG);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getSectionPosition_withInvalidTag_throwsException() {
+    public void getSectionPositionUsingTag_withInvalidTag_throwsException() {
         // Given
         addStatelessSectionStubToAdapter();
         addStatelessSectionStubToAdapter();
@@ -80,7 +82,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionPosition_withAdapterWithInvisibleSection_returnsCorrectPosition() {
+    public void getSectionPositionUsingTag_withAdapterWithInvisibleSection_returnsCorrectPosition() {
         // Given
         addStatelessSectionStubToAdapter();
 
@@ -88,6 +90,38 @@ public class SectionedRecyclerViewAdapterTest {
 
         // When
         int result = sectionAdapter.getSectionPosition(SECTION_TAG);
+
+        // Then
+        assertThat(result, is(10));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getSectionPositionUsingSection_withEmptyAdapter_throwsException() {
+        // When
+        sectionAdapter.getSectionPosition(new StatelessSectionStub(ITEMS_QTY));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getSectionPositionUsingSection_withInvalidTag_throwsException() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addStatelessSectionStubToAdapter();
+
+        // When
+        sectionAdapter.getSectionPosition(new StatelessSectionStub(ITEMS_QTY));
+    }
+
+    @Test
+    public void getSectionPositionUsingSection_withAdapterWithInvisibleSection_returnsCorrectPosition() {
+        // Given
+        addStatelessSectionStubToAdapter();
+
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+
+        sectionAdapter.addSection(statelessSectionStub);
+
+        // When
+        int result = sectionAdapter.getSectionPosition(statelessSectionStub);
 
         // Then
         assertThat(result, is(10));
@@ -397,6 +431,33 @@ public class SectionedRecyclerViewAdapterTest {
         // Then
         assertThat(sectionAdapter.getItemCount(), is(0));
         assertTrue(sectionAdapter.getSectionsMap().isEmpty());
+    }
+
+    @Test
+    public void getPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        assertEquals(11, spySectionedRecyclerViewAdapter.getPositionInAdapter(SECTION_TAG, 0));
+    }
+
+    @Test
+    public void getPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+
+        // When
+        assertEquals(11, spySectionedRecyclerViewAdapter.getPositionInAdapter(headedFootedStatelessSectionStub, 0));
     }
 
     @Test

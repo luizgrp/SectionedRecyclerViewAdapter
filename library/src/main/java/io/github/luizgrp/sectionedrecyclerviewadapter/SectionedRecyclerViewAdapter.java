@@ -384,24 +384,37 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @return position of the section in the adapter
      */
     public int getSectionPosition(String tag) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        return getSectionPosition(section);
+    }
+
+
+    /**
+     * Return the section position in the adapter.
+     *
+     * @param section This section
+     * @return position of the section in the adapter
+     */
+    public int getSectionPosition(Section section) {
         int currentPos = 0;
 
         for (Map.Entry<String, Section> entry : sections.entrySet()) {
-            Section section = entry.getValue();
+            Section s = entry.getValue();
 
             // ignore invisible sections
-            if (!section.isVisible()) continue;
+            if (!s.isVisible()) continue;
 
-            int sectionTotal = section.getSectionItemsTotal();
+            int sectionTotal = s.getSectionItemsTotal();
 
-            if (entry.getKey().equalsIgnoreCase(tag)) {
+            if (s == section) {
                 return currentPos;
             }
 
             currentPos += sectionTotal;
         }
 
-        throw new IllegalArgumentException("Invalid tag: " + tag);
+        throw new IllegalArgumentException("Invalid section");
     }
 
     /**
@@ -438,7 +451,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public int getPositionInAdapter(Section section, int position) {
         return getSectionPosition(section) + (section.hasHeader ? 1 : 0) + position;
     }
-    
+
     /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemInserted}.
