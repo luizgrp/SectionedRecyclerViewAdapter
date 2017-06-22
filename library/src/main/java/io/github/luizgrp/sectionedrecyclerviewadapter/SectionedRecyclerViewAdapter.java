@@ -393,21 +393,21 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     /**
      * Return the section position in the adapter.
      *
-     * @param section This section
+     * @param section a visible section of this adapter
      * @return position of the section in the adapter
      */
     public int getSectionPosition(Section section) {
         int currentPos = 0;
 
         for (Map.Entry<String, Section> entry : sections.entrySet()) {
-            Section s = entry.getValue();
+            Section loopSection = entry.getValue();
 
             // ignore invisible sections
-            if (!s.isVisible()) continue;
+            if (!loopSection.isVisible()) continue;
 
-            int sectionTotal = s.getSectionItemsTotal();
+            int sectionTotal = loopSection.getSectionItemsTotal();
 
-            if (s == section) {
+            if (loopSection == section) {
                 return currentPos;
             }
 
@@ -444,7 +444,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that receives position in relation to the section, and returns the position in
      * the adapter.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param position position of the item in the section
      * @return position of the item in the adapter
      */
@@ -465,9 +465,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemInserted notifyItemInserted}.
+     * position in the adapter and calls {@link #notifyItemInserted}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param position position of the item in the section
      */
     public void notifyItemInsertedInSection(Section section, int position) {
@@ -493,9 +493,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeInserted notifyItemRangeInserted}.
+     * position in the adapter and calls {@link #notifyItemRangeInserted}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param positionStart position of the first item that was inserted in the section
      * @param itemCount number of items inserted in the section
      */
@@ -521,9 +521,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRemoved notifyItemRemoved}.
+     * position in the adapter and calls {@link #notifyItemRemoved}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param position position of the item in the section
      */
     public void notifyItemRemovedFromSection(Section section, int position) {
@@ -549,9 +549,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeRemoved notifyItemRangeRemoved}.
+     * position in the adapter and calls {@link #notifyItemRangeRemoved}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param positionStart previous position of the first item that was removed from the section
      * @param itemCount number of items removed from the section
      */
@@ -577,9 +577,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemChanged notifyItemChanged}.
+     * position in the adapter and calls {@link #notifyItemChanged}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param position position of the item in the section
      */
     public void notifyItemChangedInSection(Section section, int position) {
@@ -605,9 +605,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged notifyItemRangeChanged}.
+     * position in the adapter and calls {@link #notifyItemRangeChanged}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param positionStart position of the first item that was inserted in the section
      * @param itemCount number of items inserted in the section
      */
@@ -636,9 +636,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged notifyItemRangeChanged}.
+     * position in the adapter and calls {@link #notifyItemRangeChanged}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param positionStart position of the first item that was inserted in the section
      * @param itemCount number of items inserted in the section
      * @param payload optional parameter, use null to identify a "full" update
@@ -670,7 +670,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemMoved}.
      *
-     * @param section this section
+     * @param section a visible section of this adapter
      * @param fromPosition previous position of the item in the section
      * @param toPosition new position of the item in the section
      */
