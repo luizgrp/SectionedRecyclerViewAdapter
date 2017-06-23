@@ -86,6 +86,10 @@ public class SectionedRecyclerViewAdapterTest {
         // Given
         addStatelessSectionStubToAdapter();
 
+        Section invisibleSection = addStatelessSectionStubToAdapter();
+        invisibleSection.setVisible(false);
+        sectionAdapter.addSection(invisibleSection);
+
         sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
 
         // When
@@ -102,7 +106,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getSectionPositionUsingSection_withInvalidTag_throwsException() {
+    public void getSectionPositionUsingSection_withInvalidSection_throwsException() {
         // Given
         addStatelessSectionStubToAdapter();
         addStatelessSectionStubToAdapter();
@@ -115,6 +119,10 @@ public class SectionedRecyclerViewAdapterTest {
     public void getSectionPositionUsingSection_withAdapterWithInvisibleSection_returnsCorrectPosition() {
         // Given
         addStatelessSectionStubToAdapter();
+
+        Section invisibleSection = addStatelessSectionStubToAdapter();
+        invisibleSection.setVisible(false);
+        sectionAdapter.addSection(invisibleSection);
 
         StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
 
@@ -443,7 +451,10 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
 
         // When
-        assertEquals(11, spySectionedRecyclerViewAdapter.getPositionInAdapter(SECTION_TAG, 0));
+        int result = spySectionedRecyclerViewAdapter.getPositionInAdapter(SECTION_TAG, 0);
+
+        // Then
+        assertThat(result, is(11));
     }
 
     @Test
@@ -457,7 +468,10 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
 
         // When
-        assertEquals(11, spySectionedRecyclerViewAdapter.getPositionInAdapter(headedFootedStatelessSectionStub, 0));
+        int result = spySectionedRecyclerViewAdapter.getPositionInAdapter(headedFootedStatelessSectionStub, 0);
+
+        // Then
+        assertThat(result, is(11));
     }
 
     @Test
