@@ -11,11 +11,11 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.Stateless
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author Gustavo Pagani
+ * Unit tests for {@link StatelessSection}
  */
 public class StatelessSectionTest {
 
-    final int ITEMS_QTY = 10;
+    private final int ITEMS_QTY = 10;
 
     @Test
     public void onBindViewHolder_StatelessSection_isCalled() {

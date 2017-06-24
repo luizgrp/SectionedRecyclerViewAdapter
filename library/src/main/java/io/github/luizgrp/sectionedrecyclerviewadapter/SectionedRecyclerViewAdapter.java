@@ -15,8 +15,6 @@ import java.util.UUID;
 /**
  * A custom RecyclerView Adapter that allows {@link Section Sections} to be added to it.
  * Sections are displayed in the same order they were added.
- *
- * @author Gustavo Pagani
  */
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

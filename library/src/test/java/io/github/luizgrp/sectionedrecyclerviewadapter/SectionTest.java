@@ -11,11 +11,11 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionSt
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author Gustavo Pagani
+ * Unit tests for {@link Section}
  */
 public class SectionTest {
 
-    final int ITEMS_QTY = 10;
+    private final int ITEMS_QTY = 10;
 
     @Test
     public void onBindViewHolder_Section_isCalled() {
