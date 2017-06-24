@@ -23,11 +23,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public final static int VIEW_TYPE_ITEM_LOADED = 2;
     public final static int VIEW_TYPE_LOADING = 3;
     public final static int VIEW_TYPE_FAILED = 4;
+    public final static int VIEW_TYPE_EMPTY = 5;
 
     private LinkedHashMap<String, Section> sections;
     private HashMap<String, Integer> sectionViewTypeNumbers;
     private int viewTypeCount = 0;
-    private final static int VIEW_TYPE_QTY = 5;
+    private final static int VIEW_TYPE_QTY = 6;
 
     public SectionedRecyclerViewAdapter() {
         sections = new LinkedHashMap<>();
@@ -63,6 +64,10 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                     }
                     case VIEW_TYPE_FAILED: {
                         viewHolder = getFailedViewHolder(parent, section);
+                        break;
+                    }
+                    case VIEW_TYPE_EMPTY: {
+                        viewHolder = getEmptyViewHolder(parent, section);
                         break;
                     }
                     default:
@@ -121,6 +126,16 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
         // get the failed load viewholder from the section
         return section.getFailedViewHolder(view);
+    }
+
+    private RecyclerView.ViewHolder getEmptyViewHolder(ViewGroup parent, Section section) {
+        Integer resId = section.getEmptyResourceId();
+
+        if (resId == null) throw new NullPointerException("Missing 'empty state' resource id");
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
+        // get the empty load viewholder from the section
+        return section.getEmptyViewHolder(view);
     }
 
     /**
@@ -238,12 +253,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public int getItemViewType(int position) {
         /*
-         Each Section has 5 "viewtypes":
+         Each Section has 6 "viewtypes":
          1) header
          2) footer
          3) items
          4) loading
          5) load failed
+         6) empty
          */
         int currentPos = 0;
 
@@ -279,6 +295,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         return viewType + 3;
                     case FAILED:
                         return viewType + 4;
+                    case EMPTY:
+                        return viewType + 5;
                     default:
                         throw new IllegalStateException("Invalid state");
                 }
@@ -299,10 +317,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED
+     * - SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY
      *
      * @param position position in the adapter
      * @return SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER, VIEW_TYPE_FOOTER,
-     * VIEW_TYPE_ITEM_LOADED, VIEW_TYPE_LOADING or VIEW_TYPE_FAILED
+     * VIEW_TYPE_ITEM_LOADED, VIEW_TYPE_LOADING, VIEW_TYPE_FAILED or VIEW_TYPE_EMPTY
      */
     public int getSectionItemViewType(int position) {
         int viewType = getItemViewType(position);
