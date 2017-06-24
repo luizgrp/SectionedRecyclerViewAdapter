@@ -48,10 +48,7 @@ public class SectionedRecyclerViewAdapterTest {
     public void getPositionInSection_withAdapterWithInvisibleSection_returnsCorrectPosition() {
         // Given
         addHeadedFootedStatelessSectionStubToAdapter();
-
-        Section section = addStatelessSectionStubToAdapter();
-        section.setVisible(false);
-
+        addInvisibleStatelessSectionStubToAdapter();
         addHeadedFootedStatelessSectionStubToAdapter();
 
         // When
@@ -83,10 +80,7 @@ public class SectionedRecyclerViewAdapterTest {
     public void getSectionPositionUsingTag_withAdapterWithInvisibleSection_returnsCorrectPosition() {
         // Given
         addStatelessSectionStubToAdapter();
-
-        Section invisibleSection = addStatelessSectionStubToAdapter();
-        invisibleSection.setVisible(false);
-        sectionAdapter.addSection(invisibleSection);
+        addInvisibleStatelessSectionStubToAdapter();
 
         sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
 
@@ -117,10 +111,7 @@ public class SectionedRecyclerViewAdapterTest {
     public void getSectionPositionUsingSection_withAdapterWithInvisibleSection_returnsCorrectPosition() {
         // Given
         addStatelessSectionStubToAdapter();
-
-        Section invisibleSection = addStatelessSectionStubToAdapter();
-        invisibleSection.setVisible(false);
-        sectionAdapter.addSection(invisibleSection);
+        addInvisibleStatelessSectionStubToAdapter();
 
         StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
 
@@ -199,9 +190,7 @@ public class SectionedRecyclerViewAdapterTest {
     public void getItemCount_withAdapterWithInvisibleSection_returnsCorrectQuantity() {
         // Given
         addStatelessSectionStubToAdapter();
-
-        Section section = addStatelessSectionStubToAdapter();
-        section.setVisible(false);
+        addInvisibleStatelessSectionStubToAdapter();
 
         // When
         int result = sectionAdapter.getItemCount();
@@ -223,9 +212,7 @@ public class SectionedRecyclerViewAdapterTest {
     public void getSectionsMap_withAdapterWithInvisibleSection_hasCorrectSize() {
         // Given
         addStatelessSectionStubToAdapter();
-
-        Section section = addStatelessSectionStubToAdapter();
-        section.setVisible(false);
+        addInvisibleStatelessSectionStubToAdapter();
 
         // When
         int result = sectionAdapter.getSectionsMap().size();
@@ -752,6 +739,11 @@ public class SectionedRecyclerViewAdapterTest {
         StatelessSectionStub sectionStub = new StatelessSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(sectionStub);
         return sectionStub;
+    }
+
+    private void addInvisibleStatelessSectionStubToAdapter() {
+        Section sectionStub = addStatelessSectionStubToAdapter();
+        sectionStub.setVisible(false);
     }
 
     private SectionStub addSectionStubToAdapter() {
