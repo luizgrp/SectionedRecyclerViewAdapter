@@ -1,5 +1,8 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +12,8 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingHea
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingSectionSpy;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionStub;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -135,5 +140,54 @@ public class SectionTest {
         assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
         assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
         assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
+    }
+
+    @Test
+    public void build_constructsCorrectSection() {
+        // Given
+        SectionParameters sectionParameters = new SectionParameters.Builder(1)
+                .failedResourceId(2)
+                .footerResourceId(3)
+                .headerResourceId(4)
+                .loadingResourceId(5)
+                .build();
+
+        // When
+        Section section = getSection(sectionParameters);
+        int result = section.getItemResourceId();
+        int result2 = section.getFailedResourceId();
+        int result3 = section.getFooterResourceId();
+        int result4 = section.getHeaderResourceId();
+        int result5 = section.getLoadingResourceId();
+        boolean hasHeader = section.hasHeader();
+        boolean hasFooter = section.hasFooter();
+
+        // Then
+        assertThat(result, is(1));
+        assertThat(result2, is(2));
+        assertThat(result3, is(3));
+        assertThat(result4, is(4));
+        assertThat(result5, is(5));
+        assertThat(hasHeader, is(true));
+        assertThat(hasFooter, is(true));
+    }
+
+    private Section getSection(SectionParameters sectionParameters) {
+        return new Section(sectionParameters) {
+            @Override
+            public int getContentItemsTotal() {
+                return 0;
+            }
+
+            @Override
+            public RecyclerView.ViewHolder getItemViewHolder(View view) {
+                return null;
+            }
+
+            @Override
+            public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+            }
+        };
     }
 }
