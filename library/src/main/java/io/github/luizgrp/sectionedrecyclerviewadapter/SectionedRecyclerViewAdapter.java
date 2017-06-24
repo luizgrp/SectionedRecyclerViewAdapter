@@ -23,11 +23,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public final static int VIEW_TYPE_ITEM_LOADED = 2;
     public final static int VIEW_TYPE_LOADING = 3;
     public final static int VIEW_TYPE_FAILED = 4;
+    public final static int VIEW_TYPE_EMPTY = 5;
 
     private LinkedHashMap<String, Section> sections;
     private HashMap<String, Integer> sectionViewTypeNumbers;
     private int viewTypeCount = 0;
-    private final static int VIEW_TYPE_QTY = 5;
+    private final static int VIEW_TYPE_QTY = 6;
 
     public SectionedRecyclerViewAdapter() {
         sections = new LinkedHashMap<>();
@@ -63,6 +64,10 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                     }
                     case VIEW_TYPE_FAILED: {
                         viewHolder = getFailedViewHolder(parent, section);
+                        break;
+                    }
+                    case VIEW_TYPE_EMPTY: {
+                        viewHolder = getEmptyViewHolder(parent, section);
                         break;
                     }
                     default:
@@ -121,6 +126,16 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
         // get the failed load viewholder from the section
         return section.getFailedViewHolder(view);
+    }
+
+    private RecyclerView.ViewHolder getEmptyViewHolder(ViewGroup parent, Section section) {
+        Integer resId = section.getEmptyResourceId();
+
+        if (resId == null) throw new NullPointerException("Missing 'empty state' resource id");
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
+        // get the empty load viewholder from the section
+        return section.getEmptyViewHolder(view);
     }
 
     /**
@@ -238,12 +253,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public int getItemViewType(int position) {
         /*
-         Each Section has 5 "viewtypes":
+         Each Section has 6 "viewtypes":
          1) header
          2) footer
          3) items
          4) loading
          5) load failed
+         6) empty
          */
         int currentPos = 0;
 
@@ -279,6 +295,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         return viewType + 3;
                     case FAILED:
                         return viewType + 4;
+                    case EMPTY:
+                        return viewType + 5;
                     default:
                         throw new IllegalStateException("Invalid state");
                 }
@@ -299,10 +317,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED
+     * - SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY
      *
      * @param position position in the adapter
      * @return SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER, VIEW_TYPE_FOOTER,
-     * VIEW_TYPE_ITEM_LOADED, VIEW_TYPE_LOADING or VIEW_TYPE_FAILED
+     * VIEW_TYPE_ITEM_LOADED, VIEW_TYPE_LOADING, VIEW_TYPE_FAILED or VIEW_TYPE_EMPTY
      */
     public int getSectionItemViewType(int position) {
         int viewType = getItemViewType(position);
@@ -451,6 +470,58 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Helper method that returns the position of header in the adapter.
+     *
+     * @param tag unique identifier of the section
+     * @return position of the header in the adapter. -1 if the section doesn't have header
+     */
+    public int getHeaderPositionInAdapter(String tag) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        return getHeaderPositionInAdapter(section);
+    }
+
+    /**
+     * Helper method that returns the position of header in the adapter.
+     *
+     * @param section a visible section of this adapter
+     * @return position of the header in the adapter. -1 if the section doesn't have header
+     */
+    public int getHeaderPositionInAdapter(Section section) {
+        if (!section.hasHeader) {
+            return -1;
+        }
+
+        return getSectionPosition(section);
+    }
+
+    /**
+     * Helper method that returns the position of footer in the adapter.
+     *
+     * @param tag unique identifier of the section
+     * @return position of the footer in the adapter. -1 if the section doesn't have footer
+     */
+    public int getFooterPositionInAdapter(String tag) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        return getFooterPositionInAdapter(section);
+    }
+
+    /**
+     * Helper method that returns the position of header in the adapter.
+     *
+     * @param section a visible section of this adapter
+     * @return position of the footer in the adapter. -1 if the section doesn't have footer
+     */
+    public int getFooterPositionInAdapter(Section section) {
+        if (!section.hasFooter) {
+            return -1;
+        }
+
+        return getSectionPosition(section) + section.getSectionItemsTotal() - 1;
+    }
+
+    /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemInserted}.
      *
@@ -582,6 +653,70 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemChangedInSection(Section section, int position) {
         callSuperNotifyItemChanged(getPositionInAdapter(section, position));
+    }
+
+    /**
+     * Helper method that calculates the relative header position in the adapter and calls
+     * {@link #notifyItemChanged}. Do nothing if the section doesn't have header
+     *
+     * @param tag unique identifier of the section
+     */
+    public void notifyHeaderChangedInSection(String tag) {
+        int headerPosition = getHeaderPositionInAdapter(tag);
+
+        if (headerPosition == -1) {
+            return;
+        }
+
+        callSuperNotifyItemChanged(headerPosition);
+    }
+
+    /**
+     * Helper method that calculates the relative header position in the adapter and calls
+     * {@link #notifyItemChanged}. Do nothing if the section doesn't have header
+     *
+     * @param section a visible section of this adapter
+     */
+    public void notifyHeaderChangedInSection(Section section) {
+        int headerPosition = getHeaderPositionInAdapter(section);
+
+        if (headerPosition == -1) {
+            return;
+        }
+
+        callSuperNotifyItemChanged(headerPosition);
+    }
+
+    /**
+     * Helper method that calculates the relative header position in the adapter and calls
+     * {@link #notifyItemChanged}. Do nothing if the section doesn't have footer
+     *
+     * @param tag unique identifier of the section
+     */
+    public void notifyFooterChangedInSection(String tag) {
+        int footerPosition = getFooterPositionInAdapter(tag);
+
+        if (footerPosition == -1) {
+            return;
+        }
+
+        callSuperNotifyItemChanged(footerPosition);
+    }
+
+    /**
+     * Helper method that calculates the relative header position in the adapter and calls
+     * {@link #notifyItemChanged}. Do nothing if the section doesn't have header
+     *
+     * @param section a visible section of this adapter
+     */
+    public void notifyFooterChangedInSection(Section section) {
+        int footerPosition = getFooterPositionInAdapter(section);
+
+        if (footerPosition == -1) {
+            return;
+        }
+
+        callSuperNotifyItemChanged(footerPosition);
     }
 
     @VisibleForTesting

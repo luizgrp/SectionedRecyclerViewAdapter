@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
@@ -30,6 +31,7 @@ public class SectionedRecyclerViewAdapterTest {
 
     private final int ITEMS_QTY = 10;
     private final String SECTION_TAG = "tag";
+    private final String SECTION_TAG2 = "tag2";
 
     private SectionedRecyclerViewAdapter sectionAdapter;
 
@@ -319,10 +321,10 @@ public class SectionedRecyclerViewAdapterTest {
         int positionFooter = sectionAdapter.getItemViewType(43);
 
         // Then
-        assertThat(positionHeader, is(15));
-        assertThat(positionItemStart, is(17));
-        assertThat(positionItemEnd, is(17));
-        assertThat(positionFooter, is(16));
+        assertThat(positionHeader, is(18));
+        assertThat(positionItemStart, is(20));
+        assertThat(positionItemEnd, is(20));
+        assertThat(positionFooter, is(19));
     }
 
     @Test
@@ -344,7 +346,7 @@ public class SectionedRecyclerViewAdapterTest {
         int positionLoading = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionLoading, is(23));
+        assertThat(positionLoading, is(27));
     }
 
     @Test
@@ -366,7 +368,29 @@ public class SectionedRecyclerViewAdapterTest {
         int positionFailed = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionFailed, is(24));
+        assertThat(positionFailed, is(28));
+    }
+
+    @Test
+    public void getItemViewType_withAdapterWithManySections_returnsCorrectValuesForSectionWithEmptyState() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addHeadedStatelessSectionStubToAdapter();
+        addFootedStatelessSectionStubToAdapter();
+        addHeadedFootedStatelessSectionStubToAdapter();
+
+        Section section = addSectionStubToAdapter();
+        section.setState(Section.State.EMPTY);
+
+        addHeadedSectionStubToAdapter();
+        addFootedSectionStubToAdapter();
+        addHeadedFootedSectionStubToAdapter();
+
+        // When
+        int positionEmpty = sectionAdapter.getItemViewType(44);
+
+        // Then
+        assertThat(positionEmpty, is(29));
     }
 
     @Test
@@ -457,6 +481,86 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         assertThat(result, is(11));
+    }
+
+    @Test
+    public void getHeaderPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterHeaderPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG2, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(SECTION_TAG);
+        int result2 = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(SECTION_TAG2);
+
+        // Then
+        assertThat(result, is(10));
+        assertThat(result2, is(-1));
+    }
+
+    @Test
+    public void getHeaderPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterHeaderPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(headedFootedStatelessSectionStub);
+        int result2 = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(statelessSectionStub);
+
+        // Then
+        assertThat(result, is(10));
+        assertThat(result2, is(-1));
+    }
+
+    @Test
+    public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG2, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(SECTION_TAG);
+        int result2 = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(SECTION_TAG2);
+
+        // Then
+        assertThat(result, is(21));
+        assertThat(result2, is(-1));
+    }
+
+    @Test
+    public void getFooterPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(headedFootedStatelessSectionStub);
+        int result2 = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(statelessSectionStub);
+
+        // Then
+        assertThat(result, is(21));
+        assertThat(result2, is(-1));
     }
 
     @Test
@@ -624,6 +728,136 @@ public class SectionedRecyclerViewAdapterTest {
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(11);
     }
 
+    @Test
+    public void notifyHeaderChangedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(SECTION_TAG);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
+    }
+
+    @Test
+    public void notifyHeaderChangedInSectionUsingSection_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(headedFootedStatelessSectionStub);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
+    }
+
+    @Test
+    public void notifyHeaderChangedInSectionUsingTag_withAdapterWithManySections_neverCallsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(SECTION_TAG);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter, never()).callSuperNotifyItemChanged(-1);
+    }
+
+    @Test
+    public void notifyHeaderChangedInSectionUsingSection_withAdapterWithManySections_neverCallsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(statelessSectionStub);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter, never()).callSuperNotifyItemChanged(-1);
+    }
+
+    @Test
+    public void notifyFooterChangedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(SECTION_TAG);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(21);
+    }
+
+    @Test
+    public void notifyFooterChangedInSectionUsingSection_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(headedFootedStatelessSectionStub);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(21);
+    }
+
+    @Test
+    public void notifyFooterChangedInSectionUsingTag_withAdapterWithManySections_neverCallsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(SECTION_TAG);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter, never()).callSuperNotifyItemChanged(-1);
+    }
+
+    @Test
+    public void notifyFooterChangedInSectionUsingSection_withAdapterWithManySections_neverCallsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(statelessSectionStub);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter, never()).callSuperNotifyItemChanged(-1);
+    }
+    
     @Test
     public void notifyItemRangeChangedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeChanged() {
         // Given

@@ -88,4 +88,14 @@ public abstract class StatelessSection extends Section {
     public final RecyclerView.ViewHolder getFailedViewHolder(View view) {
         return super.getFailedViewHolder(view);
     }
+
+    @Override
+    public final void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
+        super.onBindEmptyViewHolder(holder);
+    }
+
+    @Override
+    public final RecyclerView.ViewHolder getEmptyViewHolder(View view) {
+        return super.getEmptyViewHolder(view);
+    }
 }

@@ -8,7 +8,7 @@ import android.view.View;
  */
 public abstract class Section {
 
-    public enum State { LOADING, LOADED, FAILED}
+    public enum State { LOADING, LOADED, FAILED, EMPTY }
 
     private State state = State.LOADED;
 
@@ -24,6 +24,7 @@ public abstract class Section {
 
     private Integer loadingResourceId;
     private Integer failedResourceId;
+    private Integer emptyResourceId;
 
     /**
      * Create a Section object with loading/failed states, without header and footer
@@ -202,6 +203,14 @@ public abstract class Section {
     }
 
     /**
+     * Return the layout resource id of the empty view
+     * @return layout resource id of the empty view
+     */
+    public final Integer getEmptyResourceId() {
+        return emptyResourceId;
+    }
+
+    /**
      * Bind the data to the ViewHolder for the Content of this Section, that can be the Items,
      * Loading view or Failed view, depending on the current state of the section
      * @param holder ViewHolder for the Content of this Section
@@ -217,6 +226,9 @@ public abstract class Section {
                 break;
             case FAILED:
                 onBindFailedViewHolder(holder);
+                break;
+            case EMPTY:
+                onBindEmptyViewHolder(holder);
                 break;
             default:
                 throw new IllegalStateException("Invalid state");
@@ -239,6 +251,9 @@ public abstract class Section {
                 contentItemsTotal = getContentItemsTotal();
                 break;
             case FAILED:
+                contentItemsTotal = 1;
+                break;
+            case EMPTY:
                 contentItemsTotal = 1;
                 break;
             default:
@@ -330,6 +345,22 @@ public abstract class Section {
      * @param holder ViewHolder for the Failed state of this Section
      */
     public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
+        // Nothing to bind here.
+    }
+
+    /**
+     * Return the ViewHolder for the Empty state of this Section
+     * @param view View inflated by resource returned by getItemResourceId
+     * @return ViewHolder for the Empty of this Section
+     */
+    public RecyclerView.ViewHolder getEmptyViewHolder(View view) {
+        return new SectionedRecyclerViewAdapter.EmptyViewHolder(view);
+    }
+    /**
+     * Bind the data to the ViewHolder for the Empty state of this Section
+     * @param holder ViewHolder for the Empty state of this Section
+     */
+    public void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
 }
