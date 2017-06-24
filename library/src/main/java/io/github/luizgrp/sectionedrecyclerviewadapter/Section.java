@@ -72,6 +72,22 @@ public abstract class Section {
     }
 
     /**
+     * Create a Section object based on section parameters. This is a recommended way as it can
+     * avoid nasty bug caused by parameters ordering mistake
+     * @param sectionParameters Parameters used to construct a Section object
+     */
+    public Section(SectionParameters sectionParameters) {
+        this.headerResourceId = sectionParameters.headerResourceId;
+        this.footerResourceId = sectionParameters.footerResourceId;
+        this.itemResourceId = sectionParameters.itemResourceId;
+        this.loadingResourceId = sectionParameters.loadingResourceId;
+        this.failedResourceId = sectionParameters.failedResourceId;
+
+        this.hasHeader = (this.headerResourceId != null);
+        this.hasFooter = (this.footerResourceId != null);
+    }
+
+    /**
      * Set the State of this Section
      * @param state state of this section
      */
