@@ -30,6 +30,8 @@ public class SectionedRecyclerViewAdapterTest {
 
     private final int ITEMS_QTY = 10;
     private final String SECTION_TAG = "tag";
+    private final String SECTION_HEADER_TAG = "header_tag";
+    private final String SECTION_FOOTER_TAG = "footer_tag";
 
     private SectionedRecyclerViewAdapter sectionAdapter;
 
@@ -479,6 +481,86 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         assertThat(result, is(11));
+    }
+
+    @Test
+    public void getHeaderPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterHeaderPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_HEADER_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(SECTION_TAG);
+        int result2 = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(SECTION_HEADER_TAG);
+
+        // Then
+        assertThat(result, is(10));
+        assertThat(result2, is(-1));
+    }
+
+    @Test
+    public void getHeaderPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterHeaderPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(headedFootedStatelessSectionStub);
+        int result2 = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(statelessSectionStub);
+
+        // Then
+        assertThat(result, is(10));
+        assertThat(result2, is(-1));
+    }
+
+    @Test
+    public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_FOOTER_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(SECTION_TAG);
+        int result2 = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(SECTION_FOOTER_TAG);
+
+        // Then
+        assertThat(result, is(21));
+        assertThat(result2, is(-1));
+    }
+
+    @Test
+    public void getFooterPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
+        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
+
+        // When
+        int result = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(headedFootedStatelessSectionStub);
+        int result2 = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(statelessSectionStub);
+
+        // Then
+        assertThat(result, is(21));
+        assertThat(result2, is(-1));
     }
 
     @Test
