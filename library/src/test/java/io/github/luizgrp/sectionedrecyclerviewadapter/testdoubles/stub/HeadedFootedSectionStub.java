@@ -4,17 +4,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
-import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 
 /**
  * A stub of StatelessSection with header and footer.
  */
 public class HeadedFootedSectionStub extends Section {
 
-    final int contentItemsTotal;
+    private final int contentItemsTotal;
 
     public HeadedFootedSectionStub(int contentItemsTotal) {
-        super(-1, -1, -1, -1, -1);
+        super(new SectionParameters.Builder(-1)
+                .headerResourceId(-1)
+                .footerResourceId(-1)
+                .failedResourceId(-1)
+                .loadingResourceId(-1)
+                .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

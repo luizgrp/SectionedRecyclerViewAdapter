@@ -3,6 +3,7 @@ package io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 /**
@@ -14,10 +15,13 @@ public class BindingHeadedFootedStatelessSectionSpy extends StatelessSection {
     public boolean onBindHeaderViewHolderWasCalled = false;
     public boolean onBindFooterViewHolderWasCalled = false;
 
-    final int contentItemsTotal;
+    private final int contentItemsTotal;
 
     public BindingHeadedFootedStatelessSectionSpy(int contentItemsTotal) {
-        super(-1, -1, -1);
+        super(new SectionParameters.Builder(-1)
+                .headerResourceId(-1)
+                .footerResourceId(-1)
+                .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

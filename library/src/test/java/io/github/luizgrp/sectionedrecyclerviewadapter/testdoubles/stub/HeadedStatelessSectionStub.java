@@ -3,6 +3,7 @@ package io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 /**
@@ -10,10 +11,12 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
  */
 public class HeadedStatelessSectionStub extends StatelessSection {
 
-    final int contentItemsTotal;
+    private final int contentItemsTotal;
 
     public HeadedStatelessSectionStub(int contentItemsTotal) {
-        super(-1, -1);
+        super(new SectionParameters.Builder(-1)
+                .headerResourceId(-1)
+                .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }
