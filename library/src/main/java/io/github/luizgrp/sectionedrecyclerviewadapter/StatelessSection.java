@@ -59,6 +59,14 @@ public abstract class StatelessSection extends Section {
      */
     public StatelessSection(SectionParameters sectionParameters) {
         super(sectionParameters);
+
+        if (sectionParameters.loadingResourceId != null) {
+            throw new IllegalArgumentException("Stateless section shouldn't have a loading resource");
+        }
+
+        if (sectionParameters.failedResourceId != null) {
+            throw new IllegalArgumentException("Stateless section shouldn't have a failed resource");
+        }
     }
 
     @Override
