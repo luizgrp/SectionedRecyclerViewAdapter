@@ -4,11 +4,11 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
  * POJO which acts as constructor parameters of {@link Section Sections}.
  */
 public class SectionParameters {
-    public final int headerResourceId;
-    public final int footerResourceId;
+    public final Integer headerResourceId;
+    public final Integer footerResourceId;
     public final int itemResourceId;
-    public final int loadingResourceId;
-    public final int failedResourceId;
+    public final Integer loadingResourceId;
+    public final Integer failedResourceId;
 
     /**
      * Builder pattern mentioned by Joshua Bloch in Effective Java, 2nd Edition
@@ -16,10 +16,10 @@ public class SectionParameters {
     public static class Builder {
         private final int itemResourceId;
 
-        private int headerResourceId;
-        private int footerResourceId;
-        private int loadingResourceId;
-        private int failedResourceId;
+        private Integer headerResourceId;
+        private Integer footerResourceId;
+        private Integer loadingResourceId;
+        private Integer failedResourceId;
 
         /**
          * Create a Builder object to construct SectionParameters

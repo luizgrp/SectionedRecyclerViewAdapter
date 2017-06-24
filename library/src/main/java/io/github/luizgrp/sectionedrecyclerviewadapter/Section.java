@@ -77,13 +77,14 @@ public abstract class Section {
      * @param sectionParameters Parameters used to construct a Section object
      */
     public Section(SectionParameters sectionParameters) {
-        this(
-            sectionParameters.headerResourceId,
-            sectionParameters.footerResourceId,
-            sectionParameters.itemResourceId,
-            sectionParameters.loadingResourceId,
-            sectionParameters.failedResourceId
-        );
+        this.headerResourceId = sectionParameters.headerResourceId;
+        this.footerResourceId = sectionParameters.footerResourceId;
+        this.itemResourceId = sectionParameters.itemResourceId;
+        this.loadingResourceId = sectionParameters.loadingResourceId;
+        this.failedResourceId = sectionParameters.failedResourceId;
+
+        this.hasHeader = (this.headerResourceId != null);
+        this.hasFooter = (this.footerResourceId != null);
     }
 
     /**
