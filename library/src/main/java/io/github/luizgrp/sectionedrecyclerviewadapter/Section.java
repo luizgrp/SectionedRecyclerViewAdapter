@@ -26,13 +26,6 @@ public abstract class Section {
     private Integer failedResourceId;
 
     /**
-     * Package-level constructor
-     */
-    Section() {
-
-    }
-
-    /**
      * Create a Section object with loading/failed states, without header and footer
      *
      * @deprecated Replaced by {@link #Section(SectionParameters)}

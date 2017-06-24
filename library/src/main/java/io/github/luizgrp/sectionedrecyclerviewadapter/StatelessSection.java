@@ -10,34 +10,55 @@ public abstract class StatelessSection extends Section {
 
     /**
      * Create a stateless Section object without header and footer
+     *
+     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
+     *
      * @param itemResourceId layout resource for its items
      */
+    @Deprecated
     public StatelessSection(int itemResourceId) {
-        super();
-        this.itemResourceId = itemResourceId;
+        this(new SectionParameters.Builder(itemResourceId)
+                .build());
     }
 
     /**
      * Create a stateless Section object, with a custom header but without footer
+     *
+     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
+     *
      * @param headerResourceId layout resource for its header
      * @param itemResourceId layout resource for its items
      */
+    @Deprecated
     public StatelessSection(int headerResourceId, int itemResourceId) {
-        this(itemResourceId);
-        this.headerResourceId = headerResourceId;
-        this.hasHeader = true;
+        this(new SectionParameters.Builder(itemResourceId)
+                .headerResourceId(headerResourceId)
+                .build());
     }
 
     /**
      * Create a stateless Section object, with a custom header and a custom footer
+     *
+     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
+     *
      * @param headerResourceId layout resource for its header
      * @param footerResourceId layout resource for its footer
      * @param itemResourceId layout resource for its items
      */
+    @Deprecated
     public StatelessSection(int headerResourceId, int footerResourceId, int itemResourceId) {
-        this(headerResourceId, itemResourceId);
-        this.footerResourceId = footerResourceId;
-        this.hasFooter = true;
+        this(new SectionParameters.Builder(itemResourceId)
+                .headerResourceId(headerResourceId)
+                .footerResourceId(footerResourceId)
+                .build());
+    }
+
+    /**
+     * Create a stateless Section object based on {@link SectionParameters}
+     * @param sectionParameters section parameters
+     */
+    public StatelessSection(SectionParameters sectionParameters) {
+        super(sectionParameters);
     }
 
     @Override
