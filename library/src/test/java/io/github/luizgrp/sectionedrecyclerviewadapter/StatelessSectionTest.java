@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingFootedStatelessSectionSpy;
@@ -17,73 +18,84 @@ public class StatelessSectionTest {
 
     private final int ITEMS_QTY = 10;
 
+    private SectionedRecyclerViewAdapter sectionAdapter;
+
+    @Before
+    public void setup() {
+        sectionAdapter = new SectionedRecyclerViewAdapter();
+    }
+
     @Test
     public void onBindViewHolder_StatelessSection_isCalled() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
-        StatelessSectionStub sectionStub = new StatelessSectionStub(ITEMS_QTY);
-        sectionAdapter.addSection(sectionStub);
         BindingStatelessSectionSpy sectionSpy = new BindingStatelessSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
+        // When
         // StatelessSection - Items [10-19]
         sectionAdapter.onBindViewHolder(null, 10);
 
+        // Then
         assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
     }
 
     @Test
     public void onBindViewHolder_HeadedStatelessSection_isCalled() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
-        StatelessSectionStub sectionStub = new StatelessSectionStub(ITEMS_QTY);
-        sectionAdapter.addSection(sectionStub);
         BindingHeadedStatelessSectionSpy sectionSpy = new BindingHeadedStatelessSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
+        // When
         // HeadedStatelessSection - Header [10]
         sectionAdapter.onBindViewHolder(null, 10);
         // HeadedStatelessSection - Items [11-20]
         sectionAdapter.onBindViewHolder(null, 11);
 
+        // Then
         assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
         assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
     }
 
     @Test
     public void onBindViewHolder_FootedStatelessSection_isCalled() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
-        StatelessSectionStub sectionStub = new StatelessSectionStub(ITEMS_QTY);
-        sectionAdapter.addSection(sectionStub);
         BindingFootedStatelessSectionSpy sectionSpy = new BindingFootedStatelessSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
-        // FootedStatelessSection - Items [11-20]
+        // When
+        // FootedStatelessSection - Items [10-19]
         sectionAdapter.onBindViewHolder(null, 10);
         // FootedStatelessSection - Footer [20]
         sectionAdapter.onBindViewHolder(null, 20);
 
+        // Then
         assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
         assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
     }
 
     @Test
     public void onBindViewHolder_HeadedFootedStatelessSection_isCalled() {
-        SectionedRecyclerViewAdapter sectionAdapter = new SectionedRecyclerViewAdapter();
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
-        StatelessSectionStub sectionStub = new StatelessSectionStub(ITEMS_QTY);
-        sectionAdapter.addSection(sectionStub);
         BindingHeadedFootedStatelessSectionSpy sectionSpy = new BindingHeadedFootedStatelessSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
+        // When
         // HeadedFootedStatelessSection - Header [10]
         sectionAdapter.onBindViewHolder(null, 10);
-        // HeadedFootedStatelessSection - Item [11]
+        // HeadedFootedStatelessSection - Items [11-20]
         sectionAdapter.onBindViewHolder(null, 11);
         // HeadedFootedStatelessSection - Footer [21]
         sectionAdapter.onBindViewHolder(null, 21);
 
+        // Then
         assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
         assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
         assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
