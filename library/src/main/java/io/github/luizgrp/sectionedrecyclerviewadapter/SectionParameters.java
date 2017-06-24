@@ -9,6 +9,7 @@ public class SectionParameters {
     public final int itemResourceId;
     public final Integer loadingResourceId;
     public final Integer failedResourceId;
+    public final Integer emptyResourceId;
 
     /**
      * Builder pattern mentioned by Joshua Bloch in Effective Java, 2nd Edition
@@ -20,6 +21,7 @@ public class SectionParameters {
         private Integer footerResourceId;
         private Integer loadingResourceId;
         private Integer failedResourceId;
+        private Integer emptyResourceId;
 
         /**
          * Create a Builder object to construct SectionParameters
@@ -74,6 +76,17 @@ public class SectionParameters {
         }
 
         /**
+         * Set layout resource for Section's empty state of this builder
+         * @param emptyResourceId layout resource for Section's empty state
+         * @return this builder
+         */
+        public Builder emptyResourceId(int emptyResourceId) {
+            this.emptyResourceId = emptyResourceId;
+
+            return this;
+        }
+
+        /**
          * Constructs an instance of SectionParameters
          * @return an instance of SectionParameters
          */
@@ -91,5 +104,6 @@ public class SectionParameters {
         this.itemResourceId = builder.itemResourceId;
         this.loadingResourceId = builder.loadingResourceId;
         this.failedResourceId = builder.failedResourceId;
+        this.emptyResourceId = builder.emptyResourceId;
     }
 }

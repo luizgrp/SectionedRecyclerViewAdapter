@@ -319,10 +319,10 @@ public class SectionedRecyclerViewAdapterTest {
         int positionFooter = sectionAdapter.getItemViewType(43);
 
         // Then
-        assertThat(positionHeader, is(15));
-        assertThat(positionItemStart, is(17));
-        assertThat(positionItemEnd, is(17));
-        assertThat(positionFooter, is(16));
+        assertThat(positionHeader, is(18));
+        assertThat(positionItemStart, is(20));
+        assertThat(positionItemEnd, is(20));
+        assertThat(positionFooter, is(19));
     }
 
     @Test
@@ -344,7 +344,7 @@ public class SectionedRecyclerViewAdapterTest {
         int positionLoading = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionLoading, is(23));
+        assertThat(positionLoading, is(27));
     }
 
     @Test
@@ -366,7 +366,29 @@ public class SectionedRecyclerViewAdapterTest {
         int positionFailed = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionFailed, is(24));
+        assertThat(positionFailed, is(28));
+    }
+
+    @Test
+    public void getItemViewType_withAdapterWithManySections_returnsCorrectValuesForSectionWithEmptyState() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addHeadedStatelessSectionStubToAdapter();
+        addFootedStatelessSectionStubToAdapter();
+        addHeadedFootedStatelessSectionStubToAdapter();
+
+        Section section = addSectionStubToAdapter();
+        section.setState(Section.State.EMPTY);
+
+        addHeadedSectionStubToAdapter();
+        addFootedSectionStubToAdapter();
+        addHeadedFootedSectionStubToAdapter();
+
+        // When
+        int positionEmpty = sectionAdapter.getItemViewType(44);
+
+        // Then
+        assertThat(positionEmpty, is(29));
     }
 
     @Test
