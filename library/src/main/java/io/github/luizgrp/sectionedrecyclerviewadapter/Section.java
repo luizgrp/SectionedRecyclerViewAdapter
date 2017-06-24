@@ -5,8 +5,6 @@ import android.view.View;
 
 /**
  * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
- *
- * @author Gustavo Pagani
  */
 public abstract class Section {
 

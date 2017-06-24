@@ -4,9 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Abstract {@link Section} with no States.
- *
- * @author Gustavo Pagani
+ * Abstract {@link Section} with no states.
  */
 public abstract class StatelessSection extends Section {
 
