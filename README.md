@@ -34,7 +34,9 @@ class MySection extends StatelessSection {
 
     public MySection() {
         // call constructor with layout resources for this Section header and items
-        super(R.layout.section_header, R.layout.section_item);
+        super(new SectionParameters.Builder(R.layout.section_item)
+                .headerResourceId(R.layout.section_header)
+                .build());
     }
 
     @Override
