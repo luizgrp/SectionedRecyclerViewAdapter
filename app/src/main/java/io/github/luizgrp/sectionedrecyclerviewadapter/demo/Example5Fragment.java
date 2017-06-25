@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -100,7 +101,9 @@ public class Example5Fragment extends Fragment {
         List<Movie> list;
 
         public MovieSection(String title, List<Movie> list) {
-            super(R.layout.section_ex5_header, R.layout.section_ex5_item);
+            super(new SectionParameters.Builder(R.layout.section_ex5_item)
+                    .headerResourceId(R.layout.section_ex5_header)
+                    .build());
 
             this.title = title;
             this.list = list;

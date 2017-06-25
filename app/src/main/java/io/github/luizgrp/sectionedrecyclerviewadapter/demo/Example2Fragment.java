@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -68,7 +69,10 @@ public class Example2Fragment extends Fragment {
         int imgPlaceholderResId;
 
         public NewsSection(int topic) {
-            super(R.layout.section_ex2_header, R.layout.section_ex2_footer, R.layout.section_ex2_item);
+            super(new SectionParameters.Builder(R.layout.section_ex2_item)
+                    .headerResourceId(R.layout.section_ex2_header)
+                    .footerResourceId(R.layout.section_ex2_footer)
+                    .build());
 
             this.topic = topic;
 

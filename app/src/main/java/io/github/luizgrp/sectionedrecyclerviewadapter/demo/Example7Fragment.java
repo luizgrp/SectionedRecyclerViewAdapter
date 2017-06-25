@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -118,7 +119,9 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         List<String> filteredList;
 
         public ContactsSection(String title, List<String> list) {
-            super(R.layout.section_ex7_header, R.layout.section_ex7_item);
+            super(new SectionParameters.Builder(R.layout.section_ex7_item)
+                    .headerResourceId(R.layout.section_ex7_header)
+                    .build());
 
             this.title = title;
             this.list = list;

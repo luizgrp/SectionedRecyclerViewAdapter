@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
 public class Example3Fragment extends Fragment {
@@ -142,7 +143,12 @@ public class Example3Fragment extends Fragment {
         int imgPlaceholderResId;
 
         public NewsSection(int topic) {
-            super(R.layout.section_ex3_header, R.layout.section_ex3_footer, R.layout.section_ex3_item, R.layout.section_ex3_loading, R.layout.section_ex3_failed);
+            super(new SectionParameters.Builder(R.layout.section_ex3_item)
+                    .headerResourceId(R.layout.section_ex3_header)
+                    .footerResourceId(R.layout.section_ex3_footer)
+                    .failedResourceId(R.layout.section_ex3_failed)
+                    .loadingResourceId(R.layout.section_ex3_loading)
+                    .build());
 
             this.topic = topic;
             this.list = Collections.EMPTY_LIST;

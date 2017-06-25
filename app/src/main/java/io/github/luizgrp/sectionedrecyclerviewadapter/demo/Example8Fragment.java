@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -113,7 +114,9 @@ public class Example8Fragment extends Fragment {
         List<Person> list;
 
         public NameSection(String tag, String title) {
-            super(R.layout.section_ex8_header, R.layout.section_ex8_item);
+            super(new SectionParameters.Builder(R.layout.section_ex8_item)
+                    .headerResourceId(R.layout.section_ex8_header)
+                    .build());
 
             this.TAG = tag;
             this.title = title;

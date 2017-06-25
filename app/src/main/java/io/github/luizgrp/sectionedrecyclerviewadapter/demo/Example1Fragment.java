@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -75,7 +76,9 @@ public class Example1Fragment extends Fragment {
         List<String> list;
 
         public ContactsSection(String title, List<String> list) {
-            super(R.layout.section_ex1_header, R.layout.section_ex1_item);
+            super(new SectionParameters.Builder(R.layout.section_ex1_item)
+                    .headerResourceId(R.layout.section_ex1_header)
+                    .build());
 
             this.title = title;
             this.list = list;
