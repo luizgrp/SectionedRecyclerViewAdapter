@@ -466,11 +466,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that returns the position of header in the adapter.
      *
      * @param section a visible section of this adapter
-     * @return position of the header in the adapter. -1 if the section doesn't have header
+     * @exception IllegalStateException if the section doesn't have header
+     * @return position of the header in the adapter
      */
     public int getHeaderPositionInAdapter(Section section) {
         if (!section.hasHeader) {
-            return -1;
+            throw new IllegalStateException("Section doesn't have a header");
         }
 
         return getSectionPosition(section);
@@ -492,11 +493,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that returns the position of header in the adapter.
      *
      * @param section a visible section of this adapter
+     * @exception IllegalStateException if the section doesn't have footer
      * @return position of the footer in the adapter. -1 if the section doesn't have footer
      */
     public int getFooterPositionInAdapter(Section section) {
         if (!section.hasFooter) {
-            return -1;
+            throw new IllegalStateException("Section doesn't have a footer");
         }
 
         return getSectionPosition(section) + section.getSectionItemsTotal() - 1;
@@ -643,13 +645,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param tag unique identifier of the section
      */
     public void notifyHeaderChangedInSection(String tag) {
-        int headerPosition = getHeaderPositionInAdapter(tag);
+        Section section = getValidSectionOrThrowException(tag);
 
-        if (headerPosition == -1) {
-            return;
-        }
-
-        callSuperNotifyItemChanged(headerPosition);
+        notifyHeaderChangedInSection(section);
     }
 
     /**
@@ -661,10 +659,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public void notifyHeaderChangedInSection(Section section) {
         int headerPosition = getHeaderPositionInAdapter(section);
 
-        if (headerPosition == -1) {
-            return;
-        }
-
         callSuperNotifyItemChanged(headerPosition);
     }
 
@@ -675,13 +669,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param tag unique identifier of the section
      */
     public void notifyFooterChangedInSection(String tag) {
-        int footerPosition = getFooterPositionInAdapter(tag);
+        Section section = getValidSectionOrThrowException(tag);
 
-        if (footerPosition == -1) {
-            return;
-        }
-
-        callSuperNotifyItemChanged(footerPosition);
+        notifyFooterChangedInSection(section);
     }
 
     /**
@@ -692,10 +682,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyFooterChangedInSection(Section section) {
         int footerPosition = getFooterPositionInAdapter(section);
-
-        if (footerPosition == -1) {
-            return;
-        }
 
         callSuperNotifyItemChanged(footerPosition);
     }
