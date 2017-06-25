@@ -22,7 +22,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example4Fragment extends Fragment {
 
-    SectionedRecyclerViewAdapter sectionAdapter;
+    private SectionedRecyclerViewAdapter sectionAdapter;
 
     @Nullable
     @Override
@@ -70,13 +70,13 @@ public class Example4Fragment extends Fragment {
         return contacts;
     }
 
-    class ExpandableContactsSection extends StatelessSection {
+    private class ExpandableContactsSection extends StatelessSection {
 
         String title;
         List<String> list;
         boolean expanded = true;
 
-        public ExpandableContactsSection(String title, List<String> list) {
+        ExpandableContactsSection(String title, List<String> list) {
             super(new SectionParameters.Builder(R.layout.section_ex4_item)
                     .headerResourceId(R.layout.section_ex4_header)
                     .build());
@@ -136,13 +136,13 @@ public class Example4Fragment extends Fragment {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final TextView tvTitle;
         private final ImageView imgArrow;
 
-        public HeaderViewHolder(View view) {
+        HeaderViewHolder(View view) {
             super(view);
 
             rootView = view;
@@ -151,13 +151,13 @@ public class Example4Fragment extends Fragment {
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final ImageView imgItem;
         private final TextView tvItem;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
 
             rootView = view;

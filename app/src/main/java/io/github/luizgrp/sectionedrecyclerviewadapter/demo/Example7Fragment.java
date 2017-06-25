@@ -112,13 +112,13 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         return contacts;
     }
 
-    class ContactsSection extends StatelessSection implements FilterableSection {
+    private class ContactsSection extends StatelessSection implements FilterableSection {
 
         String title;
         List<String> list;
         List<String> filteredList;
 
-        public ContactsSection(String title, List<String> list) {
+        ContactsSection(String title, List<String> list) {
             super(new SectionParameters.Builder(R.layout.section_ex7_item)
                     .headerResourceId(R.layout.section_ex7_header)
                     .build());
@@ -188,24 +188,24 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
 
-        public HeaderViewHolder(View view) {
+        HeaderViewHolder(View view) {
             super(view);
 
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final ImageView imgItem;
         private final TextView tvItem;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
 
             rootView = view;
