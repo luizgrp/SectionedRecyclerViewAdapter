@@ -9,6 +9,7 @@ public class SectionParameters {
     public final int itemResourceId;
     public final Integer loadingResourceId;
     public final Integer failedResourceId;
+    public final Integer emptyResourceId;
 
     /**
      * Builder of {@link SectionParameters}
@@ -20,6 +21,7 @@ public class SectionParameters {
         private Integer footerResourceId;
         private Integer loadingResourceId;
         private Integer failedResourceId;
+        private Integer emptyResourceId;
 
         /**
          * Constructor with mandatory parameters of {@link Section}
@@ -74,6 +76,17 @@ public class SectionParameters {
         }
 
         /**
+         * Set layout resource for Section's empty state
+         * @param emptyResourceId layout resource for Section's empty state
+         * @return this builder
+         */
+        public Builder emptyResourceId(int emptyResourceId) {
+            this.emptyResourceId = emptyResourceId;
+
+            return this;
+        }
+        
+        /**
          * Build an instance of SectionParameters
          * @return an instance of SectionParameters
          */
@@ -88,5 +101,6 @@ public class SectionParameters {
         this.itemResourceId = builder.itemResourceId;
         this.loadingResourceId = builder.loadingResourceId;
         this.failedResourceId = builder.failedResourceId;
+        this.emptyResourceId = builder.emptyResourceId;
     }
 }
