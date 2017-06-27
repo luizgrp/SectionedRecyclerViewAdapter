@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -106,14 +107,16 @@ public class Example8Fragment extends Fragment {
         return new Person(randomName[0], "ID #" + getRandomStringNumber());
     }
 
-    class NameSection extends StatelessSection {
+    private class NameSection extends StatelessSection {
 
         final String TAG;
         String title;
         List<Person> list;
 
-        public NameSection(String tag, String title) {
-            super(R.layout.section_ex8_header, R.layout.section_ex8_item);
+        NameSection(String tag, String title) {
+            super(new SectionParameters.Builder(R.layout.section_ex8_item)
+                    .headerResourceId(R.layout.section_ex8_header)
+                    .build());
 
             this.TAG = tag;
             this.title = title;
@@ -192,13 +195,13 @@ public class Example8Fragment extends Fragment {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
         private final Button btnAdd;
         private final Button btnClear;
 
-        public HeaderViewHolder(View view) {
+        HeaderViewHolder(View view) {
             super(view);
 
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
@@ -207,14 +210,14 @@ public class Example8Fragment extends Fragment {
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final ImageView imgItem;
         private final TextView tvItem;
         private final TextView tvSubItem;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
 
             rootView = view;
@@ -224,11 +227,11 @@ public class Example8Fragment extends Fragment {
         }
     }
 
-    class Person {
+    private class Person {
         String name;
         String id;
 
-        public Person(String name, String id) {
+        Person(String name, String id) {
             this.name = name;
             this.id = id;
         }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -69,13 +70,15 @@ public class Example1Fragment extends Fragment {
         return contacts;
     }
 
-    class ContactsSection extends StatelessSection {
+    private class ContactsSection extends StatelessSection {
 
         String title;
         List<String> list;
 
-        public ContactsSection(String title, List<String> list) {
-            super(R.layout.section_ex1_header, R.layout.section_ex1_item);
+        ContactsSection(String title, List<String> list) {
+            super(new SectionParameters.Builder(R.layout.section_ex1_item)
+                    .headerResourceId(R.layout.section_ex1_header)
+                    .build());
 
             this.title = title;
             this.list = list;
@@ -121,24 +124,24 @@ public class Example1Fragment extends Fragment {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
 
-        public HeaderViewHolder(View view) {
+        HeaderViewHolder(View view) {
             super(view);
 
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final ImageView imgItem;
         private final TextView tvItem;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
 
             rootView = view;

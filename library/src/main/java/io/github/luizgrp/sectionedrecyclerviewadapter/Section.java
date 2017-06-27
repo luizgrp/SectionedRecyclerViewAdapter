@@ -27,55 +27,65 @@ public abstract class Section {
     private Integer emptyResourceId;
 
     /**
-     * Package-level constructor
-     */
-    Section() {
-
-    }
-
-    /**
      * Create a Section object with loading/failed states, without header and footer
+     *
+     * @deprecated Replaced by {@link #Section(SectionParameters)}
+     *
      * @param itemResourceId layout resource for its items
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
+    @Deprecated
     public Section(int itemResourceId, int loadingResourceId, int failedResourceId) {
-        this.itemResourceId = itemResourceId;
-        this.loadingResourceId = loadingResourceId;
-        this.failedResourceId = failedResourceId;
+        this(new SectionParameters.Builder(itemResourceId)
+                .loadingResourceId(loadingResourceId)
+                .failedResourceId(failedResourceId)
+                .build());
     }
 
     /**
      * Create a Section object with loading/failed states, with a custom header but without footer
+     *
+     * @deprecated Replaced by {@link #Section(SectionParameters)}
+     *
      * @param headerResourceId layout resource for its header
      * @param itemResourceId layout resource for its items
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
+    @Deprecated
     public Section(int headerResourceId, int itemResourceId, int loadingResourceId, int failedResourceId) {
-        this(itemResourceId, loadingResourceId, failedResourceId);
-        this.headerResourceId = headerResourceId;
-        hasHeader = true;
+        this(new SectionParameters.Builder(itemResourceId)
+                .headerResourceId(headerResourceId)
+                .loadingResourceId(loadingResourceId)
+                .failedResourceId(failedResourceId)
+                .build());
     }
 
     /**
      * Create a Section object with loading/failed states, with a custom header and a custom footer
+     *
+     * @deprecated Replaced by {@link #Section(SectionParameters)}
+     *
      * @param headerResourceId layout resource for its header
      * @param footerResourceId layout resource for its footer
      * @param itemResourceId layout resource for its items
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
+    @Deprecated
     public Section(int headerResourceId, int footerResourceId, int itemResourceId, int loadingResourceId, int failedResourceId) {
-        this(headerResourceId, itemResourceId, loadingResourceId, failedResourceId);
-        this.footerResourceId = footerResourceId;
-        hasFooter = true;
+        this(new SectionParameters.Builder(itemResourceId)
+                .headerResourceId(headerResourceId)
+                .footerResourceId(footerResourceId)
+                .loadingResourceId(loadingResourceId)
+                .failedResourceId(failedResourceId)
+                .build());
     }
 
     /**
-     * Create a Section object based on section parameters. This is a recommended way as it can
-     * avoid nasty bug caused by parameters ordering mistake
-     * @param sectionParameters Parameters used to construct a Section object
+     * Create a Section object based on {@link SectionParameters}
+     * @param sectionParameters section parameters
      */
     public Section(SectionParameters sectionParameters) {
         this.headerResourceId = sectionParameters.headerResourceId;

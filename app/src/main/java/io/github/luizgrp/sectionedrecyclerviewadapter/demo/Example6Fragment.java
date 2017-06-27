@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -93,14 +94,16 @@ public class Example6Fragment extends Fragment {
         return movieList;
     }
 
-    class ExpandableMovieSection extends StatelessSection {
+    private class ExpandableMovieSection extends StatelessSection {
 
         String title;
         List<Movie> list;
         boolean expanded = true;
 
-        public ExpandableMovieSection(String title, List<Movie> list) {
-            super(R.layout.section_ex6_header, R.layout.section_ex6_item);
+        ExpandableMovieSection(String title, List<Movie> list) {
+            super(new SectionParameters.Builder(R.layout.section_ex6_item)
+                    .headerResourceId(R.layout.section_ex6_header)
+                    .build());
 
             this.title = title;
             this.list = list;
@@ -160,13 +163,13 @@ public class Example6Fragment extends Fragment {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final TextView tvTitle;
         private final ImageView imgArrow;
 
-        public HeaderViewHolder(View view) {
+        HeaderViewHolder(View view) {
             super(view);
 
             rootView = view;
@@ -175,13 +178,13 @@ public class Example6Fragment extends Fragment {
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final TextView tvItem;
         private final TextView tvSubItem;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
 
             rootView = view;
@@ -190,11 +193,11 @@ public class Example6Fragment extends Fragment {
         }
     }
 
-    class Movie {
+    private class Movie {
         String name;
         String category;
 
-        public Movie(String name, String category) {
+        Movie(String name, String category) {
             this.name = name;
             this.category = category;
         }

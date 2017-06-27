@@ -1,7 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
 /**
- * POJO which acts as constructor parameters of {@link Section Sections}.
+ * Class used as constructor parameters of {@link Section}.
  */
 public class SectionParameters {
     public final Integer headerResourceId;
@@ -12,7 +12,7 @@ public class SectionParameters {
     public final Integer emptyResourceId;
 
     /**
-     * Builder pattern mentioned by Joshua Bloch in Effective Java, 2nd Edition
+     * Builder of {@link SectionParameters}
      */
     public static class Builder {
         private final int itemResourceId;
@@ -24,7 +24,7 @@ public class SectionParameters {
         private Integer emptyResourceId;
 
         /**
-         * Create a Builder object to construct SectionParameters
+         * Constructor with mandatory parameters of {@link Section}
          * @param itemResourceId layout resource for Section's items
          */
         public Builder(int itemResourceId) {
@@ -32,7 +32,7 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's header of this builder
+         * Set layout resource for Section's header
          * @param headerResourceId layout resource for Section's header
          * @return this builder
          */
@@ -43,7 +43,7 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's footer of this builder
+         * Set layout resource for Section's footer
          * @param footerResourceId layout resource for Section's footer
          * @return this builder
          */
@@ -54,7 +54,7 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's loading state of this builder
+         * Set layout resource for Section's loading state
          * @param loadingResourceId layout resource for Section's loading state
          * @return this builder
          */
@@ -65,7 +65,7 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's failed state of this builder
+         * Set layout resource for Section's failed state
          * @param failedResourceId layout resource for Section's failed state
          * @return this builder
          */
@@ -76,7 +76,7 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's empty state of this builder
+         * Set layout resource for Section's empty state
          * @param emptyResourceId layout resource for Section's empty state
          * @return this builder
          */
@@ -85,9 +85,9 @@ public class SectionParameters {
 
             return this;
         }
-
+        
         /**
-         * Constructs an instance of SectionParameters
+         * Build an instance of SectionParameters
          * @return an instance of SectionParameters
          */
         public SectionParameters build() {
@@ -95,9 +95,6 @@ public class SectionParameters {
         }
     }
 
-    /**
-     * Private constructor. Not for public consumption
-     */
     private SectionParameters(Builder builder) {
         this.headerResourceId = builder.headerResourceId;
         this.footerResourceId = builder.footerResourceId;

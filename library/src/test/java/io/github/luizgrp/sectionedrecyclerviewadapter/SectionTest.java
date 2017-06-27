@@ -145,31 +145,37 @@ public class SectionTest {
     @Test
     public void build_constructsCorrectSection() {
         // Given
-        SectionParameters sectionParameters = new SectionParameters.Builder(1)
-                .failedResourceId(2)
-                .footerResourceId(3)
-                .headerResourceId(4)
-                .loadingResourceId(5)
+        final int ITEM_ID = 1;
+        final int HEADER_ID = 2;
+        final int FOOTER_ID = 3;
+        final int FAILED_ID = 4;
+        final int LOADING_ID = 5;
+
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .headerResourceId(HEADER_ID)
+                .footerResourceId(FOOTER_ID)
+                .failedResourceId(FAILED_ID)
+                .loadingResourceId(LOADING_ID)
                 .build();
+        Section section = getSection(sectionParameters);
 
         // When
-        Section section = getSection(sectionParameters);
-        int result = section.getItemResourceId();
-        int result2 = section.getFailedResourceId();
-        int result3 = section.getFooterResourceId();
-        int result4 = section.getHeaderResourceId();
-        int result5 = section.getLoadingResourceId();
-        boolean hasHeader = section.hasHeader();
-        boolean hasFooter = section.hasFooter();
+        int resultItemId = section.getItemResourceId();
+        int resultHeaderId = section.getHeaderResourceId();
+        int resultFooterId = section.getFooterResourceId();
+        int resultFailedId = section.getFailedResourceId();
+        int resultLoadingId = section.getLoadingResourceId();
+        boolean resultHasHeader = section.hasHeader();
+        boolean resultHasFooter = section.hasFooter();
 
         // Then
-        assertThat(result, is(1));
-        assertThat(result2, is(2));
-        assertThat(result3, is(3));
-        assertThat(result4, is(4));
-        assertThat(result5, is(5));
-        assertThat(hasHeader, is(true));
-        assertThat(hasFooter, is(true));
+        assertThat(resultItemId, is(ITEM_ID));
+        assertThat(resultHeaderId, is(HEADER_ID));
+        assertThat(resultFooterId, is(FOOTER_ID));
+        assertThat(resultFailedId, is(FAILED_ID));
+        assertThat(resultLoadingId, is(LOADING_ID));
+        assertThat(resultHasHeader, is(true));
+        assertThat(resultHasFooter, is(true));
     }
 
     private Section getSection(SectionParameters sectionParameters) {

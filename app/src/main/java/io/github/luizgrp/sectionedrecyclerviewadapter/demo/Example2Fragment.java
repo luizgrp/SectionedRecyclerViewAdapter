@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
@@ -54,7 +55,7 @@ public class Example2Fragment extends Fragment {
         }
     }
 
-    class NewsSection extends StatelessSection {
+    private class NewsSection extends StatelessSection {
 
         final static int WORLD = 0;
         final static int BUSINESS = 1;
@@ -67,8 +68,11 @@ public class Example2Fragment extends Fragment {
         List<String> list;
         int imgPlaceholderResId;
 
-        public NewsSection(int topic) {
-            super(R.layout.section_ex2_header, R.layout.section_ex2_footer, R.layout.section_ex2_item);
+        NewsSection(int topic) {
+            super(new SectionParameters.Builder(R.layout.section_ex2_item)
+                    .headerResourceId(R.layout.section_ex2_header)
+                    .footerResourceId(R.layout.section_ex2_footer)
+                    .build());
 
             this.topic = topic;
 
@@ -159,36 +163,36 @@ public class Example2Fragment extends Fragment {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
 
-        public HeaderViewHolder(View view) {
+        HeaderViewHolder(View view) {
             super(view);
 
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         }
     }
 
-    class FooterViewHolder extends RecyclerView.ViewHolder {
+    private class FooterViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
 
-        public FooterViewHolder(View view) {
+        FooterViewHolder(View view) {
             super(view);
 
             rootView = view;
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final ImageView imgItem;
         private final TextView tvHeader;
         private final TextView tvDate;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
 
             rootView = view;

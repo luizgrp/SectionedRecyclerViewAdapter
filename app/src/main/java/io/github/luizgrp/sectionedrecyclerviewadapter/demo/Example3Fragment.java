@@ -21,18 +21,14 @@ import java.util.List;
 import java.util.Random;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
 public class Example3Fragment extends Fragment {
 
-    Handler mHandler = new Handler();
+    private Handler mHandler = new Handler();
 
-    SectionedRecyclerViewAdapter sectionAdapter;
-
-    NewsSection worldNews;
-    NewsSection bizNews;
-    NewsSection techNews;
-    NewsSection sportsNews;
+    private SectionedRecyclerViewAdapter sectionAdapter;
 
     @Nullable
     @Override
@@ -41,10 +37,10 @@ public class Example3Fragment extends Fragment {
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
 
-        worldNews = new NewsSection(NewsSection.WORLD);
-        bizNews = new NewsSection(NewsSection.BUSINESS);
-        techNews = new NewsSection(NewsSection.TECHNOLOGY);
-        sportsNews = new NewsSection(NewsSection.SPORTS);
+        NewsSection worldNews = new NewsSection(NewsSection.WORLD);
+        NewsSection bizNews = new NewsSection(NewsSection.BUSINESS);
+        NewsSection techNews = new NewsSection(NewsSection.TECHNOLOGY);
+        NewsSection sportsNews = new NewsSection(NewsSection.SPORTS);
 
         sectionAdapter.addSection(worldNews);
         sectionAdapter.addSection(bizNews);
@@ -128,7 +124,7 @@ public class Example3Fragment extends Fragment {
         return new ArrayList<>(Arrays.asList(getResources().getStringArray(arrayResource)));
     }
 
-    class NewsSection extends Section {
+    private class NewsSection extends Section {
 
         final static int WORLD = 0;
         final static int BUSINESS = 1;
@@ -141,11 +137,16 @@ public class Example3Fragment extends Fragment {
         List<String> list;
         int imgPlaceholderResId;
 
-        public NewsSection(int topic) {
-            super(R.layout.section_ex3_header, R.layout.section_ex3_footer, R.layout.section_ex3_item, R.layout.section_ex3_loading, R.layout.section_ex3_failed);
+        NewsSection(int topic) {
+            super(new SectionParameters.Builder(R.layout.section_ex3_item)
+                    .headerResourceId(R.layout.section_ex3_header)
+                    .footerResourceId(R.layout.section_ex3_footer)
+                    .failedResourceId(R.layout.section_ex3_failed)
+                    .loadingResourceId(R.layout.section_ex3_loading)
+                    .build());
 
             this.topic = topic;
-            this.list = Collections.EMPTY_LIST;
+            this.list = Collections.emptyList();
 
             switch (topic) {
                 case WORLD:
@@ -168,7 +169,7 @@ public class Example3Fragment extends Fragment {
 
         }
 
-        public int getTopic() {
+        int getTopic() {
             return topic;
         }
 
@@ -251,47 +252,47 @@ public class Example3Fragment extends Fragment {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
 
-        public HeaderViewHolder(View itemView) {
+        HeaderViewHolder(View itemView) {
             super(itemView);
 
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
         }
     }
 
-    class FooterViewHolder extends RecyclerView.ViewHolder {
+    private class FooterViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
 
-        public FooterViewHolder(View view) {
+        FooterViewHolder(View view) {
             super(view);
 
             rootView = view;
         }
     }
 
-    class FailedViewHolder extends RecyclerView.ViewHolder {
+    private class FailedViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
 
-        public FailedViewHolder(View itemView) {
+        FailedViewHolder(View itemView) {
             super(itemView);
 
             rootView = itemView.findViewById(R.id.rootView);
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final View rootView;
         private final ImageView imgItem;
         private final TextView tvHeader;
         private final TextView tvDate;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
 
             rootView = view;
