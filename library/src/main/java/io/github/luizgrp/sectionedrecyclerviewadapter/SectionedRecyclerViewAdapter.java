@@ -454,7 +454,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that returns the position of header in the adapter.
      *
      * @param tag unique identifier of the section
-     * @return position of the header in the adapter. -1 if the section doesn't have header
+     * @return position of the header in the adapter
      */
     public int getHeaderPositionInAdapter(String tag) {
         Section section = getValidSectionOrThrowException(tag);
@@ -466,7 +466,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that returns the position of header in the adapter.
      *
      * @param section a visible section of this adapter
-     * @exception IllegalStateException if the section doesn't have header
      * @return position of the header in the adapter
      */
     public int getHeaderPositionInAdapter(Section section) {
@@ -481,7 +480,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that returns the position of footer in the adapter.
      *
      * @param tag unique identifier of the section
-     * @return position of the footer in the adapter. -1 if the section doesn't have footer
+     * @return position of the footer in the adapter
      */
     public int getFooterPositionInAdapter(String tag) {
         Section section = getValidSectionOrThrowException(tag);
@@ -493,8 +492,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that returns the position of header in the adapter.
      *
      * @param section a visible section of this adapter
-     * @exception IllegalStateException if the section doesn't have footer
-     * @return position of the footer in the adapter. -1 if the section doesn't have footer
+     * @return position of the footer in the adapter
      */
     public int getFooterPositionInAdapter(Section section) {
         if (!section.hasFooter) {
