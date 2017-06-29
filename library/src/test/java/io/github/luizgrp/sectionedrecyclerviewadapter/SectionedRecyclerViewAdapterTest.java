@@ -482,23 +482,6 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getHeaderPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterHeaderPosition() {
-        // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
-        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
-
-        // When
-        int result = spySectionedRecyclerViewAdapter.getHeaderPositionInAdapter(headedFootedStatelessSectionStub);
-
-        // Then
-        assertThat(result, is(10));
-    }
-
-    @Test
     public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
         // Given
         sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
