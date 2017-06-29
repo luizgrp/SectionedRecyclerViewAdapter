@@ -501,14 +501,11 @@ public class SectionedRecyclerViewAdapterTest {
     @Test
     public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
         // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
 
         // When
-        int result = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(SECTION_TAG);
+        int result = sectionAdapter.getFooterPositionInAdapter(SECTION_TAG);
 
         // Then
         assertThat(result, is(21));
@@ -516,33 +513,11 @@ public class SectionedRecyclerViewAdapterTest {
 
     @Test(expected = IllegalStateException.class)
     public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
-        // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
 
         // When
-        spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(SECTION_TAG);
-    }
-
-    @Test
-    public void getFooterPositionInAdapterUsingSection_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
-        // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
-        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
-        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
-
-        // When
-        int result = spySectionedRecyclerViewAdapter.getFooterPositionInAdapter(headedFootedStatelessSectionStub);
-
-        // Then
-        assertThat(result, is(21));
+        sectionAdapter.getFooterPositionInAdapter(SECTION_TAG);
     }
 
     @Test
@@ -726,47 +701,14 @@ public class SectionedRecyclerViewAdapterTest {
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
     }
 
-    @Test
-    public void notifyHeaderChangedInSectionUsingSection_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
-        // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
-        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
-
-        // When
-        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(headedFootedStatelessSectionStub);
-
-        // Then
-        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
-    }
-
     @Test(expected = IllegalStateException.class)
     public void notifyHeaderChangedInSectionUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
         // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
 
         // When
-        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(SECTION_TAG);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void notifyHeaderChangedInSectionUsingSection_withAdapterWithManySections_throwsIllegalStateException() {
-        // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
-
-        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
-        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
-
-        // When
-        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(statelessSectionStub);
+        sectionAdapter.notifyHeaderChangedInSection(SECTION_TAG);
     }
 
     @Test
@@ -785,47 +727,14 @@ public class SectionedRecyclerViewAdapterTest {
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(21);
     }
 
-    @Test
-    public void notifyFooterChangedInSectionUsingSection_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
-        // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        HeadedFootedStatelessSectionStub headedFootedStatelessSectionStub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
-        spySectionedRecyclerViewAdapter.addSection(headedFootedStatelessSectionStub);
-
-        // When
-        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(headedFootedStatelessSectionStub);
-
-        // Then
-        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(21);
-    }
-
     @Test(expected = IllegalStateException.class)
     public void notifyFooterChangedInSectionUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
         // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
-        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
 
         // When
-        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(SECTION_TAG);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void notifyFooterChangedInSectionUsingSection_withAdapterWithManySections_throwsIllegalStateException() {
-        // Given
-        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
-        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
-
-        StatelessSectionStub statelessSectionStub = new StatelessSectionStub(ITEMS_QTY);
-        spySectionedRecyclerViewAdapter.addSection(statelessSectionStub);
-
-        // When
-        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(statelessSectionStub);
+        sectionAdapter.notifyFooterChangedInSection(SECTION_TAG);
     }
     
     @Test
