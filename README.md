@@ -9,7 +9,7 @@ An Adapter that allows a RecyclerView to be split into Sections with headers and
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc4.png" width="300" height="533" >
 <br><br>
 
-In addition, each Section can have its state(Loading/Loaded/Failed) controlled individually.
+In addition, each Section can have its state(Loading/Loaded/Failed/Empty) controlled individually.
 
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc2.png" width="300" height="533" >
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc3.png" width="300" height="533" >
@@ -21,7 +21,7 @@ In addition, each Section can have its state(Loading/Loaded/Failed) controlled i
 Add this to the `dependencies` section in your project-level **build.gradle** file:
 
 ```groovy
-compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.5'
+compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.1.0'
 ```
 
 ## Basic usage
