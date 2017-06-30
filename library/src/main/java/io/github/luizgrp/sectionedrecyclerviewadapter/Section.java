@@ -98,6 +98,7 @@ public abstract class Section {
         this.itemResourceId = sectionParameters.itemResourceId;
         this.loadingResourceId = sectionParameters.loadingResourceId;
         this.failedResourceId = sectionParameters.failedResourceId;
+        this.emptyResourceId = sectionParameters.emptyResourceId;
 
         this.hasHeader = (this.headerResourceId != null);
         this.hasFooter = (this.footerResourceId != null);
