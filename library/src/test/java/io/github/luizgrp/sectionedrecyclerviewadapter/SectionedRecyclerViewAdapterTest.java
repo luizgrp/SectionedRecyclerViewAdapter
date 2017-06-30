@@ -482,6 +482,50 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
+    public void getHeaderPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterHeaderPosition() {
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        int result = sectionAdapter.getHeaderPositionInAdapter(SECTION_TAG);
+
+        // Then
+        assertThat(result, is(10));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void getHeaderPositionInAdapterUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        sectionAdapter.getHeaderPositionInAdapter(SECTION_TAG);
+    }
+
+    @Test
+    public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_returnsCorrectAdapterFooterPosition() {
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        int result = sectionAdapter.getFooterPositionInAdapter(SECTION_TAG);
+
+        // Then
+        assertThat(result, is(21));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        sectionAdapter.getFooterPositionInAdapter(SECTION_TAG);
+    }
+
+    @Test
     public void notifyItemInsertedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemInserted() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
@@ -646,6 +690,58 @@ public class SectionedRecyclerViewAdapterTest {
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(11);
     }
 
+    @Test
+    public void notifyHeaderChangedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyHeaderChangedInSection(SECTION_TAG);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void notifyHeaderChangedInSectionUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        sectionAdapter.notifyHeaderChangedInSection(SECTION_TAG);
+    }
+
+    @Test
+    public void notifyFooterChangedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemChangedInSection() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, new HeadedFootedStatelessSectionStub(ITEMS_QTY));
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyFooterChangedInSection(SECTION_TAG);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(21);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void notifyFooterChangedInSectionUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
+        // Given
+        sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        sectionAdapter.notifyFooterChangedInSection(SECTION_TAG);
+    }
+    
     @Test
     public void notifyItemRangeChangedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeChanged() {
         // Given
