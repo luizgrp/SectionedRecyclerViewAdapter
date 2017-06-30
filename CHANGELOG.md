@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0 - TBD
+## 1.1.0 - 30/06/2017
 ### SectionParameters class
 - Add this class to be used as parameter to constructors of `Section` and `StatelessSection` classes.
 
