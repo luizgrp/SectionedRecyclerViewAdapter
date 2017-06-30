@@ -289,16 +289,16 @@ public class SectionedRecyclerViewAdapterTest {
         addFourStatelessSectionsAndFourSectionsToAdapter();
 
         // When
-        int positionHeader = sectionAdapter.getSectionItemViewType(32);
-        int positionItemStart = sectionAdapter.getSectionItemViewType(33);
-        int positionItemEnd = sectionAdapter.getSectionItemViewType(42);
-        int positionFooter = sectionAdapter.getSectionItemViewType(43);
+        int viewTypeHeader = sectionAdapter.getSectionItemViewType(32);
+        int viewTypeItemStart = sectionAdapter.getSectionItemViewType(33);
+        int viewTypeItemEnd = sectionAdapter.getSectionItemViewType(42);
+        int viewTypeFooter = sectionAdapter.getSectionItemViewType(43);
 
         // Then
-        assertThat(positionHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
-        assertThat(positionItemStart, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
-        assertThat(positionItemEnd, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
-        assertThat(positionFooter, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
+        assertThat(viewTypeHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
+        assertThat(viewTypeItemStart, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(viewTypeItemEnd, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(viewTypeFooter, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -313,16 +313,16 @@ public class SectionedRecyclerViewAdapterTest {
         addFourStatelessSectionsAndFourSectionsToAdapter();
 
         // When
-        int positionHeader = sectionAdapter.getItemViewType(32);
-        int positionItemStart = sectionAdapter.getItemViewType(33);
-        int positionItemEnd = sectionAdapter.getItemViewType(42);
-        int positionFooter = sectionAdapter.getItemViewType(43);
+        int viewTypeHeader = sectionAdapter.getItemViewType(32);
+        int viewTypeItemStart = sectionAdapter.getItemViewType(33);
+        int viewTypeItemEnd = sectionAdapter.getItemViewType(42);
+        int viewTypeFooter = sectionAdapter.getItemViewType(43);
 
         // Then
-        assertThat(positionHeader, is(18));
-        assertThat(positionItemStart, is(20));
-        assertThat(positionItemEnd, is(20));
-        assertThat(positionFooter, is(19));
+        assertThat(viewTypeHeader, is(18));
+        assertThat(viewTypeItemStart, is(20));
+        assertThat(viewTypeItemEnd, is(20));
+        assertThat(viewTypeFooter, is(19));
     }
 
     @Test
@@ -341,10 +341,10 @@ public class SectionedRecyclerViewAdapterTest {
         addHeadedFootedSectionStubToAdapter();
 
         // When
-        int positionLoading = sectionAdapter.getItemViewType(44);
+        int viewTypeLoading = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionLoading, is(27));
+        assertThat(viewTypeLoading, is(27));
     }
 
     @Test
@@ -363,10 +363,10 @@ public class SectionedRecyclerViewAdapterTest {
         addHeadedFootedSectionStubToAdapter();
 
         // When
-        int positionFailed = sectionAdapter.getItemViewType(44);
+        int viewTypeFailed = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionFailed, is(28));
+        assertThat(viewTypeFailed, is(28));
     }
 
     @Test
@@ -385,10 +385,10 @@ public class SectionedRecyclerViewAdapterTest {
         addHeadedFootedSectionStubToAdapter();
 
         // When
-        int positionEmpty = sectionAdapter.getItemViewType(44);
+        int viewTypeEmpty = sectionAdapter.getItemViewType(44);
 
         // Then
-        assertThat(positionEmpty, is(29));
+        assertThat(viewTypeEmpty, is(29));
     }
 
     @Test
