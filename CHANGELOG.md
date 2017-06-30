@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1 - 30/06/2017
+- Fix bug with SectionParameters and EMPTY state
+
 ## 1.1.0 - 30/06/2017
 ### SectionParameters class
 - Add this class to be used as parameter to constructors of `Section` and `StatelessSection` classes.
