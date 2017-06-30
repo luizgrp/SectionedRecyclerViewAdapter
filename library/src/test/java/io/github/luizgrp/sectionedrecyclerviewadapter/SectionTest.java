@@ -151,6 +151,7 @@ public class SectionTest {
         final int FAILED_ID = 4;
         final int LOADING_ID = 5;
 
+        @SuppressWarnings("ResourceType")
         SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
                 .headerResourceId(HEADER_ID)
                 .footerResourceId(FOOTER_ID)

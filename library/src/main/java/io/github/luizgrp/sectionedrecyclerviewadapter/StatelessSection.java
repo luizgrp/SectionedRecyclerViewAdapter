@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -16,7 +17,7 @@ public abstract class StatelessSection extends Section {
      * @param itemResourceId layout resource for its items
      */
     @Deprecated
-    public StatelessSection(int itemResourceId) {
+    public StatelessSection(@LayoutRes int itemResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
                 .build());
     }
@@ -30,7 +31,7 @@ public abstract class StatelessSection extends Section {
      * @param itemResourceId layout resource for its items
      */
     @Deprecated
-    public StatelessSection(int headerResourceId, int itemResourceId) {
+    public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .build());
@@ -46,7 +47,8 @@ public abstract class StatelessSection extends Section {
      * @param itemResourceId layout resource for its items
      */
     @Deprecated
-    public StatelessSection(int headerResourceId, int footerResourceId, int itemResourceId) {
+    public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
+                            @LayoutRes int itemResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .footerResourceId(footerResourceId)

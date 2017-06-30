@@ -1,15 +1,17 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.LayoutRes;
+
 /**
  * Class used as constructor parameters of {@link Section}.
  */
 public class SectionParameters {
-    public final Integer headerResourceId;
-    public final Integer footerResourceId;
-    public final int itemResourceId;
-    public final Integer loadingResourceId;
-    public final Integer failedResourceId;
-    public final Integer emptyResourceId;
+    @LayoutRes public final Integer headerResourceId;
+    @LayoutRes public final Integer footerResourceId;
+    @LayoutRes public final int itemResourceId;
+    @LayoutRes public final Integer loadingResourceId;
+    @LayoutRes public final Integer failedResourceId;
+    @LayoutRes public final Integer emptyResourceId;
 
     /**
      * Builder of {@link SectionParameters}
@@ -17,17 +19,17 @@ public class SectionParameters {
     public static class Builder {
         private final int itemResourceId;
 
-        private Integer headerResourceId;
-        private Integer footerResourceId;
-        private Integer loadingResourceId;
-        private Integer failedResourceId;
-        private Integer emptyResourceId;
+        @LayoutRes private Integer headerResourceId;
+        @LayoutRes private Integer footerResourceId;
+        @LayoutRes private Integer loadingResourceId;
+        @LayoutRes private Integer failedResourceId;
+        @LayoutRes private Integer emptyResourceId;
 
         /**
          * Constructor with mandatory parameters of {@link Section}
          * @param itemResourceId layout resource for Section's items
          */
-        public Builder(int itemResourceId) {
+        public Builder(@LayoutRes int itemResourceId) {
             this.itemResourceId = itemResourceId;
         }
 
@@ -36,7 +38,7 @@ public class SectionParameters {
          * @param headerResourceId layout resource for Section's header
          * @return this builder
          */
-        public Builder headerResourceId(int headerResourceId) {
+        public Builder headerResourceId(@LayoutRes int headerResourceId) {
             this.headerResourceId = headerResourceId;
 
             return this;
@@ -47,7 +49,7 @@ public class SectionParameters {
          * @param footerResourceId layout resource for Section's footer
          * @return this builder
          */
-        public Builder footerResourceId(int footerResourceId) {
+        public Builder footerResourceId(@LayoutRes int footerResourceId) {
             this.footerResourceId = footerResourceId;
 
             return this;
@@ -58,7 +60,7 @@ public class SectionParameters {
          * @param loadingResourceId layout resource for Section's loading state
          * @return this builder
          */
-        public Builder loadingResourceId(int loadingResourceId) {
+        public Builder loadingResourceId(@LayoutRes int loadingResourceId) {
             this.loadingResourceId = loadingResourceId;
 
             return this;
@@ -69,7 +71,7 @@ public class SectionParameters {
          * @param failedResourceId layout resource for Section's failed state
          * @return this builder
          */
-        public Builder failedResourceId(int failedResourceId) {
+        public Builder failedResourceId(@LayoutRes int failedResourceId) {
             this.failedResourceId = failedResourceId;
 
             return this;
@@ -80,7 +82,7 @@ public class SectionParameters {
          * @param emptyResourceId layout resource for Section's empty state
          * @return this builder
          */
-        public Builder emptyResourceId(int emptyResourceId) {
+        public Builder emptyResourceId(@LayoutRes int emptyResourceId) {
             this.emptyResourceId = emptyResourceId;
 
             return this;

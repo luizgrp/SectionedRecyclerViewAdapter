@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -17,14 +18,14 @@ public abstract class Section {
     boolean hasHeader = false;
     boolean hasFooter = false;
 
-    Integer headerResourceId;
-    Integer footerResourceId;
+    @LayoutRes Integer headerResourceId;
+    @LayoutRes Integer footerResourceId;
 
-    int itemResourceId;
+    @LayoutRes int itemResourceId;
 
-    private Integer loadingResourceId;
-    private Integer failedResourceId;
-    private Integer emptyResourceId;
+    @LayoutRes private Integer loadingResourceId;
+    @LayoutRes private Integer failedResourceId;
+    @LayoutRes private Integer emptyResourceId;
 
     /**
      * Create a Section object with loading/failed states, without header and footer
@@ -36,7 +37,8 @@ public abstract class Section {
      * @param failedResourceId layout resource for its failed state
      */
     @Deprecated
-    public Section(int itemResourceId, int loadingResourceId, int failedResourceId) {
+    public Section(@LayoutRes int itemResourceId, @LayoutRes int loadingResourceId,
+                   @LayoutRes int failedResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
                 .loadingResourceId(loadingResourceId)
                 .failedResourceId(failedResourceId)
@@ -54,7 +56,8 @@ public abstract class Section {
      * @param failedResourceId layout resource for its failed state
      */
     @Deprecated
-    public Section(int headerResourceId, int itemResourceId, int loadingResourceId, int failedResourceId) {
+    public Section(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId,
+                   @LayoutRes int loadingResourceId, @LayoutRes int failedResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .loadingResourceId(loadingResourceId)
@@ -74,7 +77,9 @@ public abstract class Section {
      * @param failedResourceId layout resource for its failed state
      */
     @Deprecated
-    public Section(int headerResourceId, int footerResourceId, int itemResourceId, int loadingResourceId, int failedResourceId) {
+    public Section(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
+                   @LayoutRes int itemResourceId, @LayoutRes int loadingResourceId,
+                   @LayoutRes int failedResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .footerResourceId(footerResourceId)
@@ -116,7 +121,7 @@ public abstract class Section {
 
     /**
      * Check if this Section is visible
-     * @return true if this Section is vibisle
+     * @return true if this Section is visible
      */
     public final boolean isVisible() {
         return visible;
