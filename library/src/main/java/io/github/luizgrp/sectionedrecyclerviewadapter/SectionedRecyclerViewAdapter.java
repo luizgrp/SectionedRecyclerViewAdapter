@@ -657,50 +657,42 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that calculates the relative header position in the adapter and calls
-     * {@link #notifyItemChanged}. Do nothing if the section doesn't have header
+     * {@link #notifyItemChanged}.
      *
      * @param tag unique identifier of the section
      */
     public void notifyHeaderChangedInSection(String tag) {
-        Section section = getValidSectionOrThrowException(tag);
-
-        notifyHeaderChangedInSection(section);
+        notifyHeaderChangedInSection(getValidSectionOrThrowException(tag));
     }
 
     /**
      * Helper method that calculates the relative header position in the adapter and calls
-     * {@link #notifyItemChanged}. Do nothing if the section doesn't have header
+     * {@link #notifyItemChanged}.
      *
      * @param section a visible section of this adapter
      */
     public void notifyHeaderChangedInSection(Section section) {
-        int headerPosition = getHeaderPositionInAdapter(section);
-
-        callSuperNotifyItemChanged(headerPosition);
+        callSuperNotifyItemChanged(getHeaderPositionInAdapter(section));
     }
 
     /**
      * Helper method that calculates the relative header position in the adapter and calls
-     * {@link #notifyItemChanged}. Do nothing if the section doesn't have footer
+     * {@link #notifyItemChanged}.
      *
      * @param tag unique identifier of the section
      */
     public void notifyFooterChangedInSection(String tag) {
-        Section section = getValidSectionOrThrowException(tag);
-
-        notifyFooterChangedInSection(section);
+        notifyFooterChangedInSection(getValidSectionOrThrowException(tag));
     }
 
     /**
      * Helper method that calculates the relative header position in the adapter and calls
-     * {@link #notifyItemChanged}. Do nothing if the section doesn't have header
+     * {@link #notifyItemChanged}.
      *
      * @param section a visible section of this adapter
      */
     public void notifyFooterChangedInSection(Section section) {
-        int footerPosition = getFooterPositionInAdapter(section);
-
-        callSuperNotifyItemChanged(footerPosition);
+        callSuperNotifyItemChanged(getFooterPositionInAdapter(section));
     }
 
     @VisibleForTesting
