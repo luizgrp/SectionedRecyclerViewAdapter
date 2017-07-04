@@ -54,10 +54,10 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         viewHolder = getFooterViewHolder(parent, section);
                         break;
                     }
-                    case VIEW_TYPE_ITEM_LOADED: {
-                        viewHolder = getItemViewHolder(parent, section);
-                        break;
-                    }
+//                    case VIEW_TYPE_ITEM_LOADED: {
+//                        viewHolder = getItemViewHolder(parent, section);
+//                        break;
+//                    }
                     case VIEW_TYPE_LOADING: {
                         viewHolder = getLoadingViewHolder(parent, section);
                         break;
@@ -71,7 +71,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         break;
                     }
                     default:
-                        throw new IllegalArgumentException("Invalid viewType");
+                        try {
+                            // Assume ViewType is an item that is loaded
+                            getItemViewHolder(parent, section, viewType);
+                        } catch (Exception e) {
+                            throw new IllegalArgumentException("Invalid viewType");
+                        }
                 }
             }
         }
@@ -79,11 +84,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return viewHolder;
     }
 
-    private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
+    private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(),
                 parent, false);
         // get the item viewholder from the section
-        return section.getItemViewHolder(view);
+        return section.getItemViewHolder(view, viewType);
     }
 
     private RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent, Section section) {
@@ -290,7 +295,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
                 switch (section.getState()) {
                     case LOADED:
-                        return viewType + 2;
+                        return section.getItemViewType(getPositionInSection(position));
+//                        return viewType + 2;
                     case LOADING:
                         return viewType + 3;
                     case FAILED:

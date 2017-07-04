@@ -315,6 +315,25 @@ public abstract class Section {
      * @return ViewHolder for the Item of this Section
      */
     public abstract RecyclerView.ViewHolder getItemViewHolder(View view);
+
+    /**
+     * Return the ViewHolder for a single Item of this Section
+     * @param defaultItemView Default view to return
+     * @param viewType ViewType of Item
+     * @return ViewHolder for the Item
+     */
+    public RecyclerView.ViewHolder getItemViewHolder(View defaultItemView, int viewType) {
+        return getItemViewHolder(defaultItemView);
+    }
+
+    /**
+     * Return the ViewType for a single item of this Section
+     * @param position position of the Item in the Section, not in the RecyclerView
+     * @return ViewType for the Item
+     */
+    public int getItemViewType(int position) {
+        return 0;
+    }
     /**
      * Bind the data to the ViewHolder for an Item of this Section
      * @param holder ViewHolder for the Item of this Section
