@@ -46,6 +46,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
     }
 
+    public SectionedRecyclerViewAdapter() {
+        sections = new LinkedHashMap<>();
+        sectionViewTypeNumbers = new HashMap<>();
+        mCustomViewTypes = new HashMap<>();
+    }
+
     public int getCustomViewTypeKey(CustomViewType customViewType) {
         for (Map.Entry<Integer, CustomViewType> entry : mCustomViewTypes.entrySet()) {
             if (entry.getValue() == customViewType) {
@@ -318,7 +324,12 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
                 switch (section.getState()) {
                     case LOADED:
-                        return section.getItemViewType(getPositionInSection(position));
+                        int itemViewType = section.getItemViewType(getPositionInSection(position));
+                        if (itemViewType == -1) {
+                            return viewType + 2;
+                        } else {
+                            return itemViewType;
+                        }
                     case LOADING:
                         return viewType + 3;
                     case FAILED:
