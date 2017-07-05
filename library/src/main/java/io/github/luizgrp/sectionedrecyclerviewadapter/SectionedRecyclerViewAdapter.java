@@ -3,6 +3,7 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.UUID;
  */
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private final static String TAG = SectionedRecyclerViewAdapter.class.getSimpleName();
+
     public final static int VIEW_TYPE_HEADER = 0;
     public final static int VIEW_TYPE_FOOTER = 1;
     public final static int VIEW_TYPE_ITEM_LOADED = 2;
@@ -25,14 +28,31 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public final static int VIEW_TYPE_FAILED = 4;
     public final static int VIEW_TYPE_EMPTY = 5;
 
+    private final static int mCustomViewTypeStart = 200;
+    private HashMap<Integer, CustomViewType> mCustomViewTypes;
+
     private LinkedHashMap<String, Section> sections;
     private HashMap<String, Integer> sectionViewTypeNumbers;
     private int viewTypeCount = 0;
     private final static int VIEW_TYPE_QTY = 6;
 
-    public SectionedRecyclerViewAdapter() {
+    public SectionedRecyclerViewAdapter(CustomViewType...customViewTypes) {
         sections = new LinkedHashMap<>();
         sectionViewTypeNumbers = new HashMap<>();
+        mCustomViewTypes = new HashMap<>();
+        for (CustomViewType customViewType : customViewTypes) {
+            int key = mCustomViewTypeStart + mCustomViewTypes.size();
+            mCustomViewTypes.put(key, customViewType);
+        }
+    }
+
+    public int getCustomViewTypeKey(CustomViewType customViewType) {
+        for (Map.Entry<Integer, CustomViewType> entry : mCustomViewTypes.entrySet()) {
+            if (entry.getValue() == customViewType) {
+                return entry.getKey();
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -40,6 +60,15 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         RecyclerView.ViewHolder viewHolder = null;
 
         for (Map.Entry<String, Integer> entry : sectionViewTypeNumbers.entrySet()) {
+            // If viewType is custom, return the custom ViewHolder
+            for (Map.Entry<Integer, CustomViewType> customEntry : mCustomViewTypes.entrySet()) {
+                Log.v(TAG, "onCreateViewHolder customEntry key: " + customEntry.getKey());
+                if (customEntry.getKey() == viewType) {
+                    return customEntry.getValue().getViewHolder(parent);
+                }
+            }
+
+            // viewType is not custom, return header, footer, etc ViewHolder
             if (viewType >= entry.getValue() && viewType < entry.getValue() + VIEW_TYPE_QTY) {
 
                 Section section = sections.get(entry.getKey());
@@ -54,10 +83,10 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         viewHolder = getFooterViewHolder(parent, section);
                         break;
                     }
-//                    case VIEW_TYPE_ITEM_LOADED: {
-//                        viewHolder = getItemViewHolder(parent, section);
-//                        break;
-//                    }
+                    case VIEW_TYPE_ITEM_LOADED: {
+                        viewHolder = getItemViewHolder(parent, section);
+                        break;
+                    }
                     case VIEW_TYPE_LOADING: {
                         viewHolder = getLoadingViewHolder(parent, section);
                         break;
@@ -71,24 +100,18 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         break;
                     }
                     default:
-                        try {
-                            // Assume ViewType is an item that is loaded
-                            getItemViewHolder(parent, section, viewType);
-                        } catch (Exception e) {
-                            throw new IllegalArgumentException("Invalid viewType");
-                        }
+                        throw new IllegalArgumentException("Invalid viewType");
                 }
             }
         }
-
         return viewHolder;
     }
 
-    private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(),
+    public RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
+        View defaultView = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(),
                 parent, false);
         // get the item viewholder from the section
-        return section.getItemViewHolder(view, viewType);
+        return section.getItemViewHolder(defaultView);
     }
 
     private RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent, Section section) {
@@ -296,7 +319,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 switch (section.getState()) {
                     case LOADED:
                         return section.getItemViewType(getPositionInSection(position));
-//                        return viewType + 2;
                     case LOADING:
                         return viewType + 3;
                     case FAILED:
