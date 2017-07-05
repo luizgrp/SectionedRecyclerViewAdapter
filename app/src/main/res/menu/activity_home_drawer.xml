@@ -38,6 +38,10 @@
                 android:id="@+id/nav_example8"
                 android:title="@string/nav_example8"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
+            <item
+                android:id="@+id/nav_example9"
+                android:title="@string/nav_example9"
+                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
         </menu>
     </item>
 
