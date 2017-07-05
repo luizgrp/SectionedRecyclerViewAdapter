@@ -3,7 +3,6 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +18,7 @@ import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
  * Sections are displayed in the same order they were added.
  */
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private final static String TAG = SectionedRecyclerViewAdapter.class.getSimpleName();
-
+    
     public final static int VIEW_TYPE_HEADER = 0;
     public final static int VIEW_TYPE_FOOTER = 1;
     public final static int VIEW_TYPE_ITEM_LOADED = 2;
@@ -69,7 +66,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         for (Map.Entry<String, Integer> entry : sectionViewTypeNumbers.entrySet()) {
             // If viewType is custom, return the custom ViewHolder
             for (Map.Entry<Integer, CustomViewType> customEntry : mCustomViewTypes.entrySet()) {
-                Log.v(TAG, "onCreateViewHolder customEntry key: " + customEntry.getKey());
                 if (customEntry.getKey() == viewType) {
                     return customEntry.getValue().getViewHolder(parent);
                 }
