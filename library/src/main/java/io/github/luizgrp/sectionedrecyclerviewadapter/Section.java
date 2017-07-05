@@ -4,8 +4,6 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import static io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED;
-
 /**
  * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
  */
@@ -342,7 +340,7 @@ public abstract class Section {
      * @return ViewType for the Item
      */
     public int getItemViewType(int position) {
-        return VIEW_TYPE_ITEM_LOADED;
+        return -1;
     }
     /**
      * Bind the data to the ViewHolder for an Item of this Section
