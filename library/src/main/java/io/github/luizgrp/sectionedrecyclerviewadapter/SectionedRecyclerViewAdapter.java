@@ -26,8 +26,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public final static int VIEW_TYPE_FAILED = 4;
     public final static int VIEW_TYPE_EMPTY = 5;
 
-    private final static int mCustomViewTypeStart = 200;
-    private HashMap<Integer, CustomViewType> mCustomViewTypes;
+    private final static int customViewTypeStart = 200;
+    private HashMap<Integer, CustomViewType> customViewTypes;
 
     private LinkedHashMap<String, Section> sections;
     private HashMap<String, Integer> sectionViewTypeNumbers;
@@ -37,26 +37,30 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public SectionedRecyclerViewAdapter(CustomViewType...customViewTypes) {
         sections = new LinkedHashMap<>();
         sectionViewTypeNumbers = new HashMap<>();
-        mCustomViewTypes = new HashMap<>();
+        this.customViewTypes = new HashMap<>();
         for (CustomViewType customViewType : customViewTypes) {
-            int key = mCustomViewTypeStart + mCustomViewTypes.size();
-            mCustomViewTypes.put(key, customViewType);
+            int key = customViewTypeStart + this.customViewTypes.size();
+            this.customViewTypes.put(key, customViewType);
         }
     }
 
     public SectionedRecyclerViewAdapter() {
         sections = new LinkedHashMap<>();
         sectionViewTypeNumbers = new HashMap<>();
-        mCustomViewTypes = new HashMap<>();
+        customViewTypes = new HashMap<>();
     }
 
     public int getCustomViewTypeKey(CustomViewType customViewType) {
-        for (Map.Entry<Integer, CustomViewType> entry : mCustomViewTypes.entrySet()) {
+        for (Map.Entry<Integer, CustomViewType> entry : customViewTypes.entrySet()) {
             if (entry.getValue() == customViewType) {
                 return entry.getKey();
             }
         }
         return -1;
+    }
+
+    public HashMap<Integer, CustomViewType> getCustomViewTypes() {
+        return customViewTypes;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         for (Map.Entry<String, Integer> entry : sectionViewTypeNumbers.entrySet()) {
             // If viewType is custom, return the custom ViewHolder
-            for (Map.Entry<Integer, CustomViewType> customEntry : mCustomViewTypes.entrySet()) {
+            for (Map.Entry<Integer, CustomViewType> customEntry : customViewTypes.entrySet()) {
                 if (customEntry.getKey() == viewType) {
                     return customEntry.getValue().getViewHolder(parent);
                 }
