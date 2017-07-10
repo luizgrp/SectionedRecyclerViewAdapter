@@ -49,4 +49,8 @@ public class CustomViewType {
         }
         return new SectionedRecyclerViewAdapter.EmptyViewHolder(view);
     }
+
+    public Class<?> getViewHolderClass() {
+        return viewHolderClass;
+    }
 }
