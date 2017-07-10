@@ -16,12 +16,12 @@ import java.lang.reflect.Constructor;
  */
 
 public class CustomViewType {
-    private Class<?> mViewHolderClass;
-    @LayoutRes private int mLayoutId;
+    private Class<?> viewHolderClass;
+    @LayoutRes private int layoutId;
 
     public <T extends RecyclerView.ViewHolder> CustomViewType(@NonNull Class<T> viewHolderClass, @LayoutRes int layoutId) {
-        mViewHolderClass = viewHolderClass;
-        mLayoutId = layoutId;
+        this.viewHolderClass = viewHolderClass;
+        this.layoutId = layoutId;
     }
 
     /**
@@ -30,7 +30,7 @@ public class CustomViewType {
      * @return True if they are the same class
      */
     public boolean isInstanceOf(RecyclerView.ViewHolder holder) {
-        return holder.getClass() == mViewHolderClass;
+        return holder.getClass() == viewHolderClass;
     }
 
     /**
@@ -40,9 +40,9 @@ public class CustomViewType {
      */
     @Nullable
     public RecyclerView.ViewHolder getViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(mLayoutId, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
         try {
-            Constructor<?> constructor = mViewHolderClass.asSubclass(RecyclerView.ViewHolder.class).getDeclaredConstructor(View.class);
+            Constructor<?> constructor = viewHolderClass.asSubclass(RecyclerView.ViewHolder.class).getDeclaredConstructor(View.class);
             return (RecyclerView.ViewHolder) constructor.newInstance(view);
         } catch (Exception e) {
             Log.e(this.getClass().getSimpleName(), "Error creating new instance of ViewHolder subclass", e);
