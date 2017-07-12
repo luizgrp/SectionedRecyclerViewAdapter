@@ -676,7 +676,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calculates the relative header position in the adapter and calls
+     * Helper method that calculates the relative footer position in the adapter and calls
      * {@link #notifyItemChanged}.
      *
      * @param tag unique identifier of the section
@@ -686,7 +686,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calculates the relative header position in the adapter and calls
+     * Helper method that calculates the relative footer position in the adapter and calls
      * {@link #notifyItemChanged}.
      *
      * @param section a visible section of this adapter
