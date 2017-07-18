@@ -793,6 +793,28 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         super.notifyItemMoved(fromPosition, toPosition);
     }
 
+    /**
+     * Helper method that calls {@link #notifyItemInserted} when header changed to visible.
+     *
+     * @param tag unique identifier of the section
+     */
+    public void notifyHeaderInsertedInSection(String tag) {
+        int headerPosition = getHeaderPositionInAdapter(tag);
+
+        callSuperNotifyItemInserted(headerPosition);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemInserted} when header changed to visible.
+     *
+     * @param section a visible section of this adapter
+     */
+    public void notifyHeaderInsertedInSection(Section section) {
+        int headerPosition = getHeaderPositionInAdapter(section);
+
+        callSuperNotifyItemInserted(headerPosition);
+    }
+
     @NonNull
     private Section getValidSectionOrThrowException(String tag) {
         Section section = getSection(tag);
