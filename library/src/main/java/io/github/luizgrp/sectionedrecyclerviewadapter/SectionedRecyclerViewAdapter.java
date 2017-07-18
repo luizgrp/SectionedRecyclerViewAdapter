@@ -855,7 +855,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param previousSectionPosition previous section position using {@link #getSectionPosition}
      */
     public void notifyVisibilityChangedToInvisible(String tag, int previousSectionPosition) {
-        Section section = getSection(tag);
+        Section section = getValidSectionOrThrowException(tag);
 
         notifyVisibilityChangedToInvisible(section, previousSectionPosition);
     }
