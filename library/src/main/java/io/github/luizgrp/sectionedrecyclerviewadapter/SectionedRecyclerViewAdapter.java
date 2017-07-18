@@ -793,6 +793,26 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         super.notifyItemMoved(fromPosition, toPosition);
     }
 
+    public void notifyNotLoadedStateChanged(Section section, Section.State previousState) {
+        Section.State state = section.getState();
+
+        if (state == previousState) {
+            throw new IllegalStateException("No state changed");
+        }
+
+        if (previousState == Section.State.LOADED) {
+            throw new IllegalStateException("Use notifyStateChangedFromLoaded");
+        }
+
+        if (state == Section.State.LOADED) {
+            throw new IllegalStateException("Use notifyStateChangedToLoaded");
+        }
+
+        int sectionPosition = getSectionPosition(section);
+
+        callSuperNotifyItemChanged(sectionPosition);
+    }
+
     @NonNull
     private Section getValidSectionOrThrowException(String tag) {
         Section section = getSection(tag);
