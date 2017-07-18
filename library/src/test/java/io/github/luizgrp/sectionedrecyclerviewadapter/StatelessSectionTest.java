@@ -1,5 +1,8 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +29,7 @@ public class StatelessSectionTest {
     }
 
     @Test
-    public void onBindViewHolder_StatelessSection_isCalled() {
+    public void onBindViewHolder_withStatelessSection_isCalled() {
         // Given
         sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
@@ -42,7 +45,7 @@ public class StatelessSectionTest {
     }
 
     @Test
-    public void onBindViewHolder_HeadedStatelessSection_isCalled() {
+    public void onBindViewHolder_withHeadedStatelessSection_isCalled() {
         // Given
         sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
@@ -61,7 +64,7 @@ public class StatelessSectionTest {
     }
 
     @Test
-    public void onBindViewHolder_FootedStatelessSection_isCalled() {
+    public void onBindViewHolder_withFootedStatelessSection_isCalled() {
         // Given
         sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
@@ -80,7 +83,7 @@ public class StatelessSectionTest {
     }
 
     @Test
-    public void onBindViewHolder_HeadedFootedStatelessSection_isCalled() {
+    public void onBindViewHolder_withHeadedFootedStatelessSection_isCalled() {
         // Given
         sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
 
@@ -99,5 +102,69 @@ public class StatelessSectionTest {
         assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
         assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
         assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructor_withLoadingResource_throwsException() {
+        // Given
+        final int ITEM_ID = 1;
+        final int LOADING_ID = 2;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .loadingResourceId(LOADING_ID)
+                .build();
+
+        // When
+        getStatelessSection(sectionParameters);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructor_withFailedResource_throwsException() {
+        // Given
+        final int ITEM_ID = 1;
+        final int FAILED_ID = 2;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .failedResourceId(FAILED_ID)
+                .build();
+
+        // When
+        getStatelessSection(sectionParameters);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructor_withEmptyResource_throwsException() {
+        // Given
+        final int ITEM_ID = 1;
+        final int EMPTY_ID = 2;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .emptyResourceId(EMPTY_ID)
+                .build();
+
+        // When
+        getStatelessSection(sectionParameters);
+    }
+
+    private StatelessSection getStatelessSection(SectionParameters sectionParameters) {
+        return new StatelessSection(sectionParameters) {
+            @Override
+            public int getContentItemsTotal() {
+                return 0;
+            }
+
+            @Override
+            public RecyclerView.ViewHolder getItemViewHolder(View view) {
+                return null;
+            }
+
+            @Override
+            public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+            }
+        };
     }
 }

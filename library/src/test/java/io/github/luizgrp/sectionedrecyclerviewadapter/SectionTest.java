@@ -31,7 +31,7 @@ public class SectionTest {
     }
 
     @Test
-    public void onBindViewHolder_Section_isCalled() {
+    public void onBindViewHolder_withSection_isCalled() {
         // Given
         sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
 
@@ -47,7 +47,7 @@ public class SectionTest {
     }
 
     @Test
-    public void onBindLoadingViewHolder_Section_isCalled() {
+    public void onBindLoadingViewHolder_withSection_isCalled() {
         // Given
         sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
 
@@ -65,7 +65,7 @@ public class SectionTest {
     }
 
     @Test
-    public void onBindFailedViewHolder_Section_isCalled() {
+    public void onBindFailedViewHolder_withSection_isCalled() {
         // Given
         sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
 
@@ -83,7 +83,25 @@ public class SectionTest {
     }
 
     @Test
-    public void onBindViewHolder_HeadedSection_isCalled() {
+    public void onBindEmptyViewHolder_withSection_isCalled() {
+        // Given
+        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
+
+        BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
+        sectionAdapter.addSection(sectionSpy);
+
+        sectionSpy.setState(Section.State.EMPTY);
+
+        // When
+        // Section - Empty [10]
+        sectionAdapter.onBindViewHolder(null, 10);
+
+        // Then
+        assertTrue(sectionSpy.onBindEmptyViewHolderWasCalled);
+    }
+
+    @Test
+    public void onBindViewHolder_withHeadedSection_isCalled() {
         // Given
         sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
 
@@ -102,7 +120,7 @@ public class SectionTest {
     }
 
     @Test
-    public void onBindViewHolder_FootedSection_isCalled() {
+    public void onBindViewHolder_withFootedSection_isCalled() {
         // Given
         sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
 
@@ -121,7 +139,7 @@ public class SectionTest {
     }
 
     @Test
-    public void onBindViewHolder_HeadedFootedSection_isCalled() {
+    public void onBindViewHolder_withHeadedFootedSection_isCalled() {
         // Given
         sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
 
@@ -143,13 +161,14 @@ public class SectionTest {
     }
 
     @Test
-    public void build_constructsCorrectSection() {
+    public void constructor_withSectionParameters_constructsCorrectSection() {
         // Given
         final int ITEM_ID = 1;
         final int HEADER_ID = 2;
         final int FOOTER_ID = 3;
         final int FAILED_ID = 4;
         final int LOADING_ID = 5;
+        final int EMPTY_ID = 6;
 
         @SuppressWarnings("ResourceType")
         SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
@@ -157,6 +176,7 @@ public class SectionTest {
                 .footerResourceId(FOOTER_ID)
                 .failedResourceId(FAILED_ID)
                 .loadingResourceId(LOADING_ID)
+                .emptyResourceId(EMPTY_ID)
                 .build();
         Section section = getSection(sectionParameters);
 
@@ -166,6 +186,7 @@ public class SectionTest {
         int resultFooterId = section.getFooterResourceId();
         int resultFailedId = section.getFailedResourceId();
         int resultLoadingId = section.getLoadingResourceId();
+        int resultEmptyId = section.getEmptyResourceId();
         boolean resultHasHeader = section.hasHeader();
         boolean resultHasFooter = section.hasFooter();
 
@@ -175,6 +196,7 @@ public class SectionTest {
         assertThat(resultFooterId, is(FOOTER_ID));
         assertThat(resultFailedId, is(FAILED_ID));
         assertThat(resultLoadingId, is(LOADING_ID));
+        assertThat(resultEmptyId, is(EMPTY_ID));
         assertThat(resultHasHeader, is(true));
         assertThat(resultHasFooter, is(true));
     }
