@@ -840,6 +840,29 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     /**
      * Helper method that calls {@link #notifyItemInserted} when section changed to visible.
      *
+     * @param tag unique identifier of the section
+     */
+    public void notifyVisibilityChangedToVisible(String tag) {
+        Section section = getSection(tag);
+
+        notifyVisibilityChangedToVisible(section);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemRangeRemoved} when section changed to invisible.
+     *
+     * @param tag unique identifier of the section
+     * @param previousSectionPosition previous section position using {@link #getSectionPosition}
+     */
+    public void notifyVisibilityChangedToInvisible(String tag, int previousSectionPosition) {
+        Section section = getSection(tag);
+
+        notifyVisibilityChangedToInvisible(section, previousSectionPosition);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemInserted} when section changed to visible.
+     *
      * @param section a visible section of this adapter
      */
     public void notifyVisibilityChangedToVisible(Section section) {
