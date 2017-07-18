@@ -918,7 +918,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void notifyVisibilityChangedToVisibleUsingSection_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
+    public void notifySectionChangedToVisibleUsingSection_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(anyInt(), anyInt());
@@ -930,14 +930,14 @@ public class SectionedRecyclerViewAdapterTest {
 
         // When
         headedFootedSectionStub.setVisible(true);
-        spySectionedRecyclerViewAdapter.notifyVisibilityChangedToVisible(headedFootedSectionStub);
+        spySectionedRecyclerViewAdapter.notifySectionChangedToVisible(headedFootedSectionStub);
 
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(10, 12);
     }
 
     @Test
-    public void notifyVisibilityChangedToInvisibleUsingSection_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
+    public void notifySectionChangedToInvisibleUsingSection_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(anyInt(), anyInt());
@@ -950,14 +950,14 @@ public class SectionedRecyclerViewAdapterTest {
         // When
         int previousSectionPosition = spySectionedRecyclerViewAdapter.getSectionPosition(headedFootedSectionStub);
         headedFootedSectionStub.setVisible(false);
-        spySectionedRecyclerViewAdapter.notifyVisibilityChangedToInvisible(headedFootedSectionStub, previousSectionPosition);
+        spySectionedRecyclerViewAdapter.notifySectionChangedToInvisible(headedFootedSectionStub, previousSectionPosition);
 
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(10, 12);
     }
 
     @Test
-    public void notifyVisibilityChangedToVisibleUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
+    public void notifySectionChangedToVisibleUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(anyInt(), anyInt());
@@ -969,14 +969,14 @@ public class SectionedRecyclerViewAdapterTest {
 
         // When
         headedFootedSectionStub.setVisible(true);
-        spySectionedRecyclerViewAdapter.notifyVisibilityChangedToVisible(SECTION_TAG);
+        spySectionedRecyclerViewAdapter.notifySectionChangedToVisible(SECTION_TAG);
 
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(10, 12);
     }
 
     @Test
-    public void notifyVisibilityChangedToInvisibleUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
+    public void notifySectionChangedToInvisibleUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(anyInt(), anyInt());
@@ -989,7 +989,7 @@ public class SectionedRecyclerViewAdapterTest {
         // When
         int previousSectionPosition = spySectionedRecyclerViewAdapter.getSectionPosition(headedFootedSectionStub);
         headedFootedSectionStub.setVisible(false);
-        spySectionedRecyclerViewAdapter.notifyVisibilityChangedToInvisible(SECTION_TAG, previousSectionPosition);
+        spySectionedRecyclerViewAdapter.notifySectionChangedToInvisible(SECTION_TAG, previousSectionPosition);
 
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(10, 12);

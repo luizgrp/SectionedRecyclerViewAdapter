@@ -794,7 +794,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calls {@link #notifyItemInserted} when header changed to visible.
+     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
+     * header in the adapter. Useful to be called after changing the visibility of the section's
+     * header to visible with {@link Section#setHasHeader}.
      *
      * @param tag unique identifier of the section
      */
@@ -805,7 +807,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calls {@link #notifyItemInserted} when header changed to visible.
+     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
+     * header in the adapter. Useful to be called after changing the visibility of the section's
+     * header to visible with {@link Section#setHasHeader}.
      *
      * @param section a visible section of this adapter
      */
@@ -816,7 +820,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calls {@link #notifyItemInserted} when footer changed to visible.
+     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
+     * footer in the adapter. Useful to be called after changing the visibility of the section's
+     * footer to visible with {@link Section#setHasFooter}.
      *
      * @param tag unique identifier of the section
      */
@@ -827,7 +833,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calls {@link #notifyItemInserted} when footer changed to visible.
+     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
+     * footer in the adapter. Useful to be called after changing the visibility of the section's
+     * footer to visible with {@link Section#setHasFooter}.
      *
      * @param section a visible section of this adapter
      */
@@ -838,34 +846,40 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calls {@link #notifyItemInserted} when section changed to visible.
+     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
+     * in the adapter. Useful to be called after changing the visibility of the section to visible
+     * with {@link Section#setVisible}.
      *
      * @param tag unique identifier of the section
      */
-    public void notifyVisibilityChangedToVisible(String tag) {
+    public void notifySectionChangedToVisible(String tag) {
         Section section = getSection(tag);
 
-        notifyVisibilityChangedToVisible(section);
+        notifySectionChangedToVisible(section);
     }
 
     /**
-     * Helper method that calls {@link #notifyItemRangeRemoved} when section changed to invisible.
+     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
+     * in the adapter. Useful to be called after changing the visibility of the section to invisible
+     * with {@link Section#setVisible}.
      *
      * @param tag unique identifier of the section
-     * @param previousSectionPosition previous section position using {@link #getSectionPosition}
+     * @param previousSectionPosition previous section position
      */
-    public void notifyVisibilityChangedToInvisible(String tag, int previousSectionPosition) {
+    public void notifySectionChangedToInvisible(String tag, int previousSectionPosition) {
         Section section = getValidSectionOrThrowException(tag);
 
-        notifyVisibilityChangedToInvisible(section, previousSectionPosition);
+        notifySectionChangedToInvisible(section, previousSectionPosition);
     }
 
     /**
-     * Helper method that calls {@link #notifyItemInserted} when section changed to visible.
+     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
+     * in the adapter. Useful to be called after changing the visibility of the section to visible
+     * with {@link Section#setVisible}.
      *
      * @param section a visible section of this adapter
      */
-    public void notifyVisibilityChangedToVisible(Section section) {
+    public void notifySectionChangedToVisible(Section section) {
         if (!section.isVisible()) {
             throw new IllegalStateException("Invalid visibility");
         }
@@ -878,12 +892,14 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that calls {@link #notifyItemRangeRemoved} when section changed to invisible.
+     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
+     * in the adapter. Useful to be called after changing the visibility of the section to invisible
+     * with {@link Section#setVisible}.
      *
      * @param section an invisible section of this adapter
-     * @param previousSectionPosition previous section position using {@link #getSectionPosition}
+     * @param previousSectionPosition previous section position
      */
-    public void notifyVisibilityChangedToInvisible(Section section, int previousSectionPosition) {
+    public void notifySectionChangedToInvisible(Section section, int previousSectionPosition) {
         if (section.isVisible()) {
             throw new IllegalStateException("Invalid visibility");
         }
