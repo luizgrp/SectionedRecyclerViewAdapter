@@ -858,7 +858,7 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(headedFootedSectionStub, previousState);
 
         // Then
-        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(11);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -923,8 +923,8 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.notifyStateChangedToLoaded(headedFootedSectionStub, previousState);
 
         // Then
-        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
-        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(11, 9);
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(11);
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(12, 9);
     }
 
     @Test(expected = IllegalStateException.class)

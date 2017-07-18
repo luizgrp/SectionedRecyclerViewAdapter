@@ -828,9 +828,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             throw new IllegalStateException("Use notifyStateChangedToLoaded");
         }
 
-        int sectionPosition = getSectionPosition(section);
-
-        callSuperNotifyItemChanged(sectionPosition);
+        notifyItemChangedInSection(section, 0);
     }
 
     /**
@@ -859,10 +857,34 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         int contentItemsTotal = section.getContentItemsTotal();
 
-        callSuperNotifyItemChanged(sectionPosition);
+        notifyItemChangedInSection(section, 0);
 
         if (contentItemsTotal > 1) {
-            callSuperNotifyItemRangeInserted(sectionPosition + 1, contentItemsTotal - 1);
+            notifyItemRangeInsertedInSection(section, 1, contentItemsTotal - 1);
+        }
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemRangeRemoved} and {@link #notifyItemChanged} when
+     * section changed from LOADED to LOADING/ FAILED/ EMPTY
+     *
+     * @param section a visible section of this adapter
+     * @param previousContentItemsCount previous content items count of section
+     */
+    public void notifyStateChangedFromLoaded(Section section, int previousContentItemsCount) {
+        Section.State state = section.getState();
+
+        if (state == Section.State.LOADED) {
+            throw new IllegalStateException("Use notifyStateChangedToLoaded");
+        }
+
+        int sectionPosition = getSectionPosition(section);
+
+        int contentItemsTotal = section.getContentItemsTotal();
+
+        if (previousContentItemsCount > 1) {
+            //this.notifyItemRangeRemovedFromSection();
+            //callSuperNotifyItemRangeRemoved(previousContentItemsCount - 1);
         }
     }
 
