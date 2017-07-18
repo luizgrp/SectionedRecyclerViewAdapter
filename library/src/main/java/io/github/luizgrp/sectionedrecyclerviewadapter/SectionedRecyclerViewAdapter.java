@@ -858,6 +858,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that calls {@link #notifyItemRangeRemoved} when section changed to invisible.
      *
      * @param section an invisible section of this adapter
+     * @param previousSectionPosition previous section position using {@link #getSectionPosition}
      */
     public void notifyVisibilityChangedToInvisible(Section section, int previousSectionPosition) {
         if (section.isVisible()) {
