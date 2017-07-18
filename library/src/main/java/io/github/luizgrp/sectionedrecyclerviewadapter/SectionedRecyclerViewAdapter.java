@@ -815,6 +815,28 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemInserted(headerPosition);
     }
 
+    /**
+     * Helper method that calls {@link #notifyItemInserted} when footer changed to visible.
+     *
+     * @param tag unique identifier of the section
+     */
+    public void notifyFooterInsertedInSection(String tag) {
+        int footerPosition = getFooterPositionInAdapter(tag);
+
+        callSuperNotifyItemInserted(footerPosition);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemInserted} when footer changed to visible.
+     *
+     * @param section a visible section of this adapter
+     */
+    public void notifyFooterInsertedInSection(Section section) {
+        int footerPosition = getFooterPositionInAdapter(section);
+
+        callSuperNotifyItemInserted(footerPosition);
+    }
+
     @NonNull
     private Section getValidSectionOrThrowException(String tag) {
         Section section = getSection(tag);
