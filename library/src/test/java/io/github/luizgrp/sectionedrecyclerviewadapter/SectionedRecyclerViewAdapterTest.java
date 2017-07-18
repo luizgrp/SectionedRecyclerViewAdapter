@@ -841,6 +841,44 @@ public class SectionedRecyclerViewAdapterTest {
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemMoved(11, 15);
     }
 
+    @Test
+    public void notifyHeaderInsertedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemInserted() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemMoved(anyInt(), anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedSectionStub headedSectionStub = new HeadedSectionStub(ITEMS_QTY);
+        headedSectionStub.setHasHeader(false);
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedSectionStub);
+
+        // When
+        headedSectionStub.setHasHeader(true);
+        spySectionedRecyclerViewAdapter.notifyHeaderInsertedInSection(SECTION_TAG);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(10);
+    }
+
+    @Test
+    public void notifyHeaderInsertedInSectionUsingSection_withAdapterWithManySections_callsSuperNotifyItemInserted() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemMoved(anyInt(), anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedSectionStub headedSectionStub = new HeadedSectionStub(ITEMS_QTY);
+        headedSectionStub.setHasHeader(false);
+        spySectionedRecyclerViewAdapter.addSection(headedSectionStub);
+
+        // When
+        headedSectionStub.setHasHeader(true);
+        spySectionedRecyclerViewAdapter.notifyHeaderInsertedInSection(headedSectionStub);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(10);
+    }
+
     private void addFourStatelessSectionsAndFourSectionsToAdapter() {
         addStatelessSectionStubToAdapter();
         addHeadedStatelessSectionStubToAdapter();
