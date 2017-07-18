@@ -881,7 +881,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifySectionChangedToVisible(Section section) {
         if (!section.isVisible()) {
-            throw new IllegalStateException("Invalid visibility");
+            throw new IllegalStateException("This section is not visible.");
         }
 
         int sectionPosition = getSectionPosition(section);
@@ -901,7 +901,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifySectionChangedToInvisible(Section section, int previousSectionPosition) {
         if (section.isVisible()) {
-            throw new IllegalStateException("Invalid visibility");
+            throw new IllegalStateException("This section is not visible.");
         }
 
         int sectionItemsTotal = section.getSectionItemsTotal();
