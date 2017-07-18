@@ -835,6 +835,19 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * Helper method that calls {@link #notifyItemChanged} and {@link #notifyItemInserted} when
      * section changed from LOADING/ FAILED/ EMPTY to LOADED
      *
+     * @param tag unique identifier of the section
+     * @param previousState previous state of section
+     */
+    public void notifyStateChangedToLoaded(String tag, Section.State previousState) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyStateChangedToLoaded(section, previousState);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemChanged} and {@link #notifyItemInserted} when
+     * section changed from LOADING/ FAILED/ EMPTY to LOADED
+     *
      * @param section a visible section of this adapter
      * @param previousState previous state of section
      */
@@ -860,6 +873,19 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         if (contentItemsTotal > 1) {
             notifyItemRangeInsertedInSection(section, 1, contentItemsTotal - 1);
         }
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemRangeRemoved} and {@link #notifyItemChanged} when
+     * section changed from LOADED to LOADING/ FAILED/ EMPTY
+     *
+     * @param tag unique identifier of the section
+     * @param previousContentItemsCount previous content items count of section
+     */
+    public void notifyStateChangedFromLoaded(String tag, int previousContentItemsCount) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyStateChangedFromLoaded(section, previousContentItemsCount);
     }
 
     /**
