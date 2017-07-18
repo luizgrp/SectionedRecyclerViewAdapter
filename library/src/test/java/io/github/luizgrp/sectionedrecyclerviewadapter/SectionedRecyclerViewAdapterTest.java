@@ -936,6 +936,26 @@ public class SectionedRecyclerViewAdapterTest {
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(10, 12);
     }
 
+    @Test
+    public void notifyVisibilityChangedToInvisibleUsingSection_withAdapterWithManySections_callsSuperNotifyItemRangeInserted() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(anyInt(), anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
+        headedFootedSectionStub.setVisible(true);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedSectionStub);
+
+        // When
+        int previousSectionPosition = spySectionedRecyclerViewAdapter.getSectionPosition(headedFootedSectionStub);
+        headedFootedSectionStub.setVisible(false);
+        spySectionedRecyclerViewAdapter.notifyVisibilityChangedToInvisible(headedFootedSectionStub, previousSectionPosition);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(10, 12);
+    }
+
     private void addFourStatelessSectionsAndFourSectionsToAdapter() {
         addStatelessSectionStubToAdapter();
         addHeadedStatelessSectionStubToAdapter();
