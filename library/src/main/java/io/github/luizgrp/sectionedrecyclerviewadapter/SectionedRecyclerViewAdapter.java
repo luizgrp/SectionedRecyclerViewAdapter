@@ -793,6 +793,26 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         super.notifyItemMoved(fromPosition, toPosition);
     }
 
+    /**
+     * Helper method that calls {@link #notifyItemChanged} when section changed from
+     * LOADING/ FAILED/ EMPTY to LOADING/ FAILED/ EMPTY.
+     *
+     * @param tag unique identifier of the section
+     * @param previousState previous state of section
+     */
+    public void notifyNotLoadedStateChanged(String tag, Section.State previousState) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyNotLoadedStateChanged(section, previousState);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemChanged} when section changed from
+     * LOADING/ FAILED/ EMPTY to LOADING/ FAILED/ EMPTY.
+     *
+     * @param section a visible section of this adapter
+     * @param previousState previous state of section
+     */
     public void notifyNotLoadedStateChanged(Section section, Section.State previousState) {
         Section.State state = section.getState();
 
