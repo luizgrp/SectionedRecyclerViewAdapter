@@ -841,6 +841,70 @@ public class SectionedRecyclerViewAdapterTest {
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemMoved(11, 15);
     }
 
+    @Test
+    public void notifyNotLoadedStateChangedUsingSection_withAdapterWithManySections_callsNotifyItemChanged() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedSectionStub);
+        headedFootedSectionStub.setState(Section.State.LOADING);
+
+        // When
+        Section.State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(Section.State.EMPTY);
+        spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(headedFootedSectionStub, previousState);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(10);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void  notifyNotLoadedStateChangedUsingSection_NoStateChange_throwsException() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedSectionStub);
+        headedFootedSectionStub.setState(Section.State.LOADING);
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(headedFootedSectionStub, headedFootedSectionStub.getState());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void  notifyNotLoadedStateChangedUsingSection_PreviousStateIsLoaded_throwsException() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedSectionStub);
+        headedFootedSectionStub.setState(Section.State.LOADING);
+
+        // When
+        spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(headedFootedSectionStub, Section.State.LOADED);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void  notifyNotLoadedStateChangedUsingSection_CurrentStateIsLoaded_throwsException() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(headedFootedSectionStub);
+        headedFootedSectionStub.setState(Section.State.LOADING);
+
+        // When
+        Section.State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(Section.State.LOADED);
+        spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(headedFootedSectionStub, previousState);
+    }
+
     private void addFourStatelessSectionsAndFourSectionsToAdapter() {
         addStatelessSectionStubToAdapter();
         addHeadedStatelessSectionStubToAdapter();
