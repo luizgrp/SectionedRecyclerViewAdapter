@@ -833,6 +833,39 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemChanged(sectionPosition);
     }
 
+    /**
+     * Helper method that calls {@link #notifyItemChanged} and {@link #notifyItemInserted} when
+     * section changed from LOADING/ FAILED/ EMPTY to LOADED
+     *
+     * @param section a visible section of this adapter
+     * @param previousState previous state of section
+     */
+    public void notifyStateChangedToLoaded(Section section, Section.State previousState) {
+        Section.State state = section.getState();
+
+        if (state == previousState) {
+            throw new IllegalStateException("No state changed");
+        }
+
+        if (state != Section.State.LOADED) {
+            if (previousState == Section.State.LOADED) {
+                throw new IllegalStateException("Use notifyStateChangedFromLoaded");
+            } else {
+                throw new IllegalStateException("Use notifyNotLoadedStateChanged");
+            }
+        }
+
+        int sectionPosition = getSectionPosition(section);
+
+        int contentItemsTotal = section.getContentItemsTotal();
+
+        callSuperNotifyItemChanged(sectionPosition);
+
+        if (contentItemsTotal > 1) {
+            callSuperNotifyItemRangeInserted(sectionPosition + 1, contentItemsTotal - 1);
+        }
+    }
+
     @NonNull
     private Section getValidSectionOrThrowException(String tag) {
         Section section = getSection(tag);
