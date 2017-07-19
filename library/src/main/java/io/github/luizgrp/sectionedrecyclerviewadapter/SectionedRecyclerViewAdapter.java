@@ -705,8 +705,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * position in the adapter and calls {@link #notifyItemRangeChanged}.
      *
      * @param tag unique identifier of the section
-     * @param positionStart position of the first item that was inserted in the section
-     * @param itemCount number of items inserted in the section
+     * @param positionStart position of the first item that was changed in the section
+     * @param itemCount number of items changed in the section
      */
     public void notifyItemRangeChangedInSection(String tag, int positionStart, int itemCount) {
         callSuperNotifyItemRangeChanged(getPositionInAdapter(tag, positionStart), itemCount);
@@ -717,8 +717,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * position in the adapter and calls {@link #notifyItemRangeChanged}.
      *
      * @param section a visible section of this adapter
-     * @param positionStart position of the first item that was inserted in the section
-     * @param itemCount number of items inserted in the section
+     * @param positionStart position of the first item that was changed in the section
+     * @param itemCount number of items changed in the section
      */
     public void notifyItemRangeChangedInSection(Section section, int positionStart, int itemCount) {
         callSuperNotifyItemRangeChanged(getPositionInAdapter(section, positionStart), itemCount);
