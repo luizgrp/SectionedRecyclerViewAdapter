@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 
 /**
  * A custom RecyclerView Adapter that allows {@link Section Sections} to be added to it.
@@ -422,11 +423,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             // ignore invisible sections
             if (!loopSection.isVisible()) continue;
 
-            int sectionTotal = loopSection.getSectionItemsTotal();
-
             if (loopSection == section) {
                 return currentPos;
             }
+
+            int sectionTotal = loopSection.getSectionItemsTotal();
 
             currentPos += sectionTotal;
         }
@@ -791,6 +792,128 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     @VisibleForTesting
     void callSuperNotifyItemMoved(int fromPosition, int toPosition) {
         super.notifyItemMoved(fromPosition, toPosition);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemChanged} with the position of the {@link State}
+     * view holder in the adapter. Useful to be called after changing the State from
+     * LOADING/FAILED/EMPTY to LOADING/FAILED/EMPTY.
+     *
+     * @param tag unique identifier of the section
+     * @param previousState previous state of section
+     */
+    public void notifyNotLoadedStateChanged(String tag, State previousState) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyNotLoadedStateChanged(section, previousState);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemChanged} with the position of the {@link State}
+     * view holder in the adapter. Useful to be called after changing the State from
+     * LOADING/ FAILED/ EMPTY to LOADING/ FAILED/ EMPTY.
+     *
+     * @param section a visible section of this adapter
+     * @param previousState previous state of section
+     */
+    public void notifyNotLoadedStateChanged(Section section, State previousState) {
+        State state = section.getState();
+
+        if (state == previousState) {
+            throw new IllegalStateException("No state changed");
+        }
+
+        if (previousState == State.LOADED) {
+            throw new IllegalStateException("Use notifyStateChangedFromLoaded");
+        }
+
+        if (state == State.LOADED) {
+            throw new IllegalStateException("Use notifyStateChangedToLoaded");
+        }
+
+        notifyItemChangedInSection(section, 0);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemChanged} and {@link #notifyItemInserted} with
+     * the position of the {@link State} view holder in the adapter. Useful to be called after
+     * changing the State from LOADING/ FAILED/ EMPTY to LOADED.
+     *
+     * @param tag unique identifier of the section
+     * @param previousState previous state of section
+     */
+    public void notifyStateChangedToLoaded(String tag, State previousState) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyStateChangedToLoaded(section, previousState);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemChanged} and {@link #notifyItemInserted} with
+     * the position of the {@link State} view holder in the adapter. Useful to be called after
+     * changing the State from LOADING/ FAILED/ EMPTY to LOADED.
+     *
+     * @param section a visible section of this adapter
+     * @param previousState previous state of section
+     */
+    public void notifyStateChangedToLoaded(Section section, State previousState) {
+        State state = section.getState();
+
+        if (state == previousState) {
+            throw new IllegalStateException("No state changed");
+        }
+
+        if (state != State.LOADED) {
+            if (previousState == State.LOADED) {
+                throw new IllegalStateException("Use notifyStateChangedFromLoaded");
+            } else {
+                throw new IllegalStateException("Use notifyNotLoadedStateChanged");
+            }
+        }
+
+        notifyItemChangedInSection(section, 0);
+
+        int contentItemsTotal = section.getContentItemsTotal();
+
+        if (contentItemsTotal > 1) {
+            notifyItemRangeInsertedInSection(section, 1, contentItemsTotal - 1);
+        }
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemRangeRemoved} and {@link #notifyItemChanged} with
+     * the position of the {@link State} view holder in the adapter. Useful to be called after
+     * changing the State from LOADED to LOADING/ FAILED/ EMPTY.
+     *
+     * @param tag unique identifier of the section
+     * @param previousContentItemsCount previous content items count of section
+     */
+    public void notifyStateChangedFromLoaded(String tag, int previousContentItemsCount) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyStateChangedFromLoaded(section, previousContentItemsCount);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemRangeRemoved} and {@link #notifyItemChanged} with
+     * the position of the {@link State} view holder in the adapter. Useful to be called after
+     * changing the State from LOADED to LOADING/ FAILED/ EMPTY.
+     *
+     * @param section a visible section of this adapter
+     * @param previousContentItemsCount previous content items count of section
+     */
+    public void notifyStateChangedFromLoaded(Section section, int previousContentItemsCount) {
+        State state = section.getState();
+
+        if (state == State.LOADED) {
+            throw new IllegalStateException("Use notifyStateChangedToLoaded");
+        }
+
+        if (previousContentItemsCount > 1) {
+            notifyItemRangeRemovedFromSection(section, 1, previousContentItemsCount - 1);
+        }
+
+        notifyItemChangedInSection(section, 0);
     }
 
     @NonNull
