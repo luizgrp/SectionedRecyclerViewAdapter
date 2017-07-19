@@ -918,12 +918,11 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void notifySectionChangedToVisibleUsingTag_withAdapterWithManySections_throwsException() {
+    public void notifySectionChangedToVisibleUsingTag_withInvisibleSection_throwsException() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeInserted(anyInt(), anyInt());
 
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         headedFootedSectionStub.setVisible(false);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
@@ -933,12 +932,11 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void notifySectionChangedToInvisibleUsingTag_withAdapterWithManySections_throwsException() {
+    public void notifySectionChangedToInvisibleUsingTag_withVisibleSection_throwsException() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(anyInt(), anyInt());
-
-        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         headedFootedSectionStub.setVisible(true);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
