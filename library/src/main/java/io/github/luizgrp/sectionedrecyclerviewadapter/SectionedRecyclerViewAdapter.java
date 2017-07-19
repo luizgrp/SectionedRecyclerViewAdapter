@@ -801,9 +801,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param tag unique identifier of the section
      */
     public void notifyHeaderInsertedInSection(String tag) {
-        int headerPosition = getHeaderPositionInAdapter(tag);
+        Section section = getValidSectionOrThrowException(tag);
 
-        callSuperNotifyItemInserted(headerPosition);
+        notifyHeaderInsertedInSection(section);
     }
 
     /**
@@ -827,9 +827,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param tag unique identifier of the section
      */
     public void notifyFooterInsertedInSection(String tag) {
-        int footerPosition = getFooterPositionInAdapter(tag);
+        Section section = getValidSectionOrThrowException(tag);
 
-        callSuperNotifyItemInserted(footerPosition);
+        notifyFooterInsertedInSection(section);
     }
 
     /**
@@ -912,20 +912,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
-     * in the adapter. Useful to be called after changing the visibility of the section to invisible
-     * with {@link Section#setVisible}.
-     *
-     * @param tag unique identifier of the section
-     * @param previousSectionPosition previous section position
-     */
-    public void notifySectionChangedToInvisible(String tag, int previousSectionPosition) {
-        Section section = getValidSectionOrThrowException(tag);
-
-        notifySectionChangedToInvisible(section, previousSectionPosition);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
      * in the adapter. Useful to be called after changing the visibility of the section to visible
      * with {@link Section#setVisible}.
      *
@@ -941,6 +927,20 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         int sectionItemsTotal = section.getSectionItemsTotal();
 
         callSuperNotifyItemRangeInserted(sectionPosition, sectionItemsTotal);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
+     * in the adapter. Useful to be called after changing the visibility of the section to invisible
+     * with {@link Section#setVisible}.
+     *
+     * @param tag unique identifier of the section
+     * @param previousSectionPosition previous section position
+     */
+    public void notifySectionChangedToInvisible(String tag, int previousSectionPosition) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifySectionChangedToInvisible(section, previousSectionPosition);
     }
 
     /**
