@@ -903,9 +903,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param previousContentItemsCount previous content items count of section
      */
     public void notifyStateChangedFromLoaded(Section section, int previousContentItemsCount) {
-        Section.State state = section.getState();
+        State state = section.getState();
 
-        if (state == Section.State.LOADED) {
+        if (state == State.LOADED) {
             throw new IllegalStateException("Use notifyStateChangedToLoaded");
         }
 
