@@ -423,11 +423,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             // ignore invisible sections
             if (!loopSection.isVisible()) continue;
 
-            int sectionTotal = loopSection.getSectionItemsTotal();
-
             if (loopSection == section) {
                 return currentPos;
             }
+
+            int sectionTotal = loopSection.getSectionItemsTotal();
 
             currentPos += sectionTotal;
         }
