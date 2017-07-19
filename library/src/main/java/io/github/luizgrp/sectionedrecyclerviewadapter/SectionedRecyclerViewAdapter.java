@@ -846,6 +846,32 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Helper method that calls {@link #notifyItemRemoved} with the position of the section's
+     * footer in the adapter. Useful to be called after changing the visibility of the section's
+     * footer to invisible with {@link Section#setHasFooter}.
+     *
+     * @param section a visible section of this adapter
+     */
+    public void notifyFooterRemovedFromSection(Section section) {
+        int position = getSectionPosition(section) + section.getSectionItemsTotal();
+
+        callSuperNotifyItemRemoved(position);
+    }
+
+    /**
+     * Helper method that calls {@link #notifyItemRemoved} with the position of the section's
+     * footer in the adapter. Useful to be called after changing the visibility of the section's
+     * footer to invisible with {@link Section#setHasFooter}.
+     *
+     * @param tag unique identifier of the section
+     */
+    public void notifyFooterRemovedFromSection(String tag) {
+        Section section = getValidSectionOrThrowException(tag);
+
+        notifyFooterRemovedFromSection(section);
+    }
+    
+    /**
      * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
      * in the adapter. Useful to be called after changing the visibility of the section to visible
      * with {@link Section#setVisible}.
@@ -853,7 +879,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param tag unique identifier of the section
      */
     public void notifySectionChangedToVisible(String tag) {
-        Section section = getSection(tag);
+        Section section = getValidSectionOrThrowException(tag);
 
         notifySectionChangedToVisible(section);
     }
