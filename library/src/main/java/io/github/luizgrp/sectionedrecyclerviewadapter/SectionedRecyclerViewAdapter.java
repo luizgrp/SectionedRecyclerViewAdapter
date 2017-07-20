@@ -871,12 +871,16 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             }
         }
 
-        notifyItemChangedInSection(section, 0);
-
         int contentItemsTotal = section.getContentItemsTotal();
 
-        if (contentItemsTotal > 1) {
-            notifyItemRangeInsertedInSection(section, 1, contentItemsTotal - 1);
+        if (contentItemsTotal == 0) {
+            notifyItemRemovedFromSection(section, 0);
+        } else {
+            notifyItemChangedInSection(section, 0);
+
+            if (contentItemsTotal > 1) {
+                notifyItemRangeInsertedInSection(section, 1, contentItemsTotal - 1);
+            }
         }
     }
 
@@ -909,11 +913,15 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             throw new IllegalStateException("Use notifyStateChangedToLoaded");
         }
 
-        if (previousContentItemsCount > 1) {
-            notifyItemRangeRemovedFromSection(section, 1, previousContentItemsCount - 1);
-        }
+        if (previousContentItemsCount == 0) {
+            notifyItemInsertedInSection(section, 0);
+        } else {
+            if (previousContentItemsCount > 1) {
+                notifyItemRangeRemovedFromSection(section, 1, previousContentItemsCount - 1);
+            }
 
-        notifyItemChangedInSection(section, 0);
+            notifyItemChangedInSection(section, 0);
+        }
     }
 
     /**
