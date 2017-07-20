@@ -1010,6 +1010,47 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.notifyStateChangedFromLoaded(SECTION_TAG, headedFootedSectionStub.getContentItemsTotal());
     }
 
+    @Test
+    public void notifyStateChangedFromLoadedUsingTag_withPreviousContentItemsCount0_callsNotifyItemInserted() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(0);
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
+        headedFootedSectionStub.setState(Section.State.LOADED);
+
+        // When
+        int previousContentItemsTotal = headedFootedSectionStub.getContentItemsTotal();
+        headedFootedSectionStub.setState(Section.State.EMPTY);
+        spySectionedRecyclerViewAdapter.notifyStateChangedFromLoaded(SECTION_TAG, previousContentItemsTotal);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemInserted(11);
+    }
+
+    @Test
+    public void notifyStateChangedFromLoadedUsingTag_withPreviousContentItemsCount1_callsNotifyItemChanged() {
+        // Given
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
+        doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
+
+        spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
+        HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(1);
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
+        headedFootedSectionStub.setState(Section.State.LOADED);
+
+        // When
+        int previousContentItemsTotal = headedFootedSectionStub.getContentItemsTotal();
+        headedFootedSectionStub.setState(Section.State.EMPTY);
+        spySectionedRecyclerViewAdapter.notifyStateChangedFromLoaded(SECTION_TAG, previousContentItemsTotal);
+
+        // Then
+        verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(11);
+    }
+
+    @Test
     public void notifyHeaderInsertedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemInserted() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
