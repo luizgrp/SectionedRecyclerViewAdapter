@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
@@ -1011,6 +1012,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(11);
+        verify(spySectionedRecyclerViewAdapter, never()).callSuperNotifyItemRangeInserted(anyInt(), anyInt());
     }
 
     @Test
@@ -1088,6 +1090,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(11);
+        verify(spySectionedRecyclerViewAdapter, never()).callSuperNotifyItemRangeRemoved(anyInt(), anyInt());
     }
 
     @Test
