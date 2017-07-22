@@ -12,6 +12,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingHea
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingSectionSpy;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionStub;
 
+import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -28,6 +29,107 @@ public class SectionTest {
     @Before
     public void setup() {
         sectionAdapter = new SectionedRecyclerViewAdapter();
+    }
+
+    @Test
+    public void constructor_withSectionParameters_constructsCorrectSection() {
+        // Given
+        final int ITEM_ID = 1;
+        final int HEADER_ID = 2;
+        final int FOOTER_ID = 3;
+        final int FAILED_ID = 4;
+        final int LOADING_ID = 5;
+        final int EMPTY_ID = 6;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .headerResourceId(HEADER_ID)
+                .footerResourceId(FOOTER_ID)
+                .failedResourceId(FAILED_ID)
+                .loadingResourceId(LOADING_ID)
+                .emptyResourceId(EMPTY_ID)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // When
+        int resultItemId = section.getItemResourceId();
+        int resultHeaderId = section.getHeaderResourceId();
+        int resultFooterId = section.getFooterResourceId();
+        int resultFailedId = section.getFailedResourceId();
+        int resultLoadingId = section.getLoadingResourceId();
+        int resultEmptyId = section.getEmptyResourceId();
+        boolean resultHasHeader = section.hasHeader();
+        boolean resultHasFooter = section.hasFooter();
+
+        // Then
+        assertThat(resultItemId, is(ITEM_ID));
+        assertThat(resultHeaderId, is(HEADER_ID));
+        assertThat(resultFooterId, is(FOOTER_ID));
+        assertThat(resultFailedId, is(FAILED_ID));
+        assertThat(resultLoadingId, is(LOADING_ID));
+        assertThat(resultEmptyId, is(EMPTY_ID));
+        assertThat(resultHasHeader, is(true));
+        assertThat(resultHasFooter, is(true));
+    }
+
+    public void setState_withValidLoadingResId_succeeds() {
+        // Given
+        final int ITEM_ID = 1;
+        final int LOADING_ID = 2;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .loadingResourceId(LOADING_ID)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // When
+        section.setState(State.LOADING);
+
+        // Then
+        assertThat(section.getState(), is(State.LOADING));
+    }
+    
+    @Test(expected = IllegalStateException.class)
+    public void setState_withMissingLoadingResId_throwsException() {
+        // Given
+        final int ITEM_ID = 1;
+        
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // When
+        section.setState(State.LOADING);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void setState_withMissingFailedResId_throwsException() {
+        // Given
+        final int ITEM_ID = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // When
+        section.setState(State.FAILED);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void setState_withEmptyFailedResId_throwsException() {
+        // Given
+        final int ITEM_ID = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // When
+        section.setState(State.EMPTY);
     }
 
     @Test
@@ -54,7 +156,7 @@ public class SectionTest {
         BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
-        sectionSpy.setState(Section.State.LOADING);
+        sectionSpy.setState(State.LOADING);
 
         // When
         // Section - Loading [10]
@@ -72,7 +174,7 @@ public class SectionTest {
         BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
-        sectionSpy.setState(Section.State.FAILED);
+        sectionSpy.setState(State.FAILED);
 
         // When
         // Section - Failed [10]
@@ -90,7 +192,7 @@ public class SectionTest {
         BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
         sectionAdapter.addSection(sectionSpy);
 
-        sectionSpy.setState(Section.State.EMPTY);
+        sectionSpy.setState(State.EMPTY);
 
         // When
         // Section - Empty [10]
@@ -158,47 +260,6 @@ public class SectionTest {
         assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
         assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
         assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
-    }
-
-    @Test
-    public void constructor_withSectionParameters_constructsCorrectSection() {
-        // Given
-        final int ITEM_ID = 1;
-        final int HEADER_ID = 2;
-        final int FOOTER_ID = 3;
-        final int FAILED_ID = 4;
-        final int LOADING_ID = 5;
-        final int EMPTY_ID = 6;
-
-        @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .headerResourceId(HEADER_ID)
-                .footerResourceId(FOOTER_ID)
-                .failedResourceId(FAILED_ID)
-                .loadingResourceId(LOADING_ID)
-                .emptyResourceId(EMPTY_ID)
-                .build();
-        Section section = getSection(sectionParameters);
-
-        // When
-        int resultItemId = section.getItemResourceId();
-        int resultHeaderId = section.getHeaderResourceId();
-        int resultFooterId = section.getFooterResourceId();
-        int resultFailedId = section.getFailedResourceId();
-        int resultLoadingId = section.getLoadingResourceId();
-        int resultEmptyId = section.getEmptyResourceId();
-        boolean resultHasHeader = section.hasHeader();
-        boolean resultHasFooter = section.hasFooter();
-
-        // Then
-        assertThat(resultItemId, is(ITEM_ID));
-        assertThat(resultHeaderId, is(HEADER_ID));
-        assertThat(resultFooterId, is(FOOTER_ID));
-        assertThat(resultFailedId, is(FAILED_ID));
-        assertThat(resultLoadingId, is(LOADING_ID));
-        assertThat(resultEmptyId, is(EMPTY_ID));
-        assertThat(resultHasHeader, is(true));
-        assertThat(resultHasFooter, is(true));
     }
 
     private Section getSection(SectionParameters sectionParameters) {

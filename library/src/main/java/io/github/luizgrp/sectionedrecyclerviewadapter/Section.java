@@ -109,6 +109,24 @@ public abstract class Section {
      * @param state state of this section
      */
     public final void setState(State state) {
+        switch (state) {
+            case LOADING:
+                if (loadingResourceId == null) {
+                    throw new IllegalStateException("Missing 'loading state' resource id");
+                }
+                break;
+            case FAILED:
+                if (failedResourceId == null) {
+                    throw new IllegalStateException("Missing 'failed state' resource id");
+                }
+                break;
+            case EMPTY:
+                if (emptyResourceId == null) {
+                    throw new IllegalStateException("Missing 'empty state' resource id");
+                }
+                break;
+        }
+
         this.state = state;
     }
 
