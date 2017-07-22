@@ -12,6 +12,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.HeadedSta
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionStub;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.StatelessSectionStub;
 
+import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -335,7 +336,7 @@ public class SectionedRecyclerViewAdapterTest {
         addHeadedFootedStatelessSectionStubToAdapter();
 
         Section section = addSectionStubToAdapter();
-        section.setState(Section.State.LOADING);
+        section.setState(State.LOADING);
 
         addHeadedSectionStubToAdapter();
         addFootedSectionStubToAdapter();
@@ -357,7 +358,7 @@ public class SectionedRecyclerViewAdapterTest {
         addHeadedFootedStatelessSectionStubToAdapter();
 
         Section section = addSectionStubToAdapter();
-        section.setState(Section.State.FAILED);
+        section.setState(State.FAILED);
 
         addHeadedSectionStubToAdapter();
         addFootedSectionStubToAdapter();
@@ -379,7 +380,7 @@ public class SectionedRecyclerViewAdapterTest {
         addHeadedFootedStatelessSectionStubToAdapter();
 
         Section section = addSectionStubToAdapter();
-        section.setState(Section.State.EMPTY);
+        section.setState(State.EMPTY);
 
         addHeadedSectionStubToAdapter();
         addFootedSectionStubToAdapter();
@@ -851,11 +852,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
-        Section.State previousState = headedFootedSectionStub.getState();
-        headedFootedSectionStub.setState(Section.State.EMPTY);
+        State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(State.EMPTY);
         spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(SECTION_TAG, previousState);
 
         // Then
@@ -870,7 +871,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
         spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(SECTION_TAG, headedFootedSectionStub.getState());
@@ -884,10 +885,10 @@ public class SectionedRecyclerViewAdapterTest {
 
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
-        spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(SECTION_TAG, Section.State.LOADED);
+        spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(SECTION_TAG, State.LOADED);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -898,11 +899,11 @@ public class SectionedRecyclerViewAdapterTest {
 
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
-        Section.State previousState = headedFootedSectionStub.getState();
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(State.LOADED);
         spySectionedRecyclerViewAdapter.notifyNotLoadedStateChanged(SECTION_TAG, previousState);
     }
 
@@ -916,11 +917,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
-        Section.State previousState = headedFootedSectionStub.getState();
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(State.LOADED);
         spySectionedRecyclerViewAdapter.notifyStateChangedToLoaded(SECTION_TAG, previousState);
 
         // Then
@@ -936,7 +937,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        headedFootedSectionStub.setState(State.LOADED);
 
         // When
         spySectionedRecyclerViewAdapter.notifyStateChangedToLoaded(SECTION_TAG, headedFootedSectionStub.getState());
@@ -950,11 +951,11 @@ public class SectionedRecyclerViewAdapterTest {
 
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        headedFootedSectionStub.setState(State.LOADED);
 
         // When
-        Section.State previousState = headedFootedSectionStub.getState();
-        headedFootedSectionStub.setState(Section.State.EMPTY);
+        State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(State.EMPTY);
         spySectionedRecyclerViewAdapter.notifyStateChangedToLoaded(SECTION_TAG, previousState);
     }
 
@@ -966,11 +967,11 @@ public class SectionedRecyclerViewAdapterTest {
 
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
-        Section.State previousState = headedFootedSectionStub.getState();
-        headedFootedSectionStub.setState(Section.State.EMPTY);
+        State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(State.EMPTY);
         spySectionedRecyclerViewAdapter.notifyStateChangedToLoaded(SECTION_TAG, previousState);
     }
 
@@ -983,11 +984,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(0);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
-        Section.State previousState = headedFootedSectionStub.getState();
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(State.LOADED);
         spySectionedRecyclerViewAdapter.notifyStateChangedToLoaded(SECTION_TAG, previousState);
 
         // Then
@@ -1003,11 +1004,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(1);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADING);
+        headedFootedSectionStub.setState(State.LOADING);
 
         // When
-        Section.State previousState = headedFootedSectionStub.getState();
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        State previousState = headedFootedSectionStub.getState();
+        headedFootedSectionStub.setState(State.LOADED);
         spySectionedRecyclerViewAdapter.notifyStateChangedToLoaded(SECTION_TAG, previousState);
 
         // Then
@@ -1025,11 +1026,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        headedFootedSectionStub.setState(State.LOADED);
 
         // When
         int previousContentItemsTotal = headedFootedSectionStub.getContentItemsTotal();
-        headedFootedSectionStub.setState(Section.State.EMPTY);
+        headedFootedSectionStub.setState(State.EMPTY);
         spySectionedRecyclerViewAdapter.notifyStateChangedFromLoaded(SECTION_TAG, previousContentItemsTotal);
 
         // Then
@@ -1046,7 +1047,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        headedFootedSectionStub.setState(State.LOADED);
 
         // When
         spySectionedRecyclerViewAdapter.notifyStateChangedFromLoaded(SECTION_TAG, headedFootedSectionStub.getContentItemsTotal());
@@ -1061,11 +1062,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(0);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        headedFootedSectionStub.setState(State.LOADED);
 
         // When
         int previousContentItemsTotal = headedFootedSectionStub.getContentItemsTotal();
-        headedFootedSectionStub.setState(Section.State.EMPTY);
+        headedFootedSectionStub.setState(State.EMPTY);
         spySectionedRecyclerViewAdapter.notifyStateChangedFromLoaded(SECTION_TAG, previousContentItemsTotal);
 
         // Then
@@ -1081,11 +1082,11 @@ public class SectionedRecyclerViewAdapterTest {
         spySectionedRecyclerViewAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(1);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
-        headedFootedSectionStub.setState(Section.State.LOADED);
+        headedFootedSectionStub.setState(State.LOADED);
 
         // When
         int previousContentItemsTotal = headedFootedSectionStub.getContentItemsTotal();
-        headedFootedSectionStub.setState(Section.State.EMPTY);
+        headedFootedSectionStub.setState(State.EMPTY);
         spySectionedRecyclerViewAdapter.notifyStateChangedFromLoaded(SECTION_TAG, previousContentItemsTotal);
 
         // Then
