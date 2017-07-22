@@ -17,6 +17,7 @@ public class SectionStub extends Section {
         super(new SectionParameters.Builder(-1)
                 .failedResourceId(-1)
                 .loadingResourceId(-1)
+                .emptyResourceId(-1)
                 .build());
 
         this.contentItemsTotal = contentItemsTotal;

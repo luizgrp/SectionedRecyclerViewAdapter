@@ -14,6 +14,7 @@ public class BindingSectionSpy extends Section {
     public boolean onBindItemViewHolderWasCalled = false;
     public boolean onBindLoadingViewHolderWasCalled = false;
     public boolean onBindFailedViewHolderWasCalled = false;
+    public boolean onBindEmptyViewHolderWasCalled = false;
 
     private final int contentItemsTotal;
 
@@ -21,6 +22,7 @@ public class BindingSectionSpy extends Section {
         super(new SectionParameters.Builder(-1)
                 .failedResourceId(-1)
                 .loadingResourceId(-1)
+                .emptyResourceId(-1)
                 .build());
 
         this.contentItemsTotal = contentItemsTotal;
@@ -49,5 +51,10 @@ public class BindingSectionSpy extends Section {
     @Override
     public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         onBindFailedViewHolderWasCalled = true;
+    }
+
+    @Override
+    public void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
+        onBindEmptyViewHolderWasCalled = true;
     }
 }

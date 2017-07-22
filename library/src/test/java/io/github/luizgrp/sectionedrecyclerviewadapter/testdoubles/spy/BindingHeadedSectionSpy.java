@@ -15,6 +15,7 @@ public class BindingHeadedSectionSpy extends Section {
     public boolean onBindHeaderViewHolderWasCalled = false;
     public boolean onBindLoadingViewHolderWasCalled = false;
     public boolean onBindFailedViewHolderWasCalled = false;
+    public boolean onBindEmptyViewHolderWasCalled = false;
 
     private final int contentItemsTotal;
 
@@ -23,6 +24,7 @@ public class BindingHeadedSectionSpy extends Section {
                 .headerResourceId(-1)
                 .failedResourceId(-1)
                 .loadingResourceId(-1)
+                .emptyResourceId(-1)
                 .build());
 
         this.contentItemsTotal = contentItemsTotal;
@@ -56,5 +58,10 @@ public class BindingHeadedSectionSpy extends Section {
     @Override
     public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         onBindFailedViewHolderWasCalled = true;
+    }
+
+    @Override
+    public void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
+        onBindEmptyViewHolderWasCalled = true;
     }
 }

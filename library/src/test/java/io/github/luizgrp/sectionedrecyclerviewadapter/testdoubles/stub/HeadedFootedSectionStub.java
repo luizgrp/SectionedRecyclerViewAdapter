@@ -19,6 +19,7 @@ public class HeadedFootedSectionStub extends Section {
                 .footerResourceId(-1)
                 .failedResourceId(-1)
                 .loadingResourceId(-1)
+                .emptyResourceId(-1)
                 .build());
 
         this.contentItemsTotal = contentItemsTotal;

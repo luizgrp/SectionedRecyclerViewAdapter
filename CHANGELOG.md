@@ -1,11 +1,21 @@
 # Changelog
 
+## 1.1.3 - 22/07/2017
+
+### Section class
+- Add checks for resource ids in `setState` and throw exception if missing
+
+### SectionedRecyclerViewAdapter class
+- Add methods `notifyNotLoadedStateChanged`, `notifyStateChangedToLoaded` and `notifyStateChangedFromLoaded`.
+- Add methods `notifyHeaderInsertedInSection`, `notifyFooterInsertedInSection`, `notifyHeaderRemovedFromSection` and `notifyFooterRemovedFromSection`.
+- Add methods `notifySectionChangedToVisible` and `notifySectionChangedToInvisible`
+
 ## 1.1.2 - 30/06/2017
 ### SectionParameters class
 - Add this class to be used as parameter to constructors of `Section` and `StatelessSection` classes.
 
 ### Section class
-- Add EMPTY state
+- Add EMPTY state.
 - Deprecate all existing constructors.
 - Add constructor with `SectionParameters` as parameter.
 - Add LayoutRes annotation to resource id variables and constructor parameters.
