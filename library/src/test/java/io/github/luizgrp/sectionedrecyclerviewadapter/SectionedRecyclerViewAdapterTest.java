@@ -138,11 +138,11 @@ public class SectionedRecyclerViewAdapterTest {
         Section section = new StatelessSectionStub(ITEMS_QTY);
 
         // When
-        sectionAdapter.addSection(SECTION_TAG, section);
+        String result = sectionAdapter.addSection(section);
 
         // Then
-        assertSame(sectionAdapter.getSection(SECTION_TAG), section);
-        assertSame(sectionAdapter.getSectionsMap().get(SECTION_TAG), section);
+        assertSame(sectionAdapter.getSection(result), section);
+        assertSame(sectionAdapter.getSectionsMap().get(result), section);
     }
 
     @Test
