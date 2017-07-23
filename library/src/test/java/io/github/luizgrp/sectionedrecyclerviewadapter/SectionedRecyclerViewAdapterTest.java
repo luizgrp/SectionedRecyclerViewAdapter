@@ -79,18 +79,18 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionPositionUsingTag_withAdapterWithInvisibleSection_returnsCorrectPosition() {
+    public void getSectionPositionUsingTag_callsGetSectionPositionUsingSection() {
         // Given
-        addStatelessSectionStubToAdapter();
-        addInvisibleStatelessSectionStubToAdapter();
+        SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
 
-        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+        SectionStub sectionStub = new SectionStub(ITEMS_QTY);
+        spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, sectionStub);
 
         // When
-        int result = sectionAdapter.getSectionPosition(SECTION_TAG);
+        spySectionedRecyclerViewAdapter.getSectionPosition(SECTION_TAG);
 
         // Then
-        assertThat(result, is(10));
+        verify(spySectionedRecyclerViewAdapter).getSectionPosition(sectionStub);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -133,7 +133,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void addSection_withEmptyAdapter_succeeds() {
+    public void addSectionUsingSection_withEmptyAdapter_succeeds() {
         // Given
         Section section = new StatelessSectionStub(ITEMS_QTY);
 
@@ -146,7 +146,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void addSectionWithTag_withEmptyAdapter_succeeds() {
+    public void addSectionUsingTag_withEmptyAdapter_succeeds() {
         // Given
         Section section = new StatelessSectionStub(ITEMS_QTY);
 
