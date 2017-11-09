@@ -162,12 +162,13 @@ public class SectionedRecyclerViewAdapterTest {
     public void getSectionWithTag_withRemovedSection_returnsNull() {
         // Given
         sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
-
-        // When
         sectionAdapter.removeSection(SECTION_TAG);
 
+        // When
+        Section result = sectionAdapter.getSection(SECTION_TAG);
+
         // Then
-        assertNull(sectionAdapter.getSection(SECTION_TAG));
+        assertNull(result);
     }
 
     @Test
