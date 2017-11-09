@@ -7,6 +7,7 @@ import android.view.View;
 /**
  * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class Section {
 
     public enum State { LOADING, LOADED, FAILED, EMPTY }

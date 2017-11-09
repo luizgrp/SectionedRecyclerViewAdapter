@@ -17,6 +17,7 @@ import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
  * A custom RecyclerView Adapter that allows {@link Section Sections} to be added to it.
  * Sections are displayed in the same order they were added.
  */
+@SuppressWarnings({"WeakerAccess", "SameParameterValue"})
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public final static int VIEW_TYPE_HEADER = 0;
