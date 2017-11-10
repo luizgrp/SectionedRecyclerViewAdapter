@@ -181,6 +181,78 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
+    public void removeSectionWithTag_withEmptyAdapter_failsSilently() {
+        // When
+        sectionAdapter.removeSection(SECTION_TAG);
+
+        // Then
+        assertTrue(sectionAdapter.getSectionsMap().isEmpty());
+    }
+
+    @Test
+    public void removeSectionWithTag_withInvalidTag_doesNotRemoveAnything() {
+        // Given
+        addFourStatelessSectionsAndFourSectionsToAdapter();
+
+        // When
+        sectionAdapter.removeSection(SECTION_TAG);
+
+        // Then
+        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+        assertNull(sectionAdapter.getSection(SECTION_TAG));
+    }
+
+    @Test
+    public void removeSectionWithTag_withAdapterWithManySections_succeeds() {
+        // Given
+        addFourStatelessSectionsAndFourSectionsToAdapter();
+        sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
+
+        // When
+        sectionAdapter.removeSection(SECTION_TAG);
+
+        // Then
+        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+        assertNull(sectionAdapter.getSection(SECTION_TAG));
+    }
+
+    @Test
+    public void removeSection_withEmptyAdapter_failsSilently() {
+        // When
+        sectionAdapter.removeSection(new SectionStub(ITEMS_QTY));
+
+        // Then
+        assertTrue(sectionAdapter.getSectionsMap().isEmpty());
+    }
+
+    @Test
+    public void removeSection_withInvalidSection_doesNotRemoveAnything() {
+        // Given
+        addFourStatelessSectionsAndFourSectionsToAdapter();
+
+        // When
+        sectionAdapter.removeSection(new SectionStub(ITEMS_QTY));
+
+        // Then
+        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+    }
+
+    @Test
+    public void removeSection_withAdapterWithManySections_succeeds() {
+        // Given
+        addFourStatelessSectionsAndFourSectionsToAdapter();
+        final StatelessSectionStub section = new StatelessSectionStub(ITEMS_QTY);
+        sectionAdapter.addSection(SECTION_TAG, section);
+
+        // When
+        sectionAdapter.removeSection(section);
+
+        // Then
+        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+        assertNull(sectionAdapter.getSection(SECTION_TAG));
+    }
+
+    @Test
     public void getItemCount_withEmptyAdapter_isZero() {
         // When
         int result = sectionAdapter.getItemCount();

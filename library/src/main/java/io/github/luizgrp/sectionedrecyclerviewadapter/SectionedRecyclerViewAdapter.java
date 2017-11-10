@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 
 /**
@@ -28,13 +28,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public final static int VIEW_TYPE_EMPTY = 5;
 
     private LinkedHashMap<String, Section> sections;
-    private HashMap<String, Integer> sectionViewTypeNumbers;
+    private LinkedHashMap<String, Integer> sectionViewTypeNumbers;
     private int viewTypeCount = 0;
     private final static int VIEW_TYPE_QTY = 6;
 
     public SectionedRecyclerViewAdapter() {
         sections = new LinkedHashMap<>();
-        sectionViewTypeNumbers = new HashMap<>();
+        sectionViewTypeNumbers = new LinkedHashMap<>();
     }
 
     @Override
@@ -179,10 +179,29 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     /**
      * Remove section from this recyclerview.
      *
+     * @param section section to be removed
+     */
+    public void removeSection(Section section) {
+        String tag = null;
+        for (final Map.Entry<String, Section> entry : this.sections.entrySet()) {
+            if (entry.getValue() == section) {
+                tag = entry.getKey();
+            }
+        }
+
+        if (tag != null) {
+            this.removeSection(tag);
+        }
+    }
+
+    /**
+     * Remove section from this recyclerview.
+     *
      * @param tag unique identifier of the section
      */
     public void removeSection(String tag) {
         this.sections.remove(tag);
+        this.sectionViewTypeNumbers.remove(tag);
     }
 
     /**
