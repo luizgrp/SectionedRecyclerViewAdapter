@@ -84,8 +84,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
     @Override
     public boolean onQueryTextChange(String query) {
 
-        // getSectionsMap requires library version 1.0.4+
-        for (Section section : sectionAdapter.getSectionsMap().values()) {
+        for (Section section : sectionAdapter.getCopyOfSectionsMap().values()) {
             if (section instanceof FilterableSection) {
                 ((FilterableSection)section).filter(query);
             }
