@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -27,21 +28,27 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public final static int VIEW_TYPE_FAILED = 4;
     public final static int VIEW_TYPE_EMPTY = 5;
 
-    private LinkedHashMap<String, Section> sections;
-    private LinkedHashMap<String, Integer> sectionViewTypeNumbers;
-    private int viewTypeCount = 0;
     private final static int VIEW_TYPE_QTY = 6;
 
+    private final Map<String, Section> sections;
+    private final Map<String, Integer> sectionViewTypeNumbers;
+    private int viewTypeCount = 0;
+
     public SectionedRecyclerViewAdapter() {
-        sections = new LinkedHashMap<>();
-        sectionViewTypeNumbers = new LinkedHashMap<>();
+        sections = Collections.synchronizedMap(new LinkedHashMap<String, Section>());
+        sectionViewTypeNumbers = Collections.synchronizedMap(new LinkedHashMap<String, Integer>());
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
 
-        for (Map.Entry<String, Integer> entry : sectionViewTypeNumbers.entrySet()) {
+        Map<String, Integer> copyOfSectionViewTypeNumbers;
+        synchronized (sectionViewTypeNumbers) {
+            copyOfSectionViewTypeNumbers = new LinkedHashMap<>(sectionViewTypeNumbers);
+        }
+
+        for (Map.Entry<String, Integer> entry : copyOfSectionViewTypeNumbers.entrySet()) {
             if (viewType >= entry.getValue() && viewType < entry.getValue() + VIEW_TYPE_QTY) {
 
                 Section section = sections.get(entry.getKey());
@@ -183,9 +190,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void removeSection(Section section) {
         String tag = null;
-        for (final Map.Entry<String, Section> entry : this.sections.entrySet()) {
+
+        Map<String, Section> copyOfSections = getCopyOfSectionsMap();
+
+        for (final Map.Entry<String, Section> entry : copyOfSections.entrySet()) {
             if (entry.getValue() == section) {
                 tag = entry.getKey();
+                break;
             }
         }
 
@@ -216,7 +227,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         int currentPos = 0;
 
-        for (Map.Entry<String, Section> entry : sections.entrySet()) {
+        Map<String, Section> copyOfSections = getCopyOfSectionsMap();
+
+        for (Map.Entry<String, Section> entry : copyOfSections.entrySet()) {
             Section section = entry.getValue();
 
             // ignore invisible sections
@@ -259,7 +272,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public int getItemCount() {
         int count = 0;
 
-        for (Map.Entry<String, Section> entry : sections.entrySet()) {
+        Map<String, Section> copyOfSections = getCopyOfSectionsMap();
+
+        for (Map.Entry<String, Section> entry : copyOfSections.entrySet()) {
             Section section = entry.getValue();
 
             // ignore invisible sections
@@ -284,7 +299,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
          */
         int currentPos = 0;
 
-        for (Map.Entry<String, Section> entry : sections.entrySet()) {
+        Map<String, Section> copyOfSections = getCopyOfSectionsMap();
+
+        for (Map.Entry<String, Section> entry : copyOfSections.entrySet()) {
             Section section = entry.getValue();
 
             // ignore invisible sections
@@ -360,7 +377,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         int currentPos = 0;
 
-        for (Map.Entry<String, Section> entry : sections.entrySet()) {
+        Map<String, Section> copyOfSections = getCopyOfSectionsMap();
+
+        for (Map.Entry<String, Section> entry : copyOfSections.entrySet()) {
             Section section = entry.getValue();
 
             // ignore invisible sections
@@ -380,14 +399,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * @deprecated Use {@link #getPositionInSection} instead.
-     */
-    @Deprecated
-    public int getSectionPosition(int position) {
-        return getPositionInSection(position);
-    }
-
-    /**
      * Return the item position relative to the section.
      *
      * @param position position of the item in the adapter
@@ -396,7 +407,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public int getPositionInSection(int position) {
         int currentPos = 0;
 
-        for (Map.Entry<String, Section> entry : sections.entrySet()) {
+        Map<String, Section> copyOfSections = getCopyOfSectionsMap();
+
+        for (Map.Entry<String, Section> entry : copyOfSections.entrySet()) {
             Section section = entry.getValue();
 
             // ignore invisible sections
@@ -437,7 +450,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public int getSectionPosition(Section section) {
         int currentPos = 0;
 
-        for (Map.Entry<String, Section> entry : sections.entrySet()) {
+        Map<String, Section> copyOfSections = getCopyOfSectionsMap();
+
+        for (Map.Entry<String, Section> entry : copyOfSections.entrySet()) {
             Section loopSection = entry.getValue();
 
             // ignore invisible sections
@@ -456,12 +471,17 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Return a map with all sections of this adapter.
+     * Return a copy of the map with all sections of this adapter.
      *
-     * @return a map with all sections
+     * @return a copy of the map with all sections
      */
-    public LinkedHashMap<String, Section> getSectionsMap() {
-        return sections;
+    @NonNull
+    public Map<String, Section> getCopyOfSectionsMap() {
+        Map<String, Section> copyOfSections;
+        synchronized (sections) {
+            copyOfSections = new LinkedHashMap<>(sections);
+        }
+        return copyOfSections;
     }
 
     /**
