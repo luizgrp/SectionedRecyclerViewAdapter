@@ -142,7 +142,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         assertSame(sectionAdapter.getSection(result), section);
-        assertSame(sectionAdapter.getSectionsMap().get(result), section);
+        assertSame(sectionAdapter.getCopyOfSectionsMap().get(result), section);
     }
 
     @Test
@@ -155,7 +155,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         assertSame(sectionAdapter.getSection(SECTION_TAG), section);
-        assertSame(sectionAdapter.getSectionsMap().get(SECTION_TAG), section);
+        assertSame(sectionAdapter.getCopyOfSectionsMap().get(SECTION_TAG), section);
     }
 
     @Test
@@ -186,7 +186,7 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.removeSection(SECTION_TAG);
 
         // Then
-        assertTrue(sectionAdapter.getSectionsMap().isEmpty());
+        assertTrue(sectionAdapter.getCopyOfSectionsMap().isEmpty());
     }
 
     @Test
@@ -198,7 +198,7 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.removeSection(SECTION_TAG);
 
         // Then
-        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().size(), is(8));
         assertNull(sectionAdapter.getSection(SECTION_TAG));
     }
 
@@ -212,7 +212,7 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.removeSection(SECTION_TAG);
 
         // Then
-        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().size(), is(8));
         assertNull(sectionAdapter.getSection(SECTION_TAG));
     }
 
@@ -222,7 +222,7 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.removeSection(new SectionStub(ITEMS_QTY));
 
         // Then
-        assertTrue(sectionAdapter.getSectionsMap().isEmpty());
+        assertTrue(sectionAdapter.getCopyOfSectionsMap().isEmpty());
     }
 
     @Test
@@ -234,7 +234,7 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.removeSection(new SectionStub(ITEMS_QTY));
 
         // Then
-        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().size(), is(8));
     }
 
     @Test
@@ -248,7 +248,7 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.removeSection(section);
 
         // Then
-        assertThat(sectionAdapter.getSectionsMap().size(), is(8));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().size(), is(8));
         assertNull(sectionAdapter.getSection(SECTION_TAG));
     }
 
@@ -277,7 +277,7 @@ public class SectionedRecyclerViewAdapterTest {
     @Test
     public void getSectionsMap_withEmptyAdapter_isEmpty() {
         // When
-        boolean result = sectionAdapter.getSectionsMap().isEmpty();
+        boolean result = sectionAdapter.getCopyOfSectionsMap().isEmpty();
 
         // Then
         assertTrue(result);
@@ -290,7 +290,7 @@ public class SectionedRecyclerViewAdapterTest {
         addInvisibleStatelessSectionStubToAdapter();
 
         // When
-        int result = sectionAdapter.getSectionsMap().size();
+        int result = sectionAdapter.getCopyOfSectionsMap().size();
 
         // Then
         assertThat(result, is(2));
@@ -520,7 +520,7 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         assertThat(sectionAdapter.getItemCount(), is(0));
-        assertTrue(sectionAdapter.getSectionsMap().isEmpty());
+        assertTrue(sectionAdapter.getCopyOfSectionsMap().isEmpty());
     }
 
     @Test
