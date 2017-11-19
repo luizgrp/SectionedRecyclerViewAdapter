@@ -20,7 +20,7 @@ public class BindingFootedSectionSpy extends Section {
     private final int contentItemsTotal;
 
     public BindingFootedSectionSpy(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
+        super(SectionParameters.builder(-1)
                 .footerResourceId(-1)
                 .failedResourceId(-1)
                 .loadingResourceId(-1)

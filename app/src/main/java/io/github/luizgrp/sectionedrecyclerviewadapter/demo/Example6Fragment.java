@@ -101,7 +101,7 @@ public class Example6Fragment extends Fragment {
         boolean expanded = true;
 
         ExpandableMovieSection(String title, List<Movie> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex6_item)
+            super(SectionParameters.builder(R.layout.section_ex6_item)
                     .headerResourceId(R.layout.section_ex6_header)
                     .build());
 

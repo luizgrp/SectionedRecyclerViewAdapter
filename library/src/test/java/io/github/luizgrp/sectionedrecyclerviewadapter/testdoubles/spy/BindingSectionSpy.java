@@ -19,7 +19,7 @@ public class BindingSectionSpy extends Section {
     private final int contentItemsTotal;
 
     public BindingSectionSpy(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
+        super(SectionParameters.builder(-1)
                 .failedResourceId(-1)
                 .loadingResourceId(-1)
                 .emptyResourceId(-1)

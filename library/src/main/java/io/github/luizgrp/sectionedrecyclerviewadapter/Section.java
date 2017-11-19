@@ -39,7 +39,7 @@ public abstract class Section {
     @Deprecated
     public Section(@LayoutRes int itemResourceId, @LayoutRes int loadingResourceId,
                    @LayoutRes int failedResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
+        this(SectionParameters.builder(itemResourceId)
                 .loadingResourceId(loadingResourceId)
                 .failedResourceId(failedResourceId)
                 .build());
@@ -58,7 +58,7 @@ public abstract class Section {
     @Deprecated
     public Section(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId,
                    @LayoutRes int loadingResourceId, @LayoutRes int failedResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
+        this(SectionParameters.builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .loadingResourceId(loadingResourceId)
                 .failedResourceId(failedResourceId)
@@ -80,7 +80,7 @@ public abstract class Section {
     public Section(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
                    @LayoutRes int itemResourceId, @LayoutRes int loadingResourceId,
                    @LayoutRes int failedResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
+        this(SectionParameters.builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .footerResourceId(footerResourceId)
                 .loadingResourceId(loadingResourceId)

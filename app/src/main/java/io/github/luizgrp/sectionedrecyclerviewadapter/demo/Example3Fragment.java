@@ -138,7 +138,7 @@ public class Example3Fragment extends Fragment {
         int imgPlaceholderResId;
 
         NewsSection(int topic) {
-            super(new SectionParameters.Builder(R.layout.section_ex3_item)
+            super(SectionParameters.builder(R.layout.section_ex3_item)
                     .headerResourceId(R.layout.section_ex3_header)
                     .footerResourceId(R.layout.section_ex3_footer)
                     .failedResourceId(R.layout.section_ex3_failed)

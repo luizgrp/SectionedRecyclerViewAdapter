@@ -21,7 +21,7 @@ public class BindingHeadedFootedSectionSpy extends Section {
     private final int contentItemsTotal;
 
     public BindingHeadedFootedSectionSpy(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
+        super(SectionParameters.builder(-1)
                 .headerResourceId(-1)
                 .footerResourceId(-1)
                 .failedResourceId(-1)

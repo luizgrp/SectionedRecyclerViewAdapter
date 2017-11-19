@@ -114,7 +114,7 @@ public class Example8Fragment extends Fragment {
         List<Person> list;
 
         NameSection(String tag, String title) {
-            super(new SectionParameters.Builder(R.layout.section_ex8_item)
+            super(SectionParameters.builder(R.layout.section_ex8_item)
                     .headerResourceId(R.layout.section_ex8_header)
                     .build());
 

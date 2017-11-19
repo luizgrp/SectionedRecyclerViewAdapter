@@ -76,7 +76,7 @@ public class Example1Fragment extends Fragment {
         List<String> list;
 
         ContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex1_item)
+            super(SectionParameters.builder(R.layout.section_ex1_item)
                     .headerResourceId(R.layout.section_ex1_header)
                     .build());
 

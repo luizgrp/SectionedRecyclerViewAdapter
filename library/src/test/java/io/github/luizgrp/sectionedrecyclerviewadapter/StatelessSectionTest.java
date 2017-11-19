@@ -111,7 +111,7 @@ public class StatelessSectionTest {
         final int LOADING_ID = 2;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .loadingResourceId(LOADING_ID)
                 .build();
 
@@ -126,7 +126,7 @@ public class StatelessSectionTest {
         final int FAILED_ID = 2;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .failedResourceId(FAILED_ID)
                 .build();
 
@@ -141,7 +141,7 @@ public class StatelessSectionTest {
         final int EMPTY_ID = 2;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .emptyResourceId(EMPTY_ID)
                 .build();
 

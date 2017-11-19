@@ -100,7 +100,7 @@ public class Example5Fragment extends Fragment {
         List<Movie> list;
 
         MovieSection(String title, List<Movie> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex5_item)
+            super(SectionParameters.builder(R.layout.section_ex5_item)
                     .headerResourceId(R.layout.section_ex5_header)
                     .build());
 

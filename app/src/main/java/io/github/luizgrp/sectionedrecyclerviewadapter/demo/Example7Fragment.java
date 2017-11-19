@@ -119,7 +119,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         List<String> filteredList;
 
         ContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex7_item)
+            super(SectionParameters.builder(R.layout.section_ex7_item)
                     .headerResourceId(R.layout.section_ex7_header)
                     .build());
 

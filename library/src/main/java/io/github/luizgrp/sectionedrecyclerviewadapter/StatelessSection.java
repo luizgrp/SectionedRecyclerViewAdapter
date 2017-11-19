@@ -18,7 +18,7 @@ public abstract class StatelessSection extends Section {
      */
     @Deprecated
     public StatelessSection(@LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
+        this(SectionParameters.builder(itemResourceId)
                 .build());
     }
 
@@ -32,7 +32,7 @@ public abstract class StatelessSection extends Section {
      */
     @Deprecated
     public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
+        this(SectionParameters.builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .build());
     }
@@ -49,7 +49,7 @@ public abstract class StatelessSection extends Section {
     @Deprecated
     public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
                             @LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
+        this(SectionParameters.builder(itemResourceId)
                 .headerResourceId(headerResourceId)
                 .footerResourceId(footerResourceId)
                 .build());
