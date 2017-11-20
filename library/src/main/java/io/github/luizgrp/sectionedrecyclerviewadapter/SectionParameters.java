@@ -5,8 +5,8 @@ import android.support.annotation.LayoutRes;
 /**
  * Class used as constructor parameters of {@link Section}.
  */
-@SuppressWarnings("WeakerAccess")
-public class SectionParameters {
+@SuppressWarnings({"WeakerAccess", "checkstyle:visibilitymodifier"})
+public final class SectionParameters {
     @LayoutRes public final Integer headerResourceId;
     @LayoutRes public final Integer footerResourceId;
     @LayoutRes public final int itemResourceId;
@@ -15,7 +15,7 @@ public class SectionParameters {
     @LayoutRes public final Integer emptyResourceId;
 
     /**
-     * Builder of {@link SectionParameters}
+     * Builder of {@link SectionParameters}.
      */
     public static class Builder {
         private final int itemResourceId;
@@ -27,7 +27,8 @@ public class SectionParameters {
         @LayoutRes private Integer emptyResourceId;
 
         /**
-         * Constructor with mandatory parameters of {@link Section}
+         * Constructor with mandatory parameters of {@link Section}.
+         *
          * @param itemResourceId layout resource for Section's items
          */
         public Builder(@LayoutRes int itemResourceId) {
@@ -35,7 +36,8 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's header
+         * Set layout resource for Section's header.
+         *
          * @param headerResourceId layout resource for Section's header
          * @return this builder
          */
@@ -46,7 +48,8 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's footer
+         * Set layout resource for Section's footer.
+         *
          * @param footerResourceId layout resource for Section's footer
          * @return this builder
          */
@@ -57,7 +60,8 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's loading state
+         * Set layout resource for Section's loading state.
+         *
          * @param loadingResourceId layout resource for Section's loading state
          * @return this builder
          */
@@ -68,7 +72,8 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's failed state
+         * Set layout resource for Section's failed state.
+         *
          * @param failedResourceId layout resource for Section's failed state
          * @return this builder
          */
@@ -79,7 +84,8 @@ public class SectionParameters {
         }
 
         /**
-         * Set layout resource for Section's empty state
+         * Set layout resource for Section's empty state.
+         *
          * @param emptyResourceId layout resource for Section's empty state
          * @return this builder
          */
@@ -88,9 +94,10 @@ public class SectionParameters {
 
             return this;
         }
-        
+
         /**
-         * Build an instance of SectionParameters
+         * Build an instance of SectionParameters.
+         *
          * @return an instance of SectionParameters
          */
         public SectionParameters build() {

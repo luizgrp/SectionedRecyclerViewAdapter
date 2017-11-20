@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_item1"
-        android:title="@string/nav_stateless" >
+        android:title="@string/nav_stateless">
         <menu>
             <item
                 android:id="@+id/nav_example1"
@@ -43,7 +43,7 @@
 
     <item
         android:id="@+id/nav_item2"
-        android:title="@string/nav_stateful" >
+        android:title="@string/nav_stateful">
         <menu>
             <item
                 android:id="@+id/nav_example3"

@@ -40,7 +40,7 @@ public class Example8Fragment extends Fragment {
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch(sectionAdapter.getSectionItemViewType(position)) {
+                switch (sectionAdapter.getSectionItemViewType(position)) {
                     case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
                         return 2;
                     default:
@@ -73,8 +73,9 @@ public class Example8Fragment extends Fragment {
 
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null)
+            if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(R.string.nav_example8);
+            }
         }
     }
 
@@ -83,7 +84,7 @@ public class Example8Fragment extends Fragment {
         String sectionTag = String.format("section%sTag", randomNumber);
 
         NameSection section = new NameSection(sectionTag,
-                getString(R.string.group_title, randomNumber));
+            getString(R.string.group_title, randomNumber));
 
         sectionAdapter.addSection(sectionTag, section);
 
@@ -115,8 +116,8 @@ public class Example8Fragment extends Fragment {
 
         NameSection(String tag, String title) {
             super(new SectionParameters.Builder(R.layout.section_ex8_item)
-                    .headerResourceId(R.layout.section_ex8_header)
-                    .build());
+                .headerResourceId(R.layout.section_ex8_header)
+                .build());
 
             this.TAG = tag;
             this.title = title;

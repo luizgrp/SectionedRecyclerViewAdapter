@@ -1,0 +1,19 @@
+apply plugin: 'checkstyle'
+
+check.dependsOn 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    description 'Checks if the code adheres to a coding standard'
+    group 'verification'
+
+    configFile file("${project.rootDir}/config/checkstyle.xml")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+}
+
+dependencies {
+    checkstyle "com.puppycrawl.tools:checkstyle:8.2"
+}

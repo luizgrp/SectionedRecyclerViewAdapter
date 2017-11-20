@@ -15,11 +15,11 @@ public class HeadedSectionStub extends Section {
 
     public HeadedSectionStub(int contentItemsTotal) {
         super(new SectionParameters.Builder(-1)
-                .headerResourceId(-1)
-                .failedResourceId(-1)
-                .loadingResourceId(-1)
-                .emptyResourceId(-1)
-                .build());
+            .headerResourceId(-1)
+            .failedResourceId(-1)
+            .loadingResourceId(-1)
+            .emptyResourceId(-1)
+            .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

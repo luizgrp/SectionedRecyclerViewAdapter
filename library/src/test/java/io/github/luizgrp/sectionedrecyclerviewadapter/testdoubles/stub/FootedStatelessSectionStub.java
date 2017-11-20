@@ -15,8 +15,8 @@ public class FootedStatelessSectionStub extends StatelessSection {
 
     public FootedStatelessSectionStub(int contentItemsTotal) {
         super(new SectionParameters.Builder(-1)
-                .footerResourceId(-1)
-                .build());
+            .footerResourceId(-1)
+            .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

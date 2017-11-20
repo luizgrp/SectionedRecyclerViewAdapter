@@ -25,13 +25,14 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-/**
+/*
  * Unit tests for {@link SectionedRecyclerViewAdapter}
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class SectionedRecyclerViewAdapterTest {
 
-    private final int ITEMS_QTY = 10;
-    private final String SECTION_TAG = "tag";
+    private static final int ITEMS_QTY = 10;
+    private static final String SECTION_TAG = "tag";
 
     private SectionedRecyclerViewAdapter sectionAdapter;
 
@@ -816,7 +817,7 @@ public class SectionedRecyclerViewAdapterTest {
         // When
         sectionAdapter.notifyFooterChangedInSection(SECTION_TAG);
     }
-    
+
     @Test
     public void notifyItemRangeChangedInSectionUsingTag_withAdapterWithManySections_callsSuperNotifyItemRangeChanged() {
         // Given
@@ -937,7 +938,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void  notifyNotLoadedStateChangedUsingTag_withNoStateChange_throwsException() {
+    public void notifyNotLoadedStateChangedUsingTag_withNoStateChange_throwsException() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
@@ -951,7 +952,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void  notifyNotLoadedStateChangedUsingTag_withLoadedAsPreviousState_throwsException() {
+    public void notifyNotLoadedStateChangedUsingTag_withLoadedAsPreviousState_throwsException() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
@@ -965,7 +966,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void  notifyNotLoadedStateChangedUsingTag_withLoadedAsCurrentState_throwsException() {
+    public void notifyNotLoadedStateChangedUsingTag_withLoadedAsCurrentState_throwsException() {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemChanged(anyInt());
@@ -1262,7 +1263,7 @@ public class SectionedRecyclerViewAdapterTest {
         // Given
         SectionedRecyclerViewAdapter spySectionedRecyclerViewAdapter = spy(SectionedRecyclerViewAdapter.class);
         doNothing().when(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(anyInt(), anyInt());
-        
+
         HeadedFootedSectionStub headedFootedSectionStub = new HeadedFootedSectionStub(ITEMS_QTY);
         headedFootedSectionStub.setVisible(true);
         spySectionedRecyclerViewAdapter.addSection(SECTION_TAG, headedFootedSectionStub);
@@ -1310,7 +1311,7 @@ public class SectionedRecyclerViewAdapterTest {
         // Then
         verify(spySectionedRecyclerViewAdapter).callSuperNotifyItemRangeRemoved(10, 12);
     }
-    
+
     private void addFourStatelessSectionsAndFourSectionsToAdapter() {
         addStatelessSectionStubToAdapter();
         addHeadedStatelessSectionStubToAdapter();

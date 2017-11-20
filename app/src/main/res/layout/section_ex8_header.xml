@@ -15,7 +15,7 @@
         android:layout_margin="15dp"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        tools:text="Title test text" />
+        tools:text="Title test text"/>
 
     <LinearLayout
         android:layout_width="match_parent"

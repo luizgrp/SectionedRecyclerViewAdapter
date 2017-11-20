@@ -9,6 +9,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 /**
  * A spy of Section with footer to check if onBind methods are being called.
  */
+@SuppressWarnings("checkstyle:visibilitymodifier")
 public class BindingFootedSectionSpy extends Section {
 
     public boolean onBindItemViewHolderWasCalled = false;
@@ -21,11 +22,11 @@ public class BindingFootedSectionSpy extends Section {
 
     public BindingFootedSectionSpy(int contentItemsTotal) {
         super(new SectionParameters.Builder(-1)
-                .footerResourceId(-1)
-                .failedResourceId(-1)
-                .loadingResourceId(-1)
-                .emptyResourceId(-1)
-                .build());
+            .footerResourceId(-1)
+            .failedResourceId(-1)
+            .loadingResourceId(-1)
+            .emptyResourceId(-1)
+            .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

@@ -15,11 +15,11 @@ public class FootedSectionStub extends Section {
 
     public FootedSectionStub(int contentItemsTotal) {
         super(new SectionParameters.Builder(-1)
-                .footerResourceId(-1)
-                .failedResourceId(-1)
-                .loadingResourceId(-1)
-                .emptyResourceId(-1)
-        .build());
+            .footerResourceId(-1)
+            .failedResourceId(-1)
+            .loadingResourceId(-1)
+            .emptyResourceId(-1)
+            .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }
