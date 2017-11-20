@@ -33,4 +33,4 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.8.9"
 }
 
-apply from: 'android-release-aar.gradle'
+apply from: "build_files/android-release-aar.gradle"
