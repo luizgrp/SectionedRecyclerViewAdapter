@@ -41,7 +41,7 @@ public class Example6Fragment extends Fragment {
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch(sectionAdapter.getSectionItemViewType(position)) {
+                switch (sectionAdapter.getSectionItemViewType(position)) {
                     case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
                         return 2;
                     default:
@@ -61,14 +61,15 @@ public class Example6Fragment extends Fragment {
 
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null)
+            if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(R.string.nav_example6);
+            }
         }
     }
 
     private List<Movie> getTopRatedMoviesList() {
         List<String> arrayList = new ArrayList<>(Arrays.asList(getResources()
-                .getStringArray(R.array.top_rated_movies)));
+            .getStringArray(R.array.top_rated_movies)));
 
         List<Movie> movieList = new ArrayList<>();
 
@@ -82,7 +83,7 @@ public class Example6Fragment extends Fragment {
 
     private List<Movie> getMostPopularMoviesList() {
         List<String> arrayList = new ArrayList<>(Arrays.asList(getResources()
-                .getStringArray(R.array.most_popular_movies)));
+            .getStringArray(R.array.most_popular_movies)));
 
         List<Movie> movieList = new ArrayList<>();
 
@@ -102,8 +103,8 @@ public class Example6Fragment extends Fragment {
 
         ExpandableMovieSection(String title, List<Movie> list) {
             super(new SectionParameters.Builder(R.layout.section_ex6_item)
-                    .headerResourceId(R.layout.section_ex6_header)
-                    .build());
+                .headerResourceId(R.layout.section_ex6_header)
+                .build());
 
             this.title = title;
             this.list = list;
@@ -111,7 +112,7 @@ public class Example6Fragment extends Fragment {
 
         @Override
         public int getContentItemsTotal() {
-            return expanded? list.size() : 0;
+            return expanded ? list.size() : 0;
         }
 
         @Override
@@ -133,8 +134,8 @@ public class Example6Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s",
-                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
-                            Toast.LENGTH_SHORT).show();
+                        sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
+                        Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -155,7 +156,7 @@ public class Example6Fragment extends Fragment {
                 public void onClick(View v) {
                     expanded = !expanded;
                     headerHolder.imgArrow.setImageResource(
-                            expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
+                        expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
                     );
                     sectionAdapter.notifyDataSetChanged();
                 }

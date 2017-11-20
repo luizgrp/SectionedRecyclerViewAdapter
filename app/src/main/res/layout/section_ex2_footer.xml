@@ -18,6 +18,6 @@
         android:text="@string/see_more"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:id="@+id/tvSeeMore" />
+        android:id="@+id/tvSeeMore"/>
 
 </RelativeLayout>

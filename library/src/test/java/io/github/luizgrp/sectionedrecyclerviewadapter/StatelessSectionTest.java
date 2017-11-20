@@ -14,12 +14,13 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.Stateless
 
 import static org.junit.Assert.assertTrue;
 
-/**
+/*
  * Unit tests for {@link StatelessSection}
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class StatelessSectionTest {
 
-    private final int ITEMS_QTY = 10;
+    private static final int ITEMS_QTY = 10;
 
     private SectionedRecyclerViewAdapter sectionAdapter;
 
@@ -107,13 +108,12 @@ public class StatelessSectionTest {
     @Test(expected = IllegalArgumentException.class)
     public void constructor_withLoadingResource_throwsException() {
         // Given
-        final int ITEM_ID = 1;
-        final int LOADING_ID = 2;
+        final int itemId = 1;
+        final int loadingId = 2;
 
-        @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .loadingResourceId(LOADING_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .loadingResourceId(loadingId)
+            .build();
 
         // When
         getStatelessSection(sectionParameters);
@@ -122,13 +122,12 @@ public class StatelessSectionTest {
     @Test(expected = IllegalArgumentException.class)
     public void constructor_withFailedResource_throwsException() {
         // Given
-        final int ITEM_ID = 1;
-        final int FAILED_ID = 2;
+        final int itemId = 1;
+        final int failedId = 2;
 
-        @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .failedResourceId(FAILED_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .failedResourceId(failedId)
+            .build();
 
         // When
         getStatelessSection(sectionParameters);
@@ -137,13 +136,12 @@ public class StatelessSectionTest {
     @Test(expected = IllegalArgumentException.class)
     public void constructor_withEmptyResource_throwsException() {
         // Given
-        final int ITEM_ID = 1;
-        final int EMPTY_ID = 2;
+        final int itemId = 1;
+        final int emptyId = 2;
 
-        @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .emptyResourceId(EMPTY_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .emptyResourceId(emptyId)
+            .build();
 
         // When
         getStatelessSection(sectionParameters);

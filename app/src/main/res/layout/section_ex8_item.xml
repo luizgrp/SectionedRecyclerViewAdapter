@@ -25,12 +25,13 @@
             android:layout_height="100dp"
             android:layout_gravity="top"
             android:background="@color/image_placeholder_background_color">
+
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_android_black_48dp"
-                android:id="@+id/imgItem" />
+                android:id="@+id/imgItem"/>
         </FrameLayout>
 
         <TextView
@@ -42,7 +43,7 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             tools:text="Item test text"
-            android:id="@+id/tvItem" />
+            android:id="@+id/tvItem"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
             android:textSize="12sp"
             android:textColor="@color/dark_grey"
             tools:text="Item test text"
-            android:id="@+id/tvSubItem" />
+            android:id="@+id/tvSubItem"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

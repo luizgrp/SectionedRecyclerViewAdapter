@@ -16,7 +16,7 @@
         tools:text="Title test text"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:id="@+id/tvTitle" />
+        android:id="@+id/tvTitle"/>
 
     <Button
         android:id="@+id/btnMore"

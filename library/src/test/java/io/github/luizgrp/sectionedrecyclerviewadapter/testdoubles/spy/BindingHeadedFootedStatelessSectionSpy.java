@@ -9,6 +9,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 /**
  * A spy of StatelessSection with header and footer to check if onBind methods are being called.
  */
+@SuppressWarnings("checkstyle:visibilitymodifier")
 public class BindingHeadedFootedStatelessSectionSpy extends StatelessSection {
 
     public boolean onBindItemViewHolderWasCalled = false;
@@ -19,9 +20,9 @@ public class BindingHeadedFootedStatelessSectionSpy extends StatelessSection {
 
     public BindingHeadedFootedStatelessSectionSpy(int contentItemsTotal) {
         super(new SectionParameters.Builder(-1)
-                .headerResourceId(-1)
-                .footerResourceId(-1)
-                .build());
+            .headerResourceId(-1)
+            .footerResourceId(-1)
+            .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

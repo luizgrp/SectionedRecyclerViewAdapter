@@ -10,53 +10,51 @@ import android.view.View;
 public abstract class StatelessSection extends Section {
 
     /**
-     * Create a stateless Section object without header and footer
-     *
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
+     * Create a stateless Section object without header and footer.
      *
      * @param itemResourceId layout resource for its items
+     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
      */
     @Deprecated
     public StatelessSection(@LayoutRes int itemResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
-                .build());
+            .build());
     }
 
     /**
-     * Create a stateless Section object, with a custom header but without footer
-     *
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
+     * Create a stateless Section object, with a custom header but without footer.
      *
      * @param headerResourceId layout resource for its header
-     * @param itemResourceId layout resource for its items
+     * @param itemResourceId   layout resource for its items
+     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
      */
     @Deprecated
     public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
-                .headerResourceId(headerResourceId)
-                .build());
+            .headerResourceId(headerResourceId)
+            .build());
     }
 
     /**
-     * Create a stateless Section object, with a custom header and a custom footer
-     *
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
+     * Create a stateless Section object, with a custom header and a custom footer.
      *
      * @param headerResourceId layout resource for its header
      * @param footerResourceId layout resource for its footer
-     * @param itemResourceId layout resource for its items
+     * @param itemResourceId   layout resource for its items
+     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
      */
     @Deprecated
     public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
                             @LayoutRes int itemResourceId) {
         this(new SectionParameters.Builder(itemResourceId)
-                .headerResourceId(headerResourceId)
-                .footerResourceId(footerResourceId)
-                .build());
+            .headerResourceId(headerResourceId)
+            .footerResourceId(footerResourceId)
+            .build());
     }
 
     /**
-     * Create a stateless Section object based on {@link SectionParameters}
+     * Create a stateless Section object based on {@link SectionParameters}.
+     *
      * @param sectionParameters section parameters
      */
     public StatelessSection(SectionParameters sectionParameters) {

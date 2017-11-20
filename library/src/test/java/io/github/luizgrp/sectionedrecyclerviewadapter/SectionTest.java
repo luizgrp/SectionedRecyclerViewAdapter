@@ -17,12 +17,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-/**
+/*
  * Unit tests for {@link Section}
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class SectionTest {
 
-    private final int ITEMS_QTY = 10;
+    private static final int ITEMS_QTY = 10;
 
     private SectionedRecyclerViewAdapter sectionAdapter;
 
@@ -34,21 +35,21 @@ public class SectionTest {
     @Test
     public void constructor_withSectionParameters_constructsCorrectSection() {
         // Given
-        final int ITEM_ID = 1;
-        final int HEADER_ID = 2;
-        final int FOOTER_ID = 3;
-        final int FAILED_ID = 4;
-        final int LOADING_ID = 5;
-        final int EMPTY_ID = 6;
+        final int itemId = 1;
+        final int headerId = 2;
+        final int footerId = 3;
+        final int failedId = 4;
+        final int loadingId = 5;
+        final int emptyId = 6;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .headerResourceId(HEADER_ID)
-                .footerResourceId(FOOTER_ID)
-                .failedResourceId(FAILED_ID)
-                .loadingResourceId(LOADING_ID)
-                .emptyResourceId(EMPTY_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .headerResourceId(headerId)
+            .footerResourceId(footerId)
+            .failedResourceId(failedId)
+            .loadingResourceId(loadingId)
+            .emptyResourceId(emptyId)
+            .build();
         Section section = getSection(sectionParameters);
 
         // When
@@ -62,25 +63,25 @@ public class SectionTest {
         boolean resultHasFooter = section.hasFooter();
 
         // Then
-        assertThat(resultItemId, is(ITEM_ID));
-        assertThat(resultHeaderId, is(HEADER_ID));
-        assertThat(resultFooterId, is(FOOTER_ID));
-        assertThat(resultFailedId, is(FAILED_ID));
-        assertThat(resultLoadingId, is(LOADING_ID));
-        assertThat(resultEmptyId, is(EMPTY_ID));
+        assertThat(resultItemId, is(itemId));
+        assertThat(resultHeaderId, is(headerId));
+        assertThat(resultFooterId, is(footerId));
+        assertThat(resultFailedId, is(failedId));
+        assertThat(resultLoadingId, is(loadingId));
+        assertThat(resultEmptyId, is(emptyId));
         assertThat(resultHasHeader, is(true));
         assertThat(resultHasFooter, is(true));
     }
 
     public void setState_withValidLoadingResId_succeeds() {
         // Given
-        final int ITEM_ID = 1;
-        final int LOADING_ID = 2;
+        final int itemId = 1;
+        final int loadingId = 2;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .loadingResourceId(LOADING_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .loadingResourceId(loadingId)
+            .build();
         Section section = getSection(sectionParameters);
 
         // When
@@ -89,15 +90,15 @@ public class SectionTest {
         // Then
         assertThat(section.getState(), is(State.LOADING));
     }
-    
+
     @Test(expected = IllegalStateException.class)
     public void setState_withMissingLoadingResId_throwsException() {
         // Given
-        final int ITEM_ID = 1;
-        
+        final int itemId = 1;
+
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .build();
         Section section = getSection(sectionParameters);
 
         // When
@@ -107,11 +108,11 @@ public class SectionTest {
     @Test(expected = IllegalStateException.class)
     public void setState_withMissingFailedResId_throwsException() {
         // Given
-        final int ITEM_ID = 1;
+        final int itemId = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .build();
         Section section = getSection(sectionParameters);
 
         // When
@@ -121,11 +122,11 @@ public class SectionTest {
     @Test(expected = IllegalStateException.class)
     public void setState_withEmptyFailedResId_throwsException() {
         // Given
-        final int ITEM_ID = 1;
+        final int itemId = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
-                .build();
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+            .build();
         Section section = getSection(sectionParameters);
 
         // When
