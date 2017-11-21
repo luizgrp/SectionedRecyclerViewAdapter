@@ -15,9 +15,9 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.Stateless
 import static org.junit.Assert.assertTrue;
 
 /*
- * Unit tests for {@link StatelessSection}
+ * Unit tests for StatelessSection
  */
-@SuppressWarnings("checkstyle:magicnumber")
+@SuppressWarnings({"PMD.MethodNamingConventions"})
 public class StatelessSectionTest {
 
     private static final int ITEMS_QTY = 10;

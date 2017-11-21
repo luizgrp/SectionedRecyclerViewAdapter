@@ -18,9 +18,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /*
- * Unit tests for {@link Section}
+ * Unit tests for Section
  */
-@SuppressWarnings("checkstyle:magicnumber")
+@SuppressWarnings({"PMD.MethodNamingConventions"})
 public class SectionTest {
 
     private static final int ITEMS_QTY = 10;

@@ -18,7 +18,7 @@ import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
  * A custom RecyclerView Adapter that allows {@link Section Sections} to be added to it.
  * Sections are displayed in the same order they were added.
  */
-@SuppressWarnings({"WeakerAccess", "SameParameterValue"})
+@SuppressWarnings({"WeakerAccess", "SameParameterValue", "PMD.CollapsibleIfStatements"})
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int VIEW_TYPE_HEADER = 0;
@@ -84,8 +84,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(),
-            parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(), parent, false);
         // get the item viewholder from the section
         return section.getItemViewHolder(view);
     }
@@ -262,8 +261,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 }
 
                 // delegate the binding to the section content
-                getSectionForPosition(position).onBindContentViewHolder(holder,
-                    getPositionInSection(position));
+                getSectionForPosition(position).onBindContentViewHolder(holder, getPositionInSection(position));
                 return;
             }
 
@@ -293,7 +291,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return count;
     }
 
-    @SuppressWarnings("checkstyle:magicnumber")
     @Override
     public int getItemViewType(int position) {
         /*
@@ -826,8 +823,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param toPosition   new position of the item in the section
      */
     public void notifyItemMovedInSection(String tag, int fromPosition, int toPosition) {
-        callSuperNotifyItemMoved(getPositionInAdapter(tag, fromPosition),
-            getPositionInAdapter(tag, toPosition));
+        callSuperNotifyItemMoved(getPositionInAdapter(tag, fromPosition), getPositionInAdapter(tag, toPosition));
     }
 
     /**
@@ -839,8 +835,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param toPosition   new position of the item in the section
      */
     public void notifyItemMovedInSection(Section section, int fromPosition, int toPosition) {
-        callSuperNotifyItemMoved(getPositionInAdapter(section, fromPosition),
-            getPositionInAdapter(section, toPosition));
+        callSuperNotifyItemMoved(getPositionInAdapter(section, fromPosition), getPositionInAdapter(section, toPosition));
     }
 
     @VisibleForTesting

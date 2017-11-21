@@ -26,9 +26,9 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 /*
- * Unit tests for {@link SectionedRecyclerViewAdapter}
+ * Unit tests for SectionedRecyclerViewAdapter
  */
-@SuppressWarnings("checkstyle:magicnumber")
+@SuppressWarnings({"PMD.MethodNamingConventions"})
 public class SectionedRecyclerViewAdapterTest {
 
     private static final int ITEMS_QTY = 10;

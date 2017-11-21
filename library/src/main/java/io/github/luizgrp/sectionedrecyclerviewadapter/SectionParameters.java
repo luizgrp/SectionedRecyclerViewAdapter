@@ -5,7 +5,7 @@ import android.support.annotation.LayoutRes;
 /**
  * Class used as constructor parameters of {@link Section}.
  */
-@SuppressWarnings({"WeakerAccess", "checkstyle:visibilitymodifier"})
+@SuppressWarnings({"WeakerAccess", "PMD.AvoidFieldNameMatchingMethodName"})
 public final class SectionParameters {
     @LayoutRes public final Integer headerResourceId;
     @LayoutRes public final Integer footerResourceId;

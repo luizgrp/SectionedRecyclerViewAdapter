@@ -9,7 +9,6 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 /**
  * A spy of Section with header and footer to check if onBind methods are being called.
  */
-@SuppressWarnings("checkstyle:visibilitymodifier")
 public class BindingHeadedFootedSectionSpy extends Section {
 
     public boolean onBindItemViewHolderWasCalled = false;

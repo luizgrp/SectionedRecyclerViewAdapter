@@ -9,7 +9,6 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 /**
  * A spy of StatelessSection with no header or footer to check if onBind methods are being called.
  */
-@SuppressWarnings("checkstyle:visibilitymodifier")
 public class BindingStatelessSectionSpy extends StatelessSection {
 
     public boolean onBindItemViewHolderWasCalled = false;

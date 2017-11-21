@@ -7,7 +7,7 @@ import android.view.View;
 /**
  * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "PMD.AvoidFieldNameMatchingMethodName"})
 public abstract class Section {
 
     public enum State {
