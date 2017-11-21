@@ -4,8 +4,6 @@ apply plugin: 'findbugs'
 
 check.dependsOn 'checkstyle', 'pmd', 'findbugs'
 
-def staticAnalysisExcludeFiles = ['**/R.java', '**/BuildConfig.java', '**/gen/**', '**/apt/**', '**/build/**', '**/custom-rules/**']
-
 task checkstyle(type: Checkstyle) {
     description 'Checks if the code adheres to a coding standard'
     group 'verification'
