@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.apache.commons.collections4.map.ListOrderedMap;
+
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 
 /**
@@ -29,13 +31,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     private final static int customViewTypeStart = 200;
     private HashMap<Integer, CustomViewType> customViewTypes;
 
-    private LinkedHashMap<String, Section> sections;
+    private ListOrderedMap<String, Section> sections;
     private HashMap<String, Integer> sectionViewTypeNumbers;
     private int viewTypeCount = 0;
     private final static int VIEW_TYPE_QTY = 6;
 
     public SectionedRecyclerViewAdapter(CustomViewType...customViewTypes) {
-        sections = new LinkedHashMap<>();
+        sections = new ListOrderedMap<>();
         sectionViewTypeNumbers = new HashMap<>();
         this.customViewTypes = new HashMap<>();
         for (CustomViewType customViewType : customViewTypes) {
@@ -45,7 +47,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public SectionedRecyclerViewAdapter() {
-        sections = new LinkedHashMap<>();
+        sections = new ListOrderedMap<>();
         sectionViewTypeNumbers = new HashMap<>();
         customViewTypes = new HashMap<>();
     }
@@ -479,7 +481,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      *
      * @return a map with all sections
      */
-    public LinkedHashMap<String, Section> getSectionsMap() {
+    public ListOrderedMap<String, Section> getSectionsMap() {
         return sections;
     }
 
