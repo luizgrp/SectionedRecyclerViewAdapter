@@ -149,7 +149,7 @@ public class Example8Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int adapterPosition = itemHolder.getAdapterPosition();
+                    final int adapterPosition = itemHolder.getAdapterPosition();
                     if (adapterPosition != RecyclerView.NO_POSITION) {
                         int positionInSection = sectionAdapter.getPositionInSection(adapterPosition);
 
@@ -168,14 +168,28 @@ public class Example8Fragment extends Fragment {
 
         @Override
         public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
-            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
+            final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
 
             headerHolder.tvTitle.setText(title);
+
+            headerHolder.rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    final int adapterPosition = headerHolder.getAdapterPosition();
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        final int sectionItemsTotal = getSectionItemsTotal();
+
+                        sectionAdapter.removeSection(TAG);
+
+                        sectionAdapter.notifyItemRangeRemoved(adapterPosition, sectionItemsTotal);
+                    }
+                }
+            });
 
             headerHolder.btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int positionToInsertItemAt = 0;
+                    final int positionToInsertItemAt = 0;
 
                     list.add(positionToInsertItemAt, getRandomName());
 
@@ -186,7 +200,7 @@ public class Example8Fragment extends Fragment {
             headerHolder.btnClear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int contentItemsTotal = getContentItemsTotal();
+                    final int contentItemsTotal = getContentItemsTotal();
 
                     list.clear();
 
@@ -198,6 +212,7 @@ public class Example8Fragment extends Fragment {
 
     private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
+        private final View rootView;
         private final TextView tvTitle;
         private final Button btnAdd;
         private final Button btnClear;
@@ -205,6 +220,7 @@ public class Example8Fragment extends Fragment {
         HeaderViewHolder(View view) {
             super(view);
 
+            rootView = view;
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             btnAdd = (Button) view.findViewById(R.id.btnAdd);
             btnClear = (Button) view.findViewById(R.id.btnClear);
