@@ -111,6 +111,10 @@ Stateless Section
 Stateful Section
 - [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
 
+## Apps on Google Play using this library
+
+- [JStock](https://play.google.com/store/apps/details?id=org.yccheok.jstock.gui)
+
 ## License
 
     The MIT License (MIT)
