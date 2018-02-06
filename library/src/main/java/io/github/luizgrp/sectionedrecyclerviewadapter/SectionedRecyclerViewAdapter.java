@@ -44,15 +44,17 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
 
+        Map<String, Section> copyOfSections;
         Map<String, Integer> copyOfSectionViewTypeNumbers;
-        synchronized (sectionViewTypeNumbers) {
+        synchronized (sections) {
+            copyOfSections = new LinkedHashMap<>(sections);
             copyOfSectionViewTypeNumbers = new LinkedHashMap<>(sectionViewTypeNumbers);
         }
 
         for (Map.Entry<String, Integer> entry : copyOfSectionViewTypeNumbers.entrySet()) {
             if (viewType >= entry.getValue() && viewType < entry.getValue() + VIEW_TYPE_QTY) {
 
-                Section section = sections.get(entry.getKey());
+                Section section = copyOfSections.get(entry.getKey());
                 int sectionViewType = viewType - entry.getValue();
 
                 switch (sectionViewType) {
