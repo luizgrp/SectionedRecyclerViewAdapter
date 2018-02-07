@@ -14,7 +14,7 @@ public class HeadedFootedSectionStub extends Section {
     private final int contentItemsTotal;
 
     public HeadedFootedSectionStub(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
+        super(SectionParameters.builder(-1)
                 .headerResourceId(-1)
                 .footerResourceId(-1)
                 .failedResourceId(-1)

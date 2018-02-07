@@ -14,7 +14,7 @@ public class SectionStub extends Section {
     private final int contentItemsTotal;
 
     public SectionStub(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
+        super(SectionParameters.builder(-1)
                 .failedResourceId(-1)
                 .loadingResourceId(-1)
                 .emptyResourceId(-1)

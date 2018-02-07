@@ -77,7 +77,7 @@ public class Example4Fragment extends Fragment {
         boolean expanded = true;
 
         ExpandableContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex4_item)
+            super(SectionParameters.builder(R.layout.section_ex4_item)
                     .headerResourceId(R.layout.section_ex4_header)
                     .build());
 

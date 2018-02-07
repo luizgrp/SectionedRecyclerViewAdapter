@@ -42,7 +42,7 @@ public class SectionTest {
         final int EMPTY_ID = 6;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .headerResourceId(HEADER_ID)
                 .footerResourceId(FOOTER_ID)
                 .failedResourceId(FAILED_ID)
@@ -78,7 +78,7 @@ public class SectionTest {
         final int LOADING_ID = 2;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .loadingResourceId(LOADING_ID)
                 .build();
         Section section = getSection(sectionParameters);
@@ -96,7 +96,7 @@ public class SectionTest {
         final int ITEM_ID = 1;
         
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .build();
         Section section = getSection(sectionParameters);
 
@@ -110,7 +110,7 @@ public class SectionTest {
         final int ITEM_ID = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .build();
         Section section = getSection(sectionParameters);
 
@@ -124,7 +124,7 @@ public class SectionTest {
         final int ITEM_ID = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(ITEM_ID)
+        SectionParameters sectionParameters = SectionParameters.builder(ITEM_ID)
                 .build();
         Section section = getSection(sectionParameters);
 

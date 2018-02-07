@@ -26,9 +26,9 @@ public class SectionParameters {
         @LayoutRes private Integer emptyResourceId;
 
         /**
-         * Constructor with mandatory parameters of {@link Section}
-         * @param itemResourceId layout resource for Section's items
+         * @deprecated Use {@link #SectionParameters#builder(int)} instead.
          */
+        @Deprecated
         public Builder(@LayoutRes int itemResourceId) {
             this.itemResourceId = itemResourceId;
         }
@@ -95,6 +95,14 @@ public class SectionParameters {
         public SectionParameters build() {
             return new SectionParameters(this);
         }
+    }
+
+    /**
+     * Builder static factory method with mandatory parameters of {@link Section}
+     * @param itemResourceId layout resource for Section's items
+     */
+    public static Builder builder(@LayoutRes int itemResourceId) {
+        return new Builder(itemResourceId);
     }
 
     private SectionParameters(Builder builder) {

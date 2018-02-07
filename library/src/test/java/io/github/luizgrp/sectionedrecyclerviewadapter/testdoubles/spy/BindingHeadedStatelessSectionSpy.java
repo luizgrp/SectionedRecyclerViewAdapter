@@ -17,7 +17,7 @@ public class BindingHeadedStatelessSectionSpy extends StatelessSection {
     private final int contentItemsTotal;
 
     public BindingHeadedStatelessSectionSpy(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
+        super(SectionParameters.builder(-1)
                 .headerResourceId(-1)
                 .build());
 
