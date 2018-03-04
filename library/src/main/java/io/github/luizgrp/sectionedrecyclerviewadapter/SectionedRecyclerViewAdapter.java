@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
@@ -80,11 +81,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return viewHolder;
     }
 
+    private View inflate(ViewGroup parent, @LayoutRes int resourceId) {
+        if (resourceId == 0) return parent;
+        return LayoutInflater.from(parent.getContext()).inflate(resourceId, parent, false);
+    }
+
     private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(),
-                parent, false);
-        // get the item viewholder from the section
-        return section.getItemViewHolder(view);
+        return section.getItemViewHolder(inflate(parent, section.getItemResourceId()));
     }
 
     private RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent, Section section) {
@@ -93,9 +96,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         if (resId == null)
             throw new NullPointerException("Missing 'header' resource id");
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the header viewholder from the section
-        return section.getHeaderViewHolder(view);
+        return section.getHeaderViewHolder(inflate(parent, resId));
     }
 
     private RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent, Section section) {
@@ -104,9 +105,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         if (resId == null)
             throw new NullPointerException("Missing 'footer' resource id");
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the footer viewholder from the section
-        return section.getFooterViewHolder(view);
+        return section.getFooterViewHolder(inflate(parent, resId));
     }
 
     private RecyclerView.ViewHolder getLoadingViewHolder(ViewGroup parent, Section section) {
@@ -114,9 +113,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         if (resId == null) throw new NullPointerException("Missing 'loading state' resource id");
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the loading viewholder from the section
-        return section.getLoadingViewHolder(view);
+        return section.getLoadingViewHolder(inflate(parent, resId));
     }
 
     private RecyclerView.ViewHolder getFailedViewHolder(ViewGroup parent, Section section) {
@@ -124,9 +121,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         if (resId == null) throw new NullPointerException("Missing 'failed state' resource id");
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the failed load viewholder from the section
-        return section.getFailedViewHolder(view);
+        return section.getFailedViewHolder(inflate(parent, resId));
     }
 
     private RecyclerView.ViewHolder getEmptyViewHolder(ViewGroup parent, Section section) {
@@ -134,9 +129,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         if (resId == null) throw new NullPointerException("Missing 'empty state' resource id");
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the empty load viewholder from the section
-        return section.getEmptyViewHolder(view);
+        return section.getEmptyViewHolder(inflate(parent, resId));
     }
 
     /**
