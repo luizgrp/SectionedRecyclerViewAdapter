@@ -1,6 +1,5 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
-import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -8,49 +7,6 @@ import android.view.View;
  * Abstract {@link Section} with no states.
  */
 public abstract class StatelessSection extends Section {
-
-    /**
-     * Create a stateless Section object without header and footer.
-     *
-     * @param itemResourceId layout resource for its items
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
-     */
-    @Deprecated
-    public StatelessSection(@LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-            .build());
-    }
-
-    /**
-     * Create a stateless Section object, with a custom header but without footer.
-     *
-     * @param headerResourceId layout resource for its header
-     * @param itemResourceId   layout resource for its items
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
-     */
-    @Deprecated
-    public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-            .headerResourceId(headerResourceId)
-            .build());
-    }
-
-    /**
-     * Create a stateless Section object, with a custom header and a custom footer.
-     *
-     * @param headerResourceId layout resource for its header
-     * @param footerResourceId layout resource for its footer
-     * @param itemResourceId   layout resource for its items
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
-     */
-    @Deprecated
-    public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
-                            @LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-            .headerResourceId(headerResourceId)
-            .footerResourceId(footerResourceId)
-            .build());
-    }
 
     /**
      * Create a stateless Section object based on {@link SectionParameters}.
@@ -64,12 +20,24 @@ public abstract class StatelessSection extends Section {
             throw new IllegalArgumentException("Stateless section shouldn't have a loading state resource");
         }
 
+        if (sectionParameters.loadingViewWillBeProvided) {
+            throw new IllegalArgumentException("Stateless section shouldn't have loadingViewWillBeProvided set");
+        }
+
         if (sectionParameters.failedResourceId != null) {
             throw new IllegalArgumentException("Stateless section shouldn't have a failed state resource");
         }
 
+        if (sectionParameters.failedViewWillBeProvided) {
+            throw new IllegalArgumentException("Stateless section shouldn't have failedViewWillBeProvided set");
+        }
+
         if (sectionParameters.emptyResourceId != null) {
             throw new IllegalArgumentException("Stateless section shouldn't have an empty state resource");
+        }
+
+        if (sectionParameters.emptyViewWillBeProvided) {
+            throw new IllegalArgumentException("Stateless section shouldn't have emptyViewWillBeProvided set");
         }
     }
 

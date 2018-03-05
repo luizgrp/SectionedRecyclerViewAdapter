@@ -3,6 +3,7 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
@@ -24,72 +25,18 @@ public abstract class Section {
     private boolean hasHeader = false;
     private boolean hasFooter = false;
 
-    @LayoutRes private Integer headerResourceId;
-    @LayoutRes private Integer footerResourceId;
-
-    @LayoutRes private int itemResourceId;
-
-    @LayoutRes private Integer loadingResourceId;
-    @LayoutRes private Integer failedResourceId;
-    @LayoutRes private Integer emptyResourceId;
-
-    /**
-     * Create a Section object with loading/failed states, without header and footer.
-     *
-     * @param itemResourceId    layout resource for its items
-     * @param loadingResourceId layout resource for its loading state
-     * @param failedResourceId  layout resource for its failed state
-     * @deprecated Replaced by {@link #Section(SectionParameters)}
-     */
-    @Deprecated
-    public Section(@LayoutRes int itemResourceId, @LayoutRes int loadingResourceId,
-                   @LayoutRes int failedResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-            .loadingResourceId(loadingResourceId)
-            .failedResourceId(failedResourceId)
-            .build());
-    }
-
-    /**
-     * Create a Section object with loading/failed states, with a custom header but without footer.
-     *
-     * @param headerResourceId  layout resource for its header
-     * @param itemResourceId    layout resource for its items
-     * @param loadingResourceId layout resource for its loading state
-     * @param failedResourceId  layout resource for its failed state
-     * @deprecated Replaced by {@link #Section(SectionParameters)}
-     */
-    @Deprecated
-    public Section(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId,
-                   @LayoutRes int loadingResourceId, @LayoutRes int failedResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-            .headerResourceId(headerResourceId)
-            .loadingResourceId(loadingResourceId)
-            .failedResourceId(failedResourceId)
-            .build());
-    }
-
-    /**
-     * Create a Section object with loading/failed states, with a custom header and a custom footer.
-     *
-     * @param headerResourceId  layout resource for its header
-     * @param footerResourceId  layout resource for its footer
-     * @param itemResourceId    layout resource for its items
-     * @param loadingResourceId layout resource for its loading state
-     * @param failedResourceId  layout resource for its failed state
-     * @deprecated Replaced by {@link #Section(SectionParameters)}
-     */
-    @Deprecated
-    public Section(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
-                   @LayoutRes int itemResourceId, @LayoutRes int loadingResourceId,
-                   @LayoutRes int failedResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-            .headerResourceId(headerResourceId)
-            .footerResourceId(footerResourceId)
-            .loadingResourceId(loadingResourceId)
-            .failedResourceId(failedResourceId)
-            .build());
-    }
+    @LayoutRes private final Integer itemResourceId;
+    @LayoutRes private final Integer headerResourceId;
+    @LayoutRes private final Integer footerResourceId;
+    @LayoutRes private final Integer loadingResourceId;
+    @LayoutRes private final Integer failedResourceId;
+    @LayoutRes private final Integer emptyResourceId;
+    private final boolean itemViewWillBeProvided;
+    private final boolean headerViewWillBeProvided;
+    private final boolean footerViewWillBeProvided;
+    private final boolean loadingViewWillBeProvided;
+    private final boolean failedViewWillBeProvided;
+    private final boolean emptyViewWillBeProvided;
 
     /**
      * Create a Section object based on {@link SectionParameters}.
@@ -97,15 +44,21 @@ public abstract class Section {
      * @param sectionParameters section parameters
      */
     public Section(SectionParameters sectionParameters) {
+        this.itemResourceId = sectionParameters.itemResourceId;
         this.headerResourceId = sectionParameters.headerResourceId;
         this.footerResourceId = sectionParameters.footerResourceId;
-        this.itemResourceId = sectionParameters.itemResourceId;
         this.loadingResourceId = sectionParameters.loadingResourceId;
         this.failedResourceId = sectionParameters.failedResourceId;
         this.emptyResourceId = sectionParameters.emptyResourceId;
+        this.itemViewWillBeProvided = sectionParameters.itemViewWillBeProvided;
+        this.headerViewWillBeProvided = sectionParameters.headerViewWillBeProvided;
+        this.footerViewWillBeProvided = sectionParameters.footerViewWillBeProvided;
+        this.loadingViewWillBeProvided = sectionParameters.loadingViewWillBeProvided;
+        this.failedViewWillBeProvided = sectionParameters.failedViewWillBeProvided;
+        this.emptyViewWillBeProvided = sectionParameters.emptyViewWillBeProvided;
 
-        this.hasHeader = (this.headerResourceId != null);
-        this.hasFooter = (this.footerResourceId != null);
+        this.hasHeader = (this.headerResourceId != null) || this.headerViewWillBeProvided;
+        this.hasFooter = (this.footerResourceId != null) || this.footerViewWillBeProvided;
     }
 
     /**
@@ -116,18 +69,18 @@ public abstract class Section {
     public final void setState(State state) {
         switch (state) {
             case LOADING:
-                if (loadingResourceId == null) {
-                    throw new IllegalStateException("Missing 'loading state' resource id");
+                if (loadingResourceId == null && !loadingViewWillBeProvided) {
+                    throw new IllegalStateException("Missing 'loading state' resource id or loadingViewWillBeProvided");
                 }
                 break;
             case FAILED:
-                if (failedResourceId == null) {
-                    throw new IllegalStateException("Missing 'failed state' resource id");
+                if (failedResourceId == null && !failedViewWillBeProvided) {
+                    throw new IllegalStateException("Missing 'failed state' resource id or failedViewWillBeProvided");
                 }
                 break;
             case EMPTY:
-                if (emptyResourceId == null) {
-                    throw new IllegalStateException("Missing 'empty state' resource id");
+                if (emptyResourceId == null && !emptyViewWillBeProvided) {
+                    throw new IllegalStateException("Missing 'empty state' resource id or emptyViewWillBeProvided");
                 }
                 break;
             default:
@@ -201,12 +154,53 @@ public abstract class Section {
     }
 
     /**
+     * Return whether the item view is provided through {@link #getItemView(ViewGroup)}.
+     * If false, the item view is inflated using the resource from {@link #getItemResourceId()}.
+     *
+     * @return whether the item view is provided through {@link #getItemView(ViewGroup)}.
+     */
+    public boolean isItemViewWillBeProvided() {
+        return itemViewWillBeProvided;
+    }
+
+    /**
+     * Return the layout resource id of the item.
+     *
+     * @return layout resource id of the item
+     */
+    public final Integer getItemResourceId() {
+        return itemResourceId;
+    }
+
+    /**
+     * Return whether the header view is provided through {@link #getHeaderView(ViewGroup)}.
+     * If false, the header view is inflated using the resource from
+     * {@link #getHeaderResourceId()}.
+     *
+     * @return whether the header view is provided through {@link #getHeaderView(ViewGroup)}.
+     */
+    public boolean isHeaderViewWillBeProvided() {
+        return headerViewWillBeProvided;
+    }
+
+    /**
      * Return the layout resource id of the header.
      *
      * @return layout resource id of the header
      */
     public final Integer getHeaderResourceId() {
         return headerResourceId;
+    }
+
+    /**
+     * Return whether the footer view is provided through {@link #getFooterView(ViewGroup)}.
+     * If false, the footer view is inflated using the resource from
+     * {@link #getFooterResourceId()}.
+     *
+     * @return whether the footer view is provided through {@link #getFooterView(ViewGroup)}.
+     */
+    public boolean isFooterViewWillBeProvided() {
+        return footerViewWillBeProvided;
     }
 
     /**
@@ -219,12 +213,14 @@ public abstract class Section {
     }
 
     /**
-     * Return the layout resource id of the item.
+     * Return whether the loading view is provided through {@link #getLoadingView(ViewGroup)}.
+     * If false, the loading view is inflated using the resource from
+     * {@link #getLoadingResourceId()}.
      *
-     * @return layout resource id of the item
+     * @return whether the loading view is provided through {@link #getLoadingView(ViewGroup)}.
      */
-    public final int getItemResourceId() {
-        return itemResourceId;
+    public boolean isLoadingViewWillBeProvided() {
+        return loadingViewWillBeProvided;
     }
 
     /**
@@ -237,12 +233,34 @@ public abstract class Section {
     }
 
     /**
+     * Return whether the failed view is provided through {@link #getFailedView(ViewGroup)}.
+     * If false, the failed view is inflated using the resource from
+     * {@link #getFailedResourceId()}.
+     *
+     * @return whether the failed view is provided through {@link #getFailedView(ViewGroup)}.
+     */
+    public boolean isFailedViewWillBeProvided() {
+        return failedViewWillBeProvided;
+    }
+
+    /**
      * Return the layout resource id of the failed view.
      *
      * @return layout resource id of the failed view
      */
     public final Integer getFailedResourceId() {
         return failedResourceId;
+    }
+
+    /**
+     * Return whether the empty view is provided through {@link #getEmptyView(ViewGroup)}.
+     * If false, the empty view is inflated using the resource from
+     * {@link #getEmptyResourceId()}.
+     *
+     * @return whether the empty view is provided through {@link #getEmptyView(ViewGroup)}.
+     */
+    public boolean isEmptyViewWillBeProvided() {
+        return emptyViewWillBeProvided;
     }
 
     /**
@@ -317,6 +335,46 @@ public abstract class Section {
     public abstract int getContentItemsTotal();
 
     /**
+     * Creates the View for a single Item. This must be implemented if and only if
+     * {@link #isItemViewWillBeProvided()} is true.
+     *
+     * @param parent The parent view. Note that there is no need to attach the new view.
+     * @return View for an Item of this Section.
+     */
+    public View getItemView(ViewGroup parent) {
+        throw new UnsupportedOperationException(
+                "You need to implement getItemView() if you set itemViewWillBeProvided");
+    }
+
+    /**
+     * Return the ViewHolder for a single Item of this Section.
+     *
+     * @param view View created by getItemView or inflated resource returned by getItemResourceId
+     * @return ViewHolder for the Item of this Section
+     */
+    public abstract RecyclerView.ViewHolder getItemViewHolder(View view);
+
+    /**
+     * Bind the data to the ViewHolder for an Item of this Section.
+     *
+     * @param holder   ViewHolder for the Item of this Section
+     * @param position position of the item in the Section, not in the RecyclerView
+     */
+    public abstract void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position);
+
+    /**
+     * Creates the View for the Header. This must be implemented if and only if
+     * {@link #isHeaderViewWillBeProvided()} is true.
+     *
+     * @param parent The parent view. Note that there is no need to attach the new view.
+     * @return View for the Header of this Section.
+     */
+    public View getHeaderView(ViewGroup parent) {
+        throw new UnsupportedOperationException(
+                "You need to implement getHeaderView() if you set headerViewWillBeProvided");
+    }
+
+    /**
      * Return the ViewHolder for the Header of this Section.
      *
      * @param view View inflated by resource returned by getHeaderResourceId
@@ -333,6 +391,18 @@ public abstract class Section {
      */
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
+    }
+
+    /**
+     * Creates the View for the Footer. This must be implemented if and only if
+     * {@link #isFooterViewWillBeProvided()} is true.
+     *
+     * @param parent The parent view. Note that there is no need to attach the new view.
+     * @return View for the Footer of this Section.
+     */
+    public View getFooterView(ViewGroup parent) {
+        throw new UnsupportedOperationException(
+                "You need to implement getFooterView() if you set footerViewWillBeProvided");
     }
 
     /**
@@ -355,20 +425,16 @@ public abstract class Section {
     }
 
     /**
-     * Return the ViewHolder for a single Item of this Section.
+     * Creates the View for the Loading state. This must be implemented if and only if
+     * {@link #isLoadingViewWillBeProvided()} is true.
      *
-     * @param view View inflated by resource returned by getItemResourceId
-     * @return ViewHolder for the Item of this Section
+     * @param parent The parent view. Note that there is no need to attach the new view.
+     * @return View for the Loading state of this Section.
      */
-    public abstract RecyclerView.ViewHolder getItemViewHolder(View view);
-
-    /**
-     * Bind the data to the ViewHolder for an Item of this Section.
-     *
-     * @param holder   ViewHolder for the Item of this Section
-     * @param position position of the item in the Section, not in the RecyclerView
-     */
-    public abstract void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position);
+    public View getLoadingView(ViewGroup parent) {
+        throw new UnsupportedOperationException(
+                "You need to implement getLoadingView() if you set loadingViewWillBeProvided");
+    }
 
     /**
      * Return the ViewHolder for the Loading state of this Section.
@@ -390,6 +456,18 @@ public abstract class Section {
     }
 
     /**
+     * Creates the View for the Failed state. This must be implemented if and only if
+     * {@link #isFailedViewWillBeProvided()} is true.
+     *
+     * @param parent The parent view. Note that there is no need to attach the new view.
+     * @return View for the Failed state of this Section.
+     */
+    public View getFailedView(ViewGroup parent) {
+        throw new UnsupportedOperationException(
+                "You need to implement getFailedView() if you set failedViewWillBeProvided");
+    }
+
+    /**
      * Return the ViewHolder for the Failed state of this Section.
      *
      * @param view View inflated by resource returned by getItemResourceId
@@ -406,6 +484,18 @@ public abstract class Section {
      */
     public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
+    }
+
+    /**
+     * Creates the View for the Empty state. This must be implemented if and only if
+     * {@link #isEmptyViewWillBeProvided()} is true.
+     *
+     * @param parent The parent view. Note that there is no need to attach the new view.
+     * @return View for the Empty state of this Section.
+     */
+    public View getEmptyView(ViewGroup parent) {
+        throw new UnsupportedOperationException(
+                "You need to implement getEmptyView() if you set emptyViewWillBeProvided");
     }
 
     /**
