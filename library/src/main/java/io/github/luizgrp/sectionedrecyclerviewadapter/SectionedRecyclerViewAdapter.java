@@ -86,68 +86,104 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(), parent, false);
-        // get the item viewholder from the section
+        View view;
+        if (section.isItemViewWillBeProvided()) {
+            view = section.getItemView(parent);
+            if (view == null) {
+                throw new NullPointerException("Section.getItemView() returned null");
+            }
+        } else {
+            Integer resId = section.getItemResourceId();
+            if (resId == null) {
+                throw new NullPointerException("Missing 'item' resource id");
+            }
+            view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(), parent, false);
+        }
         return section.getItemViewHolder(view);
     }
 
     private RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent, Section section) {
-        Integer resId = section.getHeaderResourceId();
-
-        if (resId == null) {
-            throw new NullPointerException("Missing 'header' resource id");
+        View view;
+        if (section.isHeaderViewWillBeProvided()) {
+            view = section.getHeaderView(parent);
+            if (view == null) {
+                throw new NullPointerException("Section.getHeaderView() returned null");
+            }
+        } else {
+            Integer resId = section.getHeaderResourceId();
+            if (resId == null) {
+                throw new NullPointerException("Missing 'header' resource id");
+            }
+            view = LayoutInflater.from(parent.getContext()).inflate(section.getHeaderResourceId(), parent, false);
         }
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the header viewholder from the section
         return section.getHeaderViewHolder(view);
     }
 
     private RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent, Section section) {
-        Integer resId = section.getFooterResourceId();
-
-        if (resId == null) {
-            throw new NullPointerException("Missing 'footer' resource id");
+        View view;
+        if (section.isFooterViewWillBeProvided()) {
+            view = section.getFooterView(parent);
+            if (view == null) {
+                throw new NullPointerException("Section.getFooterView() returned null");
+            }
+        } else {
+            Integer resId = section.getFooterResourceId();
+            if (resId == null) {
+                throw new NullPointerException("Missing 'footer' resource id");
+            }
+            view = LayoutInflater.from(parent.getContext()).inflate(section.getFooterResourceId(), parent, false);
         }
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the footer viewholder from the section
         return section.getFooterViewHolder(view);
     }
 
     private RecyclerView.ViewHolder getLoadingViewHolder(ViewGroup parent, Section section) {
-        Integer resId = section.getLoadingResourceId();
-
-        if (resId == null) {
-            throw new NullPointerException("Missing 'loading state' resource id");
+        View view;
+        if (section.isLoadingViewWillBeProvided()) {
+            view = section.getLoadingView(parent);
+            if (view == null) {
+                throw new NullPointerException("Section.getLoadingView() returned null");
+            }
+        } else {
+            Integer resId = section.getLoadingResourceId();
+            if (resId == null) {
+                throw new NullPointerException("Missing 'loading' resource id");
+            }
+            view = LayoutInflater.from(parent.getContext()).inflate(section.getLoadingResourceId(), parent, false);
         }
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the loading viewholder from the section
         return section.getLoadingViewHolder(view);
     }
 
     private RecyclerView.ViewHolder getFailedViewHolder(ViewGroup parent, Section section) {
-        Integer resId = section.getFailedResourceId();
-
-        if (resId == null) {
-            throw new NullPointerException("Missing 'failed state' resource id");
+        View view;
+        if (section.isFailedViewWillBeProvided()) {
+            view = section.getFailedView(parent);
+            if (view == null) {
+                throw new NullPointerException("Section.getFailedView() returned null");
+            }
+        } else {
+            Integer resId = section.getFailedResourceId();
+            if (resId == null) {
+                throw new NullPointerException("Missing 'failed' resource id");
+            }
+            view = LayoutInflater.from(parent.getContext()).inflate(section.getFailedResourceId(), parent, false);
         }
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the failed load viewholder from the section
         return section.getFailedViewHolder(view);
     }
 
     private RecyclerView.ViewHolder getEmptyViewHolder(ViewGroup parent, Section section) {
-        Integer resId = section.getEmptyResourceId();
-
-        if (resId == null) {
-            throw new NullPointerException("Missing 'empty state' resource id");
+        View view;
+        if (section.isEmptyViewWillBeProvided()) {
+            view = section.getEmptyView(parent);
+            if (view == null) {
+                throw new NullPointerException("Section.getEmptyView() returned null");
+            }
+        } else {
+            Integer resId = section.getEmptyResourceId();
+            if (resId == null) {
+                throw new NullPointerException("Missing 'empty' resource id");
+            }
+            view = LayoutInflater.from(parent.getContext()).inflate(section.getEmptyResourceId(), parent, false);
         }
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        // get the empty load viewholder from the section
         return section.getEmptyViewHolder(view);
     }
 
