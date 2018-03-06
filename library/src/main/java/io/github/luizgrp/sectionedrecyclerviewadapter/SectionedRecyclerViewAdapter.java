@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
@@ -85,6 +86,10 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return viewHolder;
     }
 
+    View inflate(@LayoutRes int layoutResourceId, ViewGroup parent) {
+        return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
+    }
+
     private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
         View view;
         if (section.isItemViewWillBeProvided()) {
@@ -97,7 +102,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             if (resId == null) {
                 throw new NullPointerException("Missing 'item' resource id");
             }
-            view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(), parent, false);
+            view = inflate(resId, parent);
         }
         return section.getItemViewHolder(view);
     }
@@ -114,7 +119,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             if (resId == null) {
                 throw new NullPointerException("Missing 'header' resource id");
             }
-            view = LayoutInflater.from(parent.getContext()).inflate(section.getHeaderResourceId(), parent, false);
+            view = inflate(resId, parent);
         }
         return section.getHeaderViewHolder(view);
     }
@@ -131,7 +136,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             if (resId == null) {
                 throw new NullPointerException("Missing 'footer' resource id");
             }
-            view = LayoutInflater.from(parent.getContext()).inflate(section.getFooterResourceId(), parent, false);
+            view = inflate(resId, parent);
         }
         return section.getFooterViewHolder(view);
     }
@@ -148,7 +153,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             if (resId == null) {
                 throw new NullPointerException("Missing 'loading' resource id");
             }
-            view = LayoutInflater.from(parent.getContext()).inflate(section.getLoadingResourceId(), parent, false);
+            view = inflate(resId, parent);
         }
         return section.getLoadingViewHolder(view);
     }
@@ -165,7 +170,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             if (resId == null) {
                 throw new NullPointerException("Missing 'failed' resource id");
             }
-            view = LayoutInflater.from(parent.getContext()).inflate(section.getFailedResourceId(), parent, false);
+            view = inflate(resId, parent);
         }
         return section.getFailedViewHolder(view);
     }
@@ -182,7 +187,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             if (resId == null) {
                 throw new NullPointerException("Missing 'empty' resource id");
             }
-            view = LayoutInflater.from(parent.getContext()).inflate(section.getEmptyResourceId(), parent, false);
+            view = inflate(resId, parent);
         }
         return section.getEmptyViewHolder(view);
     }
