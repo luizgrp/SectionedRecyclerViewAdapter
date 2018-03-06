@@ -3,22 +3,14 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingFootedSectionSpy;
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingHeadedFootedSectionSpy;
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingHeadedSectionSpy;
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingSectionSpy;
-import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionStub;
 
 import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /*
  * Unit tests for Section
@@ -26,17 +18,8 @@ import static org.junit.Assert.assertTrue;
 @SuppressWarnings({"PMD.MethodNamingConventions"})
 public class SectionTest {
 
-    private static final int ITEMS_QTY = 10;
-
-    private SectionedRecyclerViewAdapter sectionAdapter;
-
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-
-    @Before
-    public void setup() {
-        sectionAdapter = new SectionedRecyclerViewAdapter();
-    }
 
     @Test
     public void constructor_withSectionParameters_constructsCorrectSection() {
@@ -50,12 +33,12 @@ public class SectionTest {
 
         @SuppressWarnings("ResourceType")
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .headerResourceId(headerId)
-            .footerResourceId(footerId)
-            .failedResourceId(failedId)
-            .loadingResourceId(loadingId)
-            .emptyResourceId(emptyId)
-            .build();
+                .headerResourceId(headerId)
+                .footerResourceId(footerId)
+                .failedResourceId(failedId)
+                .loadingResourceId(loadingId)
+                .emptyResourceId(emptyId)
+                .build();
 
         // When
         Section section = getSection(sectionParameters);
@@ -118,8 +101,8 @@ public class SectionTest {
 
         @SuppressWarnings("ResourceType")
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .loadingResourceId(loadingId)
-            .build();
+                .loadingResourceId(loadingId)
+                .build();
         Section section = getSection(sectionParameters);
 
         // When
@@ -155,7 +138,7 @@ public class SectionTest {
 
         @SuppressWarnings("ResourceType")
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .build();
+                .build();
         Section section = getSection(sectionParameters);
 
         // Expect exception
@@ -173,7 +156,7 @@ public class SectionTest {
 
         @SuppressWarnings("ResourceType")
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .build();
+                .build();
         Section section = getSection(sectionParameters);
 
         // Expect exception
@@ -191,7 +174,7 @@ public class SectionTest {
 
         @SuppressWarnings("ResourceType")
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .build();
+                .build();
         Section section = getSection(sectionParameters);
 
         // Expect exception
@@ -200,136 +183,6 @@ public class SectionTest {
 
         // When
         section.setState(State.EMPTY);
-    }
-
-    @Test
-    public void onBindViewHolder_withSection_isCalled() {
-        // Given
-        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
-
-        BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
-
-        // When
-        // Section - Items [10-19]
-        sectionAdapter.onBindViewHolder(null, 10);
-
-        // Then
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
-    }
-
-    @Test
-    public void onBindLoadingViewHolder_withSection_isCalled() {
-        // Given
-        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
-
-        BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
-
-        sectionSpy.setState(State.LOADING);
-
-        // When
-        // Section - Loading [10]
-        sectionAdapter.onBindViewHolder(null, 10);
-
-        // Then
-        assertTrue(sectionSpy.onBindLoadingViewHolderWasCalled);
-    }
-
-    @Test
-    public void onBindFailedViewHolder_withSection_isCalled() {
-        // Given
-        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
-
-        BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
-
-        sectionSpy.setState(State.FAILED);
-
-        // When
-        // Section - Failed [10]
-        sectionAdapter.onBindViewHolder(null, 10);
-
-        // Then
-        assertTrue(sectionSpy.onBindFailedViewHolderWasCalled);
-    }
-
-    @Test
-    public void onBindEmptyViewHolder_withSection_isCalled() {
-        // Given
-        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
-
-        BindingSectionSpy sectionSpy = new BindingSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
-
-        sectionSpy.setState(State.EMPTY);
-
-        // When
-        // Section - Empty [10]
-        sectionAdapter.onBindViewHolder(null, 10);
-
-        // Then
-        assertTrue(sectionSpy.onBindEmptyViewHolderWasCalled);
-    }
-
-    @Test
-    public void onBindViewHolder_withHeadedSection_isCalled() {
-        // Given
-        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
-
-        BindingHeadedSectionSpy sectionSpy = new BindingHeadedSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
-
-        // When
-        // HeadedSection - Header [10]
-        sectionAdapter.onBindViewHolder(null, 10);
-        // HeadedSection - Items [11-20]
-        sectionAdapter.onBindViewHolder(null, 11);
-
-        // Then
-        assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
-    }
-
-    @Test
-    public void onBindViewHolder_withFootedSection_isCalled() {
-        // Given
-        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
-
-        BindingFootedSectionSpy sectionSpy = new BindingFootedSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
-
-        // When
-        // FootedSection - Items [10-19]
-        sectionAdapter.onBindViewHolder(null, 10);
-        // FootedSection - Footer [20]
-        sectionAdapter.onBindViewHolder(null, 20);
-
-        // Then
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
-    }
-
-    @Test
-    public void onBindViewHolder_withHeadedFootedSection_isCalled() {
-        // Given
-        sectionAdapter.addSection(new SectionStub(ITEMS_QTY));
-
-        BindingHeadedFootedSectionSpy sectionSpy = new BindingHeadedFootedSectionSpy(ITEMS_QTY);
-        sectionAdapter.addSection(sectionSpy);
-
-        // When
-        // HeadedFootedSection - Header [10]
-        sectionAdapter.onBindViewHolder(null, 10);
-        // HeadedFootedSection - Item [11]
-        sectionAdapter.onBindViewHolder(null, 11);
-        // HeadedFootedSection - Footer [21]
-        sectionAdapter.onBindViewHolder(null, 21);
-
-        // Then
-        assertTrue(sectionSpy.onBindHeaderViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindItemViewHolderWasCalled);
-        assertTrue(sectionSpy.onBindFooterViewHolderWasCalled);
     }
 
     private Section getSection(SectionParameters sectionParameters) {
