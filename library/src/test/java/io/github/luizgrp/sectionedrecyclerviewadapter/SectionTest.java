@@ -4,7 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingFootedSectionSpy;
 import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.spy.BindingHeadedFootedSectionSpy;
@@ -14,6 +16,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.SectionSt
 
 import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -26,6 +29,9 @@ public class SectionTest {
     private static final int ITEMS_QTY = 10;
 
     private SectionedRecyclerViewAdapter sectionAdapter;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setup() {
@@ -50,29 +56,61 @@ public class SectionTest {
             .loadingResourceId(loadingId)
             .emptyResourceId(emptyId)
             .build();
-        Section section = getSection(sectionParameters);
 
         // When
-        int resultItemId = section.getItemResourceId();
-        int resultHeaderId = section.getHeaderResourceId();
-        int resultFooterId = section.getFooterResourceId();
-        int resultFailedId = section.getFailedResourceId();
-        int resultLoadingId = section.getLoadingResourceId();
-        int resultEmptyId = section.getEmptyResourceId();
-        boolean resultHasHeader = section.hasHeader();
-        boolean resultHasFooter = section.hasFooter();
+        Section section = getSection(sectionParameters);
 
         // Then
-        assertThat(resultItemId, is(itemId));
-        assertThat(resultHeaderId, is(headerId));
-        assertThat(resultFooterId, is(footerId));
-        assertThat(resultFailedId, is(failedId));
-        assertThat(resultLoadingId, is(loadingId));
-        assertThat(resultEmptyId, is(emptyId));
-        assertThat(resultHasHeader, is(true));
-        assertThat(resultHasFooter, is(true));
+        assertThat(section.getItemResourceId(), is(itemId));
+        assertThat(section.isItemViewWillBeProvided(), is(false));
+        assertThat(section.getHeaderResourceId(), is(headerId));
+        assertThat(section.isHeaderViewWillBeProvided(), is(false));
+        assertThat(section.getFooterResourceId(), is(footerId));
+        assertThat(section.isFooterViewWillBeProvided(), is(false));
+        assertThat(section.getFailedResourceId(), is(failedId));
+        assertThat(section.isFailedViewWillBeProvided(), is(false));
+        assertThat(section.getLoadingResourceId(), is(loadingId));
+        assertThat(section.isLoadingViewWillBeProvided(), is(false));
+        assertThat(section.getEmptyResourceId(), is(emptyId));
+        assertThat(section.isEmptyViewWillBeProvided(), is(false));
+        assertThat(section.hasHeader(), is(true));
+        assertThat(section.hasFooter(), is(true));
     }
 
+    @Test
+    public void constructor_withProvidedSectionParameters_constructsCorrectSection() {
+        // Given
+        final int emptyId = 6;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder()
+                .itemViewWillBeProvided()
+                .headerViewWillBeProvided()
+                .loadingViewWillBeProvided()
+                .emptyResourceId(emptyId)
+                .build();
+
+        // When
+        Section section = getSection(sectionParameters);
+
+        // Then
+        assertThat(section.getItemResourceId(), is(nullValue()));
+        assertThat(section.isItemViewWillBeProvided(), is(true));
+        assertThat(section.getHeaderResourceId(), is(nullValue()));
+        assertThat(section.isHeaderViewWillBeProvided(), is(true));
+        assertThat(section.getFooterResourceId(), is(nullValue()));
+        assertThat(section.isFooterViewWillBeProvided(), is(false));
+        assertThat(section.getFailedResourceId(), is(nullValue()));
+        assertThat(section.isFailedViewWillBeProvided(), is(false));
+        assertThat(section.getLoadingResourceId(), is(nullValue()));
+        assertThat(section.isLoadingViewWillBeProvided(), is(true));
+        assertThat(section.getEmptyResourceId(), is(emptyId));
+        assertThat(section.isEmptyViewWillBeProvided(), is(false));
+        assertThat(section.hasHeader(), is(true));
+        assertThat(section.hasFooter(), is(false));
+    }
+
+    @Test
     public void setState_withValidLoadingResId_succeeds() {
         // Given
         final int itemId = 1;
@@ -91,8 +129,27 @@ public class SectionTest {
         assertThat(section.getState(), is(State.LOADING));
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void setState_withMissingLoadingResId_throwsException() {
+    @Test
+    public void setState_withLoadingViewProvided_succeeds() {
+        // Given
+        final int itemId = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = new SectionParameters.Builder()
+                .itemResourceId(itemId)
+                .loadingViewWillBeProvided()
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // When
+        section.setState(State.LOADING);
+
+        // Then
+        assertThat(section.getState(), is(State.LOADING));
+    }
+
+    @Test
+    public void setState_withMissingLoadingParameter_throwsException() {
         // Given
         final int itemId = 1;
 
@@ -101,11 +158,15 @@ public class SectionTest {
             .build();
         Section section = getSection(sectionParameters);
 
+        // Expect exception
+        expectedException.expect(IllegalStateException.class);
+        expectedException.expectMessage("Missing 'loading state' resource id or loadingViewWillBeProvided");
+
         // When
         section.setState(State.LOADING);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void setState_withMissingFailedResId_throwsException() {
         // Given
         final int itemId = 1;
@@ -115,11 +176,15 @@ public class SectionTest {
             .build();
         Section section = getSection(sectionParameters);
 
+        // Expect exception
+        expectedException.expect(IllegalStateException.class);
+        expectedException.expectMessage("Missing 'failed state' resource id or failedViewWillBeProvided");
+
         // When
         section.setState(State.FAILED);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void setState_withEmptyFailedResId_throwsException() {
         // Given
         final int itemId = 1;
@@ -128,6 +193,10 @@ public class SectionTest {
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
             .build();
         Section section = getSection(sectionParameters);
+
+        // Expect exception
+        expectedException.expect(IllegalStateException.class);
+        expectedException.expectMessage("Missing 'empty state' resource id or emptyViewWillBeProvided");
 
         // When
         section.setState(State.EMPTY);
