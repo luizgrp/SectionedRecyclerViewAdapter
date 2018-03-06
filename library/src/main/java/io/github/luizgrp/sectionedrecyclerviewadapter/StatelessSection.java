@@ -41,6 +41,8 @@ public abstract class StatelessSection extends Section {
         }
     }
 
+    // Override these methods to make them final.
+
     @Override
     public final void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {
         super.onBindLoadingViewHolder(holder);
