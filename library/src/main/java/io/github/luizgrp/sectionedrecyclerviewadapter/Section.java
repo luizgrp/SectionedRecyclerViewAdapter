@@ -369,7 +369,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Header of this Section.
      */
-    public View getHeaderView(ViewGroup parent) {
+    public View getHeaderView(@SuppressWarnings("unused") ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getHeaderView() if you set headerViewWillBeProvided");
     }
@@ -400,7 +400,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Footer of this Section.
      */
-    public View getFooterView(ViewGroup parent) {
+    public View getFooterView(@SuppressWarnings("unused") ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getFooterView() if you set footerViewWillBeProvided");
     }
@@ -431,7 +431,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Loading state of this Section.
      */
-    public View getLoadingView(ViewGroup parent) {
+    public View getLoadingView(@SuppressWarnings("unused") ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getLoadingView() if you set loadingViewWillBeProvided");
     }
@@ -462,7 +462,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Failed state of this Section.
      */
-    public View getFailedView(ViewGroup parent) {
+    public View getFailedView(@SuppressWarnings("unused") ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getFailedView() if you set failedViewWillBeProvided");
     }
@@ -493,7 +493,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Empty state of this Section.
      */
-    public View getEmptyView(ViewGroup parent) {
+    public View getEmptyView(@SuppressWarnings("unused") ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getEmptyView() if you set emptyViewWillBeProvided");
     }
