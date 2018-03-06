@@ -120,6 +120,20 @@ public class StatelessSectionTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void constructor_withLoadingViewProvided_throwsException() {
+        // Given
+        final int itemId = 1;
+
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+                .itemResourceId(itemId)
+                .loadingViewWillBeProvided()
+                .build();
+
+        // When
+        getStatelessSection(sectionParameters);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void constructor_withFailedResource_throwsException() {
         // Given
         final int itemId = 1;
@@ -134,6 +148,20 @@ public class StatelessSectionTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void constructor_withFailedViewProvided_throwsException() {
+        // Given
+        final int itemId = 1;
+
+        SectionParameters sectionParameters = new SectionParameters.Builder()
+                .itemResourceId(itemId)
+                .failedViewWillBeProvided()
+                .build();
+
+        // When
+        getStatelessSection(sectionParameters);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void constructor_withEmptyResource_throwsException() {
         // Given
         final int itemId = 1;
@@ -142,6 +170,20 @@ public class StatelessSectionTest {
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
             .emptyResourceId(emptyId)
             .build();
+
+        // When
+        getStatelessSection(sectionParameters);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructor_withEmptyViewProvided_throwsException() {
+        // Given
+        final int itemId = 1;
+
+        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+                .itemResourceId(itemId)
+                .emptyViewWillBeProvided()
+                .build();
 
         // When
         getStatelessSection(sectionParameters);
