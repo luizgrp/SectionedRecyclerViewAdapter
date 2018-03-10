@@ -84,7 +84,7 @@ public class Example8Fragment extends Fragment {
         String sectionTag = String.format("section%sTag", randomNumber);
 
         NameSection section = new NameSection(sectionTag,
-            getString(R.string.group_title, randomNumber));
+                getString(R.string.group_title, randomNumber));
 
         sectionAdapter.addSection(sectionTag, section);
 
@@ -115,9 +115,10 @@ public class Example8Fragment extends Fragment {
         List<Person> list;
 
         NameSection(String tag, String title) {
-            super(new SectionParameters.Builder(R.layout.section_ex8_item)
-                .headerResourceId(R.layout.section_ex8_header)
-                .build());
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex8_item)
+                    .headerResourceId(R.layout.section_ex8_header)
+                    .build());
 
             this.TAG = tag;
             this.title = title;

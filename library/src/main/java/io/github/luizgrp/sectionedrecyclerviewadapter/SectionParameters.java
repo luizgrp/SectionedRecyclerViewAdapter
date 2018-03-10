@@ -7,12 +7,18 @@ import android.support.annotation.LayoutRes;
  */
 @SuppressWarnings({"WeakerAccess", "PMD.AvoidFieldNameMatchingMethodName"})
 public final class SectionParameters {
-    @LayoutRes public final Integer itemResourceId;
-    @LayoutRes public final Integer headerResourceId;
-    @LayoutRes public final Integer footerResourceId;
-    @LayoutRes public final Integer loadingResourceId;
-    @LayoutRes public final Integer failedResourceId;
-    @LayoutRes public final Integer emptyResourceId;
+    @LayoutRes
+    public final Integer itemResourceId;
+    @LayoutRes
+    public final Integer headerResourceId;
+    @LayoutRes
+    public final Integer footerResourceId;
+    @LayoutRes
+    public final Integer loadingResourceId;
+    @LayoutRes
+    public final Integer failedResourceId;
+    @LayoutRes
+    public final Integer emptyResourceId;
     public final boolean itemViewWillBeProvided;
     public final boolean headerViewWillBeProvided;
     public final boolean footerViewWillBeProvided;
@@ -64,15 +70,28 @@ public final class SectionParameters {
     }
 
     /**
+     * Builder static factory method with mandatory parameters of {@link Section} (namely none).
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
      * Builder of {@link SectionParameters}.
      */
     public static class Builder {
-        @LayoutRes private Integer itemResourceId;
-        @LayoutRes private Integer headerResourceId;
-        @LayoutRes private Integer footerResourceId;
-        @LayoutRes private Integer loadingResourceId;
-        @LayoutRes private Integer failedResourceId;
-        @LayoutRes private Integer emptyResourceId;
+        @LayoutRes
+        private Integer itemResourceId;
+        @LayoutRes
+        private Integer headerResourceId;
+        @LayoutRes
+        private Integer footerResourceId;
+        @LayoutRes
+        private Integer loadingResourceId;
+        @LayoutRes
+        private Integer failedResourceId;
+        @LayoutRes
+        private Integer emptyResourceId;
         private boolean itemViewWillBeProvided;
         private boolean headerViewWillBeProvided;
         private boolean footerViewWillBeProvided;
@@ -80,18 +99,20 @@ public final class SectionParameters {
         private boolean failedViewWillBeProvided;
         private boolean emptyViewWillBeProvided;
 
-
         /**
          * Constructor with mandatory parameters of {@link Section} (namely none).
          */
-        public Builder() {
+        private Builder() {
         }
 
         /**
          * Constructor with optional parameter for backward compatibility purposes.
          *
          * @param itemResourceId layout resource for Section's items
+         *
+         * @deprecated Use {@link #SectionParameters#builder} instead.
          */
+        @Deprecated
         public Builder(@LayoutRes int itemResourceId) {
             this.itemResourceId = itemResourceId;
         }

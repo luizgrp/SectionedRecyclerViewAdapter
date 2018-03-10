@@ -119,9 +119,10 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         List<String> filteredList;
 
         ContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex7_item)
-                .headerResourceId(R.layout.section_ex7_header)
-                .build());
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex7_item)
+                    .headerResourceId(R.layout.section_ex7_header)
+                    .build());
 
             this.title = title;
             this.list = list;
@@ -151,10 +152,10 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(),
-                        String.format("Clicked on position #%s of Section %s",
-                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
-                            title),
-                        Toast.LENGTH_SHORT).show();
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }

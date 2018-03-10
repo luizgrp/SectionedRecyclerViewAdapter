@@ -70,10 +70,11 @@ public class Example2Fragment extends Fragment {
         int imgPlaceholderResId;
 
         NewsSection(int topic) {
-            super(new SectionParameters.Builder(R.layout.section_ex2_item)
-                .headerResourceId(R.layout.section_ex2_header)
-                .footerResourceId(R.layout.section_ex2_footer)
-                .build());
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex2_item)
+                    .headerResourceId(R.layout.section_ex2_header)
+                    .footerResourceId(R.layout.section_ex2_footer)
+                    .build());
 
             this.topic = topic;
 
@@ -129,10 +130,10 @@ public class Example2Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(),
-                        String.format("Clicked on position #%s of Section %s",
-                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
-                            title),
-                        Toast.LENGTH_SHORT).show();
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }

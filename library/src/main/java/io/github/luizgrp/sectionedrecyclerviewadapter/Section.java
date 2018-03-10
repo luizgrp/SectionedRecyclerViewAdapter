@@ -76,7 +76,8 @@ public abstract class Section {
         switch (state) {
             case LOADING:
                 if (loadingResourceId == null && !loadingViewWillBeProvided) {
-                    throw new IllegalStateException("Resource id for 'loading state' should be provided or 'loadingViewWillBeProvided' should be set");
+                    throw new IllegalStateException(
+                            "Resource id for 'loading state' should be provided or 'loadingViewWillBeProvided' should be set");
                 }
                 break;
             case FAILED:

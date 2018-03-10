@@ -14,13 +14,14 @@ public class HeadedFootedSectionStub extends Section {
     private final int contentItemsTotal;
 
     public HeadedFootedSectionStub(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
-            .headerResourceId(-1)
-            .footerResourceId(-1)
-            .failedResourceId(-1)
-            .loadingResourceId(-1)
-            .emptyResourceId(-1)
-            .build());
+        super(SectionParameters.builder()
+                .itemResourceId(-1)
+                .headerResourceId(-1)
+                .footerResourceId(-1)
+                .failedResourceId(-1)
+                .loadingResourceId(-1)
+                .emptyResourceId(-1)
+                .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

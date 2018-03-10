@@ -69,7 +69,7 @@ public class Example5Fragment extends Fragment {
 
     private List<Movie> getTopRatedMoviesList() {
         List<String> arrayList = new ArrayList<>(Arrays.asList(getResources()
-            .getStringArray(R.array.top_rated_movies)));
+                .getStringArray(R.array.top_rated_movies)));
 
         List<Movie> movieList = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class Example5Fragment extends Fragment {
 
     private List<Movie> getMostPopularMoviesList() {
         List<String> arrayList = new ArrayList<>(Arrays.asList(getResources()
-            .getStringArray(R.array.most_popular_movies)));
+                .getStringArray(R.array.most_popular_movies)));
 
         List<Movie> movieList = new ArrayList<>();
 
@@ -101,9 +101,10 @@ public class Example5Fragment extends Fragment {
         List<Movie> list;
 
         MovieSection(String title, List<Movie> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex5_item)
-                .headerResourceId(R.layout.section_ex5_header)
-                .build());
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex5_item)
+                    .headerResourceId(R.layout.section_ex5_header)
+                    .build());
 
             this.title = title;
             this.list = list;
@@ -133,8 +134,8 @@ public class Example5Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s",
-                        sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
-                        Toast.LENGTH_SHORT).show();
+                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -154,8 +155,8 @@ public class Example5Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), String.format("Clicked on more button from the header of Section %s",
-                        title),
-                        Toast.LENGTH_SHORT).show();
+                            title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }

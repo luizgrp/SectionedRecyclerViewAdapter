@@ -77,9 +77,10 @@ public class Example4Fragment extends Fragment {
         boolean expanded = true;
 
         ExpandableContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex4_item)
-                .headerResourceId(R.layout.section_ex4_header)
-                .build());
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex4_item)
+                    .headerResourceId(R.layout.section_ex4_header)
+                    .build());
 
             this.title = title;
             this.list = list;
@@ -108,10 +109,10 @@ public class Example4Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(),
-                        String.format("Clicked on position #%s of Section %s",
-                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
-                            title),
-                        Toast.LENGTH_SHORT).show();
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -132,7 +133,7 @@ public class Example4Fragment extends Fragment {
                 public void onClick(View v) {
                     expanded = !expanded;
                     headerHolder.imgArrow.setImageResource(
-                        expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
+                            expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
                     );
                     sectionAdapter.notifyDataSetChanged();
                 }

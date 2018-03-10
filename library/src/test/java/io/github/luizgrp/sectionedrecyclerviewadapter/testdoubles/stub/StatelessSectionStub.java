@@ -14,8 +14,9 @@ public class StatelessSectionStub extends StatelessSection {
     private final int contentItemsTotal;
 
     public StatelessSectionStub(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
-            .build());
+        super(SectionParameters.builder()
+                .itemResourceId(-1)
+                .build());
 
         this.contentItemsTotal = contentItemsTotal;
     }

@@ -17,9 +17,10 @@ public class StatelessSectionTest {
         final int itemId = 1;
         final int loadingId = 2;
 
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .loadingResourceId(loadingId)
-            .build();
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .loadingResourceId(loadingId)
+                .build();
 
         // When
         getStatelessSection(sectionParameters);
@@ -30,7 +31,7 @@ public class StatelessSectionTest {
         // Given
         final int itemId = 1;
 
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+        SectionParameters sectionParameters = SectionParameters.builder()
                 .itemResourceId(itemId)
                 .loadingViewWillBeProvided()
                 .build();
@@ -45,9 +46,10 @@ public class StatelessSectionTest {
         final int itemId = 1;
         final int failedId = 2;
 
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .failedResourceId(failedId)
-            .build();
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .failedResourceId(failedId)
+                .build();
 
         // When
         getStatelessSection(sectionParameters);
@@ -58,7 +60,7 @@ public class StatelessSectionTest {
         // Given
         final int itemId = 1;
 
-        SectionParameters sectionParameters = new SectionParameters.Builder()
+        SectionParameters sectionParameters = SectionParameters.builder()
                 .itemResourceId(itemId)
                 .failedViewWillBeProvided()
                 .build();
@@ -73,9 +75,10 @@ public class StatelessSectionTest {
         final int itemId = 1;
         final int emptyId = 2;
 
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-            .emptyResourceId(emptyId)
-            .build();
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .emptyResourceId(emptyId)
+                .build();
 
         // When
         getStatelessSection(sectionParameters);
@@ -86,7 +89,8 @@ public class StatelessSectionTest {
         // Given
         final int itemId = 1;
 
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
                 .itemResourceId(itemId)
                 .emptyViewWillBeProvided()
                 .build();

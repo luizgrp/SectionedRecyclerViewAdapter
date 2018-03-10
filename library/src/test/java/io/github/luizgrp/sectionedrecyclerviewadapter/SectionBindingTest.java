@@ -66,7 +66,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withItemViewProvided_calls_getItemView() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder().itemViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(dummyViewWithTag(42)).when(providingSection).getItemView(null);
 
@@ -83,7 +83,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withItemViewProvided_throws_when_getItemView_returns_null() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder().itemViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(null).when(providingSection).getItemView(null);
 
@@ -98,7 +98,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withHeaderResourceId_calls_getHeaderViewHolder() {
         // Given
-        Section headedSection = spy(new SectionImpl(new SectionParameters.Builder(-1).headerResourceId(-2)));
+        Section headedSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).headerResourceId(-2)));
         sectionAdapter.addSection(headedSection);
 
         // When
@@ -114,7 +114,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withHeaderViewProvided_calls_getHeaderView() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).headerViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).headerViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(dummyViewWithTag(42)).when(providingSection).getHeaderView(null);
 
@@ -129,7 +129,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withHeaderViewProvided_throws_when_getHeaderView_returns_null() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).headerViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).headerViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(null).when(providingSection).getHeaderView(null);
 
@@ -144,7 +144,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withFooterResourceId_calls_getFooterViewHolder() {
         // Given
-        Section footedSection = spy(new SectionImpl(new SectionParameters.Builder(-1).footerResourceId(-3)));
+        Section footedSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).footerResourceId(-3)));
         sectionAdapter.addSection(footedSection);
 
         // When
@@ -160,7 +160,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withFooterViewProvided_calls_getFooterView() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).footerViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).footerViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(dummyViewWithTag(42)).when(providingSection).getFooterView(null);
 
@@ -175,7 +175,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withFooterViewProvided_throws_when_getFooterView_returns_null() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).footerViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).footerViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(null).when(providingSection).getFooterView(null);
 
@@ -190,7 +190,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withLoadingResourceId_calls_getLoadingViewHolder() {
         // Given
-        Section resourceSection = spy(new SectionImpl(new SectionParameters.Builder(-1).loadingResourceId(-5)));
+        Section resourceSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).loadingResourceId(-5)));
         sectionAdapter.addSection(resourceSection); // Third section, view types 12-17
 
         // When
@@ -204,7 +204,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withLoadingViewProvided_calls_getLoadingView() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).loadingViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).loadingViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(dummyViewWithTag(42)).when(providingSection).getLoadingView(null);
 
@@ -219,7 +219,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withLoadingViewProvided_throws_when_getLoadingView_returns_null() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).loadingViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).loadingViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(null).when(providingSection).getLoadingView(null);
 
@@ -234,7 +234,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withFailedResourceId_calls_getFailedViewHolder() {
         // Given
-        Section resourceSection = spy(new SectionImpl(new SectionParameters.Builder(-1)
+        Section resourceSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1)
                 .loadingResourceId(-5)
                 .failedResourceId(-6)));
         sectionAdapter.addSection(resourceSection); // Third section, view types 12-17
@@ -250,7 +250,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withFailedViewProvided_calls_getFailedView() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).failedViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).failedViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(dummyViewWithTag(42)).when(providingSection).getFailedView(null);
 
@@ -265,7 +265,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withFailedViewProvided_throws_when_getFailedView_returns_null() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).failedViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).failedViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(null).when(providingSection).getFailedView(null);
 
@@ -290,7 +290,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withEmptyViewProvided_calls_getEmptyView() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).emptyViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).emptyViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(dummyViewWithTag(42)).when(providingSection).getEmptyView(null);
 
@@ -305,7 +305,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withEmptyViewProvided_throws_when_getEmptyView_returns_null() {
         // Given
-        Section providingSection = spy(new SectionImpl(new SectionParameters.Builder(-1).emptyViewWillBeProvided()));
+        Section providingSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).emptyViewWillBeProvided()));
         sectionAdapter.addSection(providingSection); // Third section, view types 12-17
         doReturn(null).when(providingSection).getEmptyView(null);
 
@@ -369,7 +369,7 @@ public class SectionBindingTest {
     @Test
     public void onBindViewHolder_withHeadedSection_isCalled() {
         // Given
-        Section headedSection = spy(new SectionImpl(new SectionParameters.Builder(-1).headerResourceId(-1)));
+        Section headedSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).headerResourceId(-1)));
         sectionAdapter.addSection(headedSection); // Third section, items 10-19
 
         // When
@@ -386,7 +386,7 @@ public class SectionBindingTest {
     @Test
     public void onBindViewHolder_withFootedSection_isCalled() {
         // Given
-        Section footedSection = spy(new SectionImpl(new SectionParameters.Builder(-1).footerViewWillBeProvided()));
+        Section footedSection = spy(new SectionImpl(SectionParameters.builder().itemResourceId(-1).footerViewWillBeProvided()));
         sectionAdapter.addSection(footedSection); // Third section, items 10-19
 
         // When
@@ -403,7 +403,7 @@ public class SectionBindingTest {
     @Test
     public void onBindViewHolder_withHeadedFootedSection_isCalled() {
         // Given
-        Section headedFootedSection = spy(new SectionImpl(new SectionParameters.Builder()
+        Section headedFootedSection = spy(new SectionImpl(SectionParameters.builder()
                 .itemViewWillBeProvided()
                 .headerViewWillBeProvided()
                 .footerResourceId(-1)));
@@ -432,7 +432,7 @@ public class SectionBindingTest {
         }
 
         SectionImpl() {
-            super(new SectionParameters.Builder()
+            super(SectionParameters.builder()
                     .itemResourceId(-1)
                     .emptyResourceId(-1)
                     .failedViewWillBeProvided()

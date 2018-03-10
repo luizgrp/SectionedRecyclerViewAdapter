@@ -138,12 +138,13 @@ public class Example3Fragment extends Fragment {
         int imgPlaceholderResId;
 
         NewsSection(int topic) {
-            super(new SectionParameters.Builder(R.layout.section_ex3_item)
-                .headerResourceId(R.layout.section_ex3_header)
-                .footerResourceId(R.layout.section_ex3_footer)
-                .failedResourceId(R.layout.section_ex3_failed)
-                .loadingResourceId(R.layout.section_ex3_loading)
-                .build());
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex3_item)
+                    .headerResourceId(R.layout.section_ex3_header)
+                    .footerResourceId(R.layout.section_ex3_footer)
+                    .failedResourceId(R.layout.section_ex3_failed)
+                    .loadingResourceId(R.layout.section_ex3_loading)
+                    .build());
 
             this.topic = topic;
             this.list = Collections.emptyList();
@@ -200,10 +201,10 @@ public class Example3Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(),
-                        String.format("Clicked on position #%s of Section %s",
-                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
-                            title),
-                        Toast.LENGTH_SHORT).show();
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }

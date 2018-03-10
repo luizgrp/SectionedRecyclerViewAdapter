@@ -26,7 +26,7 @@ public class SectionParametersTest {
         final int emptyId = 6;
 
         // When
-        SectionParameters sectionParameters = new SectionParameters.Builder()
+        SectionParameters sectionParameters = SectionParameters.builder()
                 .itemResourceId(itemId)
                 .headerViewWillBeProvided()
                 .footerResourceId(footerId)
@@ -94,7 +94,7 @@ public class SectionParametersTest {
         expectedException.expectMessage("itemResourceId and itemViewWillBeProvided cannot both be set");
 
         // When
-        new SectionParameters.Builder()
+        SectionParameters.builder()
                 .itemResourceId(itemId)
                 .itemViewWillBeProvided()
                 .headerViewWillBeProvided()
@@ -117,7 +117,7 @@ public class SectionParametersTest {
         expectedException.expectMessage("Either itemResourceId or itemViewWillBeProvided must be set");
 
         // When
-        new SectionParameters.Builder()
+        SectionParameters.builder()
                 .headerViewWillBeProvided()
                 .footerResourceId(footerId)
                 .failedViewWillBeProvided()
@@ -139,7 +139,7 @@ public class SectionParametersTest {
         expectedException.expectMessage("footerResourceId and footerViewWillBeProvided cannot both be set");
 
         // When
-        new SectionParameters.Builder()
+        SectionParameters.builder()
                 .itemResourceId(itemId)
                 .headerViewWillBeProvided()
                 .footerResourceId(footerId)

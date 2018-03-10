@@ -32,7 +32,8 @@ public class SectionTest {
         final int emptyId = 6;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
                 .headerResourceId(headerId)
                 .footerResourceId(footerId)
                 .failedResourceId(failedId)
@@ -66,7 +67,7 @@ public class SectionTest {
         final int emptyId = 6;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder()
+        SectionParameters sectionParameters = SectionParameters.builder()
                 .itemViewWillBeProvided()
                 .headerViewWillBeProvided()
                 .loadingViewWillBeProvided()
@@ -100,7 +101,8 @@ public class SectionTest {
         final int loadingId = 2;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
                 .loadingResourceId(loadingId)
                 .build();
         Section section = getSection(sectionParameters);
@@ -118,7 +120,7 @@ public class SectionTest {
         final int itemId = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder()
+        SectionParameters sectionParameters = SectionParameters.builder()
                 .itemResourceId(itemId)
                 .loadingViewWillBeProvided()
                 .build();
@@ -137,7 +139,8 @@ public class SectionTest {
         final int itemId = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
                 .build();
         Section section = getSection(sectionParameters);
 
@@ -154,7 +157,8 @@ public class SectionTest {
         final int itemId = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
                 .build();
         Section section = getSection(sectionParameters);
 
@@ -171,7 +175,8 @@ public class SectionTest {
         final int itemId = 1;
 
         @SuppressWarnings("ResourceType")
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
                 .build();
         Section section = getSection(sectionParameters);
 
