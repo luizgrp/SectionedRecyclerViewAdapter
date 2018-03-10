@@ -276,7 +276,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionsMap_withEmptyAdapter_isEmpty() {
+    public void getCopyOfSectionsMap_withEmptyAdapter_isEmpty() {
         // When
         boolean result = sectionAdapter.getCopyOfSectionsMap().isEmpty();
 
@@ -285,7 +285,7 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
-    public void getSectionsMap_withAdapterWithInvisibleSection_hasCorrectSize() {
+    public void getCopyOfSectionsMap_withAdapterWithInvisibleSection_hasCorrectSize() {
         // Given
         addStatelessSectionStubToAdapter();
         addInvisibleStatelessSectionStubToAdapter();
