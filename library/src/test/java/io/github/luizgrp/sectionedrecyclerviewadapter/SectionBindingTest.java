@@ -38,10 +38,10 @@ public class SectionBindingTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Spy
-    SectionImpl dummySection = new SectionImpl(); // This one is first, so that the section of interest is second.
+    private SectionImpl dummySection = new SectionImpl(); // This one is first, so that the section of interest is second.
 
     @Spy
-    SectionImpl section = new SectionImpl();
+    private SectionImpl section = new SectionImpl();
 
     @Before
     public void setup() {
@@ -427,11 +427,11 @@ public class SectionBindingTest {
 
     private static class SectionImpl extends Section {
 
-        public SectionImpl(SectionParameters.Builder builder) {
+        SectionImpl(SectionParameters.Builder builder) {
             super(builder.build());
         }
 
-        public SectionImpl() {
+        SectionImpl() {
             super(new SectionParameters.Builder()
                     .itemResourceId(-1)
                     .emptyResourceId(-1)
