@@ -1,6 +1,5 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
-import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -10,53 +9,8 @@ import android.view.View;
 public abstract class StatelessSection extends Section {
 
     /**
-     * Create a stateless Section object without header and footer
+     * Create a stateless Section object based on {@link SectionParameters}.
      *
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
-     *
-     * @param itemResourceId layout resource for its items
-     */
-    @Deprecated
-    public StatelessSection(@LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-                .build());
-    }
-
-    /**
-     * Create a stateless Section object, with a custom header but without footer
-     *
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
-     *
-     * @param headerResourceId layout resource for its header
-     * @param itemResourceId layout resource for its items
-     */
-    @Deprecated
-    public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-                .headerResourceId(headerResourceId)
-                .build());
-    }
-
-    /**
-     * Create a stateless Section object, with a custom header and a custom footer
-     *
-     * @deprecated Replaced by {@link #StatelessSection(SectionParameters)}
-     *
-     * @param headerResourceId layout resource for its header
-     * @param footerResourceId layout resource for its footer
-     * @param itemResourceId layout resource for its items
-     */
-    @Deprecated
-    public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
-                            @LayoutRes int itemResourceId) {
-        this(new SectionParameters.Builder(itemResourceId)
-                .headerResourceId(headerResourceId)
-                .footerResourceId(footerResourceId)
-                .build());
-    }
-
-    /**
-     * Create a stateless Section object based on {@link SectionParameters}
      * @param sectionParameters section parameters
      */
     public StatelessSection(SectionParameters sectionParameters) {
@@ -66,14 +20,28 @@ public abstract class StatelessSection extends Section {
             throw new IllegalArgumentException("Stateless section shouldn't have a loading state resource");
         }
 
+        if (sectionParameters.loadingViewWillBeProvided) {
+            throw new IllegalArgumentException("Stateless section shouldn't have loadingViewWillBeProvided set");
+        }
+
         if (sectionParameters.failedResourceId != null) {
             throw new IllegalArgumentException("Stateless section shouldn't have a failed state resource");
+        }
+
+        if (sectionParameters.failedViewWillBeProvided) {
+            throw new IllegalArgumentException("Stateless section shouldn't have failedViewWillBeProvided set");
         }
 
         if (sectionParameters.emptyResourceId != null) {
             throw new IllegalArgumentException("Stateless section shouldn't have an empty state resource");
         }
+
+        if (sectionParameters.emptyViewWillBeProvided) {
+            throw new IllegalArgumentException("Stateless section shouldn't have emptyViewWillBeProvided set");
+        }
     }
+
+    // Override these methods to make them final.
 
     @Override
     public final void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {

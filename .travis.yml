@@ -16,11 +16,14 @@ cache:
 android:
   components:
     - tools
-    - build-tools-25.0.3
-    - android-25
+    - build-tools-26.0.2
+    - android-27
     - platform-tools
     - extra-android-m2repository
     - extra-google-m2repository
 
 script:
   ./gradlew build
+
+before_install:
+- yes | sdkmanager "platforms;android-27"

@@ -1,14 +1,37 @@
 # Changelog
 
+## 1.2.0 - 10/03/2018
+
+### Section class
+- Remove all deprecated constructors.
+- Add methods `isItemViewWillBeProvided`, `isHeaderViewWillBeProvided`, `isFooterViewWillBeProvided`, `isLoadingViewWillBeProvided`, `isFailedViewWillBeProvided` and `isEmptyViewWillBeProvided`.
+- Add methods `getItemView`, `getHeaderView`, `getFooterView`, `getLoadingView`, `getFailedView` and `getEmptyView`.
+
+### SectionedRecyclerViewAdapter class
+- Remove method `getSectionsMap`.
+- Add method `getCopyOfSectionsMap`
+- Add method `removeSection(Section)`.
+
+### SectionParameters class
+- Add factory method for `Builder` class.
+
+### SectionParameters.Builder class
+- Deprecate constructor with itemResourceId as parameter.
+- Add method `itemResourceId`.
+- Add methods `itemViewWillBeProvided`, `headerViewWillBeProvided`, `footerViewWillBeProvided`, `loadingViewWillBeProvided`, `failedViewWillBeProvided` and `emptyViewWillBeProvided`.
+
+### StatelessSection class
+- Remove all deprecated constructors.
+
 ## 1.1.3 - 22/07/2017
 
 ### Section class
-- Add checks for resource ids in `setState` and throw exception if missing
+- Add checks for resource ids in `setState` and throw exception if missing.
 
 ### SectionedRecyclerViewAdapter class
 - Add methods `notifyNotLoadedStateChanged`, `notifyStateChangedToLoaded` and `notifyStateChangedFromLoaded`.
 - Add methods `notifyHeaderInsertedInSection`, `notifyFooterInsertedInSection`, `notifyHeaderRemovedFromSection` and `notifyFooterRemovedFromSection`.
-- Add methods `notifySectionChangedToVisible` and `notifySectionChangedToInvisible`
+- Add methods `notifySectionChangedToVisible` and `notifySectionChangedToInvisible`.
 
 ## 1.1.2 - 30/06/2017
 ### SectionParameters class

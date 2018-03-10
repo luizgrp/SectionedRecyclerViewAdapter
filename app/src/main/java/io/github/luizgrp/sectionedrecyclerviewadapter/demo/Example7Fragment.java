@@ -38,7 +38,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
 
-        for(char alphabet = 'A'; alphabet <= 'Z';alphabet++) {
+        for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
             List<String> contacts = getContactsWithLetter(alphabet);
 
             if (contacts.size() > 0) {
@@ -67,8 +67,9 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
 
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null)
+            if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(R.string.nav_example7);
+            }
         }
     }
 
@@ -84,10 +85,9 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
     @Override
     public boolean onQueryTextChange(String query) {
 
-        // getSectionsMap requires library version 1.0.4+
-        for (Section section : sectionAdapter.getSectionsMap().values()) {
+        for (Section section : sectionAdapter.getCopyOfSectionsMap().values()) {
             if (section instanceof FilterableSection) {
-                ((FilterableSection)section).filter(query);
+                ((FilterableSection) section).filter(query);
             }
         }
         sectionAdapter.notifyDataSetChanged();
@@ -119,7 +119,8 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         List<String> filteredList;
 
         ContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex7_item)
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex7_item)
                     .headerResourceId(R.layout.section_ex7_header)
                     .build());
 
@@ -127,8 +128,6 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             this.list = list;
             this.filteredList = new ArrayList<>(list);
         }
-
-
 
         @Override
         public int getContentItemsTotal() {
@@ -152,7 +151,11 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -174,8 +177,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             if (TextUtils.isEmpty(query)) {
                 filteredList = new ArrayList<>(list);
                 this.setVisible(true);
-            }
-            else {
+            } else {
                 filteredList.clear();
                 for (String value : list) {
                     if (value.toLowerCase().contains(query.toLowerCase())) {

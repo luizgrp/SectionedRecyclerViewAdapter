@@ -31,8 +31,7 @@ public class Example1Fragment extends Fragment {
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
 
-
-        for(char alphabet = 'A'; alphabet <= 'Z';alphabet++) {
+        for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
             List<String> contacts = getContactsWithLetter(alphabet);
 
             if (contacts.size() > 0) {
@@ -53,8 +52,9 @@ public class Example1Fragment extends Fragment {
 
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null)
+            if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(R.string.nav_example1);
+            }
         }
     }
 
@@ -76,7 +76,8 @@ public class Example1Fragment extends Fragment {
         List<String> list;
 
         ContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex1_item)
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex1_item)
                     .headerResourceId(R.layout.section_ex1_header)
                     .build());
 
@@ -106,7 +107,11 @@ public class Example1Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }

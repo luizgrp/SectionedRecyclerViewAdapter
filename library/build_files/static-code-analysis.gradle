@@ -1,0 +1,59 @@
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+
+check.dependsOn 'checkstyle', 'pmd', 'findbugs'
+
+task checkstyle(type: Checkstyle) {
+    description 'Checks if the code adheres to a coding standard'
+    group 'verification'
+
+    configFile file("${project.rootDir}/config/checkstyle.xml")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+}
+
+task pmd(type: Pmd) {
+    description 'Finds common programming flaws'
+    group 'verification'
+
+    ruleSetFiles = files("${project.rootDir}/config/pmd-ruleset.xml")
+    ruleSets = []
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    ignoreFailures = true
+
+    reports {
+        html.enabled = true
+    }
+}
+
+task findbugs(type: FindBugs, dependsOn:"assembleDebug") {
+    description 'Looks for bugs'
+    group 'verification'
+
+    effort = "max"
+    reportLevel = "high"
+
+    classes = files("$project.buildDir/intermediates/classes/")
+    classpath = files()
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+dependencies {
+    checkstyle "com.puppycrawl.tools:checkstyle:8.2"
+}

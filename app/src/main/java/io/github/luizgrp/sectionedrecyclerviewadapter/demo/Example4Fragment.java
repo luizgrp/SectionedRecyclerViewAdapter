@@ -31,8 +31,7 @@ public class Example4Fragment extends Fragment {
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
 
-
-        for(char alphabet = 'A'; alphabet <= 'Z';alphabet++) {
+        for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
             List<String> contacts = getContactsWithLetter(alphabet);
 
             if (contacts.size() > 0) {
@@ -53,8 +52,9 @@ public class Example4Fragment extends Fragment {
 
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null)
+            if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(R.string.nav_example4);
+            }
         }
     }
 
@@ -77,7 +77,8 @@ public class Example4Fragment extends Fragment {
         boolean expanded = true;
 
         ExpandableContactsSection(String title, List<String> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex4_item)
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex4_item)
                     .headerResourceId(R.layout.section_ex4_header)
                     .build());
 
@@ -87,7 +88,7 @@ public class Example4Fragment extends Fragment {
 
         @Override
         public int getContentItemsTotal() {
-            return expanded? list.size() : 0;
+            return expanded ? list.size() : 0;
         }
 
         @Override
@@ -107,7 +108,11 @@ public class Example4Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }

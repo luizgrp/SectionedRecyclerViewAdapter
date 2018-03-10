@@ -21,7 +21,7 @@ In addition, each Section can have its state(Loading/Loaded/Failed/Empty) contro
 Add this to the `dependencies` section in your project-level **build.gradle** file:
 
 ```groovy
-compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.1.3'
+compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.2.0'
 ```
 
 ## Basic usage
@@ -34,7 +34,8 @@ class MySection extends StatelessSection {
 
     public MySection() {
         // call constructor with layout resources for this Section header and items
-        super(new SectionParameters.Builder(R.layout.section_item)
+        super(SectionParameters.builder()
+                .itemResourceId(R.layout.section_item)
                 .headerResourceId(R.layout.section_header)
                 .build());
     }

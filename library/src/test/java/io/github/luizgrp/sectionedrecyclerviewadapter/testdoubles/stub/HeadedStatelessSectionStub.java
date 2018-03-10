@@ -14,7 +14,8 @@ public class HeadedStatelessSectionStub extends StatelessSection {
     private final int contentItemsTotal;
 
     public HeadedStatelessSectionStub(int contentItemsTotal) {
-        super(new SectionParameters.Builder(-1)
+        super(SectionParameters.builder()
+                .itemResourceId(-1)
                 .headerResourceId(-1)
                 .build());
 

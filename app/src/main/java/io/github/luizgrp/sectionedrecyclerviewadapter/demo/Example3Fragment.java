@@ -65,8 +65,9 @@ public class Example3Fragment extends Fragment {
 
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null)
+            if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(R.string.nav_example3);
+            }
         }
     }
 
@@ -91,8 +92,7 @@ public class Example3Fragment extends Fragment {
 
                 if (failed == 1) {
                     section.setState(Section.State.FAILED);
-                }
-                else {
+                } else {
                     int arrayResource;
                     switch (section.getTopic()) {
                         case NewsSection.WORLD:
@@ -138,7 +138,8 @@ public class Example3Fragment extends Fragment {
         int imgPlaceholderResId;
 
         NewsSection(int topic) {
-            super(new SectionParameters.Builder(R.layout.section_ex3_item)
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex3_item)
                     .headerResourceId(R.layout.section_ex3_header)
                     .footerResourceId(R.layout.section_ex3_footer)
                     .failedResourceId(R.layout.section_ex3_failed)
@@ -166,7 +167,6 @@ public class Example3Fragment extends Fragment {
                     this.imgPlaceholderResId = R.drawable.ic_directions_run_black_48dp;
                     break;
             }
-
         }
 
         int getTopic() {
@@ -200,7 +200,11 @@ public class Example3Fragment extends Fragment {
             itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s", sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),
+                            String.format("Clicked on position #%s of Section %s",
+                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }

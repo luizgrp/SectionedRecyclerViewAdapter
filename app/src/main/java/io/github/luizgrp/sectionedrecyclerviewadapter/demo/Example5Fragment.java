@@ -41,7 +41,7 @@ public class Example5Fragment extends Fragment {
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch(sectionAdapter.getSectionItemViewType(position)) {
+                switch (sectionAdapter.getSectionItemViewType(position)) {
                     case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
                         return 2;
                     default:
@@ -61,8 +61,9 @@ public class Example5Fragment extends Fragment {
 
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null)
+            if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(R.string.nav_example5);
+            }
         }
     }
 
@@ -100,7 +101,8 @@ public class Example5Fragment extends Fragment {
         List<Movie> list;
 
         MovieSection(String title, List<Movie> list) {
-            super(new SectionParameters.Builder(R.layout.section_ex5_item)
+            super(SectionParameters.builder()
+                    .itemResourceId(R.layout.section_ex5_item)
                     .headerResourceId(R.layout.section_ex5_header)
                     .build());
 
