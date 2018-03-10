@@ -20,6 +20,49 @@ public final class SectionParameters {
     public final boolean failedViewWillBeProvided;
     public final boolean emptyViewWillBeProvided;
 
+    private SectionParameters(Builder builder) {
+        this.itemResourceId = builder.itemResourceId;
+        this.headerResourceId = builder.headerResourceId;
+        this.footerResourceId = builder.footerResourceId;
+        this.loadingResourceId = builder.loadingResourceId;
+        this.failedResourceId = builder.failedResourceId;
+        this.emptyResourceId = builder.emptyResourceId;
+        this.itemViewWillBeProvided = builder.itemViewWillBeProvided;
+        this.headerViewWillBeProvided = builder.headerViewWillBeProvided;
+        this.footerViewWillBeProvided = builder.footerViewWillBeProvided;
+        this.loadingViewWillBeProvided = builder.loadingViewWillBeProvided;
+        this.failedViewWillBeProvided = builder.failedViewWillBeProvided;
+        this.emptyViewWillBeProvided = builder.emptyViewWillBeProvided;
+
+        if (itemResourceId != null && itemViewWillBeProvided) {
+            throw new IllegalArgumentException(
+                    "itemResourceId and itemViewWillBeProvided cannot both be set");
+        } else if (itemResourceId == null && !itemViewWillBeProvided) {
+            throw new IllegalArgumentException(
+                    "Either itemResourceId or itemViewWillBeProvided must be set");
+        }
+        if (headerResourceId != null && headerViewWillBeProvided) {
+            throw new IllegalArgumentException(
+                    "headerResourceId and headerViewWillBeProvided cannot both be set");
+        }
+        if (footerResourceId != null && footerViewWillBeProvided) {
+            throw new IllegalArgumentException(
+                    "footerResourceId and footerViewWillBeProvided cannot both be set");
+        }
+        if (loadingResourceId != null && loadingViewWillBeProvided) {
+            throw new IllegalArgumentException(
+                    "loadingResourceId and loadingViewWillBeProvided cannot both be set");
+        }
+        if (failedResourceId != null && failedViewWillBeProvided) {
+            throw new IllegalArgumentException(
+                    "failedResourceId and failedViewWillBeProvided cannot both be set");
+        }
+        if (emptyResourceId != null && emptyViewWillBeProvided) {
+            throw new IllegalArgumentException(
+                    "emptyResourceId and emptyViewWillBeProvided cannot both be set");
+        }
+    }
+
     /**
      * Builder of {@link SectionParameters}.
      */
@@ -204,49 +247,6 @@ public final class SectionParameters {
          */
         public SectionParameters build() {
             return new SectionParameters(this);
-        }
-    }
-
-    private SectionParameters(Builder builder) {
-        this.itemResourceId = builder.itemResourceId;
-        this.headerResourceId = builder.headerResourceId;
-        this.footerResourceId = builder.footerResourceId;
-        this.loadingResourceId = builder.loadingResourceId;
-        this.failedResourceId = builder.failedResourceId;
-        this.emptyResourceId = builder.emptyResourceId;
-        this.itemViewWillBeProvided = builder.itemViewWillBeProvided;
-        this.headerViewWillBeProvided = builder.headerViewWillBeProvided;
-        this.footerViewWillBeProvided = builder.footerViewWillBeProvided;
-        this.loadingViewWillBeProvided = builder.loadingViewWillBeProvided;
-        this.failedViewWillBeProvided = builder.failedViewWillBeProvided;
-        this.emptyViewWillBeProvided = builder.emptyViewWillBeProvided;
-
-        if (itemResourceId != null && itemViewWillBeProvided) {
-            throw new IllegalArgumentException(
-                    "itemResourceId and itemViewWillBeProvided cannot both be set");
-        } else if (itemResourceId == null && !itemViewWillBeProvided) {
-            throw new IllegalArgumentException(
-                    "Either itemResourceId or itemViewWillBeProvided must be set");
-        }
-        if (headerResourceId != null && headerViewWillBeProvided) {
-            throw new IllegalArgumentException(
-                    "headerResourceId and headerViewWillBeProvided cannot both be set");
-        }
-        if (footerResourceId != null && footerViewWillBeProvided) {
-            throw new IllegalArgumentException(
-                    "footerResourceId and footerViewWillBeProvided cannot both be set");
-        }
-        if (loadingResourceId != null && loadingViewWillBeProvided) {
-            throw new IllegalArgumentException(
-                    "loadingResourceId and loadingViewWillBeProvided cannot both be set");
-        }
-        if (failedResourceId != null && failedViewWillBeProvided) {
-            throw new IllegalArgumentException(
-                    "failedResourceId and failedViewWillBeProvided cannot both be set");
-        }
-        if (emptyResourceId != null && emptyViewWillBeProvided) {
-            throw new IllegalArgumentException(
-                    "emptyResourceId and emptyViewWillBeProvided cannot both be set");
         }
     }
 }

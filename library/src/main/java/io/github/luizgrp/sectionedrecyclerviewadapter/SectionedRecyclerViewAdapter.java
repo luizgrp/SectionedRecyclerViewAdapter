@@ -77,6 +77,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return viewHolder;
     }
 
+    @VisibleForTesting
     View inflate(@LayoutRes int layoutResourceId, ViewGroup parent) {
         return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
     }

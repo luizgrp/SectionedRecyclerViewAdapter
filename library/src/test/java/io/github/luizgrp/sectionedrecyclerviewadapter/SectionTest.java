@@ -143,7 +143,6 @@ public class SectionTest {
 
         // Expect exception
         expectedException.expect(IllegalStateException.class);
-        expectedException.expectMessage("Missing 'loading state' resource id or loadingViewWillBeProvided");
 
         // When
         section.setState(State.LOADING);
@@ -161,7 +160,6 @@ public class SectionTest {
 
         // Expect exception
         expectedException.expect(IllegalStateException.class);
-        expectedException.expectMessage("Missing 'failed state' resource id or failedViewWillBeProvided");
 
         // When
         section.setState(State.FAILED);
@@ -179,7 +177,6 @@ public class SectionTest {
 
         // Expect exception
         expectedException.expect(IllegalStateException.class);
-        expectedException.expectMessage("Missing 'empty state' resource id or emptyViewWillBeProvided");
 
         // When
         section.setState(State.EMPTY);

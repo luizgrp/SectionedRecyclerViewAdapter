@@ -25,12 +25,18 @@ public abstract class Section {
     private boolean hasHeader = false;
     private boolean hasFooter = false;
 
-    @LayoutRes private final Integer itemResourceId;
-    @LayoutRes private final Integer headerResourceId;
-    @LayoutRes private final Integer footerResourceId;
-    @LayoutRes private final Integer loadingResourceId;
-    @LayoutRes private final Integer failedResourceId;
-    @LayoutRes private final Integer emptyResourceId;
+    @LayoutRes
+    private final Integer itemResourceId;
+    @LayoutRes
+    private final Integer headerResourceId;
+    @LayoutRes
+    private final Integer footerResourceId;
+    @LayoutRes
+    private final Integer loadingResourceId;
+    @LayoutRes
+    private final Integer failedResourceId;
+    @LayoutRes
+    private final Integer emptyResourceId;
     private final boolean itemViewWillBeProvided;
     private final boolean headerViewWillBeProvided;
     private final boolean footerViewWillBeProvided;
@@ -70,17 +76,17 @@ public abstract class Section {
         switch (state) {
             case LOADING:
                 if (loadingResourceId == null && !loadingViewWillBeProvided) {
-                    throw new IllegalStateException("Missing 'loading state' resource id or loadingViewWillBeProvided");
+                    throw new IllegalStateException("Resource id for 'loading state' should be provided or 'loadingViewWillBeProvided' should be set");
                 }
                 break;
             case FAILED:
                 if (failedResourceId == null && !failedViewWillBeProvided) {
-                    throw new IllegalStateException("Missing 'failed state' resource id or failedViewWillBeProvided");
+                    throw new IllegalStateException("Resource id for 'failed state' should be provided or 'failedViewWillBeProvided' should be set");
                 }
                 break;
             case EMPTY:
                 if (emptyResourceId == null && !emptyViewWillBeProvided) {
-                    throw new IllegalStateException("Missing 'empty state' resource id or emptyViewWillBeProvided");
+                    throw new IllegalStateException("Resource id for 'empty state' should be provided or 'emptyViewWillBeProvided' should be set");
                 }
                 break;
             default:
@@ -159,7 +165,7 @@ public abstract class Section {
      *
      * @return whether the item view is provided through {@link #getItemView(ViewGroup)}.
      */
-    public boolean isItemViewWillBeProvided() {
+    public final boolean isItemViewWillBeProvided() {
         return itemViewWillBeProvided;
     }
 
@@ -179,7 +185,7 @@ public abstract class Section {
      *
      * @return whether the header view is provided through {@link #getHeaderView(ViewGroup)}.
      */
-    public boolean isHeaderViewWillBeProvided() {
+    public final boolean isHeaderViewWillBeProvided() {
         return headerViewWillBeProvided;
     }
 
@@ -199,7 +205,7 @@ public abstract class Section {
      *
      * @return whether the footer view is provided through {@link #getFooterView(ViewGroup)}.
      */
-    public boolean isFooterViewWillBeProvided() {
+    public final boolean isFooterViewWillBeProvided() {
         return footerViewWillBeProvided;
     }
 
@@ -219,7 +225,7 @@ public abstract class Section {
      *
      * @return whether the loading view is provided through {@link #getLoadingView(ViewGroup)}.
      */
-    public boolean isLoadingViewWillBeProvided() {
+    public final boolean isLoadingViewWillBeProvided() {
         return loadingViewWillBeProvided;
     }
 
@@ -239,7 +245,7 @@ public abstract class Section {
      *
      * @return whether the failed view is provided through {@link #getFailedView(ViewGroup)}.
      */
-    public boolean isFailedViewWillBeProvided() {
+    public final boolean isFailedViewWillBeProvided() {
         return failedViewWillBeProvided;
     }
 
@@ -259,7 +265,7 @@ public abstract class Section {
      *
      * @return whether the empty view is provided through {@link #getEmptyView(ViewGroup)}.
      */
-    public boolean isEmptyViewWillBeProvided() {
+    public final boolean isEmptyViewWillBeProvided() {
         return emptyViewWillBeProvided;
     }
 
