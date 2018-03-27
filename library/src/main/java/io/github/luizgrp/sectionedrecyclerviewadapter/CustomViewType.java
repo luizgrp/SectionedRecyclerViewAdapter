@@ -53,4 +53,8 @@ public class CustomViewType {
     public Class<?> getViewHolderClass() {
         return viewHolderClass;
     }
+
+    public int getLayoutId() {
+        return layoutId;
+    }
 }
