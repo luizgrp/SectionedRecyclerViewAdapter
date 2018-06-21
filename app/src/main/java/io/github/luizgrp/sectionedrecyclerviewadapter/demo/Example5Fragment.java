@@ -37,13 +37,14 @@ public class Example5Fragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
-        GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
+        final int columnCount = 2;
+        GridLayoutManager glm = new GridLayoutManager(getContext(), columnCount);
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 switch (sectionAdapter.getSectionItemViewType(position)) {
                     case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
-                        return 2;
+                        return columnCount;
                     default:
                         return 1;
                 }
