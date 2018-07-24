@@ -516,11 +516,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     @NonNull
     public Map<String, Section> getCopyOfSectionsMap() {
-        Map<String, Section> copyOfSections;
-        synchronized (sections) {
-            copyOfSections = new LinkedHashMap<>(sections);
-        }
-        return copyOfSections;
+        return new LinkedHashMap<>(sections);
     }
 
     /**
