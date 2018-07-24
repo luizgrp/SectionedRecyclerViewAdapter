@@ -78,11 +78,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return viewHolder;
     }
 
-    @VisibleForTesting
-    View inflate(@LayoutRes int layoutResourceId, ViewGroup parent) {
-        return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
-    }
-
     private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
         View view;
         if (section.isItemViewWillBeProvided()) {
@@ -619,11 +614,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemInserted(getPositionInAdapter(section, position));
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemInserted(int position) {
-        super.notifyItemInserted(position);
-    }
-
     /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemRangeInserted}.
@@ -648,11 +638,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemRangeInserted(getPositionInAdapter(section, positionStart), itemCount);
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemRangeInserted(int positionStart, int itemCount) {
-        super.notifyItemRangeInserted(positionStart, itemCount);
-    }
-
     /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemRemoved}.
@@ -673,11 +658,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemRemovedFromSection(Section section, int position) {
         callSuperNotifyItemRemoved(getPositionInAdapter(section, position));
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemRemoved(int position) {
-        super.notifyItemRemoved(position);
     }
 
     /**
@@ -702,11 +682,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemRangeRemovedFromSection(Section section, int positionStart, int itemCount) {
         callSuperNotifyItemRangeRemoved(getPositionInAdapter(section, positionStart), itemCount);
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemRangeRemoved(int positionStart, int itemCount) {
-        super.notifyItemRangeRemoved(positionStart, itemCount);
     }
 
     /**
@@ -771,11 +746,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemChanged(getFooterPositionInAdapter(section));
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemChanged(int position) {
-        super.notifyItemChanged(position);
-    }
-
     /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemRangeChanged}.
@@ -798,11 +768,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemRangeChangedInSection(Section section, int positionStart, int itemCount) {
         callSuperNotifyItemRangeChanged(getPositionInAdapter(section, positionStart), itemCount);
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount) {
-        super.notifyItemRangeChanged(positionStart, itemCount);
     }
 
     /**
@@ -833,11 +798,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemRangeChanged(getPositionInAdapter(section, positionStart), itemCount, payload);
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount, Object payload) {
-        super.notifyItemRangeChanged(positionStart, itemCount, payload);
-    }
-
     /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemMoved}.
@@ -860,11 +820,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemMovedInSection(Section section, int fromPosition, int toPosition) {
         callSuperNotifyItemMoved(getPositionInAdapter(section, fromPosition), getPositionInAdapter(section, toPosition));
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemMoved(int fromPosition, int toPosition) {
-        super.notifyItemMoved(fromPosition, toPosition);
     }
 
     /**
@@ -1163,6 +1118,51 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         int sectionItemsTotal = section.getSectionItemsTotal();
 
         callSuperNotifyItemRangeRemoved(previousSectionPosition, sectionItemsTotal);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    View inflate(@LayoutRes int layoutResourceId, ViewGroup parent) {
+        return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRemoved(int position) {
+        super.notifyItemRemoved(position);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeRemoved(int positionStart, int itemCount) {
+        super.notifyItemRangeRemoved(positionStart, itemCount);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemChanged(int position) {
+        super.notifyItemChanged(position);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount) {
+        super.notifyItemRangeChanged(positionStart, itemCount);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount, Object payload) {
+        super.notifyItemRangeChanged(positionStart, itemCount, payload);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeInserted(int positionStart, int itemCount) {
+        super.notifyItemRangeInserted(positionStart, itemCount);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemInserted(int position) {
+        super.notifyItemInserted(position);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemMoved(int fromPosition, int toPosition) {
+        super.notifyItemMoved(fromPosition, toPosition);
     }
 
     @NonNull
