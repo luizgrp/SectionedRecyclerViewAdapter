@@ -115,6 +115,7 @@ Stateful Section
 ## Apps on Google Play using this library
 
 - [JStock](https://play.google.com/store/apps/details?id=org.yccheok.jstock.gui)
+- [WeNote](https://play.google.com/store/apps/details?id=com.yocto.wenote)
 
 ## License
 
