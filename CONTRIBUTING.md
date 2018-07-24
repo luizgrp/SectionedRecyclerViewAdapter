@@ -8,7 +8,7 @@ There are many ways to contribute:
 - improving the documentation;
 - submitting bug reports;
 - fixing bugs reported;
-- answering questions from the [issue tracker](https://github.com/luizgrp/SectionedRecyclerViewAdapter/issues) or [Stack Overflow](https://stackoverflow.com/search?q=sectionedrecyclerviewadapter);
+- answering questions from the [issue tracker](https://github.com/luizgrp/SectionedRecyclerViewAdapter/issues) or [Stack Overflow](https://stackoverflow.com/questions/tagged/sectionedrecyclerviewadapter);
 - submitting feature requests;
 - writing code which can be incorporated into the library itself;
 
@@ -19,7 +19,7 @@ The goal of SectionedRecyclerViewAdapter library is to provide a simple way of g
 Support questions
 ----------------
 
-Please, don't use the issue tracker for support questions, use [Stack Overflow](https://stackoverflow.com/search?q=sectionedrecyclerviewadapter) instead. Search with [Google](https://www.google.com/search?q=site%3Astackoverflow.com+sectionedrecyclerviewadapter) first using: ``site:stackoverflow.com sectionedrecyclerviewadapter {search term, exception message, etc.}``
+Use the issue tracker for support questions as last resource. Please use [Stack Overflow](https://stackoverflow.com/questions/tagged/sectionedrecyclerviewadapter) as first option.
 
 Reporting issues
 ----------------
@@ -34,30 +34,4 @@ Reporting issues
 Submitting pull requests
 ----------------
 
-Before submitting a pull request, add your suggestion to the [issue tracker](https://github.com/luizgrp/SectionedRecyclerViewAdapter/issues) and provide with it:
-#### Use Case
-- Describe the motivation to add this new feature and which problems it will tackle.
-
-> It would be nice to have a helper method in the adapter to notify that the visibility of the header of a section was changed.
-> It's known that this can be done with the native notifyItemInserted and notifyItemRemoved methods but it would be nice to have the logic to calculate the header position wrapped in a method of the adapter.
-
-#### Design
-- Which methods will be created/modified/deleted in the existing classes.
-- Which classes will be created/deleted.
-- Explanation for each of the changes listed above.
-
-> Create methods:
->
-> - notifyHeaderInsertedInSection
->
-> Get position with getHeaderPositionInAdapter and call callSuperNotifyItemInserted
->
-> - notifyHeaderRemovedInSection
->
-> Get position with getSectionPosition and call callSuperNotifyItemInserted
-
-#### How to use
-How the developers will use the new methods/classes introduced by these changes.
-> Simply call:
->
-> adapter.notifyHeaderInsertedInSection(section);
+Before submitting a pull request, add your suggestion to the [issue tracker](https://github.com/luizgrp/SectionedRecyclerViewAdapter/issues), following the template available.
