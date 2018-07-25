@@ -19,7 +19,7 @@ import static org.junit.Assert.assertThat;
 public class SectionTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void constructor_withSectionParameters_constructsCorrectSection() {

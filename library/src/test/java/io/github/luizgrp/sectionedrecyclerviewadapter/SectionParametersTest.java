@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 public class SectionParametersTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void constructor_withValidParameters_throwsNoExceptions() {
@@ -58,6 +58,7 @@ public class SectionParametersTest {
         final int loadingId = 5;
 
         // When
+        @SuppressWarnings("deprecation") // intended for test
         SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
                 .headerViewWillBeProvided()
                 .footerResourceId(footerId)

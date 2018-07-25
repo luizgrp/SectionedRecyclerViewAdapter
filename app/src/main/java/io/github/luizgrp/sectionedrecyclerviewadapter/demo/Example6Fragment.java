@@ -1,6 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class Example6Fragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex6, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
@@ -35,7 +36,7 @@ public class Example6Fragment extends Fragment {
         sectionAdapter.addSection(new ExpandableMovieSection(getString(R.string.top_rated_movies_topic), getTopRatedMoviesList()));
         sectionAdapter.addSection(new ExpandableMovieSection(getString(R.string.most_popular_movies_topic), getMostPopularMoviesList()));
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
 
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -97,8 +98,8 @@ public class Example6Fragment extends Fragment {
 
     private class ExpandableMovieSection extends StatelessSection {
 
-        String title;
-        List<Movie> list;
+        final String title;
+        final List<Movie> list;
         boolean expanded = true;
 
         ExpandableMovieSection(String title, List<Movie> list) {
@@ -175,8 +176,8 @@ public class Example6Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-            imgArrow = (ImageView) view.findViewById(R.id.imgArrow);
+            tvTitle = view.findViewById(R.id.tvTitle);
+            imgArrow = view.findViewById(R.id.imgArrow);
         }
     }
 
@@ -190,34 +191,26 @@ public class Example6Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            tvItem = (TextView) view.findViewById(R.id.tvItem);
-            tvSubItem = (TextView) view.findViewById(R.id.tvSubItem);
+            tvItem = view.findViewById(R.id.tvItem);
+            tvSubItem = view.findViewById(R.id.tvSubItem);
         }
     }
 
     private class Movie {
-        String name;
-        String category;
+        final String name;
+        final String category;
 
         Movie(String name, String category) {
             this.name = name;
             this.category = category;
         }
 
-        public String getName() {
+        String getName() {
             return name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getCategory() {
+        String getCategory() {
             return category;
-        }
-
-        public void setCategory(String category) {
-            this.category = category;
         }
     }
 }

@@ -1,6 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class Example2Fragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex2, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
@@ -37,7 +38,7 @@ public class Example2Fragment extends Fragment {
         sectionAdapter.addSection(new NewsSection(NewsSection.TECHNOLOGY));
         sectionAdapter.addSection(new NewsSection(NewsSection.SPORTS));
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sectionAdapter);
 
@@ -63,8 +64,6 @@ public class Example2Fragment extends Fragment {
         final static int TECHNOLOGY = 2;
         final static int SPORTS = 3;
 
-        final int topic;
-
         String title;
         List<String> list;
         int imgPlaceholderResId;
@@ -75,8 +74,6 @@ public class Example2Fragment extends Fragment {
                     .headerResourceId(R.layout.section_ex2_header)
                     .footerResourceId(R.layout.section_ex2_footer)
                     .build());
-
-            this.topic = topic;
 
             switch (topic) {
                 case WORLD:
@@ -175,7 +172,7 @@ public class Example2Fragment extends Fragment {
         HeaderViewHolder(View view) {
             super(view);
 
-            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            tvTitle = view.findViewById(R.id.tvTitle);
         }
     }
 
@@ -201,9 +198,9 @@ public class Example2Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            imgItem = (ImageView) view.findViewById(R.id.imgItem);
-            tvHeader = (TextView) view.findViewById(R.id.tvHeader);
-            tvDate = (TextView) view.findViewById(R.id.tvDate);
+            imgItem = view.findViewById(R.id.imgItem);
+            tvHeader = view.findViewById(R.id.tvHeader);
+            tvDate = view.findViewById(R.id.tvDate);
         }
     }
 }

@@ -1,6 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class Example4Fragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex4, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
@@ -39,7 +40,7 @@ public class Example4Fragment extends Fragment {
             }
         }
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sectionAdapter);
 
@@ -72,8 +73,8 @@ public class Example4Fragment extends Fragment {
 
     private class ExpandableContactsSection extends StatelessSection {
 
-        String title;
-        List<String> list;
+        final String title;
+        final List<String> list;
         boolean expanded = true;
 
         ExpandableContactsSection(String title, List<String> list) {
@@ -151,8 +152,8 @@ public class Example4Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-            imgArrow = (ImageView) view.findViewById(R.id.imgArrow);
+            tvTitle = view.findViewById(R.id.tvTitle);
+            imgArrow = view.findViewById(R.id.imgArrow);
         }
     }
 
@@ -166,8 +167,8 @@ public class Example4Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            imgItem = (ImageView) view.findViewById(R.id.imgItem);
-            tvItem = (TextView) view.findViewById(R.id.tvItem);
+            imgItem = view.findViewById(R.id.imgItem);
+            tvItem = view.findViewById(R.id.tvItem);
         }
     }
 }

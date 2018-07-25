@@ -1,6 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class Example1Fragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex1, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
@@ -39,7 +40,7 @@ public class Example1Fragment extends Fragment {
             }
         }
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sectionAdapter);
 
@@ -72,8 +73,8 @@ public class Example1Fragment extends Fragment {
 
     private class ContactsSection extends StatelessSection {
 
-        String title;
-        List<String> list;
+        final String title;
+        final List<String> list;
 
         ContactsSection(String title, List<String> list) {
             super(SectionParameters.builder()
@@ -136,7 +137,7 @@ public class Example1Fragment extends Fragment {
         HeaderViewHolder(View view) {
             super(view);
 
-            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            tvTitle = view.findViewById(R.id.tvTitle);
         }
     }
 
@@ -150,8 +151,8 @@ public class Example1Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            imgItem = (ImageView) view.findViewById(R.id.imgItem);
-            tvItem = (TextView) view.findViewById(R.id.tvItem);
+            imgItem = view.findViewById(R.id.imgItem);
+            tvItem = view.findViewById(R.id.tvItem);
         }
     }
 }

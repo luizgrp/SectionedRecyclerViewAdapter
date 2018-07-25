@@ -23,7 +23,7 @@ public class StatelessSectionTest {
                 .build();
 
         // When
-        getStatelessSection(sectionParameters);
+        buildStatelessSection(sectionParameters);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -37,7 +37,7 @@ public class StatelessSectionTest {
                 .build();
 
         // When
-        getStatelessSection(sectionParameters);
+        buildStatelessSection(sectionParameters);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -52,7 +52,7 @@ public class StatelessSectionTest {
                 .build();
 
         // When
-        getStatelessSection(sectionParameters);
+        buildStatelessSection(sectionParameters);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -66,7 +66,7 @@ public class StatelessSectionTest {
                 .build();
 
         // When
-        getStatelessSection(sectionParameters);
+        buildStatelessSection(sectionParameters);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -81,7 +81,7 @@ public class StatelessSectionTest {
                 .build();
 
         // When
-        getStatelessSection(sectionParameters);
+        buildStatelessSection(sectionParameters);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -96,11 +96,11 @@ public class StatelessSectionTest {
                 .build();
 
         // When
-        getStatelessSection(sectionParameters);
+        buildStatelessSection(sectionParameters);
     }
 
-    private StatelessSection getStatelessSection(SectionParameters sectionParameters) {
-        return new StatelessSection(sectionParameters) {
+    private void buildStatelessSection(SectionParameters sectionParameters) {
+        new StatelessSection(sectionParameters) {
             @Override
             public int getContentItemsTotal() {
                 return 0;

@@ -458,6 +458,7 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Loading state of this Section
      */
+    @SuppressWarnings("EmptyMethod")
     public void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
@@ -489,6 +490,7 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Failed state of this Section
      */
+    @SuppressWarnings("EmptyMethod")
     public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
@@ -520,6 +522,7 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Empty state of this Section
      */
+    @SuppressWarnings("EmptyMethod")
     public void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }

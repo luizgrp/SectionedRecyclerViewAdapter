@@ -35,7 +35,7 @@ public class SectionBindingTest {
     private SectionedRecyclerViewAdapter sectionAdapter;
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Spy
     private SectionImpl dummySection = new SectionImpl(); // This one is first, so that the section of interest is second.
@@ -54,6 +54,7 @@ public class SectionBindingTest {
     @Test
     public void onCreateViewHolder_withItemResourceId_calls_getItemViewHolder() {
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 6 + SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED);
 
         // Then
@@ -71,6 +72,7 @@ public class SectionBindingTest {
         doReturn(dummyViewWithTag(42)).when(providingSection).getItemView(null);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED);
 
         // Then
@@ -92,6 +94,7 @@ public class SectionBindingTest {
         expectedException.expectMessage("Section.getItemView() returned null");
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED);
     }
 
@@ -102,6 +105,7 @@ public class SectionBindingTest {
         sectionAdapter.addSection(headedSection);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER);
 
         // Then
@@ -119,6 +123,7 @@ public class SectionBindingTest {
         doReturn(dummyViewWithTag(42)).when(providingSection).getHeaderView(null);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER);
 
         // Then
@@ -138,6 +143,7 @@ public class SectionBindingTest {
         expectedException.expectMessage("Section.getHeaderView() returned null");
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER);
     }
 
@@ -148,6 +154,7 @@ public class SectionBindingTest {
         sectionAdapter.addSection(footedSection);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER);
 
         // Then
@@ -165,6 +172,7 @@ public class SectionBindingTest {
         doReturn(dummyViewWithTag(42)).when(providingSection).getFooterView(null);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER);
 
         // Then
@@ -184,6 +192,7 @@ public class SectionBindingTest {
         expectedException.expectMessage("Section.getFooterView() returned null");
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER);
     }
 
@@ -194,6 +203,7 @@ public class SectionBindingTest {
         sectionAdapter.addSection(resourceSection); // Third section, view types 12-17
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING);
 
         // Then
@@ -209,6 +219,7 @@ public class SectionBindingTest {
         doReturn(dummyViewWithTag(42)).when(providingSection).getLoadingView(null);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING);
 
         // Then
@@ -228,6 +239,7 @@ public class SectionBindingTest {
         expectedException.expectMessage("Section.getLoadingView() returned null");
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING);
     }
 
@@ -240,6 +252,7 @@ public class SectionBindingTest {
         sectionAdapter.addSection(resourceSection); // Third section, view types 12-17
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED);
 
         // Then
@@ -255,6 +268,7 @@ public class SectionBindingTest {
         doReturn(dummyViewWithTag(42)).when(providingSection).getFailedView(null);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED);
 
         // Then
@@ -274,12 +288,14 @@ public class SectionBindingTest {
         expectedException.expectMessage("Section.getFailedView() returned null");
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED);
     }
 
     @Test
     public void onCreateViewHolder_withEmptyResourceId_calls_getEmptyViewHolder() {
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 6 + SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY);
 
         // Then
@@ -295,6 +311,7 @@ public class SectionBindingTest {
         doReturn(dummyViewWithTag(42)).when(providingSection).getEmptyView(null);
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY);
 
         // Then
@@ -314,6 +331,7 @@ public class SectionBindingTest {
         expectedException.expectMessage("Section.getEmptyView() returned null");
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, 12 + SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY);
     }
 
@@ -321,6 +339,7 @@ public class SectionBindingTest {
     public void onBindViewHolder_withSection_isCalled() {
         // When
         // Section - Items [10-19]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 10);
 
         // Then
@@ -334,6 +353,7 @@ public class SectionBindingTest {
 
         // When
         // Section - Loading [10]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 10);
 
         // Then
@@ -347,6 +367,7 @@ public class SectionBindingTest {
 
         // When
         // Section - Failed [10]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 10);
 
         // Then
@@ -360,6 +381,7 @@ public class SectionBindingTest {
 
         // When
         // Section - Empty [10]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 10);
 
         // Then
@@ -374,8 +396,10 @@ public class SectionBindingTest {
 
         // When
         // HeadedSection - Header [20]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 20);
         // HeadedSection - Items [21-30]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 22);
 
         // Then
@@ -391,8 +415,10 @@ public class SectionBindingTest {
 
         // When
         // FootedSection - Items [20-29]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 25);
         // FootedSection - Footer [30]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 30);
 
         // Then
@@ -411,11 +437,15 @@ public class SectionBindingTest {
 
         // When
         // HeadedFootedSection - Header [20]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 20);
         // HeadedFootedSection - Items [21-30]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 21);
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 28);
         // HeadedFootedSection - Footer [31]
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 31);
 
         // Then

@@ -53,6 +53,7 @@ public abstract class StatelessSection extends Section {
         return super.getLoadingViewHolder(view);
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public final void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         super.onBindFailedViewHolder(holder);

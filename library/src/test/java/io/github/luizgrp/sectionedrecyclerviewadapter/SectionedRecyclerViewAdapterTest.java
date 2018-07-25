@@ -128,6 +128,7 @@ public class SectionedRecyclerViewAdapterTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void onBindViewHolder_withEmptyAdapter_throwsException() {
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 0);
     }
 
@@ -468,6 +469,7 @@ public class SectionedRecyclerViewAdapterTest {
     @Test
     public void onCreateViewHolder_withEmptyAdapter_returnsNull() {
         // When
+        @SuppressWarnings("ConstantConditions")
         Object result = sectionAdapter.onCreateViewHolder(null, 0);
 
         // Then
@@ -479,6 +481,7 @@ public class SectionedRecyclerViewAdapterTest {
         // Given
         addStatelessSectionStubToAdapter();
 
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER);
     }
 
@@ -488,6 +491,7 @@ public class SectionedRecyclerViewAdapterTest {
         addStatelessSectionStubToAdapter();
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER);
     }
 
@@ -497,6 +501,7 @@ public class SectionedRecyclerViewAdapterTest {
         addStatelessSectionStubToAdapter();
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING);
     }
 
@@ -506,6 +511,7 @@ public class SectionedRecyclerViewAdapterTest {
         addStatelessSectionStubToAdapter();
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED);
     }
 
@@ -628,39 +634,33 @@ public class SectionedRecyclerViewAdapterTest {
         return sectionStub;
     }
 
-    private HeadedStatelessSectionStub addHeadedStatelessSectionStubToAdapter() {
+    private void addHeadedStatelessSectionStubToAdapter() {
         HeadedStatelessSectionStub headedSectionSub = new HeadedStatelessSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedSectionSub);
-        return headedSectionSub;
     }
 
-    private HeadedSectionStub addHeadedSectionStubToAdapter() {
+    private void addHeadedSectionStubToAdapter() {
         HeadedSectionStub headedSectionSub = new HeadedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedSectionSub);
-        return headedSectionSub;
     }
 
-    private FootedStatelessSectionStub addFootedStatelessSectionStubToAdapter() {
+    private void addFootedStatelessSectionStubToAdapter() {
         FootedStatelessSectionStub footedSectionSub = new FootedStatelessSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(footedSectionSub);
-        return footedSectionSub;
     }
 
-    private FootedSectionStub addFootedSectionStubToAdapter() {
+    private void addFootedSectionStubToAdapter() {
         FootedSectionStub footedSectionSub = new FootedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(footedSectionSub);
-        return footedSectionSub;
     }
 
-    private HeadedFootedStatelessSectionStub addHeadedFootedStatelessSectionStubToAdapter() {
+    private void addHeadedFootedStatelessSectionStubToAdapter() {
         HeadedFootedStatelessSectionStub headedFootedSectionSub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedFootedSectionSub);
-        return headedFootedSectionSub;
     }
 
-    private HeadedFootedSectionStub addHeadedFootedSectionStubToAdapter() {
+    private void addHeadedFootedSectionStubToAdapter() {
         HeadedFootedSectionStub headedFootedSectionSub = new HeadedFootedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedFootedSectionSub);
-        return headedFootedSectionSub;
     }
 }

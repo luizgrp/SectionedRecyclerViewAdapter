@@ -2,6 +2,7 @@ package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,13 +27,13 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapt
 
 public class Example3Fragment extends Fragment {
 
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
 
     private SectionedRecyclerViewAdapter sectionAdapter;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex3, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
@@ -52,7 +53,7 @@ public class Example3Fragment extends Fragment {
         loadNews(techNews);
         loadNews(sportsNews);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sectionAdapter);
 
@@ -173,7 +174,7 @@ public class Example3Fragment extends Fragment {
             return topic;
         }
 
-        public void setList(List<String> list) {
+        void setList(List<String> list) {
             this.list = list;
         }
 
@@ -263,7 +264,7 @@ public class Example3Fragment extends Fragment {
         HeaderViewHolder(View itemView) {
             super(itemView);
 
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
         }
     }
 
@@ -300,9 +301,9 @@ public class Example3Fragment extends Fragment {
             super(view);
 
             rootView = view;
-            imgItem = (ImageView) view.findViewById(R.id.imgItem);
-            tvHeader = (TextView) view.findViewById(R.id.tvHeader);
-            tvDate = (TextView) view.findViewById(R.id.tvDate);
+            imgItem = view.findViewById(R.id.imgItem);
+            tvHeader = view.findViewById(R.id.tvHeader);
+            tvDate = view.findViewById(R.id.tvDate);
         }
     }
 }
