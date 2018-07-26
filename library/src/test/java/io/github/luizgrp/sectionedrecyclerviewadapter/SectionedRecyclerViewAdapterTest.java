@@ -15,7 +15,6 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.Stateless
 import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -141,8 +140,8 @@ public class SectionedRecyclerViewAdapterTest {
         String result = sectionAdapter.addSection(section);
 
         // Then
-        assertSame(sectionAdapter.getSection(result), section);
-        assertSame(sectionAdapter.getCopyOfSectionsMap().get(result), section);
+        assertThat(sectionAdapter.getSection(result), is(section));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().get(result), is(section));
     }
 
     @Test
@@ -154,8 +153,8 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.addSection(SECTION_TAG, section);
 
         // Then
-        assertSame(sectionAdapter.getSection(SECTION_TAG), section);
-        assertSame(sectionAdapter.getCopyOfSectionsMap().get(SECTION_TAG), section);
+        assertThat(sectionAdapter.getSection(SECTION_TAG), is(section));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().get(SECTION_TAG), is(section));
     }
 
     @Test
@@ -319,7 +318,7 @@ public class SectionedRecyclerViewAdapterTest {
         Section result = sectionAdapter.getSection(SECTION_TAG);
 
         // Then
-        assertSame(result, section);
+        assertThat(result, is(section));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -332,24 +331,29 @@ public class SectionedRecyclerViewAdapterTest {
     public void getSectionForPosition_withAdapterWithManySections_returnsCorrectSection() {
         // Given
         Section sectionStub1 = addStatelessSectionStubToAdapter();
-        Section sectionStub2 = addStatelessSectionStubToAdapter();
+        addInvisibleStatelessSectionStubToAdapter();
+        Section sectionStub2 = addHeadedFootedStatelessSectionStubToAdapter();
         Section sectionStub3 = addStatelessSectionStubToAdapter();
 
         // When
         Section result = sectionAdapter.getSectionForPosition(0);
         Section result2 = sectionAdapter.getSectionForPosition(9);
         Section result3 = sectionAdapter.getSectionForPosition(10);
-        Section result4 = sectionAdapter.getSectionForPosition(19);
+        Section result4 = sectionAdapter.getSectionForPosition(11);
         Section result5 = sectionAdapter.getSectionForPosition(20);
-        Section result6 = sectionAdapter.getSectionForPosition(29);
+        Section result6 = sectionAdapter.getSectionForPosition(21);
+        Section result7 = sectionAdapter.getSectionForPosition(22);
+        Section result8 = sectionAdapter.getSectionForPosition(31);
 
         // Then
-        assertSame(result, sectionStub1);
-        assertSame(result2, sectionStub1);
-        assertSame(result3, sectionStub2);
-        assertSame(result4, sectionStub2);
-        assertSame(result5, sectionStub3);
-        assertSame(result6, sectionStub3);
+        assertThat(result, is(sectionStub1));
+        assertThat(result2, is(sectionStub1));
+        assertThat(result3, is(sectionStub2));
+        assertThat(result4, is(sectionStub2));
+        assertThat(result5, is(sectionStub2));
+        assertThat(result6, is(sectionStub2));
+        assertThat(result7, is(sectionStub3));
+        assertThat(result8, is(sectionStub3));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -654,9 +658,10 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.addSection(footedSectionSub);
     }
 
-    private void addHeadedFootedStatelessSectionStubToAdapter() {
+    private HeadedFootedStatelessSectionStub addHeadedFootedStatelessSectionStubToAdapter() {
         HeadedFootedStatelessSectionStub headedFootedSectionSub = new HeadedFootedStatelessSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedFootedSectionSub);
+        return headedFootedSectionSub;
     }
 
     private void addHeadedFootedSectionStubToAdapter() {
