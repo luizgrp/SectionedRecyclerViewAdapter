@@ -27,8 +27,6 @@ task pmd(type: Pmd) {
     include '**/*.java'
     exclude '**/gen/**'
 
-    ignoreFailures = true
-
     reports {
         html.enabled = true
     }

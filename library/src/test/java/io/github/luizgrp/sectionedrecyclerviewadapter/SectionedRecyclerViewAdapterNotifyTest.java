@@ -15,6 +15,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+@SuppressWarnings({"PMD.MethodNamingConventions"})
 public class SectionedRecyclerViewAdapterNotifyTest {
 
     private static final int ITEMS_QTY = 10;
