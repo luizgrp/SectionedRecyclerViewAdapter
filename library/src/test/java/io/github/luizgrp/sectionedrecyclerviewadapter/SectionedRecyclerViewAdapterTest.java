@@ -356,6 +356,87 @@ public class SectionedRecyclerViewAdapterTest {
         assertThat(result8, is(sectionStub3));
     }
 
+    @Test
+    public void getSectionItemViewTypeForAdapterViewType_withViewTypesFrom0to5() {
+        // Given
+        int viewTypeHeader = 0;
+        int viewTypeFooter = 1;
+        int viewTypeItemLoaded = 2;
+        int viewTypeLoading = 3;
+        int viewTypeFailed = 4;
+        int viewTypeEmpty = 5;
+
+
+        // When
+        int resultHeader = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        int resultFooter = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
+        int resultItemLoaded = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        int resultLoading = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        int resultFailed = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        int resultEmpty = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+
+        // Then
+        assertThat(resultHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
+        assertThat(resultFooter, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
+        assertThat(resultItemLoaded, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(resultLoading, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
+        assertThat(resultFailed, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
+        assertThat(resultEmpty, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
+    }
+
+    @Test
+    public void getSectionItemViewTypeForAdapterViewType_withViewTypesFrom12to17() {
+        // Given
+        int viewTypeHeader = 12;
+        int viewTypeFooter = 13;
+        int viewTypeItemLoaded = 14;
+        int viewTypeLoading = 15;
+        int viewTypeFailed = 16;
+        int viewTypeEmpty = 17;
+
+
+        // When
+        int resultHeader = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        int resultFooter = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
+        int resultItemLoaded = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        int resultLoading = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        int resultFailed = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        int resultEmpty = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+
+        // Then
+        assertThat(resultHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
+        assertThat(resultFooter, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
+        assertThat(resultItemLoaded, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(resultLoading, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
+        assertThat(resultFailed, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
+        assertThat(resultEmpty, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
+    }
+
+    @Test
+    public void getSectionItemViewTypeForAdapterViewType() {
+        // Given
+        int viewTypeHeader = SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER;
+        int viewTypeItemLoaded = SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED;
+        int viewTypeLoading = SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING;
+        int viewTypeFailed = SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED;
+        int viewTypeEmpty = SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY;
+
+
+        // When
+        int resultHeader = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        int resultItemLoaded = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        int resultLoading = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        int resultFailed = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        int resultEmpty = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+
+        // Then
+        assertThat(resultHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
+        assertThat(resultItemLoaded, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(resultLoading, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
+        assertThat(resultFailed, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
+        assertThat(resultEmpty, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void getSectionItemViewType_withEmptyAdapter_throwsException() {
         // When

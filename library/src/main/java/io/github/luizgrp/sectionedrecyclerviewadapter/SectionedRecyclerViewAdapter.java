@@ -375,6 +375,24 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Converts global item view type, to local Section ViewType.
+     *
+     * @param itemViewType global item view type
+     * @return one of the view types:
+     * <ul>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY</li>
+     * </ul>
+     */
+    public int getSectionItemViewTypeForAdapterViewType(int itemViewType) {
+        return itemViewType % VIEW_TYPE_QTY;
+    }
+
+    /**
      * Returns the Section ViewType of an item based on the position in the adapter.
      *
      * @param position position in the adapter
@@ -391,7 +409,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public int getSectionItemViewType(int position) {
         int viewType = getItemViewType(position);
 
-        return viewType % VIEW_TYPE_QTY;
+        return getSectionItemViewTypeForAdapterViewType(viewType);
     }
 
     /**
