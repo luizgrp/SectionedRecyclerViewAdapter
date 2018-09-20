@@ -590,6 +590,33 @@ public class SectionedRecyclerViewAdapterTest {
         assertThat(result, is(21));
     }
 
+    @Test
+    public void indexOf() {
+        StatelessSectionStub statelessSectionStub_0 = new StatelessSectionStub(ITEMS_QTY);
+        StatelessSectionStub statelessSectionStub_1 = new StatelessSectionStub(ITEMS_QTY);
+        StatelessSectionStub statelessSectionStub_2 = new StatelessSectionStub(ITEMS_QTY);
+        StatelessSectionStub statelessSectionStub_3 = new StatelessSectionStub(ITEMS_QTY);
+
+        sectionAdapter.addSection(statelessSectionStub_0);
+        sectionAdapter.addSection(SECTION_TAG, statelessSectionStub_1);
+        sectionAdapter.addSection(statelessSectionStub_2);
+
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_0), is(0));
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_1), is(1));
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_2), is(2));
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_3), is(-1));
+
+        statelessSectionStub_0.setVisible(false);
+        statelessSectionStub_1.setVisible(false);
+        statelessSectionStub_2.setVisible(false);
+        statelessSectionStub_3.setVisible(false);
+
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_0), is(0));
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_1), is(1));
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_2), is(2));
+        assertThat(sectionAdapter.indexOf(statelessSectionStub_3), is(-1));
+    }
+
     @Test(expected = IllegalStateException.class)
     public void getFooterPositionInAdapterUsingTag_withAdapterWithManySections_throwsIllegalStateException() {
         sectionAdapter.addSection(new StatelessSectionStub(ITEMS_QTY));

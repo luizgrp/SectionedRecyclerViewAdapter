@@ -601,6 +601,28 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Returns the index of the first occurrence of the specified section in this adapter, or -1 if
+     * this adapter does not contain the section. Note that, the visibility of section is being
+     * ignored.
+     *
+     * @param section section to search for
+     * @return the index of the first occurrence of the specified section in this adapter, or -1 if
+     *         this adapter does not contain the section
+     */
+    public int indexOf(Section section) {
+        int index = 0;
+
+        for (Map.Entry<String, Section> entry : this.sections.entrySet()) {
+            if (entry.getValue() == section) {
+                return index;
+            }
+            index++;
+        }
+
+        return -1;
+    }
+
+    /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemInserted}.
      *
