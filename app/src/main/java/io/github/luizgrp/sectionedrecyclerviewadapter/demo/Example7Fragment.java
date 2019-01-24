@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -180,7 +181,8 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             } else {
                 filteredList.clear();
                 for (String value : list) {
-                    if (value.toLowerCase().contains(query.toLowerCase())) {
+                    if (value.toLowerCase(Locale.getDefault())
+                            .contains(query.toLowerCase(Locale.getDefault()))) {
                         filteredList.add(value);
                     }
                 }

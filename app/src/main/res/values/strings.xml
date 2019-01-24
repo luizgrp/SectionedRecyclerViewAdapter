@@ -17,6 +17,13 @@
     <string name="nav_example3">Section with Header and Footer</string>
     <string name="nav_example8">Animations</string>
 
+    <string name="cd_app_icon">App icon</string>
+    <string name="cd_android_icon">Android icon</string>
+    <string name="cd_movie_icon">Movie icon</string>
+    <string name="cd_cloud_crossed">Cloud crossed icon</string>
+    <string name="cd_arrow_icon">Arrow icon</string>
+
+
     <string name="world_topic">World</string>
     <string name="biz_topic">Business</string>
     <string name="tech_topic">Technology</string>

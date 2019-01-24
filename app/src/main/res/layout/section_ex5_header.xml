@@ -32,5 +32,6 @@
         android:background="@drawable/selector_btn"
         android:text="@string/more"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        tools:ignore="RelativeOverlap" />
 </RelativeLayout>
