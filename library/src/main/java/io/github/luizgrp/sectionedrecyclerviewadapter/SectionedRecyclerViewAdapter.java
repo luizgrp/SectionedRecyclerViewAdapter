@@ -39,8 +39,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         sectionViewTypeNumbers = new LinkedHashMap<>();
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
 
         for (Map.Entry<String, Integer> entry : sectionViewTypeNumbers.entrySet()) {
@@ -256,7 +257,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         int currentPos = 0;
 
