@@ -4,7 +4,7 @@ apply from: "build_files/static-code-analysis.gradle"
 ext {
     PUBLISH_GROUP_ID = 'io.github.luizgrp.sectionedrecyclerviewadapter'
     PUBLISH_ARTIFACT_ID = 'sectionedrecyclerviewadapter'
-    PUBLISH_VERSION = '1.2.0'
+    PUBLISH_VERSION = '2.0.0'
 }
 
 android {
