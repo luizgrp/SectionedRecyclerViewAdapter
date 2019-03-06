@@ -53,5 +53,5 @@ task findbugs(type: FindBugs, dependsOn:"assembleDebug") {
 }
 
 dependencies {
-    checkstyle "com.puppycrawl.tools:checkstyle:8.14"
+    checkstyle "com.puppycrawl.tools:checkstyle:8.17"
 }

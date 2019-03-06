@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.0 - 06/03/2019
+
+- Update to AndroidX
+
+### SectionedRecyclerViewAdapter class
+
+- Add methods `notifyAllItemsInsertedInSection`, `notifyAllItemsInsertedInSection`, `notifyAllItemsChangedInSection`, `notifyAllItemsChangedInSection`
+- Add method `getSectionItemViewTypeForAdapterViewType`
+
 ## 1.2.0 - 10/03/2018
 
 ### Section class
