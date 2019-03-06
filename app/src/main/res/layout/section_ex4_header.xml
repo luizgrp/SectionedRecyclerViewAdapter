@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingBottom="5dp">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        tools:text="Title test text"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:id="@+id/tvTitle"/>
+        tools:text="Title test text"
+        tools:ignore="RelativeOverlap" />
 
     <ImageView
         android:id="@+id/imgArrow"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:src="@drawable/ic_keyboard_arrow_up_black_18dp"/>
+        android:contentDescription="@string/cd_arrow_icon"
+        android:src="@drawable/ic_keyboard_arrow_up_black_18dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorAccent"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent" />
 </RelativeLayout>

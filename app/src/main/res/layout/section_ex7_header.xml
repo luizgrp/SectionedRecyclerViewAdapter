@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:paddingTop="5dp"
     android:paddingBottom="5dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingTop="5dp">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
-        tools:text="Title test text"
+        android:layout_marginStart="15dp"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:id="@+id/tvTitle"/>
+        tools:text="Title test text"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorAccent"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"/>
 </RelativeLayout>

@@ -1,13 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +14,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
@@ -33,7 +34,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex7, container, false);
 
         sectionAdapter = new SectionedRecyclerViewAdapter();
@@ -47,7 +48,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             }
         }
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sectionAdapter);
 
@@ -78,7 +79,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         inflater.inflate(R.menu.menu_ex7, menu);
 
         final MenuItem item = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        final SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(this);
     }
 
@@ -114,8 +115,8 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
 
     private class ContactsSection extends StatelessSection implements FilterableSection {
 
-        String title;
-        List<String> list;
+        final String title;
+        final List<String> list;
         List<String> filteredList;
 
         ContactsSection(String title, List<String> list) {
@@ -180,7 +181,8 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             } else {
                 filteredList.clear();
                 for (String value : list) {
-                    if (value.toLowerCase().contains(query.toLowerCase())) {
+                    if (value.toLowerCase(Locale.getDefault())
+                            .contains(query.toLowerCase(Locale.getDefault()))) {
                         filteredList.add(value);
                     }
                 }
@@ -197,7 +199,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         HeaderViewHolder(View view) {
             super(view);
 
-            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            tvTitle = view.findViewById(R.id.tvTitle);
         }
     }
 
@@ -211,8 +213,8 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             super(view);
 
             rootView = view;
-            imgItem = (ImageView) view.findViewById(R.id.imgItem);
-            tvItem = (TextView) view.findViewById(R.id.tvItem);
+            imgItem = view.findViewById(R.id.imgItem);
+            tvItem = view.findViewById(R.id.tvItem);
         }
     }
 

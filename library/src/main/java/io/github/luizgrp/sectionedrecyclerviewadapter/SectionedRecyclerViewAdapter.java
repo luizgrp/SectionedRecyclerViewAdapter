@@ -1,9 +1,9 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +39,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         sectionViewTypeNumbers = new LinkedHashMap<>();
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
 
         for (Map.Entry<String, Integer> entry : sectionViewTypeNumbers.entrySet()) {
@@ -75,11 +76,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
 
         return viewHolder;
-    }
-
-    @VisibleForTesting
-    View inflate(@LayoutRes int layoutResourceId, ViewGroup parent) {
-        return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
     }
 
     private RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, Section section) {
@@ -256,7 +252,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         int currentPos = 0;
 
@@ -379,6 +375,24 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Converts global item view type, to local Section ViewType.
+     *
+     * @param itemViewType global item view type
+     * @return one of the view types:
+     * <ul>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED</li>
+     * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY</li>
+     * </ul>
+     */
+    public int getSectionItemViewTypeForAdapterViewType(int itemViewType) {
+        return itemViewType % VIEW_TYPE_QTY;
+    }
+
+    /**
      * Returns the Section ViewType of an item based on the position in the adapter.
      *
      * @param position position in the adapter
@@ -395,7 +409,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public int getSectionItemViewType(int position) {
         int viewType = getItemViewType(position);
 
-        return viewType % VIEW_TYPE_QTY;
+        return getSectionItemViewTypeForAdapterViewType(viewType);
     }
 
     /**
@@ -515,11 +529,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     @NonNull
     public Map<String, Section> getCopyOfSectionsMap() {
-        Map<String, Section> copyOfSections;
-        synchronized (sections) {
-            copyOfSections = new LinkedHashMap<>(sections);
-        }
-        return copyOfSections;
+        return new LinkedHashMap<>(sections);
     }
 
     /**
@@ -622,9 +632,24 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemInserted(getPositionInAdapter(section, position));
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemInserted(int position) {
-        super.notifyItemInserted(position);
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeInserted}.
+     *
+     * @param tag      unique identifier of the section
+     */
+    public void notifyAllItemsInsertedInSection(String tag) {
+        notifyAllItemsInsertedInSection(getValidSectionOrThrowException(tag));
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeInserted}.
+     *
+     * @param section       a visible section of this adapter
+     */
+    public void notifyAllItemsInsertedInSection(Section section) {
+        callSuperNotifyItemRangeInserted(getPositionInAdapter(section, 0), section.getContentItemsTotal());
     }
 
     /**
@@ -651,11 +676,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemRangeInserted(getPositionInAdapter(section, positionStart), itemCount);
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemRangeInserted(int positionStart, int itemCount) {
-        super.notifyItemRangeInserted(positionStart, itemCount);
-    }
-
     /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemRemoved}.
@@ -676,11 +696,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemRemovedFromSection(Section section, int position) {
         callSuperNotifyItemRemoved(getPositionInAdapter(section, position));
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemRemoved(int position) {
-        super.notifyItemRemoved(position);
     }
 
     /**
@@ -705,33 +720,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemRangeRemovedFromSection(Section section, int positionStart, int itemCount) {
         callSuperNotifyItemRangeRemoved(getPositionInAdapter(section, positionStart), itemCount);
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemRangeRemoved(int positionStart, int itemCount) {
-        super.notifyItemRangeRemoved(positionStart, itemCount);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemChanged}.
-     *
-     * @param tag      unique identifier of the section
-     * @param position position of the item in the section
-     */
-    public void notifyItemChangedInSection(String tag, int position) {
-        callSuperNotifyItemChanged(getPositionInAdapter(tag, position));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemChanged}.
-     *
-     * @param section  a visible section of this adapter
-     * @param position position of the item in the section
-     */
-    public void notifyItemChangedInSection(Section section, int position) {
-        callSuperNotifyItemChanged(getPositionInAdapter(section, position));
     }
 
     /**
@@ -774,9 +762,46 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemChanged(getFooterPositionInAdapter(section));
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemChanged(int position) {
-        super.notifyItemChanged(position);
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemChanged}.
+     *
+     * @param tag      unique identifier of the section
+     * @param position position of the item in the section
+     */
+    public void notifyItemChangedInSection(String tag, int position) {
+        callSuperNotifyItemChanged(getPositionInAdapter(tag, position));
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemChanged}.
+     *
+     * @param section  a visible section of this adapter
+     * @param position position of the item in the section
+     */
+    public void notifyItemChangedInSection(Section section, int position) {
+        callSuperNotifyItemChanged(getPositionInAdapter(section, position));
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeChanged}.
+     *
+     * @param tag           unique identifier of the section
+     */
+    public void notifyAllItemsChangedInSection(String tag) {
+        notifyAllItemsChangedInSection(getValidSectionOrThrowException(tag));
+    }
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link #notifyItemRangeChanged}.
+     *
+     * @param section       a visible section of this adapter
+     */
+    public void notifyAllItemsChangedInSection(Section section) {
+        callSuperNotifyItemRangeChanged(getPositionInAdapter(section, 0), section.getContentItemsTotal());
     }
 
     /**
@@ -801,11 +826,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemRangeChangedInSection(Section section, int positionStart, int itemCount) {
         callSuperNotifyItemRangeChanged(getPositionInAdapter(section, positionStart), itemCount);
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount) {
-        super.notifyItemRangeChanged(positionStart, itemCount);
     }
 
     /**
@@ -836,11 +856,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         callSuperNotifyItemRangeChanged(getPositionInAdapter(section, positionStart), itemCount, payload);
     }
 
-    @VisibleForTesting
-    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount, Object payload) {
-        super.notifyItemRangeChanged(positionStart, itemCount, payload);
-    }
-
     /**
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link #notifyItemMoved}.
@@ -863,11 +878,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifyItemMovedInSection(Section section, int fromPosition, int toPosition) {
         callSuperNotifyItemMoved(getPositionInAdapter(section, fromPosition), getPositionInAdapter(section, toPosition));
-    }
-
-    @VisibleForTesting
-    void callSuperNotifyItemMoved(int fromPosition, int toPosition) {
-        super.notifyItemMoved(fromPosition, toPosition);
     }
 
     /**
@@ -1160,12 +1170,57 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void notifySectionChangedToInvisible(Section section, int previousSectionPosition) {
         if (section.isVisible()) {
-            throw new IllegalStateException("This section is not visible.");
+            throw new IllegalStateException("This section is not invisible.");
         }
 
         int sectionItemsTotal = section.getSectionItemsTotal();
 
         callSuperNotifyItemRangeRemoved(previousSectionPosition, sectionItemsTotal);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    View inflate(@LayoutRes int layoutResourceId, ViewGroup parent) {
+        return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRemoved(int position) {
+        super.notifyItemRemoved(position);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeRemoved(int positionStart, int itemCount) {
+        super.notifyItemRangeRemoved(positionStart, itemCount);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemChanged(int position) {
+        super.notifyItemChanged(position);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount) {
+        super.notifyItemRangeChanged(positionStart, itemCount);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeChanged(int positionStart, int itemCount, Object payload) {
+        super.notifyItemRangeChanged(positionStart, itemCount, payload);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemRangeInserted(int positionStart, int itemCount) {
+        super.notifyItemRangeInserted(positionStart, itemCount);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemInserted(int position) {
+        super.notifyItemInserted(position);
+    }
+
+    @VisibleForTesting // in order to allow this class to be unit tested
+    void callSuperNotifyItemMoved(int fromPosition, int toPosition) {
+        super.notifyItemMoved(fromPosition, toPosition);
     }
 
     @NonNull

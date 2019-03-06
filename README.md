@@ -21,8 +21,10 @@ In addition, each Section can have its state(Loading/Loaded/Failed/Empty) contro
 Add this to the `dependencies` section in your project-level **build.gradle** file:
 
 ```groovy
-compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.2.0'
+compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
 ```
+
+If your project has not been migrated to AndroidX yet, you should use version `1.2.0`.
 
 ## Basic usage
 

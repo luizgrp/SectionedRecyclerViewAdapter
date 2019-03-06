@@ -15,7 +15,6 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.testdoubles.stub.Stateless
 import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -128,6 +127,7 @@ public class SectionedRecyclerViewAdapterTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void onBindViewHolder_withEmptyAdapter_throwsException() {
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onBindViewHolder(null, 0);
     }
 
@@ -140,8 +140,8 @@ public class SectionedRecyclerViewAdapterTest {
         String result = sectionAdapter.addSection(section);
 
         // Then
-        assertSame(sectionAdapter.getSection(result), section);
-        assertSame(sectionAdapter.getCopyOfSectionsMap().get(result), section);
+        assertThat(sectionAdapter.getSection(result), is(section));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().get(result), is(section));
     }
 
     @Test
@@ -153,8 +153,8 @@ public class SectionedRecyclerViewAdapterTest {
         sectionAdapter.addSection(SECTION_TAG, section);
 
         // Then
-        assertSame(sectionAdapter.getSection(SECTION_TAG), section);
-        assertSame(sectionAdapter.getCopyOfSectionsMap().get(SECTION_TAG), section);
+        assertThat(sectionAdapter.getSection(SECTION_TAG), is(section));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().get(SECTION_TAG), is(section));
     }
 
     @Test
@@ -318,7 +318,7 @@ public class SectionedRecyclerViewAdapterTest {
         Section result = sectionAdapter.getSection(SECTION_TAG);
 
         // Then
-        assertSame(result, section);
+        assertThat(result, is(section));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -331,24 +331,110 @@ public class SectionedRecyclerViewAdapterTest {
     public void getSectionForPosition_withAdapterWithManySections_returnsCorrectSection() {
         // Given
         Section sectionStub1 = addStatelessSectionStubToAdapter();
-        Section sectionStub2 = addStatelessSectionStubToAdapter();
+        addInvisibleStatelessSectionStubToAdapter();
+        Section sectionStub2 = addHeadedFootedStatelessSectionStubToAdapter();
         Section sectionStub3 = addStatelessSectionStubToAdapter();
 
         // When
         Section result = sectionAdapter.getSectionForPosition(0);
         Section result2 = sectionAdapter.getSectionForPosition(9);
         Section result3 = sectionAdapter.getSectionForPosition(10);
-        Section result4 = sectionAdapter.getSectionForPosition(19);
+        Section result4 = sectionAdapter.getSectionForPosition(11);
         Section result5 = sectionAdapter.getSectionForPosition(20);
-        Section result6 = sectionAdapter.getSectionForPosition(29);
+        Section result6 = sectionAdapter.getSectionForPosition(21);
+        Section result7 = sectionAdapter.getSectionForPosition(22);
+        Section result8 = sectionAdapter.getSectionForPosition(31);
 
         // Then
-        assertSame(result, sectionStub1);
-        assertSame(result2, sectionStub1);
-        assertSame(result3, sectionStub2);
-        assertSame(result4, sectionStub2);
-        assertSame(result5, sectionStub3);
-        assertSame(result6, sectionStub3);
+        assertThat(result, is(sectionStub1));
+        assertThat(result2, is(sectionStub1));
+        assertThat(result3, is(sectionStub2));
+        assertThat(result4, is(sectionStub2));
+        assertThat(result5, is(sectionStub2));
+        assertThat(result6, is(sectionStub2));
+        assertThat(result7, is(sectionStub3));
+        assertThat(result8, is(sectionStub3));
+    }
+
+    @Test
+    public void getSectionItemViewTypeForAdapterViewType_withViewTypesFrom0to5() {
+        // Given
+        int viewTypeHeader = 0;
+        int viewTypeFooter = 1;
+        int viewTypeItemLoaded = 2;
+        int viewTypeLoading = 3;
+        int viewTypeFailed = 4;
+        int viewTypeEmpty = 5;
+
+
+        // When
+        int resultHeader = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        int resultFooter = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
+        int resultItemLoaded = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        int resultLoading = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        int resultFailed = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        int resultEmpty = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+
+        // Then
+        assertThat(resultHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
+        assertThat(resultFooter, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
+        assertThat(resultItemLoaded, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(resultLoading, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
+        assertThat(resultFailed, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
+        assertThat(resultEmpty, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
+    }
+
+    @Test
+    public void getSectionItemViewTypeForAdapterViewType_withViewTypesFrom12to17() {
+        // Given
+        int viewTypeHeader = 12;
+        int viewTypeFooter = 13;
+        int viewTypeItemLoaded = 14;
+        int viewTypeLoading = 15;
+        int viewTypeFailed = 16;
+        int viewTypeEmpty = 17;
+
+
+        // When
+        int resultHeader = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        int resultFooter = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
+        int resultItemLoaded = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        int resultLoading = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        int resultFailed = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        int resultEmpty = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+
+        // Then
+        assertThat(resultHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
+        assertThat(resultFooter, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
+        assertThat(resultItemLoaded, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(resultLoading, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
+        assertThat(resultFailed, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
+        assertThat(resultEmpty, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
+    }
+
+    @Test
+    public void getSectionItemViewTypeForAdapterViewType() {
+        // Given
+        int viewTypeHeader = SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER;
+        int viewTypeItemLoaded = SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED;
+        int viewTypeLoading = SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING;
+        int viewTypeFailed = SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED;
+        int viewTypeEmpty = SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY;
+
+
+        // When
+        int resultHeader = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        int resultItemLoaded = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        int resultLoading = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        int resultFailed = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        int resultEmpty = sectionAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+
+        // Then
+        assertThat(resultHeader, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
+        assertThat(resultItemLoaded, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
+        assertThat(resultLoading, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
+        assertThat(resultFailed, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
+        assertThat(resultEmpty, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -468,6 +554,7 @@ public class SectionedRecyclerViewAdapterTest {
     @Test
     public void onCreateViewHolder_withEmptyAdapter_returnsNull() {
         // When
+        @SuppressWarnings("ConstantConditions")
         Object result = sectionAdapter.onCreateViewHolder(null, 0);
 
         // Then
@@ -479,6 +566,7 @@ public class SectionedRecyclerViewAdapterTest {
         // Given
         addStatelessSectionStubToAdapter();
 
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER);
     }
 
@@ -488,6 +576,7 @@ public class SectionedRecyclerViewAdapterTest {
         addStatelessSectionStubToAdapter();
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER);
     }
 
@@ -497,6 +586,7 @@ public class SectionedRecyclerViewAdapterTest {
         addStatelessSectionStubToAdapter();
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING);
     }
 
@@ -506,6 +596,7 @@ public class SectionedRecyclerViewAdapterTest {
         addStatelessSectionStubToAdapter();
 
         // When
+        //noinspection ConstantConditions
         sectionAdapter.onCreateViewHolder(null, SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED);
     }
 
@@ -628,28 +719,24 @@ public class SectionedRecyclerViewAdapterTest {
         return sectionStub;
     }
 
-    private HeadedStatelessSectionStub addHeadedStatelessSectionStubToAdapter() {
+    private void addHeadedStatelessSectionStubToAdapter() {
         HeadedStatelessSectionStub headedSectionSub = new HeadedStatelessSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedSectionSub);
-        return headedSectionSub;
     }
 
-    private HeadedSectionStub addHeadedSectionStubToAdapter() {
+    private void addHeadedSectionStubToAdapter() {
         HeadedSectionStub headedSectionSub = new HeadedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedSectionSub);
-        return headedSectionSub;
     }
 
-    private FootedStatelessSectionStub addFootedStatelessSectionStubToAdapter() {
+    private void addFootedStatelessSectionStubToAdapter() {
         FootedStatelessSectionStub footedSectionSub = new FootedStatelessSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(footedSectionSub);
-        return footedSectionSub;
     }
 
-    private FootedSectionStub addFootedSectionStubToAdapter() {
+    private void addFootedSectionStubToAdapter() {
         FootedSectionStub footedSectionSub = new FootedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(footedSectionSub);
-        return footedSectionSub;
     }
 
     private HeadedFootedStatelessSectionStub addHeadedFootedStatelessSectionStubToAdapter() {
@@ -658,9 +745,8 @@ public class SectionedRecyclerViewAdapterTest {
         return headedFootedSectionSub;
     }
 
-    private HeadedFootedSectionStub addHeadedFootedSectionStubToAdapter() {
+    private void addHeadedFootedSectionStubToAdapter() {
         HeadedFootedSectionStub headedFootedSectionSub = new HeadedFootedSectionStub(ITEMS_QTY);
         sectionAdapter.addSection(headedFootedSectionSub);
-        return headedFootedSectionSub;
     }
 }

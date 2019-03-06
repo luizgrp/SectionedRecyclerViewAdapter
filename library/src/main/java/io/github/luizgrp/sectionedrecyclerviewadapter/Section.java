@@ -1,7 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,8 +22,8 @@ public abstract class Section {
 
     private boolean visible = true;
 
-    private boolean hasHeader = false;
-    private boolean hasFooter = false;
+    private boolean hasHeader;
+    private boolean hasFooter;
 
     @LayoutRes
     private final Integer itemResourceId;
@@ -348,7 +348,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for an Item of this Section.
      */
-    public View getItemView(ViewGroup parent) {
+    public View getItemView(@SuppressWarnings("unused") ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getItemView() if you set itemViewWillBeProvided");
     }
@@ -458,6 +458,7 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Loading state of this Section
      */
+    @SuppressWarnings("EmptyMethod")
     public void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
@@ -489,6 +490,7 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Failed state of this Section
      */
+    @SuppressWarnings("EmptyMethod")
     public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
@@ -520,6 +522,7 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Empty state of this Section
      */
+    @SuppressWarnings("EmptyMethod")
     public void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }

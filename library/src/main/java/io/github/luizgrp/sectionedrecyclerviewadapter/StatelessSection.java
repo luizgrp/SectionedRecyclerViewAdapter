@@ -1,6 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 /**
@@ -53,6 +53,7 @@ public abstract class StatelessSection extends Section {
         return super.getLoadingViewHolder(view);
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public final void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
         super.onBindFailedViewHolder(holder);

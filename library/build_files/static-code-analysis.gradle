@@ -27,8 +27,6 @@ task pmd(type: Pmd) {
     include '**/*.java'
     exclude '**/gen/**'
 
-    ignoreFailures = true
-
     reports {
         html.enabled = true
     }
@@ -41,7 +39,7 @@ task findbugs(type: FindBugs, dependsOn:"assembleDebug") {
     effort = "max"
     reportLevel = "high"
 
-    classes = files("$project.buildDir/intermediates/classes/")
+    classes = files("$project.buildDir/intermediates/javac/debug/compileDebugJavaWithJavac/classes/")
     classpath = files()
 
     source 'src'
@@ -55,5 +53,5 @@ task findbugs(type: FindBugs, dependsOn:"assembleDebug") {
 }
 
 dependencies {
-    checkstyle "com.puppycrawl.tools:checkstyle:8.2"
+    checkstyle "com.puppycrawl.tools:checkstyle:8.17"
 }
