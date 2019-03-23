@@ -2,6 +2,8 @@
 
 ## 2.1.0 - 09/06/2019
 
+- Set source and target compatibility to Java 8
+
 ### SectionedRecyclerViewAdapter class
 - Add methods `addSection` and `getSection` with index as parameter
 - Add method `getSectionIndex`

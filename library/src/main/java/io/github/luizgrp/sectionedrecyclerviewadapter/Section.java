@@ -41,6 +41,7 @@ public abstract class Section {
     private final Integer failedResourceId;
     @LayoutRes
     private final Integer emptyResourceId;
+
     private final boolean itemViewWillBeProvided;
     private final boolean headerViewWillBeProvided;
     private final boolean footerViewWillBeProvided;

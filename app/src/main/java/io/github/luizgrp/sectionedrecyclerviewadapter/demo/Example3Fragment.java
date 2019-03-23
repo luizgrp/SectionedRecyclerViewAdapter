@@ -28,24 +28,24 @@ public class Example3Fragment extends Fragment {
 
     private final Handler mHandler = new Handler();
 
-    private SectionedRecyclerViewAdapter sectionAdapter;
+    private SectionedRecyclerViewAdapter sectionedAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex3, container, false);
 
-        sectionAdapter = new SectionedRecyclerViewAdapter();
+        sectionedAdapter = new SectionedRecyclerViewAdapter();
 
         NewsSection worldNews = new NewsSection(NewsSection.WORLD);
         NewsSection bizNews = new NewsSection(NewsSection.BUSINESS);
         NewsSection techNews = new NewsSection(NewsSection.TECHNOLOGY);
         NewsSection sportsNews = new NewsSection(NewsSection.SPORTS);
 
-        sectionAdapter.addSection(worldNews);
-        sectionAdapter.addSection(bizNews);
-        sectionAdapter.addSection(techNews);
-        sectionAdapter.addSection(sportsNews);
+        sectionedAdapter.addSection(worldNews);
+        sectionedAdapter.addSection(bizNews);
+        sectionedAdapter.addSection(techNews);
+        sectionedAdapter.addSection(sportsNews);
 
         loadNews(worldNews);
         loadNews(bizNews);
@@ -54,7 +54,7 @@ public class Example3Fragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(sectionAdapter);
+        recyclerView.setAdapter(sectionedAdapter);
 
         return view;
     }
@@ -71,7 +71,7 @@ public class Example3Fragment extends Fragment {
 
         section.setState(Section.State.LOADING);
         section.setHasFooter(false);
-        sectionAdapter.notifyDataSetChanged();
+        sectionedAdapter.notifyDataSetChanged();
 
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -103,7 +103,7 @@ public class Example3Fragment extends Fragment {
                     section.setHasFooter(true);
                 }
 
-                sectionAdapter.notifyDataSetChanged();
+                sectionedAdapter.notifyDataSetChanged();
             }
         }, timeInMills);
     }
@@ -190,7 +190,7 @@ public class Example3Fragment extends Fragment {
                 public void onClick(View v) {
                     Toast.makeText(getContext(),
                             String.format("Clicked on position #%s of Section %s",
-                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
                                     title),
                             Toast.LENGTH_SHORT).show();
                 }
