@@ -25,7 +25,7 @@ public class Example8Fragment extends Fragment {
 
     private static final Random RANDOM = new Random();
 
-    private SectionedRecyclerViewAdapter sectionAdapter;
+    private SectionedRecyclerViewAdapter sectionedAdapter;
     private RecyclerView recyclerView;
 
     @Nullable
@@ -33,13 +33,13 @@ public class Example8Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex8, container, false);
 
-        sectionAdapter = new SectionedRecyclerViewAdapter();
+        sectionedAdapter = new SectionedRecyclerViewAdapter();
 
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch (sectionAdapter.getSectionItemViewType(position)) {
+                switch (sectionedAdapter.getSectionItemViewType(position)) {
                     case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
                         return 2;
                     default:
@@ -50,7 +50,7 @@ public class Example8Fragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(glm);
-        recyclerView.setAdapter(sectionAdapter);
+        recyclerView.setAdapter(sectionedAdapter);
 
         addNewSectionToAdapter();
 
@@ -73,11 +73,11 @@ public class Example8Fragment extends Fragment {
         NameSection section = new NameSection(sectionTag,
                 getString(R.string.group_title, randomNumber));
 
-        sectionAdapter.addSection(sectionTag, section);
+        sectionedAdapter.addSection(sectionTag, section);
 
-        int sectionPos = sectionAdapter.getSectionPosition(sectionTag);
+        int sectionPos = sectionedAdapter.getSectionAdapter(sectionTag).getSectionPosition();
 
-        sectionAdapter.notifyItemInserted(sectionPos);
+        sectionedAdapter.notifyItemInserted(sectionPos);
 
         recyclerView.smoothScrollToPosition(sectionPos);
     }
@@ -139,11 +139,11 @@ public class Example8Fragment extends Fragment {
                 public void onClick(View v) {
                     final int adapterPosition = itemHolder.getAdapterPosition();
                     if (adapterPosition != RecyclerView.NO_POSITION) {
-                        int positionInSection = sectionAdapter.getPositionInSection(adapterPosition);
+                        int positionInSection = sectionedAdapter.getPositionInSection(adapterPosition);
 
                         list.remove(positionInSection);
 
-                        sectionAdapter.notifyItemRemovedFromSection(TAG, positionInSection);
+                        sectionedAdapter.getSectionAdapter(TAG).notifyItemRemoved(positionInSection);
                     }
                 }
             });
@@ -167,9 +167,9 @@ public class Example8Fragment extends Fragment {
                     if (adapterPosition != RecyclerView.NO_POSITION) {
                         final int sectionItemsTotal = getSectionItemsTotal();
 
-                        sectionAdapter.removeSection(TAG);
+                        sectionedAdapter.removeSection(TAG);
 
-                        sectionAdapter.notifyItemRangeRemoved(adapterPosition, sectionItemsTotal);
+                        sectionedAdapter.notifyItemRangeRemoved(adapterPosition, sectionItemsTotal);
                     }
                 }
             });
@@ -181,7 +181,7 @@ public class Example8Fragment extends Fragment {
 
                     list.add(positionToInsertItemAt, getRandomName());
 
-                    sectionAdapter.notifyItemInsertedInSection(TAG, positionToInsertItemAt);
+                    sectionedAdapter.getSectionAdapter(TAG).notifyItemInserted(positionToInsertItemAt);
                 }
             });
 
@@ -192,7 +192,7 @@ public class Example8Fragment extends Fragment {
 
                     list.clear();
 
-                    sectionAdapter.notifyItemRangeRemovedFromSection(TAG, 0, contentItemsTotal);
+                    sectionedAdapter.getSectionAdapter(TAG).notifyItemRangeRemoved(0, contentItemsTotal);
                 }
             });
         }

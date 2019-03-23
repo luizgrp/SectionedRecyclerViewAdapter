@@ -13,7 +13,11 @@
         <property name="eachLine" value="true"/>
     </module>
 
+    <module name="SuppressWarningsFilter"/>
+
     <module name="TreeWalker">
+
+        <module name="SuppressWarningsHolder"/>
 
         <!-- Imports -->
 
