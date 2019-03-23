@@ -22,26 +22,26 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example4Fragment extends Fragment {
 
-    private SectionedRecyclerViewAdapter sectionAdapter;
+    private SectionedRecyclerViewAdapter sectionedAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex4, container, false);
 
-        sectionAdapter = new SectionedRecyclerViewAdapter();
+        sectionedAdapter = new SectionedRecyclerViewAdapter();
 
         for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
             List<String> contacts = getContactsWithLetter(alphabet);
 
             if (contacts.size() > 0) {
-                sectionAdapter.addSection(new ExpandableContactsSection(String.valueOf(alphabet), contacts));
+                sectionedAdapter.addSection(new ExpandableContactsSection(String.valueOf(alphabet), contacts));
             }
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(sectionAdapter);
+        recyclerView.setAdapter(sectionedAdapter);
 
         return view;
     }
@@ -98,7 +98,7 @@ public class Example4Fragment extends Fragment {
                 public void onClick(View v) {
                     Toast.makeText(getContext(),
                             String.format("Clicked on position #%s of Section %s",
-                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
                                     title),
                             Toast.LENGTH_SHORT).show();
                 }
@@ -123,7 +123,7 @@ public class Example4Fragment extends Fragment {
                     headerHolder.imgArrow.setImageResource(
                             expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
                     );
-                    sectionAdapter.notifyDataSetChanged();
+                    sectionedAdapter.notifyDataSetChanged();
                 }
             });
         }

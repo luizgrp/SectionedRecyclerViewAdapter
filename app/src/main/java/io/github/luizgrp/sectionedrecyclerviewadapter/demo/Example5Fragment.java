@@ -23,17 +23,17 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example5Fragment extends Fragment {
 
-    private SectionedRecyclerViewAdapter sectionAdapter;
+    private SectionedRecyclerViewAdapter sectionedAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex5, container, false);
 
-        sectionAdapter = new SectionedRecyclerViewAdapter();
+        sectionedAdapter = new SectionedRecyclerViewAdapter();
 
-        sectionAdapter.addSection(new MovieSection(getString(R.string.top_rated_movies_topic), getTopRatedMoviesList()));
-        sectionAdapter.addSection(new MovieSection(getString(R.string.most_popular_movies_topic), getMostPopularMoviesList()));
+        sectionedAdapter.addSection(new MovieSection(getString(R.string.top_rated_movies_topic), getTopRatedMoviesList()));
+        sectionedAdapter.addSection(new MovieSection(getString(R.string.most_popular_movies_topic), getMostPopularMoviesList()));
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
 
@@ -41,7 +41,7 @@ public class Example5Fragment extends Fragment {
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch (sectionAdapter.getSectionItemViewType(position)) {
+                switch (sectionedAdapter.getSectionItemViewType(position)) {
                     case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
                         return 2;
                     default:
@@ -50,7 +50,7 @@ public class Example5Fragment extends Fragment {
             }
         });
         recyclerView.setLayoutManager(glm);
-        recyclerView.setAdapter(sectionAdapter);
+        recyclerView.setAdapter(sectionedAdapter);
 
         return view;
     }
@@ -122,7 +122,7 @@ public class Example5Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s",
-                            sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
+                            sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
                             Toast.LENGTH_SHORT).show();
                 }
             });

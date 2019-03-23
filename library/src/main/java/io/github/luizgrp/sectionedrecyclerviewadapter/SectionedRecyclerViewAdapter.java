@@ -4,24 +4,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import androidx.recyclerview.widget.RecyclerView;
-
 import org.apache.commons.collections4.map.ListOrderedMap;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A custom RecyclerView Adapter that allows {@link Section Sections} to be added to it.
  * Sections are displayed in the same order they were added.
  */
-@SuppressWarnings({"WeakerAccess", "SameParameterValue", "PMD.CollapsibleIfStatements"})
+@SuppressWarnings({"WeakerAccess", "PMD.CollapsibleIfStatements"})
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int VIEW_TYPE_HEADER = 0;
@@ -225,7 +223,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     /**
      * Add a section at the specific position to this recyclerview with a random tag.
      *
-     * @param index the index at which the section should be inserted
+     * @param index   the index at which the section should be inserted
      * @param section section should be added
      * @return generated tag
      */
@@ -415,9 +413,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Converts global item view type, to local Section ViewType.
+     * Calculates the section adapter item view type from a view type from the adapter.
      *
-     * @param itemViewType global item view type
+     * @param itemViewType adapter view type
      * @return one of the view types:
      * <ul>
      * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER</li>
@@ -514,44 +512,14 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Return the section position in the adapter.
+     * Return the map with all sections.
+     * Should only be used by the library itself.
      *
-     * @param tag unique identifier of the section
-     * @return position of the section in the adapter
+     * @return map with all sections
      */
-    public int getSectionPosition(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        return getSectionPosition(section);
-    }
-
-    /**
-     * Return the section position in the adapter.
-     *
-     * @param section a visible section of this adapter
-     * @return position of the section in the adapter
-     */
-    public int getSectionPosition(final Section section) {
-        int currentPos = 0;
-
-        for (final Map.Entry<String, Section> entry : sections.entrySet()) {
-            final Section loopSection = entry.getValue();
-
-            // ignore invisible sections
-            if (!loopSection.isVisible()) {
-                continue;
-            }
-
-            if (loopSection == section) {
-                return currentPos;
-            }
-
-            final int sectionTotal = loopSection.getSectionItemsTotal();
-
-            currentPos += sectionTotal;
-        }
-
-        throw new IllegalArgumentException("Invalid section");
+    @SuppressWarnings("PMD.DefaultPackage")
+    /* default */ ListOrderedMap<String, Section> getSections() {
+        return sections;
     }
 
     /**
@@ -584,84 +552,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Helper method that receives position in relation to the section, and returns the position in
-     * the adapter.
-     *
-     * @param tag      unique identifier of the section
-     * @param position position of the item in the section
-     * @return position of the item in the adapter
-     */
-    public int getPositionInAdapter(final String tag, final int position) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        return getPositionInAdapter(section, position);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, and returns the position in
-     * the adapter.
-     *
-     * @param section  a visible section of this adapter
-     * @param position position of the item in the section
-     * @return position of the item in the adapter
-     */
-    public int getPositionInAdapter(final Section section, final int position) {
-        return getSectionPosition(section) + (section.hasHeader() ? 1 : 0) + position;
-    }
-
-    /**
-     * Helper method that returns the position of header in the adapter.
-     *
-     * @param tag unique identifier of the section
-     * @return position of the header in the adapter
-     */
-    public int getHeaderPositionInAdapter(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        return getHeaderPositionInAdapter(section);
-    }
-
-    /**
-     * Helper method that returns the position of header in the adapter.
-     *
-     * @param section a visible section of this adapter
-     * @return position of the header in the adapter
-     */
-    public int getHeaderPositionInAdapter(final Section section) {
-        if (!section.hasHeader()) {
-            throw new IllegalStateException("Section doesn't have a header");
-        }
-
-        return getSectionPosition(section);
-    }
-
-    /**
-     * Helper method that returns the position of footer in the adapter.
-     *
-     * @param tag unique identifier of the section
-     * @return position of the footer in the adapter
-     */
-    public int getFooterPositionInAdapter(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        return getFooterPositionInAdapter(section);
-    }
-
-    /**
-     * Helper method that returns the position of header in the adapter.
-     *
-     * @param section a visible section of this adapter
-     * @return position of the footer in the adapter
-     */
-    public int getFooterPositionInAdapter(final Section section) {
-        if (!section.hasFooter()) {
-            throw new IllegalStateException("Section doesn't have a footer");
-        }
-
-        return getSectionPosition(section) + section.getSectionItemsTotal() - 1;
-    }
-
-    /**
      * Returns the index of the first occurrence of the specified section in this adapter, or -1 if
      * this adapter does not contain the section. Note that, the visibility of section is being
      * ignored.
@@ -683,626 +573,20 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return -1;
     }
 
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemInserted}.
-     *
-     * @param tag      unique identifier of the section
-     * @param position position of the item in the section
-     */
-    public void notifyItemInsertedInSection(final String tag, final int position) {
-        callSuperNotifyItemInserted(getPositionInAdapter(tag, position));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemInserted}.
-     *
-     * @param section  a visible section of this adapter
-     * @param position position of the item in the section
-     */
-    public void notifyItemInsertedInSection(final Section section, final int position) {
-        callSuperNotifyItemInserted(getPositionInAdapter(section, position));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeInserted}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyAllItemsInsertedInSection(final String tag) {
-        notifyAllItemsInsertedInSection(getValidSectionOrThrowException(tag));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeInserted}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyAllItemsInsertedInSection(final Section section) {
-        callSuperNotifyItemRangeInserted(getPositionInAdapter(section, 0), section.getContentItemsTotal());
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeInserted}.
-     *
-     * @param tag           unique identifier of the section
-     * @param positionStart position of the first item that was inserted in the section
-     * @param itemCount     number of items inserted in the section
-     */
-    public void notifyItemRangeInsertedInSection(final String tag, final int positionStart, final int itemCount) {
-        callSuperNotifyItemRangeInserted(getPositionInAdapter(tag, positionStart), itemCount);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeInserted}.
-     *
-     * @param section       a visible section of this adapter
-     * @param positionStart position of the first item that was inserted in the section
-     * @param itemCount     number of items inserted in the section
-     */
-    public void notifyItemRangeInsertedInSection(final Section section, final int positionStart, final int itemCount) {
-        callSuperNotifyItemRangeInserted(getPositionInAdapter(section, positionStart), itemCount);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRemoved}.
-     *
-     * @param tag      unique identifier of the section
-     * @param position position of the item in the section
-     */
-    public void notifyItemRemovedFromSection(final String tag, final int position) {
-        callSuperNotifyItemRemoved(getPositionInAdapter(tag, position));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRemoved}.
-     *
-     * @param section  a visible section of this adapter
-     * @param position position of the item in the section
-     */
-    public void notifyItemRemovedFromSection(final Section section, final int position) {
-        callSuperNotifyItemRemoved(getPositionInAdapter(section, position));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeRemoved}.
-     *
-     * @param tag           unique identifier of the section
-     * @param positionStart previous position of the first item that was removed from the section
-     * @param itemCount     number of items removed from the section
-     */
-    public void notifyItemRangeRemovedFromSection(final String tag, final int positionStart, final int itemCount) {
-        callSuperNotifyItemRangeRemoved(getPositionInAdapter(tag, positionStart), itemCount);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeRemoved}.
-     *
-     * @param section       a visible section of this adapter
-     * @param positionStart previous position of the first item that was removed from the section
-     * @param itemCount     number of items removed from the section
-     */
-    public void notifyItemRangeRemovedFromSection(final Section section, final int positionStart, final int itemCount) {
-        callSuperNotifyItemRangeRemoved(getPositionInAdapter(section, positionStart), itemCount);
-    }
-
-    /**
-     * Helper method that calculates the relative header position in the adapter and calls
-     * {@link #notifyItemChanged}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyHeaderChangedInSection(final String tag) {
-        notifyHeaderChangedInSection(getValidSectionOrThrowException(tag));
-    }
-
-    /**
-     * Helper method that calculates the relative header position in the adapter and calls
-     * {@link #notifyItemChanged}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyHeaderChangedInSection(final Section section) {
-        callSuperNotifyItemChanged(getHeaderPositionInAdapter(section));
-    }
-
-    /**
-     * Helper method that calculates the relative footer position in the adapter and calls
-     * {@link #notifyItemChanged}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyFooterChangedInSection(final String tag) {
-        notifyFooterChangedInSection(getValidSectionOrThrowException(tag));
-    }
-
-    /**
-     * Helper method that calculates the relative footer position in the adapter and calls
-     * {@link #notifyItemChanged}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyFooterChangedInSection(final Section section) {
-        callSuperNotifyItemChanged(getFooterPositionInAdapter(section));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemChanged}.
-     *
-     * @param tag      unique identifier of the section
-     * @param position position of the item in the section
-     */
-    public void notifyItemChangedInSection(final String tag, final int position) {
-        callSuperNotifyItemChanged(getPositionInAdapter(tag, position));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemChanged}.
-     *
-     * @param section  a visible section of this adapter
-     * @param position position of the item in the section
-     */
-    public void notifyItemChangedInSection(final Section section, final int position) {
-        callSuperNotifyItemChanged(getPositionInAdapter(section, position));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyAllItemsChangedInSection(final String tag) {
-        notifyAllItemsChangedInSection(getValidSectionOrThrowException(tag));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyAllItemsChangedInSection(final Section section) {
-        callSuperNotifyItemRangeChanged(getPositionInAdapter(section, 0), section.getContentItemsTotal());
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged}.
-     *
-     * @param tag           unique identifier of the section
-     * @param positionStart position of the first item that was changed in the section
-     * @param itemCount     number of items changed in the section
-     */
-    public void notifyItemRangeChangedInSection(final String tag, final int positionStart, final int itemCount) {
-        callSuperNotifyItemRangeChanged(getPositionInAdapter(tag, positionStart), itemCount);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged}.
-     *
-     * @param section       a visible section of this adapter
-     * @param positionStart position of the first item that was changed in the section
-     * @param itemCount     number of items changed in the section
-     */
-    public void notifyItemRangeChangedInSection(final Section section, final int positionStart, final int itemCount) {
-        callSuperNotifyItemRangeChanged(getPositionInAdapter(section, positionStart), itemCount);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged}.
-     *
-     * @param tag           unique identifier of the section
-     * @param positionStart position of the first item that was inserted in the section
-     * @param itemCount     number of items inserted in the section
-     * @param payload       optional parameter, use null to identify a "full" update
-     */
-    public void notifyItemRangeChangedInSection(final String tag, final int positionStart,
-                                                final int itemCount, final Object payload) {
-        callSuperNotifyItemRangeChanged(getPositionInAdapter(tag, positionStart), itemCount, payload);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemRangeChanged}.
-     *
-     * @param section       a visible section of this adapter
-     * @param positionStart position of the first item that was inserted in the section
-     * @param itemCount     number of items inserted in the section
-     * @param payload       optional parameter, use null to identify a "full" update
-     */
-    public void notifyItemRangeChangedInSection(final Section section, final int positionStart,
-                                                final int itemCount, final Object payload) {
-        callSuperNotifyItemRangeChanged(getPositionInAdapter(section, positionStart), itemCount, payload);
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemMoved}.
-     *
-     * @param tag          unique identifier of the section
-     * @param fromPosition previous position of the item in the section
-     * @param toPosition   new position of the item in the section
-     */
-    public void notifyItemMovedInSection(final String tag, final int fromPosition, final int toPosition) {
-        callSuperNotifyItemMoved(getPositionInAdapter(tag, fromPosition), getPositionInAdapter(tag, toPosition));
-    }
-
-    /**
-     * Helper method that receives position in relation to the section, calculates the relative
-     * position in the adapter and calls {@link #notifyItemMoved}.
-     *
-     * @param section      a visible section of this adapter
-     * @param fromPosition previous position of the item in the section
-     * @param toPosition   new position of the item in the section
-     */
-    public void notifyItemMovedInSection(final Section section, final int fromPosition, final int toPosition) {
-        callSuperNotifyItemMoved(getPositionInAdapter(section, fromPosition), getPositionInAdapter(section, toPosition));
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemChanged} with the position of the {@link State}
-     * view holder in the adapter. Useful to be called after changing the State from
-     * LOADING/FAILED/EMPTY to LOADING/FAILED/EMPTY.
-     *
-     * @param tag           unique identifier of the section
-     * @param previousState previous state of section
-     */
-    public void notifyNotLoadedStateChanged(final String tag, final State previousState) {
+    public SectionAdapter getSectionAdapter(final String tag) {
         final Section section = getValidSectionOrThrowException(tag);
 
-        notifyNotLoadedStateChanged(section, previousState);
+        return getSectionAdapter(section);
     }
 
-    /**
-     * Helper method that calls {@link #notifyItemChanged} with the position of the {@link State}
-     * view holder in the adapter. Useful to be called after changing the State from
-     * LOADING/ FAILED/ EMPTY to LOADING/ FAILED/ EMPTY.
-     *
-     * @param section       a visible section of this adapter
-     * @param previousState previous state of section
-     */
-    public void notifyNotLoadedStateChanged(final Section section, final State previousState) {
-        final State state = section.getState();
-
-        if (state == previousState) {
-            throw new IllegalStateException("No state changed");
-        }
-
-        if (previousState == State.LOADED) {
-            throw new IllegalStateException("Use notifyStateChangedFromLoaded");
-        }
-
-        if (state == State.LOADED) {
-            throw new IllegalStateException("Use notifyStateChangedToLoaded");
-        }
-
-        notifyItemChangedInSection(section, 0);
+    public SectionAdapter getSectionAdapter(final Section section) {
+        return new SectionAdapter(this, section);
     }
 
-    /**
-     * Helper method that calls {@link #notifyItemChanged} and {@link #notifyItemInserted} with
-     * the position of the {@link State} view holder in the adapter. Useful to be called after
-     * changing the State from LOADING/ FAILED/ EMPTY to LOADED.
-     *
-     * @param tag           unique identifier of the section
-     * @param previousState previous state of section
-     */
-    public void notifyStateChangedToLoaded(final String tag, final State previousState) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifyStateChangedToLoaded(section, previousState);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemChanged} and {@link #notifyItemInserted} with
-     * the position of the {@link State} view holder in the adapter. Useful to be called after
-     * changing the State from LOADING/ FAILED/ EMPTY to LOADED.
-     *
-     * @param section       a visible section of this adapter
-     * @param previousState previous state of section
-     */
-    public void notifyStateChangedToLoaded(final Section section, final State previousState) {
-        final State state = section.getState();
-
-        if (state == previousState) {
-            throw new IllegalStateException("No state changed");
-        }
-
-        if (state != State.LOADED) {
-            if (previousState == State.LOADED) {
-                throw new IllegalStateException("Use notifyStateChangedFromLoaded");
-            } else {
-                throw new IllegalStateException("Use notifyNotLoadedStateChanged");
-            }
-        }
-
-        final int contentItemsTotal = section.getContentItemsTotal();
-
-        if (contentItemsTotal == 0) {
-            notifyItemRemovedFromSection(section, 0);
-        } else {
-            notifyItemChangedInSection(section, 0);
-
-            if (contentItemsTotal > 1) {
-                notifyItemRangeInsertedInSection(section, 1, contentItemsTotal - 1);
-            }
-        }
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRangeRemoved} and {@link #notifyItemChanged} with
-     * the position of the {@link State} view holder in the adapter. Useful to be called after
-     * changing the State from LOADED to LOADING/ FAILED/ EMPTY.
-     *
-     * @param tag                       unique identifier of the section
-     * @param previousContentItemsCount previous content items count of section
-     */
-    public void notifyStateChangedFromLoaded(final String tag, final int previousContentItemsCount) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifyStateChangedFromLoaded(section, previousContentItemsCount);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRangeRemoved} and {@link #notifyItemChanged} with
-     * the position of the {@link State} view holder in the adapter. Useful to be called after
-     * changing the State from LOADED to LOADING/ FAILED/ EMPTY.
-     *
-     * @param section                   a visible section of this adapter
-     * @param previousContentItemsCount previous content items count of section
-     */
-    public void notifyStateChangedFromLoaded(final Section section, final int previousContentItemsCount) {
-        final State state = section.getState();
-
-        if (state == State.LOADED) {
-            throw new IllegalStateException("Use notifyStateChangedToLoaded");
-        }
-
-        if (previousContentItemsCount == 0) {
-            notifyItemInsertedInSection(section, 0);
-        } else {
-            if (previousContentItemsCount > 1) {
-                notifyItemRangeRemovedFromSection(section, 1, previousContentItemsCount - 1);
-            }
-
-            notifyItemChangedInSection(section, 0);
-        }
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
-     * header in the adapter. Useful to be called after changing the visibility of the section's
-     * header to visible with {@link Section#setHasHeader}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyHeaderInsertedInSection(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifyHeaderInsertedInSection(section);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
-     * header in the adapter. Useful to be called after changing the visibility of the section's
-     * header to visible with {@link Section#setHasHeader}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyHeaderInsertedInSection(final Section section) {
-        final int headerPosition = getHeaderPositionInAdapter(section);
-
-        callSuperNotifyItemInserted(headerPosition);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
-     * footer in the adapter. Useful to be called after changing the visibility of the section's
-     * footer to visible with {@link Section#setHasFooter}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyFooterInsertedInSection(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifyFooterInsertedInSection(section);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemInserted} with the position of the section's
-     * footer in the adapter. Useful to be called after changing the visibility of the section's
-     * footer to visible with {@link Section#setHasFooter}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyFooterInsertedInSection(final Section section) {
-        final int footerPosition = getFooterPositionInAdapter(section);
-
-        callSuperNotifyItemInserted(footerPosition);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRemoved} with the position of the section's
-     * header in the adapter. Useful to be called after changing the visibility of the section's
-     * header to invisible with {@link Section#setHasHeader}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyHeaderRemovedFromSection(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifyHeaderRemovedFromSection(section);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRemoved} with the position of the section's
-     * header in the adapter. Useful to be called after changing the visibility of the section's
-     * header to invisible with {@link Section#setHasHeader}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyHeaderRemovedFromSection(final Section section) {
-        final int position = getSectionPosition(section);
-
-        callSuperNotifyItemRemoved(position);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRemoved} with the position of the section's
-     * footer in the adapter. Useful to be called after changing the visibility of the section's
-     * footer to invisible with {@link Section#setHasFooter}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifyFooterRemovedFromSection(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifyFooterRemovedFromSection(section);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRemoved} with the position of the section's
-     * footer in the adapter. Useful to be called after changing the visibility of the section's
-     * footer to invisible with {@link Section#setHasFooter}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifyFooterRemovedFromSection(final Section section) {
-        final int position = getSectionPosition(section) + section.getSectionItemsTotal();
-
-        callSuperNotifyItemRemoved(position);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
-     * in the adapter. Useful to be called after changing the visibility of the section to visible
-     * with {@link Section#setVisible}.
-     *
-     * @param tag unique identifier of the section
-     */
-    public void notifySectionChangedToVisible(final String tag) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifySectionChangedToVisible(section);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
-     * in the adapter. Useful to be called after changing the visibility of the section to visible
-     * with {@link Section#setVisible}.
-     *
-     * @param section a visible section of this adapter
-     */
-    public void notifySectionChangedToVisible(final Section section) {
-        if (!section.isVisible()) {
-            throw new IllegalStateException("This section is not visible.");
-        }
-
-        final int sectionPosition = getSectionPosition(section);
-
-        final int sectionItemsTotal = section.getSectionItemsTotal();
-
-        callSuperNotifyItemRangeInserted(sectionPosition, sectionItemsTotal);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
-     * in the adapter. Useful to be called after changing the visibility of the section to invisible
-     * with {@link Section#setVisible}.
-     *
-     * @param tag                     unique identifier of the section
-     * @param previousSectionPosition previous section position
-     */
-    public void notifySectionChangedToInvisible(final String tag, final int previousSectionPosition) {
-        final Section section = getValidSectionOrThrowException(tag);
-
-        notifySectionChangedToInvisible(section, previousSectionPosition);
-    }
-
-    /**
-     * Helper method that calls {@link #notifyItemRangeInserted} with the position of the section
-     * in the adapter. Useful to be called after changing the visibility of the section to invisible
-     * with {@link Section#setVisible}.
-     *
-     * @param section                 an invisible section of this adapter
-     * @param previousSectionPosition previous section position
-     */
-    public void notifySectionChangedToInvisible(final Section section, final int previousSectionPosition) {
-        if (section.isVisible()) {
-            throw new IllegalStateException("This section is not invisible.");
-        }
-
-        final int sectionItemsTotal = section.getSectionItemsTotal();
-
-        callSuperNotifyItemRangeRemoved(previousSectionPosition, sectionItemsTotal);
-    }
-
+    // in order to allow this class to be unit tested
     @VisibleForTesting
-        // in order to allow this class to be unit tested
     View inflate(@LayoutRes final int layoutResourceId, final ViewGroup parent) {
         return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemRemoved(final int position) {
-        super.notifyItemRemoved(position);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemRangeRemoved(final int positionStart, final int itemCount) {
-        super.notifyItemRangeRemoved(positionStart, itemCount);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemChanged(final int position) {
-        super.notifyItemChanged(position);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemRangeChanged(final int positionStart, final int itemCount) {
-        super.notifyItemRangeChanged(positionStart, itemCount);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemRangeChanged(final int positionStart, final int itemCount, final Object payload) {
-        super.notifyItemRangeChanged(positionStart, itemCount, payload);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemRangeInserted(final int positionStart, final int itemCount) {
-        super.notifyItemRangeInserted(positionStart, itemCount);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemInserted(final int position) {
-        super.notifyItemInserted(position);
-    }
-
-    @VisibleForTesting
-        // in order to allow this class to be unit tested
-    void callSuperNotifyItemMoved(final int fromPosition, final int toPosition) {
-        super.notifyItemMoved(fromPosition, toPosition);
     }
 
     @NonNull
