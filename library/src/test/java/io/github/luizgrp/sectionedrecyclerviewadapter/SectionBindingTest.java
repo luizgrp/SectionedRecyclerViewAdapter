@@ -44,7 +44,7 @@ public class SectionBindingTest {
     private SectionImpl section = new SectionImpl();
 
     @Before
-    public void setup() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         sectionAdapter = new AdapterImpl();
         sectionAdapter.addSection(dummySection); // View types 0-5, items 0-9
@@ -510,11 +510,6 @@ public class SectionBindingTest {
      * @return A Mockito argument matcher to check whether the argument was a View with its tag set to the given value.
      */
     private static ArgumentMatcher<View> hasTag(final int tag) {
-        return new ArgumentMatcher<View>() {
-            @Override
-            public boolean matches(View argument) {
-                return argument != null && argument.getTag() != null && argument.getTag().equals(tag);
-            }
-        };
+        return argument -> argument != null && argument.getTag() != null && argument.getTag().equals(tag);
     }
 }

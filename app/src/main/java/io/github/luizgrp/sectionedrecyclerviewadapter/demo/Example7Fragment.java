@@ -29,27 +29,27 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example7Fragment extends Fragment implements SearchView.OnQueryTextListener {
 
-    private SectionedRecyclerViewAdapter sectionAdapter;
+    private SectionedRecyclerViewAdapter sectionedAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex7, container, false);
 
-        sectionAdapter = new SectionedRecyclerViewAdapter();
+        sectionedAdapter = new SectionedRecyclerViewAdapter();
 
         for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
             List<String> contacts = getContactsWithLetter(alphabet);
 
             if (contacts.size() > 0) {
                 ContactsSection contactsSection = new ContactsSection(String.valueOf(alphabet), contacts);
-                sectionAdapter.addSection(contactsSection);
+                sectionedAdapter.addSection(contactsSection);
             }
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(sectionAdapter);
+        recyclerView.setAdapter(sectionedAdapter);
 
         return view;
     }
@@ -73,12 +73,12 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
     @Override
     public boolean onQueryTextChange(String query) {
 
-        for (Section section : sectionAdapter.getCopyOfSectionsMap().values()) {
+        for (Section section : sectionedAdapter.getCopyOfSectionsMap().values()) {
             if (section instanceof FilterableSection) {
                 ((FilterableSection) section).filter(query);
             }
         }
-        sectionAdapter.notifyDataSetChanged();
+        sectionedAdapter.notifyDataSetChanged();
 
         return true;
     }
@@ -141,7 +141,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
                 public void onClick(View v) {
                     Toast.makeText(getContext(),
                             String.format("Clicked on position #%s of Section %s",
-                                    sectionAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
                                     title),
                             Toast.LENGTH_SHORT).show();
                 }
