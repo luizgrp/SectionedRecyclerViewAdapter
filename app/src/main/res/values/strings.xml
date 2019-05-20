@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">SectionedRecyclerViewAdapter Demo</string>
 
+    <string name="home_title">Demo</string>
+    <string name="home_message">Use the navigation drawer to view an example.</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_search">Search</string>
 
     <string name="nav_stateless">Stateless Section</string>
     <string name="nav_example1">Section with Header</string>
@@ -17,12 +18,13 @@
     <string name="nav_example3">Section with Header and Footer</string>
     <string name="nav_example8">Animations</string>
 
+    <string name="action_search">Search</string>
+
     <string name="cd_app_icon">App icon</string>
     <string name="cd_android_icon">Android icon</string>
     <string name="cd_movie_icon">Movie icon</string>
     <string name="cd_cloud_crossed">Cloud crossed icon</string>
     <string name="cd_arrow_icon">Arrow icon</string>
-
 
     <string name="world_topic">World</string>
     <string name="biz_topic">Business</string>

@@ -18,7 +18,6 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,18 +59,6 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (getActivity() instanceof AppCompatActivity) {
-            AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null) {
-                activity.getSupportActionBar().setTitle(R.string.nav_example7);
-            }
-        }
     }
 
     @Override

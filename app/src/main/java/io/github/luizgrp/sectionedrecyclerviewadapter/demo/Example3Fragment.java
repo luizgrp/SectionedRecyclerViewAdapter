@@ -2,13 +2,6 @@ package io.github.luizgrp.sectionedrecyclerviewadapter.demo;
 
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +15,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
@@ -59,18 +57,6 @@ public class Example3Fragment extends Fragment {
         recyclerView.setAdapter(sectionAdapter);
 
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (getActivity() instanceof AppCompatActivity) {
-            AppCompatActivity activity = ((AppCompatActivity) getActivity());
-            if (activity.getSupportActionBar() != null) {
-                activity.getSupportActionBar().setTitle(R.string.nav_example3);
-            }
-        }
     }
 
     @Override
