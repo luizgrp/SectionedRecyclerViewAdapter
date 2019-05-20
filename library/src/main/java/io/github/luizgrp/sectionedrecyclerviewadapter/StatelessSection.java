@@ -13,7 +13,7 @@ public abstract class StatelessSection extends Section {
      *
      * @param sectionParameters section parameters
      */
-    public StatelessSection(SectionParameters sectionParameters) {
+    public StatelessSection(final SectionParameters sectionParameters) {
         super(sectionParameters);
 
         if (sectionParameters.loadingResourceId != null) {
@@ -44,33 +44,33 @@ public abstract class StatelessSection extends Section {
     // Override these methods to make them final.
 
     @Override
-    public final void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {
+    public final void onBindLoadingViewHolder(final RecyclerView.ViewHolder holder) {
         super.onBindLoadingViewHolder(holder);
     }
 
     @Override
-    public final RecyclerView.ViewHolder getLoadingViewHolder(View view) {
+    public final RecyclerView.ViewHolder getLoadingViewHolder(final View view) {
         return super.getLoadingViewHolder(view);
     }
 
     @SuppressWarnings("EmptyMethod")
     @Override
-    public final void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
+    public final void onBindFailedViewHolder(final RecyclerView.ViewHolder holder) {
         super.onBindFailedViewHolder(holder);
     }
 
     @Override
-    public final RecyclerView.ViewHolder getFailedViewHolder(View view) {
+    public final RecyclerView.ViewHolder getFailedViewHolder(final View view) {
         return super.getFailedViewHolder(view);
     }
 
     @Override
-    public final void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
+    public final void onBindEmptyViewHolder(final RecyclerView.ViewHolder holder) {
         super.onBindEmptyViewHolder(holder);
     }
 
     @Override
-    public final RecyclerView.ViewHolder getEmptyViewHolder(View view) {
+    public final RecyclerView.ViewHolder getEmptyViewHolder(final View view) {
         return super.getEmptyViewHolder(view);
     }
 }

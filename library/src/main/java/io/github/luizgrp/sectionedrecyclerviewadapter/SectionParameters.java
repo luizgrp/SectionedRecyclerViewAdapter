@@ -8,25 +8,25 @@ import androidx.annotation.LayoutRes;
 @SuppressWarnings({"WeakerAccess", "PMD.AvoidFieldNameMatchingMethodName"})
 public final class SectionParameters {
     @LayoutRes
-    public final Integer itemResourceId;
+    public final transient Integer itemResourceId;
     @LayoutRes
-    public final Integer headerResourceId;
+    public final transient Integer headerResourceId;
     @LayoutRes
-    public final Integer footerResourceId;
+    public final transient Integer footerResourceId;
     @LayoutRes
-    public final Integer loadingResourceId;
+    public final transient Integer loadingResourceId;
     @LayoutRes
-    public final Integer failedResourceId;
+    public final transient Integer failedResourceId;
     @LayoutRes
-    public final Integer emptyResourceId;
-    public final boolean itemViewWillBeProvided;
-    public final boolean headerViewWillBeProvided;
-    public final boolean footerViewWillBeProvided;
-    public final boolean loadingViewWillBeProvided;
-    public final boolean failedViewWillBeProvided;
-    public final boolean emptyViewWillBeProvided;
+    public final transient Integer emptyResourceId;
+    public final transient boolean itemViewWillBeProvided;
+    public final transient boolean headerViewWillBeProvided;
+    public final transient boolean footerViewWillBeProvided;
+    public final transient boolean loadingViewWillBeProvided;
+    public final transient boolean failedViewWillBeProvided;
+    public final transient boolean emptyViewWillBeProvided;
 
-    private SectionParameters(Builder builder) {
+    private SectionParameters(final Builder builder) {
         this.itemResourceId = builder.itemResourceId;
         this.headerResourceId = builder.headerResourceId;
         this.footerResourceId = builder.footerResourceId;
@@ -81,23 +81,23 @@ public final class SectionParameters {
      */
     public static class Builder {
         @LayoutRes
-        private Integer itemResourceId;
+        private transient Integer itemResourceId;
         @LayoutRes
-        private Integer headerResourceId;
+        private transient Integer headerResourceId;
         @LayoutRes
-        private Integer footerResourceId;
+        private transient Integer footerResourceId;
         @LayoutRes
-        private Integer loadingResourceId;
+        private transient Integer loadingResourceId;
         @LayoutRes
-        private Integer failedResourceId;
+        private transient Integer failedResourceId;
         @LayoutRes
-        private Integer emptyResourceId;
-        private boolean itemViewWillBeProvided;
-        private boolean headerViewWillBeProvided;
-        private boolean footerViewWillBeProvided;
-        private boolean loadingViewWillBeProvided;
-        private boolean failedViewWillBeProvided;
-        private boolean emptyViewWillBeProvided;
+        private transient Integer emptyResourceId;
+        private transient boolean itemViewWillBeProvided;
+        private transient boolean headerViewWillBeProvided;
+        private transient boolean footerViewWillBeProvided;
+        private transient boolean loadingViewWillBeProvided;
+        private transient boolean failedViewWillBeProvided;
+        private transient boolean emptyViewWillBeProvided;
 
         /**
          * Constructor with mandatory parameters of {@link Section} (namely none).
@@ -113,7 +113,7 @@ public final class SectionParameters {
          * @deprecated Use {@link #SectionParameters#builder} instead.
          */
         @Deprecated
-        public Builder(@LayoutRes int itemResourceId) {
+        public Builder(@LayoutRes final int itemResourceId) {
             this.itemResourceId = itemResourceId;
         }
 
@@ -123,7 +123,7 @@ public final class SectionParameters {
          * @param itemResourceId layout resource for Section's items
          * @return this builder
          */
-        public Builder itemResourceId(@LayoutRes int itemResourceId) {
+        public Builder itemResourceId(@LayoutRes final int itemResourceId) {
             this.itemResourceId = itemResourceId;
 
             return this;
@@ -147,7 +147,7 @@ public final class SectionParameters {
          * @param headerResourceId layout resource for Section's header
          * @return this builder
          */
-        public Builder headerResourceId(@LayoutRes int headerResourceId) {
+        public Builder headerResourceId(@LayoutRes final int headerResourceId) {
             this.headerResourceId = headerResourceId;
 
             return this;
@@ -171,7 +171,7 @@ public final class SectionParameters {
          * @param footerResourceId layout resource for Section's footer
          * @return this builder
          */
-        public Builder footerResourceId(@LayoutRes int footerResourceId) {
+        public Builder footerResourceId(@LayoutRes final int footerResourceId) {
             this.footerResourceId = footerResourceId;
 
             return this;
@@ -195,7 +195,7 @@ public final class SectionParameters {
          * @param loadingResourceId layout resource for Section's loading state
          * @return this builder
          */
-        public Builder loadingResourceId(@LayoutRes int loadingResourceId) {
+        public Builder loadingResourceId(@LayoutRes final int loadingResourceId) {
             this.loadingResourceId = loadingResourceId;
 
             return this;
@@ -219,7 +219,7 @@ public final class SectionParameters {
          * @param failedResourceId layout resource for Section's failed state
          * @return this builder
          */
-        public Builder failedResourceId(@LayoutRes int failedResourceId) {
+        public Builder failedResourceId(@LayoutRes final int failedResourceId) {
             this.failedResourceId = failedResourceId;
 
             return this;
@@ -243,7 +243,7 @@ public final class SectionParameters {
          * @param emptyResourceId layout resource for Section's empty state
          * @return this builder
          */
-        public Builder emptyResourceId(@LayoutRes int emptyResourceId) {
+        public Builder emptyResourceId(@LayoutRes final int emptyResourceId) {
             this.emptyResourceId = emptyResourceId;
 
             return this;
