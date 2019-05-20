@@ -13,7 +13,7 @@ public class StatelessSectionStub extends StatelessSection {
 
     private final int contentItemsTotal;
 
-    public StatelessSectionStub(int contentItemsTotal) {
+    public StatelessSectionStub(final int contentItemsTotal) {
         super(SectionParameters.builder()
                 .itemResourceId(-1)
                 .build());
@@ -27,12 +27,12 @@ public class StatelessSectionStub extends StatelessSection {
     }
 
     @Override
-    public RecyclerView.ViewHolder getItemViewHolder(View view) {
+    public RecyclerView.ViewHolder getItemViewHolder(final View view) {
         return null;
     }
 
     @Override
-    public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindItemViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
     }
 }

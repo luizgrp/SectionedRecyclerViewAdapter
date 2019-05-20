@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 /**
  * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
  */
-@SuppressWarnings({"WeakerAccess", "PMD.AvoidFieldNameMatchingMethodName"})
+@SuppressWarnings("WeakerAccess")
 public abstract class Section {
 
     public enum State {
@@ -22,7 +22,9 @@ public abstract class Section {
 
     private boolean visible = true;
 
+    @SuppressWarnings({"PMD.BeanMembersShouldSerialize", "PMD.AvoidFieldNameMatchingMethodName"})
     private boolean hasHeader;
+    @SuppressWarnings({"PMD.BeanMembersShouldSerialize", "PMD.AvoidFieldNameMatchingMethodName"})
     private boolean hasFooter;
 
     @LayoutRes
@@ -49,7 +51,7 @@ public abstract class Section {
      *
      * @param sectionParameters section parameters
      */
-    public Section(SectionParameters sectionParameters) {
+    public Section(final SectionParameters sectionParameters) {
         this.itemResourceId = sectionParameters.itemResourceId;
         this.headerResourceId = sectionParameters.headerResourceId;
         this.footerResourceId = sectionParameters.footerResourceId;
@@ -63,8 +65,8 @@ public abstract class Section {
         this.failedViewWillBeProvided = sectionParameters.failedViewWillBeProvided;
         this.emptyViewWillBeProvided = sectionParameters.emptyViewWillBeProvided;
 
-        this.hasHeader = (this.headerResourceId != null) || this.headerViewWillBeProvided;
-        this.hasFooter = (this.footerResourceId != null) || this.footerViewWillBeProvided;
+        this.hasHeader = this.headerResourceId != null || this.headerViewWillBeProvided;
+        this.hasFooter = this.footerResourceId != null || this.footerViewWillBeProvided;
     }
 
     /**
@@ -72,7 +74,7 @@ public abstract class Section {
      *
      * @param state state of this section
      */
-    public final void setState(State state) {
+    public final void setState(final State state) {
         switch (state) {
             case LOADING:
                 if (loadingResourceId == null && !loadingViewWillBeProvided) {
@@ -120,7 +122,7 @@ public abstract class Section {
      *
      * @param visible true if this Section is visible
      */
-    public final void setVisible(boolean visible) {
+    public final void setVisible(final boolean visible) {
         this.visible = visible;
     }
 
@@ -138,7 +140,7 @@ public abstract class Section {
      *
      * @param hasHeader true if this Section has a header
      */
-    public final void setHasHeader(boolean hasHeader) {
+    public final void setHasHeader(final boolean hasHeader) {
         this.hasHeader = hasHeader;
     }
 
@@ -156,7 +158,7 @@ public abstract class Section {
      *
      * @param hasFooter true if this Section has a footer
      */
-    public final void setHasFooter(boolean hasFooter) {
+    public final void setHasFooter(final boolean hasFooter) {
         this.hasFooter = hasFooter;
     }
 
@@ -286,7 +288,7 @@ public abstract class Section {
      * @param holder   ViewHolder for the Content of this Section
      * @param position position of the item in the Section, not in the RecyclerView
      */
-    public final void onBindContentViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public final void onBindContentViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         switch (state) {
             case LOADING:
                 onBindLoadingViewHolder(holder);
@@ -348,7 +350,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for an Item of this Section.
      */
-    public View getItemView(@SuppressWarnings("unused") ViewGroup parent) {
+    public View getItemView(@SuppressWarnings("unused") final ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getItemView() if you set itemViewWillBeProvided");
     }
@@ -376,7 +378,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Header of this Section.
      */
-    public View getHeaderView(@SuppressWarnings("unused") ViewGroup parent) {
+    public View getHeaderView(@SuppressWarnings("unused") final ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getHeaderView() if you set headerViewWillBeProvided");
     }
@@ -387,7 +389,7 @@ public abstract class Section {
      * @param view View inflated by resource returned by getHeaderResourceId
      * @return ViewHolder for the Header of this Section
      */
-    public RecyclerView.ViewHolder getHeaderViewHolder(View view) {
+    public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
         return new SectionedRecyclerViewAdapter.EmptyViewHolder(view);
     }
 
@@ -396,7 +398,8 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Header of this Section
      */
-    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
+    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
+    public void onBindHeaderViewHolder(final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
 
@@ -407,7 +410,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Footer of this Section.
      */
-    public View getFooterView(@SuppressWarnings("unused") ViewGroup parent) {
+    public View getFooterView(@SuppressWarnings("unused") final ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getFooterView() if you set footerViewWillBeProvided");
     }
@@ -418,7 +421,7 @@ public abstract class Section {
      * @param view View inflated by resource returned by getFooterResourceId
      * @return ViewHolder for the Footer of this Section
      */
-    public RecyclerView.ViewHolder getFooterViewHolder(View view) {
+    public RecyclerView.ViewHolder getFooterViewHolder(final View view) {
         return new SectionedRecyclerViewAdapter.EmptyViewHolder(view);
     }
 
@@ -427,7 +430,8 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Footer of this Section
      */
-    public void onBindFooterViewHolder(RecyclerView.ViewHolder holder) {
+    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
+    public void onBindFooterViewHolder(final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
 
@@ -438,7 +442,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Loading state of this Section.
      */
-    public View getLoadingView(@SuppressWarnings("unused") ViewGroup parent) {
+    public View getLoadingView(@SuppressWarnings("unused") final ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getLoadingView() if you set loadingViewWillBeProvided");
     }
@@ -449,7 +453,7 @@ public abstract class Section {
      * @param view View inflated by resource returned by getItemResourceId
      * @return ViewHolder for the Loading state of this Section
      */
-    public RecyclerView.ViewHolder getLoadingViewHolder(View view) {
+    public RecyclerView.ViewHolder getLoadingViewHolder(final View view) {
         return new SectionedRecyclerViewAdapter.EmptyViewHolder(view);
     }
 
@@ -458,8 +462,8 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Loading state of this Section
      */
-    @SuppressWarnings("EmptyMethod")
-    public void onBindLoadingViewHolder(RecyclerView.ViewHolder holder) {
+    @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
+    public void onBindLoadingViewHolder(final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
 
@@ -470,7 +474,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Failed state of this Section.
      */
-    public View getFailedView(@SuppressWarnings("unused") ViewGroup parent) {
+    public View getFailedView(@SuppressWarnings("unused") final ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getFailedView() if you set failedViewWillBeProvided");
     }
@@ -481,7 +485,7 @@ public abstract class Section {
      * @param view View inflated by resource returned by getItemResourceId
      * @return ViewHolder for the Failed of this Section
      */
-    public RecyclerView.ViewHolder getFailedViewHolder(View view) {
+    public RecyclerView.ViewHolder getFailedViewHolder(final View view) {
         return new SectionedRecyclerViewAdapter.EmptyViewHolder(view);
     }
 
@@ -490,8 +494,8 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Failed state of this Section
      */
-    @SuppressWarnings("EmptyMethod")
-    public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
+    @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
+    public void onBindFailedViewHolder(final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
 
@@ -502,7 +506,7 @@ public abstract class Section {
      * @param parent The parent view. Note that there is no need to attach the new view.
      * @return View for the Empty state of this Section.
      */
-    public View getEmptyView(@SuppressWarnings("unused") ViewGroup parent) {
+    public View getEmptyView(@SuppressWarnings("unused") final ViewGroup parent) {
         throw new UnsupportedOperationException(
                 "You need to implement getEmptyView() if you set emptyViewWillBeProvided");
     }
@@ -513,7 +517,7 @@ public abstract class Section {
      * @param view View inflated by resource returned by getItemResourceId
      * @return ViewHolder for the Empty of this Section
      */
-    public RecyclerView.ViewHolder getEmptyViewHolder(View view) {
+    public RecyclerView.ViewHolder getEmptyViewHolder(final View view) {
         return new SectionedRecyclerViewAdapter.EmptyViewHolder(view);
     }
 
@@ -522,8 +526,8 @@ public abstract class Section {
      *
      * @param holder ViewHolder for the Empty state of this Section
      */
-    @SuppressWarnings("EmptyMethod")
-    public void onBindEmptyViewHolder(RecyclerView.ViewHolder holder) {
+    @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
+    public void onBindEmptyViewHolder(final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
     }
 }

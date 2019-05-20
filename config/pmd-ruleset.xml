@@ -4,37 +4,42 @@
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
 
-    <description>Custom ruleset for ribot Android application</description>
+    <description>Custom rules to this project</description>
 
     <exclude-pattern>.*/R.java</exclude-pattern>
     <exclude-pattern>.*/gen/.*</exclude-pattern>
 
-    <rule ref="rulesets/java/android.xml" />
-    <rule ref="rulesets/java/clone.xml" />
-    <rule ref="rulesets/java/finalizers.xml" />
-    <rule ref="rulesets/java/imports.xml">
-        <!-- Espresso is designed this way !-->
+    <!-- Excluded temporarily -->
+    <exclude-pattern>.*/*Test.java</exclude-pattern>
+    <exclude-pattern>.*/*Stub.java</exclude-pattern>
+
+    <rule ref="category/java/errorprone.xml">
+        <!-- Excluded temporarily -->
+        <exclude name="AvoidDuplicateLiterals" />
+        <exclude name="DataflowAnomalyAnalysis" />
+        <exclude name="AvoidLiteralsInIfCondition" />
+        <exclude name="CompareObjectsWithEquals" />
+    </rule>
+    <rule ref="category/java/bestpractices.xml" />
+    <rule ref="category/java/codestyle.xml">
         <exclude name="TooManyStaticImports" />
-    </rule>
-    <rule ref="rulesets/java/logging-java.xml">
-        <!-- This rule wasn't working properly and given errors in every var call info -->
-        <exclude name="GuardLogStatementJavaUtil" />
-    </rule>
-    <rule ref="rulesets/java/braces.xml">
-        <!-- We allow single line if's without braces -->
-        <exclude name="IfStmtsMustUseBraces" />
-    </rule>
-    <rule ref="rulesets/java/strings.xml" >
-        <!-- Exclude because causes problems with SQL Strings that usually require duplication -->
-        <exclude name="AvoidDuplicateLiterals"/>
-    </rule>
-    <rule ref="rulesets/java/basic.xml" />
-    <rule ref="rulesets/java/naming.xml">
-        <exclude name="AbstractNaming" />
         <exclude name="LongVariable" />
-        <exclude name="ShortMethodName" />
-        <exclude name="ShortVariable" />
-        <exclude name="ShortClassName" />
         <exclude name="VariableNamingConventions" />
+        <exclude name="OnlyOneReturn" />
+    </rule>
+    <rule ref="category/java/performance.xml" />
+    <rule ref="category/java/multithreading.xml" />
+    <rule ref="category/java/design.xml">
+        <exclude name="TooManyFields" />
+        <exclude name="TooManyMethods" />
+        <exclude name="ExcessivePublicCount" />
+        <exclude name="AvoidThrowingNullPointerException" />
+
+        <!-- Excluded temporarily -->
+        <exclude name="CyclomaticComplexity" />
+        <exclude name="NPathComplexity" />
+        <exclude name="ExcessiveClassLength" />
+        <exclude name="GodClass" />
+        <exclude name="LawOfDemeter" />
     </rule>
 </ruleset>
