@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.HomeFragment"
+        android:label="@string/home_title"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_example1Fragment"
+            app:destination="@id/example1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_example2Fragment"
+            app:destination="@id/example2Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_example3Fragment"
+            app:destination="@id/example3Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_example4Fragment"
+            app:destination="@id/example4Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_example5Fragment"
+            app:destination="@id/example5Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_example6Fragment"
+            app:destination="@id/example6Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_example7Fragment"
+            app:destination="@id/example7Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_example8Fragment"
+            app:destination="@id/example8Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/example1Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example1Fragment"
+        android:label="@string/nav_example1"
+        tools:layout="@layout/fragment_ex1" />
+    <fragment
+        android:id="@+id/example2Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example2Fragment"
+        android:label="@string/nav_example2"
+        tools:layout="@layout/fragment_ex2" />
+    <fragment
+        android:id="@+id/example3Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example3Fragment"
+        android:label="@string/nav_example3"
+        tools:layout="@layout/fragment_ex3" />
+    <fragment
+        android:id="@+id/example4Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example4Fragment"
+        android:label="@string/nav_example4"
+        tools:layout="@layout/fragment_ex4" />
+    <fragment
+        android:id="@+id/example5Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example5Fragment"
+        android:label="@string/nav_example5"
+        tools:layout="@layout/fragment_ex5" />
+    <fragment
+        android:id="@+id/example6Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example6Fragment"
+        android:label="@string/nav_example6"
+        tools:layout="@layout/fragment_ex6" />
+    <fragment
+        android:id="@+id/example7Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example7Fragment"
+        android:label="@string/nav_example7"
+        tools:layout="@layout/fragment_ex7" />
+    <fragment
+        android:id="@+id/example8Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example8Fragment"
+        android:label="@string/nav_example8"
+        tools:layout="@layout/fragment_ex8" />
+</navigation>

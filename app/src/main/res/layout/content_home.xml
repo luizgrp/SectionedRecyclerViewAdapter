@@ -8,9 +8,12 @@
     tools:context="io.github.luizgrp.sectionedrecyclerviewadapter.demo.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
 </RelativeLayout>

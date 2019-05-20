@@ -5,37 +5,37 @@
         android:title="@string/nav_stateless">
         <menu>
             <item
-                android:id="@+id/nav_example1"
+                android:id="@+id/example1Fragment"
                 android:title="@string/nav_example1"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_example2"
+                android:id="@+id/example2Fragment"
                 android:title="@string/nav_example2"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_example4"
+                android:id="@+id/example4Fragment"
                 android:title="@string/nav_example4"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_example5"
+                android:id="@+id/example5Fragment"
                 android:title="@string/nav_example5"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_example6"
+                android:id="@+id/example6Fragment"
                 android:title="@string/nav_example6"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_example7"
+                android:id="@+id/example7Fragment"
                 android:title="@string/nav_example7"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
 
             <item
-                android:id="@+id/nav_example8"
+                android:id="@+id/example8Fragment"
                 android:title="@string/nav_example8"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
         </menu>
@@ -46,7 +46,7 @@
         android:title="@string/nav_stateful">
         <menu>
             <item
-                android:id="@+id/nav_example3"
+                android:id="@+id/example3Fragment"
                 android:title="@string/nav_example3"
                 android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
         </menu>
