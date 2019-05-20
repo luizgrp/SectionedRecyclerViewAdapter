@@ -1,8 +1,7 @@
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'findbugs'
 
-check.dependsOn 'checkstyle', 'pmd', 'findbugs'
+check.dependsOn 'checkstyle', 'pmd'
 
 task checkstyle(type: Checkstyle) {
     description 'Checks if the code adheres to a coding standard'
@@ -32,26 +31,6 @@ task pmd(type: Pmd) {
     }
 }
 
-task findbugs(type: FindBugs, dependsOn:"assembleDebug") {
-    description 'Looks for bugs'
-    group 'verification'
-
-    effort = "max"
-    reportLevel = "high"
-
-    classes = files("$project.buildDir/intermediates/javac/debug/compileDebugJavaWithJavac/classes/")
-    classpath = files()
-
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
 dependencies {
-    checkstyle "com.puppycrawl.tools:checkstyle:8.17"
+    checkstyle "com.puppycrawl.tools:checkstyle:8.18"
 }

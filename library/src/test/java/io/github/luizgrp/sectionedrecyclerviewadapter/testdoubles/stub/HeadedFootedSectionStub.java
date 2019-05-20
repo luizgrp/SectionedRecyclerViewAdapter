@@ -13,7 +13,7 @@ public class HeadedFootedSectionStub extends Section {
 
     private final int contentItemsTotal;
 
-    public HeadedFootedSectionStub(int contentItemsTotal) {
+    public HeadedFootedSectionStub(final int contentItemsTotal) {
         super(SectionParameters.builder()
                 .itemResourceId(-1)
                 .headerResourceId(-1)
@@ -32,12 +32,12 @@ public class HeadedFootedSectionStub extends Section {
     }
 
     @Override
-    public RecyclerView.ViewHolder getItemViewHolder(View view) {
+    public RecyclerView.ViewHolder getItemViewHolder(final View view) {
         return null;
     }
 
     @Override
-    public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindItemViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
     }
 }
