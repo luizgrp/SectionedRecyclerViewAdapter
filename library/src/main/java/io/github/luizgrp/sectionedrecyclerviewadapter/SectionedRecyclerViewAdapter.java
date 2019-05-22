@@ -447,14 +447,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * @deprecated Use {@link #getPositionInSection} instead.
-     */
-    @Deprecated
-    public int getSectionPosition(final int position) {
-        return getPositionInSection(position);
-    }
-
-    /**
      * Return the item position relative to the section.
      *
      * @param position position of the item in the adapter
