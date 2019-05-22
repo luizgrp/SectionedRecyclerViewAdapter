@@ -51,38 +51,6 @@ public class SectionParametersTest {
     }
 
     @Test
-    public void legacyConstructor_withValidParameters_throwsNoExceptions() {
-        // Given
-        final int itemId = 1;
-        final int footerId = 3;
-        final int loadingId = 5;
-
-        // When
-        @SuppressWarnings("deprecation") // intended for test
-        SectionParameters sectionParameters = new SectionParameters.Builder(itemId)
-                .headerViewWillBeProvided()
-                .footerResourceId(footerId)
-                .failedViewWillBeProvided()
-                .loadingResourceId(loadingId)
-                .emptyViewWillBeProvided()
-                .build();
-
-        // Then
-        assertThat(sectionParameters.itemResourceId, is(itemId));
-        assertThat(sectionParameters.itemViewWillBeProvided, is(false));
-        assertThat(sectionParameters.headerResourceId, is(nullValue()));
-        assertThat(sectionParameters.headerViewWillBeProvided, is(true));
-        assertThat(sectionParameters.footerResourceId, is(footerId));
-        assertThat(sectionParameters.footerViewWillBeProvided, is(false));
-        assertThat(sectionParameters.failedResourceId, is(nullValue()));
-        assertThat(sectionParameters.failedViewWillBeProvided, is(true));
-        assertThat(sectionParameters.loadingResourceId, is(loadingId));
-        assertThat(sectionParameters.loadingViewWillBeProvided, is(false));
-        assertThat(sectionParameters.emptyResourceId, is(nullValue()));
-        assertThat(sectionParameters.emptyViewWillBeProvided, is(true));
-    }
-
-    @Test
     public void constructor_withConflictingItemParameters_throwsException() {
         // Given
         final int itemId = 1;

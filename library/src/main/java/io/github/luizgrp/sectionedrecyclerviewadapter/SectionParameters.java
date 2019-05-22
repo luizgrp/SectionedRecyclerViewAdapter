@@ -106,18 +106,6 @@ public final class SectionParameters {
         }
 
         /**
-         * Constructor with optional parameter for backward compatibility purposes.
-         *
-         * @param itemResourceId layout resource for Section's items
-         *
-         * @deprecated Use {@link #SectionParameters#builder} instead.
-         */
-        @Deprecated
-        public Builder(@LayoutRes final int itemResourceId) {
-            this.itemResourceId = itemResourceId;
-        }
-
-        /**
          * Set layout resource for Section's items.
          *
          * @param itemResourceId layout resource for Section's items
