@@ -158,6 +158,33 @@ public class SectionedRecyclerViewAdapterTest {
     }
 
     @Test
+    public void addSectionUsingIndex_withEmptyAdapter_succeeds() {
+        // Given
+        Section section = new StatelessSectionStub(ITEMS_QTY);
+
+        // When
+        String result = sectionAdapter.addSection(0, section);
+
+        // Then
+        assertThat(sectionAdapter.getSection(result), is(section));
+        assertThat(sectionAdapter.getCopyOfSectionsMap().get(result), is(section));
+    }
+
+    @Test
+    public void addSectionUsingTagAndIndex_withAdapterWithInvisibleSection_succeeds() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addInvisibleStatelessSectionStubToAdapter();
+        Section section = new StatelessSectionStub(ITEMS_QTY);
+
+        // When
+        sectionAdapter.addSection(1, SECTION_TAG, section);
+
+        // Then
+        assertThat(sectionAdapter.getSectionIndex(section), is(1));
+    }
+
+    @Test
     public void getSectionWithTag_withRemovedSection_returnsNull() {
         // Given
         sectionAdapter.addSection(SECTION_TAG, new StatelessSectionStub(ITEMS_QTY));
@@ -293,6 +320,50 @@ public class SectionedRecyclerViewAdapterTest {
 
         // Then
         assertThat(result, is(2));
+    }
+
+    @Test
+    public void givenAdapterWithInvisibleSections_whenGetSectionCount_thenCorrectNumberIsReturned() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addInvisibleStatelessSectionStubToAdapter();
+
+        // When
+        int result = sectionAdapter.getSectionCount();
+
+        // Then
+        assertThat(result, is(2));
+    }
+
+    @Test
+    public void givenAdapterWithInvisibleSections_whenGetSection_thenCorrectSectionIsReturned() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        Section section = addInvisibleStatelessSectionStubToAdapter();
+        addStatelessSectionStubToAdapter();
+
+        // When
+        Section result = sectionAdapter.getSection(1);
+
+        // Then
+        assertThat(result, is(section));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void givenAdapterWithInvisibleSections_whenGetSectionWithInvalidIndex_thenExceptionIsThrown() {
+        // Given
+        addStatelessSectionStubToAdapter();
+        addInvisibleStatelessSectionStubToAdapter();
+        addStatelessSectionStubToAdapter();
+
+        // When
+        sectionAdapter.getSection(3);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void givenEmptyAdapter_whenGetSectionWithInvalidIndex_thenExceptionIsThrown() {
+        // When
+        sectionAdapter.getSection(2);
     }
 
     @Test
@@ -735,9 +806,10 @@ public class SectionedRecyclerViewAdapterTest {
         return sectionStub;
     }
 
-    private void addInvisibleStatelessSectionStubToAdapter() {
+    private Section addInvisibleStatelessSectionStubToAdapter() {
         Section sectionStub = addStatelessSectionStubToAdapter();
         sectionStub.setVisible(false);
+        return sectionStub;
     }
 
     private SectionStub addSectionStubToAdapter() {

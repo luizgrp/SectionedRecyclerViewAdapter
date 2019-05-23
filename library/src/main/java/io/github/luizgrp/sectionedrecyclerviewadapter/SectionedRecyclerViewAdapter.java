@@ -4,14 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.collections4.map.ListOrderedMap;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import static io.github.luizgrp.sectionedrecyclerviewadapter.Section.State;
 
@@ -29,7 +31,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public static final int VIEW_TYPE_FAILED = 4;
     public static final int VIEW_TYPE_EMPTY = 5;
 
-    private final transient Map<String, Section> sections;
+    private final transient ListOrderedMap<String, Section> sections;
     private final transient Map<String, Integer> sectionViewTypeNumbers;
 
     private transient int viewTypeCount;
@@ -38,7 +40,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public SectionedRecyclerViewAdapter() {
         super();
 
-        sections = new LinkedHashMap<>();
+        sections = new ListOrderedMap<>();
         sectionViewTypeNumbers = new LinkedHashMap<>();
     }
 
@@ -191,8 +193,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void addSection(final String tag, final Section section) {
         this.sections.put(tag, section);
-        this.sectionViewTypeNumbers.put(tag, viewTypeCount);
-        viewTypeCount += VIEW_TYPE_QTY;
+        addSectionViewTypeNumbers(tag);
     }
 
     /**
@@ -202,11 +203,47 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @return generated tag
      */
     public String addSection(final Section section) {
-        final String tag = UUID.randomUUID().toString();
+        final String tag = generateSectionTag();
 
         addSection(tag, section);
 
         return tag;
+    }
+
+    /**
+     * Add a section to this recyclerview at the specific index.
+     *
+     * @param index   the index at which the section should be inserted
+     * @param tag     unique identifier of the section
+     * @param section section should be added
+     */
+    public void addSection(final int index, final String tag, final Section section) {
+        this.sections.put(index, tag, section);
+        addSectionViewTypeNumbers(tag);
+    }
+
+    /**
+     * Add a section at the specific position to this recyclerview with a random tag.
+     *
+     * @param index the index at which the section should be inserted
+     * @param section section should be added
+     * @return generated tag
+     */
+    public String addSection(final int index, final Section section) {
+        final String tag = generateSectionTag();
+
+        addSection(index, tag, section);
+
+        return tag;
+    }
+
+    private String generateSectionTag() {
+        return UUID.randomUUID().toString();
+    }
+
+    private void addSectionViewTypeNumbers(final String tag) {
+        this.sectionViewTypeNumbers.put(tag, viewTypeCount);
+        viewTypeCount += VIEW_TYPE_QTY;
     }
 
     /**
@@ -524,7 +561,26 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     @NonNull
     public Map<String, Section> getCopyOfSectionsMap() {
-        return new LinkedHashMap<>(sections);
+        return ListOrderedMap.listOrderedMap(sections);
+    }
+
+    /**
+     * Return the number of sections of this adapter.
+     *
+     * @return number of sections
+     */
+    public int getSectionCount() {
+        return sections.size();
+    }
+
+    /**
+     * Return the Section at the provided index in the adapter.
+     *
+     * @param index index in the adapter
+     * @return Section at the provided index
+     */
+    public Section getSection(final int index) {
+        return sections.getValue(index);
     }
 
     /**
@@ -612,7 +668,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      *
      * @param section section to search for
      * @return the index of the first occurrence of the specified section in this adapter, or -1 if
-     *         this adapter does not contain the section
+     * this adapter does not contain the section
      */
     public int getSectionIndex(final Section section) {
         int index = 0;
