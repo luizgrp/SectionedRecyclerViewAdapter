@@ -2,7 +2,9 @@
 
 An Adapter that allows a RecyclerView to be split into Sections with headers and/or footers.
 
+[![Version](https://api.bintray.com/packages/luizgrp/maven/SectionedRecyclerViewAdapter/images/download.svg)](https://bintray.com/luizgrp/maven/SectionedRecyclerViewAdapter/_latestVersion)
 [![Build Status](https://travis-ci.org/luizgrp/SectionedRecyclerViewAdapter.svg?branch=master)](https://travis-ci.org/luizgrp/SectionedRecyclerViewAdapter)
+[![codecov](https://codecov.io/gh/luizgrp/SectionedRecyclerViewAdapter/branch/master/graph/badge.svg)](https://codecov.io/gh/luizgrp/SectionedRecyclerViewAdapter)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SectionedRecyclerViewAdapter-green.svg?style=true)](https://android-arsenal.com/details/1/3471)
 
 <img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc1.png" width="300" height="533" >
@@ -21,10 +23,8 @@ In addition, each Section can have its state(Loading/Loaded/Failed/Empty) contro
 Add this to the `dependencies` section in your project-level **build.gradle** file:
 
 ```groovy
-compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
+implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:x.y.z'
 ```
-
-If your project has not been migrated to AndroidX yet, you should use version `1.2.0`.
 
 ## Basic usage
 
