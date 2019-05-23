@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: "build_files/static-code-analysis.gradle"
+apply from: "build_files/jacoco.gradle"
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.luizgrp.sectionedrecyclerviewadapter'
