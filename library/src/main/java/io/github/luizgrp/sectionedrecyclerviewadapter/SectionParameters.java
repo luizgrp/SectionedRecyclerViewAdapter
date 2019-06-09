@@ -71,6 +71,8 @@ public final class SectionParameters {
 
     /**
      * Builder static factory method with mandatory parameters of {@link Section} (namely none).
+     *
+     * @return a builder of {@link SectionParameters}
      */
     public static Builder builder() {
         return new Builder();
