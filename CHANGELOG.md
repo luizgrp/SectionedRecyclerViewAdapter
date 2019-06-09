@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.0 - 09/06/2019
+
+### SectionedRecyclerViewAdapter class
+- Add methods `addSection` and `getSection` with index as parameter
+- Add method `getSectionIndex`
+- Add method `getSectionCount`
+- Remove method `getSectionPosition(int)`
+
+### SectionParameters.Builder class
+- Remove constructor with itemResourceId as parameter.
+
 ## 2.0.0 - 06/03/2019
 
 - Update to AndroidX
