@@ -11,9 +11,15 @@ def localReleaseDest = "${buildDir}/release/${version}"
 
 task androidJavadocs(type: Javadoc) {
     failOnError = false
+
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    android.libraryVariants.all { variant ->
+        if (variant.name == 'release') {
+            owner.classpath += variant.javaCompileProvider.get().classpath
+        }
+    }
     source = android.sourceSets.main.java.srcDirs
-    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-    classpath += files(ext.androidJar)
+    exclude '**/R.java', '**/R.*.html', '**/index.html'
 }
 
 task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
