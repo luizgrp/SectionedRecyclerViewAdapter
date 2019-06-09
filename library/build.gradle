@@ -5,7 +5,7 @@ apply from: "build_files/jacoco.gradle"
 ext {
     PUBLISH_GROUP_ID = 'io.github.luizgrp.sectionedrecyclerviewadapter'
     PUBLISH_ARTIFACT_ID = 'sectionedrecyclerviewadapter'
-    PUBLISH_VERSION = '2.0.0'
+    PUBLISH_VERSION = '2.1.0'
 }
 
 android {
