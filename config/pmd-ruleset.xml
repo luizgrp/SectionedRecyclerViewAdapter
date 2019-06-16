@@ -34,6 +34,7 @@
         <exclude name="TooManyMethods" />
         <exclude name="ExcessivePublicCount" />
         <exclude name="AvoidThrowingNullPointerException" />
+        <exclude name="LoosePackageCoupling" />
 
         <!-- Excluded temporarily -->
         <exclude name="CyclomaticComplexity" />
