@@ -17,13 +17,13 @@ android:
   components:
     - tools
     - build-tools-28.0.3
-    - android-28
+    - android-29
     - platform-tools
     - extra-android-m2repository
     - extra-google-m2repository
 
 before_install:
-  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "platforms;android-29"
 
 script:
   ./gradlew build jacocoTestReport
