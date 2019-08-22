@@ -1,20 +1,37 @@
-apply plugin: 'com.android.library'
-apply from: "build_files/static-code-analysis.gradle"
-apply from: "build_files/jacoco.gradle"
-
 ext {
     PUBLISH_GROUP_ID = 'io.github.luizgrp.sectionedrecyclerviewadapter'
     PUBLISH_ARTIFACT_ID = 'sectionedrecyclerviewadapter'
     PUBLISH_VERSION = '2.1.0'
 }
 
+ext.versions = [
+        'compileSdk'                : 29,
+        'buildTools'                : '28.0.3',
+        'targetSdk'                 : 29,
+        'minSdk'                    : 14,
+
+        'androidx_appcompat'        : '1.0.2',
+        'androidx_recyclerview'     : '1.0.0',
+        'apache_commons_collections': '4.3',
+
+        'junit'                     : '4.12',
+        'mockito_core'              : '3.0.0',
+
+        'jacoco'                    : '0.8.3',
+        'checkstyle'                : '8.22'
+]
+
+apply plugin: 'com.android.library'
+apply from: "build_files/static-code-analysis.gradle"
+apply from: "build_files/jacoco.gradle"
+
 android {
-    compileSdkVersion 29
-    buildToolsVersion '28.0.3'
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 29
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
     }
@@ -36,12 +53,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'org.apache.commons:commons-collections4:4.3'
+    implementation "androidx.appcompat:appcompat:${versions.androidx_appcompat}"
+    implementation "androidx.recyclerview:recyclerview:${versions.androidx_recyclerview}"
+    implementation "org.apache.commons:commons-collections4:${versions.apache_commons_collections}"
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:3.0.0"
+    testImplementation "junit:junit:${versions.junit}"
+    testImplementation "org.mockito:mockito-core:${versions.mockito_core}"
 }
 
 apply from: "build_files/android-release-aar.gradle"
