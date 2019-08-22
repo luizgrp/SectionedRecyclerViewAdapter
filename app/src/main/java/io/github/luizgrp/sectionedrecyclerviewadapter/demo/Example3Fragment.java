@@ -73,38 +73,35 @@ public class Example3Fragment extends Fragment {
         section.setHasFooter(false);
         sectionedAdapter.notifyDataSetChanged();
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int failed = new Random().nextInt((3 - 1) + 1) + 1;
+        mHandler.postDelayed(() -> {
+            int failed = new Random().nextInt((3 - 1) + 1) + 1;
 
-                if (failed == 1) {
-                    section.setState(Section.State.FAILED);
-                } else {
-                    int arrayResource;
-                    switch (section.getTopic()) {
-                        case NewsSection.WORLD:
-                            arrayResource = R.array.news_world;
-                            break;
-                        case NewsSection.BUSINESS:
-                            arrayResource = R.array.news_biz;
-                            break;
-                        case NewsSection.TECHNOLOGY:
-                            arrayResource = R.array.news_tech;
-                            break;
-                        case NewsSection.SPORTS:
-                            arrayResource = R.array.news_sports;
-                            break;
-                        default:
-                            throw new IllegalStateException("Invalid topic");
-                    }
-                    section.setList(getNews(arrayResource));
-                    section.setState(Section.State.LOADED);
-                    section.setHasFooter(true);
+            if (failed == 1) {
+                section.setState(Section.State.FAILED);
+            } else {
+                int arrayResource;
+                switch (section.getTopic()) {
+                    case NewsSection.WORLD:
+                        arrayResource = R.array.news_world;
+                        break;
+                    case NewsSection.BUSINESS:
+                        arrayResource = R.array.news_biz;
+                        break;
+                    case NewsSection.TECHNOLOGY:
+                        arrayResource = R.array.news_tech;
+                        break;
+                    case NewsSection.SPORTS:
+                        arrayResource = R.array.news_sports;
+                        break;
+                    default:
+                        throw new IllegalStateException("Invalid topic");
                 }
-
-                sectionedAdapter.notifyDataSetChanged();
+                section.setList(getNews(arrayResource));
+                section.setState(Section.State.LOADED);
+                section.setHasFooter(true);
             }
+
+            sectionedAdapter.notifyDataSetChanged();
         }, timeInMills);
     }
 
@@ -185,16 +182,17 @@ public class Example3Fragment extends Fragment {
             itemHolder.tvDate.setText(item[1]);
             itemHolder.imgItem.setImageResource(imgPlaceholderResId);
 
-            itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(),
-                            String.format("Clicked on position #%s of Section %s",
+            itemHolder.rootView.setOnClickListener(v ->
+                    Toast.makeText(
+                            getContext(),
+                            String.format(
+                                    "Clicked on position #%s of Section %s",
                                     sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
-                                    title),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+                                    title
+                            ),
+                            Toast.LENGTH_SHORT
+                    ).show()
+            );
         }
 
         @Override
@@ -218,12 +216,16 @@ public class Example3Fragment extends Fragment {
         public void onBindFooterViewHolder(RecyclerView.ViewHolder holder) {
             FooterViewHolder footerHolder = (FooterViewHolder) holder;
 
-            footerHolder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on footer of Section %s", title), Toast.LENGTH_SHORT).show();
-                }
-            });
+            footerHolder.rootView.setOnClickListener(v ->
+                    Toast.makeText(
+                            getContext(),
+                            String.format(
+                                    "Clicked on footer of Section %s",
+                                    title
+                            ),
+                            Toast.LENGTH_SHORT
+                    ).show()
+            );
         }
 
         @Override
@@ -235,12 +237,7 @@ public class Example3Fragment extends Fragment {
         public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
             FailedViewHolder footerHeader = (FailedViewHolder) holder;
 
-            footerHeader.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loadNews(NewsSection.this);
-                }
-            });
+            footerHeader.rootView.setOnClickListener(v -> loadNews(NewsSection.this));
         }
     }
 
