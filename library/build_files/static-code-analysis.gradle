@@ -32,5 +32,5 @@ task pmd(type: Pmd) {
 }
 
 dependencies {
-    checkstyle "com.puppycrawl.tools:checkstyle:8.22"
+    checkstyle "com.puppycrawl.tools:checkstyle:${project.versions.checkstyle}"
 }
