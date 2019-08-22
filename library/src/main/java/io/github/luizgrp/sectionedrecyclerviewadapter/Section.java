@@ -320,15 +320,11 @@ public abstract class Section {
         int contentItemsTotal;
 
         switch (state) {
-            case LOADING:
-                contentItemsTotal = 1;
-                break;
             case LOADED:
                 contentItemsTotal = getContentItemsTotal();
                 break;
+            case LOADING:
             case FAILED:
-                contentItemsTotal = 1;
-                break;
             case EMPTY:
                 contentItemsTotal = 1;
                 break;
