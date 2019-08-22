@@ -110,16 +110,17 @@ public class Example2Fragment extends Fragment {
             itemHolder.tvDate.setText(item[1]);
             itemHolder.imgItem.setImageResource(imgPlaceholderResId);
 
-            itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(),
-                            String.format("Clicked on position #%s of Section %s",
+            itemHolder.rootView.setOnClickListener(v ->
+                    Toast.makeText(
+                            getContext(),
+                            String.format(
+                                    "Clicked on position #%s of Section %s",
                                     sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
-                                    title),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+                                    title
+                            ),
+                            Toast.LENGTH_SHORT
+                    ).show()
+            );
         }
 
         @Override
@@ -143,12 +144,16 @@ public class Example2Fragment extends Fragment {
         public void onBindFooterViewHolder(RecyclerView.ViewHolder holder) {
             FooterViewHolder footerHolder = (FooterViewHolder) holder;
 
-            footerHolder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on footer of Section %s", title), Toast.LENGTH_SHORT).show();
-                }
-            });
+            footerHolder.rootView.setOnClickListener(v ->
+                    Toast.makeText(
+                            getContext(),
+                            String.format(
+                                    "Clicked on footer of Section %s",
+                                    title
+                            ),
+                            Toast.LENGTH_SHORT
+                    ).show()
+            );
         }
     }
 

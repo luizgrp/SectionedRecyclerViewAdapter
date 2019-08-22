@@ -136,16 +136,17 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
             itemHolder.tvItem.setText(name);
             itemHolder.imgItem.setImageResource(name.hashCode() % 2 == 0 ? R.drawable.ic_face_black_48dp : R.drawable.ic_tag_faces_black_48dp);
 
-            itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(),
-                            String.format("Clicked on position #%s of Section %s",
+            itemHolder.rootView.setOnClickListener(v ->
+                    Toast.makeText(
+                            getContext(),
+                            String.format(
+                                    "Clicked on position #%s of Section %s",
                                     sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
-                                    title),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+                                    title
+                            ),
+                            Toast.LENGTH_SHORT
+                    ).show()
+            );
         }
 
         @Override

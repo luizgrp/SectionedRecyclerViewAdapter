@@ -4,9 +4,6 @@
     <string name="home_title">Demo</string>
     <string name="home_message">Use the navigation drawer to view an example.</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="nav_stateless">Stateless Section</string>
     <string name="nav_example1">Section with Header</string>
     <string name="nav_example2">Section with Header and Footer</string>

@@ -41,12 +41,10 @@ public class Example6Fragment extends Fragment {
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch (sectionedAdapter.getSectionItemViewType(position)) {
-                    case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
-                        return 2;
-                    default:
-                        return 1;
+                if (sectionedAdapter.getSectionItemViewType(position) == SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER) {
+                    return 2;
                 }
+                return 1;
             }
         });
         recyclerView.setLayoutManager(glm);
@@ -119,14 +117,17 @@ public class Example6Fragment extends Fragment {
             itemHolder.tvItem.setText(name);
             itemHolder.tvSubItem.setText(category);
 
-            itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), String.format("Clicked on position #%s of Section %s",
-                            sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()), title),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+            itemHolder.rootView.setOnClickListener(v ->
+                    Toast.makeText(
+                            getContext(),
+                            String.format(
+                                    "Clicked on position #%s of Section %s",
+                                    sectionedAdapter.getPositionInSection(itemHolder.getAdapterPosition()),
+                                    title
+                            ),
+                            Toast.LENGTH_SHORT
+                    ).show()
+            );
         }
 
         @Override
@@ -140,15 +141,12 @@ public class Example6Fragment extends Fragment {
 
             headerHolder.tvTitle.setText(title);
 
-            headerHolder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    expanded = !expanded;
-                    headerHolder.imgArrow.setImageResource(
-                            expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
-                    );
-                    sectionedAdapter.notifyDataSetChanged();
-                }
+            headerHolder.rootView.setOnClickListener(v -> {
+                expanded = !expanded;
+                headerHolder.imgArrow.setImageResource(
+                        expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
+                );
+                sectionedAdapter.notifyDataSetChanged();
             });
         }
     }
