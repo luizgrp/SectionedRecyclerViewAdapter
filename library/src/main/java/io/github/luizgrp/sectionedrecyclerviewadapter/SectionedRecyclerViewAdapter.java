@@ -287,6 +287,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      */
     public void removeAllSections() {
         this.sections.clear();
+        this.sectionViewTypeNumbers.clear();
+        viewTypeCount = 0;
     }
 
     @Override
