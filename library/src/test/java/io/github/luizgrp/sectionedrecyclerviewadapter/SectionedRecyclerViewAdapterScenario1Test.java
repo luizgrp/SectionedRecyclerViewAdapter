@@ -12,6 +12,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /*
  * Unit tests for SectionedRecyclerViewAdapter
@@ -618,6 +619,24 @@ public class SectionedRecyclerViewAdapterScenario1Test {
     }
 
     @Test
+    public void givenScenario_whenRemoveAllSectionsAndSectionIsAdded_thenFirstPositionHasItemViewTypeZero() {
+        // Given
+        final Section section = mock(Section.class);
+        when(section.isVisible()).thenReturn(true);
+        when(section.hasHeader()).thenReturn(true);
+        when(section.hasFooter()).thenReturn(true);
+        when(section.getSectionItemsTotal()).thenReturn(12);
+        when(section.getState()).thenReturn(Section.State.LOADED);
+
+        // When
+        sectionedRecyclerViewAdapter.removeAllSections();
+        sectionedRecyclerViewAdapter.addSection(section);
+
+        // Then
+        assertThat(sectionedRecyclerViewAdapter.getItemViewType(0), is(0));
+    }
+
+    @Test
     public void givenSectionAtIndex0_whenGetSectionIndex_thenReturnsCorrectIndex() {
         // Given
         final int index = 0;
@@ -667,6 +686,18 @@ public class SectionedRecyclerViewAdapterScenario1Test {
 
         // Then
         assertThat(result, is(index));
+    }
+
+    @Test
+    public void givenInvalidSection_whenGetSectionIndex_thenReturnsMinusOne() {
+        // Given
+        final Section invalidSection = mock(Section.class);
+
+        // When
+        final int result = sectionedRecyclerViewAdapter.getSectionIndex(invalidSection);
+
+        // Then
+        assertThat(result, is(-1));
     }
 
     @Test
