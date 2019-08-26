@@ -573,13 +573,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return -1;
     }
 
-    public SectionAdapter getSectionAdapter(final String tag) {
+    public SectionAdapter getAdapterForSection(final String tag) {
         final Section section = getValidSectionOrThrowException(tag);
 
-        return getSectionAdapter(section);
+        return getAdapterForSection(section);
     }
 
-    public SectionAdapter getSectionAdapter(final Section section) {
+    public SectionAdapter getAdapterForSection(final Section section) {
         return new SectionAdapter(this, section);
     }
 
