@@ -45,7 +45,7 @@ public class SectionedRecyclerViewAdapterEmptyAdapterTest {
     @Test
     public void givenEmptyAdapter_whenAddSectionWithSection_thenSucceeds() {
         // When
-        String result = sectionedRecyclerViewAdapter.addSection(section);
+        final String result = sectionedRecyclerViewAdapter.addSection(section);
 
         // Then
         assertThat(sectionedRecyclerViewAdapter.getSection(result), is(section));
@@ -55,7 +55,7 @@ public class SectionedRecyclerViewAdapterEmptyAdapterTest {
     @Test
     public void givenEmptyAdapter_whenAddSectionWithTag_thenSucceeds() {
         // Given
-        String tag = "tag";
+        final String tag = "tag";
 
         // When
         sectionedRecyclerViewAdapter.addSection(tag, section);
@@ -68,7 +68,7 @@ public class SectionedRecyclerViewAdapterEmptyAdapterTest {
     @Test
     public void givenEmptyAdapter_whenAddSectionWithIndex_thenSucceeds() {
         // When
-        String result = sectionedRecyclerViewAdapter.addSection(0, section);
+        final String result = sectionedRecyclerViewAdapter.addSection(0, section);
 
         // Then
         assertThat(sectionedRecyclerViewAdapter.getSection(result), is(section));
@@ -78,7 +78,7 @@ public class SectionedRecyclerViewAdapterEmptyAdapterTest {
     @Test
     public void givenEmptyAdapter_whenRemoveSectionWithTag_thenFailsSilently() {
         // Given
-        String tag = "tag";
+        final String tag = "tag";
 
         // When
         sectionedRecyclerViewAdapter.removeSection(tag);
@@ -99,7 +99,7 @@ public class SectionedRecyclerViewAdapterEmptyAdapterTest {
     @Test
     public void givenEmptyAdapter_whenGetItemCount_thenReturnsZero() {
         // When
-        int result = sectionedRecyclerViewAdapter.getItemCount();
+        final int result = sectionedRecyclerViewAdapter.getItemCount();
 
         // Then
         assertThat(result, is(0));
@@ -123,7 +123,7 @@ public class SectionedRecyclerViewAdapterEmptyAdapterTest {
     @Test
     public void givenEmptyAdapter_whenGetSectionWithTag_thenReturnsNull() {
         // Given
-        String tag = "tag";
+        final String tag = "tag";
 
         // When
         Section result = sectionedRecyclerViewAdapter.getSection(tag);

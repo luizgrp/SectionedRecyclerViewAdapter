@@ -68,7 +68,7 @@ public class Example8Fragment extends Fragment {
 
         sectionedAdapter.addSection(sectionTag, section);
 
-        int sectionPos = sectionedAdapter.getSectionAdapter(sectionTag).getSectionPosition();
+        int sectionPos = sectionedAdapter.getAdapterForSection(sectionTag).getSectionPosition();
 
         sectionedAdapter.notifyItemInserted(sectionPos);
 
@@ -134,7 +134,7 @@ public class Example8Fragment extends Fragment {
 
                     list.remove(positionInSection);
 
-                    sectionedAdapter.getSectionAdapter(TAG).notifyItemRemoved(positionInSection);
+                    sectionedAdapter.getAdapterForSection(TAG).notifyItemRemoved(positionInSection);
                 }
             });
         }
@@ -166,7 +166,7 @@ public class Example8Fragment extends Fragment {
 
                 list.add(positionToInsertItemAt, getRandomName());
 
-                sectionedAdapter.getSectionAdapter(TAG).notifyItemInserted(positionToInsertItemAt);
+                sectionedAdapter.getAdapterForSection(TAG).notifyItemInserted(positionToInsertItemAt);
             });
 
             headerHolder.btnClear.setOnClickListener(v -> {
@@ -174,7 +174,7 @@ public class Example8Fragment extends Fragment {
 
                 list.clear();
 
-                sectionedAdapter.getSectionAdapter(TAG).notifyItemRangeRemoved(0, contentItemsTotal);
+                sectionedAdapter.getAdapterForSection(TAG).notifyItemRangeRemoved(0, contentItemsTotal);
             });
         }
     }
