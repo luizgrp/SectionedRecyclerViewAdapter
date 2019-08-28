@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -31,6 +32,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     private final transient ListOrderedMap<String, Section> sections;
     private final transient Map<String, Integer> sectionViewTypeNumbers;
+    private final transient Map<Section, SectionAdapter> sectionAdapters;
 
     private transient int viewTypeCount;
     private static final int VIEW_TYPE_QTY = 6;
@@ -40,6 +42,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         sections = new ListOrderedMap<>();
         sectionViewTypeNumbers = new LinkedHashMap<>();
+        sectionAdapters = new HashMap<>();
     }
 
     @NonNull
@@ -184,17 +187,6 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Add a section to this recyclerview.
-     *
-     * @param tag     unique identifier of the section
-     * @param section section to be added
-     */
-    public void addSection(final String tag, final Section section) {
-        this.sections.put(tag, section);
-        addSectionViewTypeNumbers(tag);
-    }
-
-    /**
      * Add a section to this recyclerview with a random tag.
      *
      * @param section section to be added
@@ -209,6 +201,16 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Add a section to this recyclerview.
+     *
+     * @param tag     unique identifier of the section
+     * @param section section to be added
+     */
+    public void addSection(final String tag, final Section section) {
+        addSection(this.sections.size(), tag, section);
+    }
+
+    /**
      * Add a section to this recyclerview at the specific index.
      *
      * @param index   the index at which the section should be inserted
@@ -218,6 +220,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public void addSection(final int index, final String tag, final Section section) {
         this.sections.put(index, tag, section);
         addSectionViewTypeNumbers(tag);
+        sectionAdapters.put(section, new SectionAdapter(this, section));
     }
 
     /**
@@ -278,8 +281,9 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param tag unique identifier of the section
      */
     public void removeSection(final String tag) {
-        this.sections.remove(tag);
+        final Section section = this.sections.remove(tag);
         this.sectionViewTypeNumbers.remove(tag);
+        this.sectionAdapters.remove(section);
     }
 
     /**
@@ -288,7 +292,8 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public void removeAllSections() {
         this.sections.clear();
         this.sectionViewTypeNumbers.clear();
-        viewTypeCount = 0;
+        this.sectionAdapters.clear();
+        this.viewTypeCount = 0;
     }
 
     @Override
@@ -582,7 +587,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public SectionAdapter getAdapterForSection(final Section section) {
-        return new SectionAdapter(this, section);
+        final SectionAdapter sectionAdapter = sectionAdapters.get(section);
+
+        if (sectionAdapter == null) {
+            throw new IllegalArgumentException("Invalid section");
+        }
+
+        return sectionAdapter;
     }
 
     // in order to allow this class to be unit tested
