@@ -1,54 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_item1"
-        android:title="@string/nav_stateless">
-        <menu>
-            <item
-                android:id="@+id/example1Fragment"
-                android:title="@string/nav_example1"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-
-            <item
-                android:id="@+id/example2Fragment"
-                android:title="@string/nav_example2"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-
-            <item
-                android:id="@+id/example4Fragment"
-                android:title="@string/nav_example4"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-
-            <item
-                android:id="@+id/example5Fragment"
-                android:title="@string/nav_example5"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-
-            <item
-                android:id="@+id/example6Fragment"
-                android:title="@string/nav_example6"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-
-            <item
-                android:id="@+id/example7Fragment"
-                android:title="@string/nav_example7"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-
-            <item
-                android:id="@+id/example8Fragment"
-                android:title="@string/nav_example8"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-        </menu>
-    </item>
+        android:id="@+id/example1Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example1" />
 
     <item
-        android:id="@+id/nav_item2"
-        android:title="@string/nav_stateful">
-        <menu>
-            <item
-                android:id="@+id/example3Fragment"
-                android:title="@string/nav_example3"
-                android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"/>
-        </menu>
-    </item>
+        android:id="@+id/example2Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example2" />
+
+    <item
+        android:id="@+id/example3Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example3" />
+
+    <item
+        android:id="@+id/example4Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example4" />
+
+    <item
+        android:id="@+id/example5Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example5" />
+
+    <item
+        android:id="@+id/example6Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example6" />
+
+    <item
+        android:id="@+id/example7Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example7" />
+
+    <item
+        android:id="@+id/example8Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example8" />
+
 </menu>
