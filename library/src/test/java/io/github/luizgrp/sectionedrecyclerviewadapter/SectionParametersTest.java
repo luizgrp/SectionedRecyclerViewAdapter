@@ -18,7 +18,7 @@ public class SectionParametersTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void constructor_withValidParameters_throwsNoExceptions() {
+    public void givenValidParameters_whenBuild_thenSucceeds() {
         // Given
         final int itemId = 1;
         final int footerId = 3;
@@ -51,12 +51,20 @@ public class SectionParametersTest {
     }
 
     @Test
-    public void constructor_withConflictingItemParameters_throwsException() {
+    public void givenNoMandatoryItemParameter_whenBuild_thenThrowsException() {
+        // Expect exception
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Either itemResourceId or itemViewWillBeProvided must be set");
+
+        // When
+        SectionParameters.builder()
+                .build();
+    }
+
+    @Test
+    public void givenConflictingItemParameters_whenBuild_thenThrowsException() {
         // Given
         final int itemId = 1;
-        final int footerId = 3;
-        final int loadingId = 5;
-        final int emptyId = 6;
 
         // Expect exception
         expectedException.expect(IllegalArgumentException.class);
@@ -66,42 +74,32 @@ public class SectionParametersTest {
         SectionParameters.builder()
                 .itemResourceId(itemId)
                 .itemViewWillBeProvided()
-                .headerViewWillBeProvided()
-                .footerResourceId(footerId)
-                .failedViewWillBeProvided()
-                .loadingResourceId(loadingId)
-                .emptyResourceId(emptyId)
                 .build();
     }
 
     @Test
-    public void constructor_withoutMandatoryItemParameter_throwsException() {
+    public void givenConflictingHeaderParameters_whenBuild_thenThrowsException() {
         // Given
-        final int footerId = 3;
-        final int loadingId = 5;
-        final int emptyId = 6;
+        final int itemId = 1;
+        final int headerId = 3;
 
         // Expect exception
         expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Either itemResourceId or itemViewWillBeProvided must be set");
+        expectedException.expectMessage("headerResourceId and headerViewWillBeProvided cannot both be set");
 
         // When
         SectionParameters.builder()
+                .itemResourceId(itemId)
                 .headerViewWillBeProvided()
-                .footerResourceId(footerId)
-                .failedViewWillBeProvided()
-                .loadingResourceId(loadingId)
-                .emptyResourceId(emptyId)
+                .headerResourceId(headerId)
                 .build();
     }
 
     @Test
-    public void constructor_withConflictingFooterParameters_throwsException() {
+    public void givenConflictingFooterParameters_whenBuild_thenThrowsException() {
         // Given
         final int itemId = 1;
         final int footerId = 3;
-        final int loadingId = 5;
-        final int emptyId = 6;
 
         // Expect exception
         expectedException.expect(IllegalArgumentException.class);
@@ -110,13 +108,62 @@ public class SectionParametersTest {
         // When
         SectionParameters.builder()
                 .itemResourceId(itemId)
-                .headerViewWillBeProvided()
                 .footerResourceId(footerId)
                 .footerViewWillBeProvided()
-                .failedViewWillBeProvided()
-                .loadingResourceId(loadingId)
-                .emptyResourceId(emptyId)
                 .build();
     }
 
+    @Test
+    public void givenConflictingLoadingParameters_whenBuild_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+        final int loadingId = 5;
+
+        // Expect exception
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("loadingResourceId and loadingViewWillBeProvided cannot both be set");
+
+        // When
+        SectionParameters.builder()
+                .itemResourceId(itemId)
+                .loadingResourceId(loadingId)
+                .loadingViewWillBeProvided()
+                .build();
+    }
+
+    @Test
+    public void givenConflictingFailedParameters_whenBuild_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+        final int failedId = 6;
+
+        // Expect exception
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("failedResourceId and failedViewWillBeProvided cannot both be set");
+
+        // When
+        SectionParameters.builder()
+                .itemResourceId(itemId)
+                .failedResourceId(failedId)
+                .failedViewWillBeProvided()
+                .build();
+    }
+
+    @Test
+    public void givenConflictingEmptyParameters_whenBuild_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+        final int emptyId = 6;
+
+        // Expect exception
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("emptyResourceId and emptyViewWillBeProvided cannot both be set");
+
+        // When
+        SectionParameters.builder()
+                .itemResourceId(itemId)
+                .emptyResourceId(emptyId)
+                .emptyViewWillBeProvided()
+                .build();
+    }
 }
