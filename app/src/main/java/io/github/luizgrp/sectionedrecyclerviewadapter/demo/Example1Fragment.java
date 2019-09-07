@@ -16,9 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
-import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example1Fragment extends Fragment {
 
@@ -58,7 +58,7 @@ public class Example1Fragment extends Fragment {
         return contacts;
     }
 
-    private class ContactsSection extends StatelessSection {
+    private class ContactsSection extends Section {
 
         final String title;
         final List<String> list;
