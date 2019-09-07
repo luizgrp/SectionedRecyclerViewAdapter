@@ -4,15 +4,13 @@
     <string name="home_title">Demo</string>
     <string name="home_message">Use the navigation drawer to view an example.</string>
 
-    <string name="nav_stateless">Stateless Section</string>
     <string name="nav_example1">Section with Header</string>
     <string name="nav_example2">Section with Header and Footer</string>
+    <string name="nav_example3">Section with States</string>
     <string name="nav_example4">Expandable Section</string>
     <string name="nav_example5">Grid Section with Header</string>
     <string name="nav_example6">Expandable Grid Section</string>
     <string name="nav_example7">SearchView with Sections</string>
-    <string name="nav_stateful">Stateful Section</string>
-    <string name="nav_example3">Section with Header and Footer</string>
     <string name="nav_example8">Animations</string>
 
     <string name="action_search">Search</string>
