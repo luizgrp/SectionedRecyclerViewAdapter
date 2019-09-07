@@ -10,7 +10,7 @@ ext.versions = [
         'targetSdk'                 : 29,
         'minSdk'                    : 14,
 
-        'androidx_appcompat'        : '1.0.2',
+        'androidx_appcompat'        : '1.1.0',
         'androidx_recyclerview'     : '1.0.0',
         'apache_commons_collections': '4.3',
 
