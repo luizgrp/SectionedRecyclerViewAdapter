@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
-import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example7Fragment extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -100,7 +99,7 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
         return contacts;
     }
 
-    private class ContactsSection extends StatelessSection implements FilterableSection {
+    private class ContactsSection extends Section implements FilterableSection {
 
         final String title;
         final List<String> list;

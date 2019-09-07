@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
-import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
 public class Example8Fragment extends Fragment {
 
@@ -88,7 +88,7 @@ public class Example8Fragment extends Fragment {
         return new Person(randomName[0], "ID #" + getRandomStringNumber());
     }
 
-    private class NameSection extends StatelessSection {
+    private class NameSection extends Section {
 
         final String TAG;
         final String title;

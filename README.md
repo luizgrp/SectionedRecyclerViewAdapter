@@ -28,10 +28,10 @@ implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecycler
 
 ## Basic usage
 
-##### 1) Create a custom Section class extending StatelessSection
+##### 1) Create a custom section class:
 
 ```java
-class MySection extends StatelessSection {
+class MySection extends Section {
     List<String> itemList = Arrays.asList("Item1", "Item2", "Item3");
 
     public MySection() {
@@ -77,7 +77,7 @@ class MyItemViewHolder extends RecyclerView.ViewHolder {
 }
 ```
 
-##### 3) Set up your ReclyclerView with the SectionedRecyclerViewAdapter
+##### 3) Set up your RecyclerView with the SectionedRecyclerViewAdapter:
 
 ```java
 // Create an instance of SectionedRecyclerViewAdapter
@@ -102,7 +102,6 @@ You can find a demo app [here](app).
 
 Please check the implementation of the examples:
 
-Stateless Section
 - [Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example1Fragment.java)
 - [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example2Fragment.java)
 - [Expandable Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example4Fragment.java)
@@ -110,9 +109,7 @@ Stateless Section
 - [Expandable Grid Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example6Fragment.java)
 - [SearchView with Sections](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example7Fragment.java)
 - [Animations](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example8Fragment.java)
-
-Stateful Section
-- [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
+- [Section with States](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
 
 ## Apps on Google Play using this library
 
