@@ -187,6 +187,120 @@ public class SectionTest {
         section.setState(State.EMPTY);
     }
 
+    @Test
+    public void givenSection_whenGetItemView_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // Expect exception
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("You need to implement getItemView() if you set itemViewWillBeProvided");
+
+        // When
+        section.getItemView(null);
+    }
+
+    @Test
+    public void givenSection_whenGetHeaderView_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // Expect exception
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("You need to implement getHeaderView() if you set headerViewWillBeProvided");
+
+        // When
+        section.getHeaderView(null);
+    }
+
+    @Test
+    public void givenSection_whenGetFooterView_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // Expect exception
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("You need to implement getFooterView() if you set footerViewWillBeProvided");
+
+        // When
+        section.getFooterView(null);
+    }
+
+    @Test
+    public void givenSection_whenGetLoadingView_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // Expect exception
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("You need to implement getLoadingView() if you set loadingViewWillBeProvided");
+
+        // When
+        section.getLoadingView(null);
+    }
+
+    @Test
+    public void givenSection_whenGetFailedView_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // Expect exception
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("You need to implement getFailedView() if you set failedViewWillBeProvided");
+
+        // When
+        section.getFailedView(null);
+    }
+
+    @Test
+    public void givenSection_whenGetEmptyView_thenThrowsException() {
+        // Given
+        final int itemId = 1;
+
+        @SuppressWarnings("ResourceType")
+        SectionParameters sectionParameters = SectionParameters.builder()
+                .itemResourceId(itemId)
+                .build();
+        Section section = getSection(sectionParameters);
+
+        // Expect exception
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("You need to implement getEmptyView() if you set emptyViewWillBeProvided");
+
+        // When
+        section.getEmptyView(null);
+    }
+
     private Section getSection(SectionParameters sectionParameters) {
         return new Section(sectionParameters) {
             @Override

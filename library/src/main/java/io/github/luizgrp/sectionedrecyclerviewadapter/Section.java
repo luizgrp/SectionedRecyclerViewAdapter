@@ -5,7 +5,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.recyclerview.widget.RecyclerView;
-import io.github.luizgrp.sectionedrecyclerviewadapter.utils.EmptyViewHolder;
 
 /**
  * Abstract Section to be used with {@link SectionedRecyclerViewAdapter}.
@@ -389,7 +388,8 @@ public abstract class Section {
      * @return ViewHolder for the Header of this Section
      */
     public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
-        return new EmptyViewHolder(view);
+        throw new UnsupportedOperationException(
+                "You need to implement getHeaderViewHolder() if you set headerResourceId");
     }
 
     /**
@@ -421,7 +421,8 @@ public abstract class Section {
      * @return ViewHolder for the Footer of this Section
      */
     public RecyclerView.ViewHolder getFooterViewHolder(final View view) {
-        return new EmptyViewHolder(view);
+        throw new UnsupportedOperationException(
+                "You need to implement getFooterViewHolder() if you set footerResourceId");
     }
 
     /**
@@ -453,7 +454,8 @@ public abstract class Section {
      * @return ViewHolder for the Loading state of this Section
      */
     public RecyclerView.ViewHolder getLoadingViewHolder(final View view) {
-        return new EmptyViewHolder(view);
+        throw new UnsupportedOperationException(
+                "You need to implement getLoadingViewHolder() if you set loadingResourceId");
     }
 
     /**
@@ -485,7 +487,8 @@ public abstract class Section {
      * @return ViewHolder for the Failed of this Section
      */
     public RecyclerView.ViewHolder getFailedViewHolder(final View view) {
-        return new EmptyViewHolder(view);
+        throw new UnsupportedOperationException(
+                "You need to implement getFailedViewHolder() if you set failedResourceId");
     }
 
     /**
@@ -517,7 +520,8 @@ public abstract class Section {
      * @return ViewHolder for the Empty of this Section
      */
     public RecyclerView.ViewHolder getEmptyViewHolder(final View view) {
-        return new EmptyViewHolder(view);
+        throw new UnsupportedOperationException(
+                "You need to implement getEmptyViewHolder() if you set emptyResourceId");
     }
 
     /**
