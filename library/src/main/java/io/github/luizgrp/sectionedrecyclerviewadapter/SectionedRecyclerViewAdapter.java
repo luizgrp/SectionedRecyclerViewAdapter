@@ -598,7 +598,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     // in order to allow this class to be unit tested
     @VisibleForTesting
-    View inflate(@LayoutRes final int layoutResourceId, final ViewGroup parent) {
+    public View inflate(@LayoutRes final int layoutResourceId, final ViewGroup parent) {
         return LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
     }
 
