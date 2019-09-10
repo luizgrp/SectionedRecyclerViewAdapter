@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 /**
@@ -13,7 +14,7 @@ interface SectionNotifier {
      *
      * @param position position of the item in the section
      */
-    void notifyItemInserted(int position);
+    void notifyItemInserted(final int position);
 
     /**
      * Helper method that calculates the relative position of all items of this section in the
@@ -28,7 +29,7 @@ interface SectionNotifier {
      * @param positionStart position of the first item that was inserted in the section
      * @param itemCount     number of items inserted in the section
      */
-    void notifyItemRangeInserted(int positionStart, int itemCount);
+    void notifyItemRangeInserted(final int positionStart, final int itemCount);
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
@@ -36,7 +37,7 @@ interface SectionNotifier {
      *
      * @param position position of the item in the section
      */
-    void notifyItemRemoved(int position);
+    void notifyItemRemoved(final int position);
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
@@ -45,7 +46,7 @@ interface SectionNotifier {
      * @param positionStart previous position of the first item that was removed from the section
      * @param itemCount     number of items removed from the section
      */
-    void notifyItemRangeRemoved(int positionStart, int itemCount);
+    void notifyItemRangeRemoved(final int positionStart, final int itemCount);
 
     /**
      * Helper method that calculates the relative header position in the adapter and calls
@@ -54,10 +55,26 @@ interface SectionNotifier {
     void notifyHeaderChanged();
 
     /**
+     * Helper method that calculates the relative header position in the adapter and calls
+     * {@link Adapter#notifyItemChanged}.
+     *
+     * @param payload optional parameter, use null to identify a "full" update
+     */
+    void notifyHeaderChanged(@Nullable final Object payload);
+
+    /**
      * Helper method that calculates the relative footer position in the adapter and calls
      * {@link Adapter#notifyItemChanged}.
      */
     void notifyFooterChanged();
+
+    /**
+     * Helper method that calculates the relative footer position in the adapter and calls
+     * {@link Adapter#notifyItemChanged}.
+     *
+     * @param payload optional parameter, use null to identify a "full" update
+     */
+    void notifyFooterChanged(@Nullable final Object payload);
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
@@ -65,7 +82,16 @@ interface SectionNotifier {
      *
      * @param position position of the item in the section
      */
-    void notifyItemChanged(int position);
+    void notifyItemChanged(final int position);
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link Adapter#notifyItemChanged}.
+     *
+     * @param position position of the item in the section
+     * @param payload  optional parameter, use null to identify a "full" update
+     */
+    void notifyItemChanged(final int position, @Nullable final Object payload);
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
@@ -77,10 +103,18 @@ interface SectionNotifier {
      * Helper method that receives position in relation to the section, calculates the relative
      * position in the adapter and calls {@link Adapter#notifyItemRangeChanged}.
      *
+     * @param payload  optional parameter, use null to identify a "full" update
+     */
+    void notifyAllItemsChanged(@Nullable final Object payload);
+
+    /**
+     * Helper method that receives position in relation to the section, calculates the relative
+     * position in the adapter and calls {@link Adapter#notifyItemRangeChanged}.
+     *
      * @param positionStart position of the first item that was changed in the section
      * @param itemCount     number of items changed in the section
      */
-    void notifyItemRangeChanged(int positionStart, int itemCount);
+    void notifyItemRangeChanged(final int positionStart, final int itemCount);
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
@@ -90,7 +124,7 @@ interface SectionNotifier {
      * @param itemCount     number of items inserted in the section
      * @param payload       optional parameter, use null to identify a "full" update
      */
-    void notifyItemRangeChanged(int positionStart, int itemCount, Object payload);
+    void notifyItemRangeChanged(final int positionStart, final int itemCount, @Nullable final Object payload);
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative
@@ -99,7 +133,7 @@ interface SectionNotifier {
      * @param fromPosition previous position of the item in the section
      * @param toPosition   new position of the item in the section
      */
-    void notifyItemMoved(int fromPosition, int toPosition);
+    void notifyItemMoved(final int fromPosition, final int toPosition);
 
     /**
      * Helper method that calls {@link Adapter#notifyItemChanged} with the position of the {@link Section.State}
@@ -108,7 +142,7 @@ interface SectionNotifier {
      *
      * @param previousState previous state of section
      */
-    void notifyNotLoadedStateChanged(Section.State previousState);
+    void notifyNotLoadedStateChanged(final Section.State previousState);
 
     /**
      * Helper method that calls {@link Adapter#notifyItemChanged} and {@link Adapter#notifyItemInserted} with
@@ -117,7 +151,7 @@ interface SectionNotifier {
      *
      * @param previousState previous state of section
      */
-    void notifyStateChangedToLoaded(Section.State previousState);
+    void notifyStateChangedToLoaded(final Section.State previousState);
 
     /**
      * Helper method that calls {@link Adapter#notifyItemRangeRemoved} and {@link Adapter#notifyItemChanged} with
@@ -126,7 +160,7 @@ interface SectionNotifier {
      *
      * @param previousContentItemsCount previous content items count of section
      */
-    void notifyStateChangedFromLoaded(int previousContentItemsCount);
+    void notifyStateChangedFromLoaded(final int previousContentItemsCount);
 
     /**
      * Helper method that calls {@link Adapter#notifyItemInserted} with the position of the section's
@@ -170,5 +204,5 @@ interface SectionNotifier {
      *
      * @param previousSectionPosition previous section position
      */
-    void notifySectionChangedToInvisible(int previousSectionPosition);
+    void notifySectionChangedToInvisible(final int previousSectionPosition);
 }
