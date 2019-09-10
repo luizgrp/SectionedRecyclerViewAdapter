@@ -3,7 +3,10 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -53,7 +56,7 @@ public abstract class Section {
      *
      * @param sectionParameters section parameters
      */
-    public Section(final SectionParameters sectionParameters) {
+    public Section(@NonNull final SectionParameters sectionParameters) {
         this.itemResourceId = sectionParameters.itemResourceId;
         this.headerResourceId = sectionParameters.headerResourceId;
         this.footerResourceId = sectionParameters.footerResourceId;
@@ -284,32 +287,6 @@ public abstract class Section {
     }
 
     /**
-     * Bind the data to the ViewHolder for the Content of this Section, that can be the Items,
-     * Loading view or Failed view, depending on the current state of the section.
-     *
-     * @param holder   ViewHolder for the Content of this Section
-     * @param position position of the item in the Section, not in the RecyclerView
-     */
-    public final void onBindContentViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        switch (state) {
-            case LOADING:
-                onBindLoadingViewHolder(holder);
-                break;
-            case LOADED:
-                onBindItemViewHolder(holder, position);
-                break;
-            case FAILED:
-                onBindFailedViewHolder(holder);
-                break;
-            case EMPTY:
-                onBindEmptyViewHolder(holder);
-                break;
-            default:
-                throw new IllegalStateException("Invalid state");
-        }
-    }
-
-    /**
      * Return the total of items of this Section, including content items (according to the section
      * state) plus header and footer.
      *
@@ -370,6 +347,18 @@ public abstract class Section {
     public abstract void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position);
 
     /**
+     * Bind the data to the ViewHolder for an Item of this Section.
+     *
+     * @param holder   ViewHolder for the Item of this Section
+     * @param position position of the item in the Section, not in the RecyclerView
+     * @param payloads A non-null and non-empty list of merged payloads.
+     */
+    public void onBindItemViewHolder(final RecyclerView.ViewHolder holder, final int position,
+                                     @SuppressWarnings("unused") final List<Object> payloads) {
+        this.onBindItemViewHolder(holder, position);
+    }
+
+    /**
      * Creates the View for the Header. This must be implemented if and only if
      * {@link #isHeaderViewWillBeProvided()} is true.
      *
@@ -400,6 +389,18 @@ public abstract class Section {
     @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
     public void onBindHeaderViewHolder(final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
+    }
+
+    /**
+     * Bind the data to the ViewHolder for the Header of this Section.
+     *
+     * @param holder   ViewHolder for the Header of this Section
+     * @param payloads A non-null and non-empty list of merged payloads.
+     */
+    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
+    public void onBindHeaderViewHolder(final RecyclerView.ViewHolder holder,
+                                       @SuppressWarnings("unused") final List<Object> payloads) {
+        this.onBindHeaderViewHolder(holder);
     }
 
     /**
@@ -436,6 +437,18 @@ public abstract class Section {
     }
 
     /**
+     * Bind the data to the ViewHolder for the Footer of this Section.
+     *
+     * @param holder   ViewHolder for the Footer of this Section
+     * @param payloads A non-null and non-empty list of merged payloads.
+     */
+    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
+    public void onBindFooterViewHolder(final RecyclerView.ViewHolder holder,
+                                       @SuppressWarnings("unused") final List<Object> payloads) {
+        this.onBindFooterViewHolder(holder);
+    }
+
+    /**
      * Creates the View for the Loading state. This must be implemented if and only if
      * {@link #isLoadingViewWillBeProvided()} is true.
      *
@@ -464,8 +477,20 @@ public abstract class Section {
      * @param holder ViewHolder for the Loading state of this Section
      */
     @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
-    public void onBindLoadingViewHolder(final RecyclerView.ViewHolder holder) {
+    public void onBindLoadingViewHolder(@SuppressWarnings("unused") final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
+    }
+
+    /**
+     * Bind the data to the ViewHolder for Loading state of this Section.
+     *
+     * @param holder ViewHolder for the Loading state of this Section
+     * @param payloads A non-null and non-empty list of merged payloads.
+     */
+    @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
+    public void onBindLoadingViewHolder(final RecyclerView.ViewHolder holder,
+                                        @SuppressWarnings("unused") final List<Object> payloads) {
+        this.onBindLoadingViewHolder(holder);
     }
 
     /**
@@ -502,6 +527,18 @@ public abstract class Section {
     }
 
     /**
+     * Bind the data to the ViewHolder for the Failed state of this Section.
+     *
+     * @param holder ViewHolder for the Failed state of this Section
+     * @param payloads A non-null and non-empty list of merged payloads.
+     */
+    @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
+    public void onBindFailedViewHolder(final RecyclerView.ViewHolder holder,
+                                       @SuppressWarnings("unused") final List<Object> payloads) {
+        this.onBindFailedViewHolder(holder);
+    }
+
+    /**
      * Creates the View for the Empty state. This must be implemented if and only if
      * {@link #isEmptyViewWillBeProvided()} is true.
      *
@@ -530,7 +567,19 @@ public abstract class Section {
      * @param holder ViewHolder for the Empty state of this Section
      */
     @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
-    public void onBindEmptyViewHolder(final RecyclerView.ViewHolder holder) {
+    public void onBindEmptyViewHolder(@SuppressWarnings("unused") final RecyclerView.ViewHolder holder) {
         // Nothing to bind here.
+    }
+
+    /**
+     * Bind the data to the ViewHolder for the Empty state of this Section.
+     *
+     * @param holder ViewHolder for the Empty state of this Section
+     * @param payloads A non-null and non-empty list of merged payloads.
+     */
+    @SuppressWarnings({"EmptyMethod", "PMD.EmptyMethodInAbstractClassShouldBeAbstract"})
+    public void onBindEmptyViewHolder(final RecyclerView.ViewHolder holder,
+                                      @SuppressWarnings("unused") final List<Object> payloads) {
+        this.onBindEmptyViewHolder(holder);
     }
 }

@@ -111,6 +111,18 @@ public class SectionNotifierScenario1Test {
     }
 
     @Test
+    public void givenPayload_whenNotifyHeaderChanged_thenNotifyHeaderChangedWithPositionInAdapterAndPayload() {
+        // Given
+        final Object payload = new Object();
+
+        // When
+        cut.notifyHeaderChanged(payload);
+
+        // Then
+        verify(sectionedAdapter).notifyItemChanged(scenario.getSectionHeaderPositionInAdapter(), payload);
+    }
+
+    @Test
     public void givenScenario_whenNotifyFooterChanged_thenNotifyFooterChangedWithAdapterPosition() {
         // Given
 
@@ -122,6 +134,18 @@ public class SectionNotifierScenario1Test {
     }
 
     @Test
+    public void givenPayload_whenNotifyFooterChanged_thenNotifyFooterChangedWithAdapterPositionAndPayload() {
+        // Given
+        final Object payload = new Object();
+
+        // When
+        cut.notifyFooterChanged(payload);
+
+        // Then
+        verify(sectionedAdapter).notifyItemChanged(scenario.getSectionFooterPositionInAdapter(), payload);
+    }
+
+    @Test
     public void givenScenario_whenNotifyItemChanged_thenNotifyItemChangedWithPositionInAdapter() {
         // Given
 
@@ -130,6 +154,18 @@ public class SectionNotifierScenario1Test {
 
         // Then
         verify(sectionedAdapter).notifyItemChanged(scenario.getFirstSectionContentItemPositionInAdapter());
+    }
+
+    @Test
+    public void givenPayload_whenNotifyItemChanged_thenNotifyItemChangedWithPositionInAdapterAndPayload() {
+        // Given
+        final Object payload = new Object();
+
+        // When
+        cut.notifyItemChanged(scenario.getFirstSectionItemPositionInSection(), payload);
+
+        // Then
+        verify(sectionedAdapter).notifyItemChanged(scenario.getFirstSectionContentItemPositionInAdapter(), payload);
     }
 
     @Test
@@ -147,6 +183,22 @@ public class SectionNotifierScenario1Test {
     }
 
     @Test
+    public void givenPayload_whenNotifyAllItemsChanged_thenNotifyItemRangeChangedWithPositionRangeInAdapterAndPayload() {
+        // Given
+        final Object payload = new Object();
+
+        // When
+        cut.notifyAllItemsChanged(payload);
+
+        // Then
+        verify(sectionedAdapter).notifyItemRangeChanged(
+                scenario.getFirstSectionContentItemPositionInAdapter(),
+                scenario.getSectionContentItemsTotal(),
+                payload
+        );
+    }
+
+    @Test
     public void givenScenario_whenNotifyItemRangeChanged_thenNotifyItemRangeChangedWithPositionRangeInAdapter() {
         // Given
         int sectionItemCount = 4;
@@ -159,7 +211,7 @@ public class SectionNotifierScenario1Test {
     }
 
     @Test
-    public void givenScenario_whenNotifyItemRangeChanged_thenNotifyItemRangeChangedWithPositionRangeInAdapterAndPayload() {
+    public void givenPayload_whenNotifyItemRangeChanged_thenNotifyItemRangeChangedWithPositionRangeInAdapterAndPayload() {
         // Given
         int sectionItemCount = 4;
         Object payload = mock(Object.class);

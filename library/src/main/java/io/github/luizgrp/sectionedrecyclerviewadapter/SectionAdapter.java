@@ -2,11 +2,12 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
 
 import java.util.Map;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 /**
  * This class represents a {@link Section Section} in the {@link SectionedRecyclerViewAdapter SectionedRecyclerViewAdapter}.
- *
+ * <p>
  * It provides helper methods for:
  * <ul>
  * <li>identifying position of this {@link Section Section}'s items in the {@link SectionedRecyclerViewAdapter SectionedRecyclerViewAdapter}</li>
@@ -25,7 +26,7 @@ public class SectionAdapter implements SectionPositionIdentifier, SectionNotifie
     }
 
     @VisibleForTesting
-    /* default */ Section getSection() {
+        /* default */ Section getSection() {
         return section;
     }
 
@@ -121,8 +122,18 @@ public class SectionAdapter implements SectionPositionIdentifier, SectionNotifie
     }
 
     @Override
+    public void notifyHeaderChanged(@Nullable final Object payload) {
+        sectionedAdapter.notifyItemChanged(getHeaderPosition(), payload);
+    }
+
+    @Override
     public void notifyFooterChanged() {
         sectionedAdapter.notifyItemChanged(getFooterPosition());
+    }
+
+    @Override
+    public void notifyFooterChanged(@Nullable final Object payload) {
+        sectionedAdapter.notifyItemChanged(getFooterPosition(), payload);
     }
 
     @Override
@@ -131,10 +142,24 @@ public class SectionAdapter implements SectionPositionIdentifier, SectionNotifie
     }
 
     @Override
+    public void notifyItemChanged(final int position, @Nullable final Object payload) {
+        sectionedAdapter.notifyItemChanged(getPositionInAdapter(position), payload);
+    }
+
+    @Override
     public void notifyAllItemsChanged() {
         sectionedAdapter.notifyItemRangeChanged(
                 getPositionInAdapter(0),
                 section.getContentItemsTotal()
+        );
+    }
+
+    @Override
+    public void notifyAllItemsChanged(@Nullable final Object payload) {
+        sectionedAdapter.notifyItemRangeChanged(
+                getPositionInAdapter(0),
+                section.getContentItemsTotal(),
+                payload
         );
     }
 
@@ -147,7 +172,7 @@ public class SectionAdapter implements SectionPositionIdentifier, SectionNotifie
     }
 
     @Override
-    public void notifyItemRangeChanged(final int positionStart, final int itemCount, final Object payload) {
+    public void notifyItemRangeChanged(final int positionStart, final int itemCount, @Nullable final Object payload) {
         sectionedAdapter.notifyItemRangeChanged(
                 getPositionInAdapter(positionStart),
                 itemCount,

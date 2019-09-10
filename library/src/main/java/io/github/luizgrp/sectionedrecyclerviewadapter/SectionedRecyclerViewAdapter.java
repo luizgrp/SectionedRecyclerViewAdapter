@@ -8,6 +8,7 @@ import org.apache.commons.collections4.map.ListOrderedMap;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -298,6 +299,23 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+        internalOnBindViewHolder(holder, position, null);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position,
+                                 @NonNull final List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            // empty list requires full update as per documentation
+            super.onBindViewHolder(holder, position, payloads);
+            return;
+        }
+
+        internalOnBindViewHolder(holder, position, payloads);
+    }
+
+    private void internalOnBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,
+                                          final int position, final List<Object> payloads) {
 
         int currentPos = 0;
 
@@ -317,7 +335,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 if (section.hasHeader()) {
                     if (position == currentPos) {
                         // delegate the binding to the section header
-                        getSectionForPosition(position).onBindHeaderViewHolder(holder);
+                        if (payloads == null) {
+                            getSectionForPosition(position).onBindHeaderViewHolder(holder);
+                        } else {
+                            getSectionForPosition(position).onBindHeaderViewHolder(holder, payloads);
+                        }
                         return;
                     }
                 }
@@ -325,13 +347,17 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 if (section.hasFooter()) {
                     if (position == currentPos + sectionTotal - 1) {
                         // delegate the binding to the section header
-                        getSectionForPosition(position).onBindFooterViewHolder(holder);
+                        if (payloads == null) {
+                            getSectionForPosition(position).onBindFooterViewHolder(holder);
+                        } else {
+                            getSectionForPosition(position).onBindFooterViewHolder(holder, payloads);
+                        }
                         return;
                     }
                 }
 
                 // delegate the binding to the section content
-                getSectionForPosition(position).onBindContentViewHolder(holder, getPositionInSection(position));
+                onBindContentViewHolder(getSectionForPosition(position), holder, position, payloads);
                 return;
             }
 
@@ -339,6 +365,44 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
 
         throw new IndexOutOfBoundsException("Invalid position");
+    }
+
+    private void onBindContentViewHolder(@NonNull final Section section,
+                                         @NonNull final RecyclerView.ViewHolder holder,
+                                         final int position,
+                                         final List<Object> payloads) {
+        switch (section.getState()) {
+            case LOADING:
+                if (payloads == null) {
+                    section.onBindLoadingViewHolder(holder);
+                } else {
+                    section.onBindLoadingViewHolder(holder, payloads);
+                }
+                break;
+            case LOADED:
+                if (payloads == null) {
+                    section.onBindItemViewHolder(holder, getPositionInSection(position));
+                } else {
+                    section.onBindItemViewHolder(holder, getPositionInSection(position), payloads);
+                }
+                break;
+            case FAILED:
+                if (payloads == null) {
+                    section.onBindFailedViewHolder(holder);
+                } else {
+                    section.onBindFailedViewHolder(holder, payloads);
+                }
+                break;
+            case EMPTY:
+                if (payloads == null) {
+                    section.onBindEmptyViewHolder(holder);
+                } else {
+                    section.onBindEmptyViewHolder(holder, payloads);
+                }
+                break;
+            default:
+                throw new IllegalStateException("Invalid state");
+        }
     }
 
     @Override

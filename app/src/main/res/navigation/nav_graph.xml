@@ -75,4 +75,9 @@
         android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.Example8Fragment"
         android:label="@string/nav_example8"
         tools:layout="@layout/fragment_ex8" />
+    <fragment
+        android:id="@+id/example9Fragment"
+        android:name="io.github.luizgrp.sectionedrecyclerviewadapter.demo.example9.Example9Fragment"
+        android:label="@string/nav_example9"
+        tools:layout="@layout/fragment_ex9" />
 </navigation>

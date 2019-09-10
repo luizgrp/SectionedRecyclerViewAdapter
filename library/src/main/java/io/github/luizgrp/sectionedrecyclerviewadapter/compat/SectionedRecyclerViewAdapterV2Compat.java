@@ -1,8 +1,5 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.compat;
 
-import android.view.View;
-
-import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
@@ -10,7 +7,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapt
 /**
  * This is an implementation of {@link SectionedRecyclerViewAdapter SectionedRecyclerViewAdapter}
  * to help migrating to version 3.0.0 if you don't have much time to update your current code.
- *
+ * <p>
  * All the methods from this class where moved to class {@link SectionAdapter SectionAdapter}.
  * In order to retrieve a SectionAdapter from SectionedRecyclerViewAdapter, use the method
  * {@link SectionedRecyclerViewAdapter#getAdapterForSection(Section)} getAdapterForSection}.
@@ -217,17 +214,5 @@ public class SectionedRecyclerViewAdapterV2Compat extends SectionedRecyclerViewA
 
     public void notifyStateChangedToLoaded(final String tag, final Section.State previousState) {
         getAdapterForSection(tag).notifyStateChangedToLoaded(previousState);
-    }
-
-    /**
-     * A concrete class of an empty ViewHolder.
-     * Should be used to avoid the boilerplate of creating a ViewHolder class for simple case
-     * scenarios.
-     */
-    @SuppressWarnings("unused")
-    public static class EmptyViewHolder extends RecyclerView.ViewHolder {
-        public EmptyViewHolder(final View itemView) {
-            super(itemView);
-        }
     }
 }
