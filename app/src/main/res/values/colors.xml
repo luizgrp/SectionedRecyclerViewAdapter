@@ -6,6 +6,8 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="green">#008000</color>
+    <color name="red">#FF0000</color>
     <color name="dark_grey">#484547</color>
 
     <color name="app_background_color">#FAFAFA</color>

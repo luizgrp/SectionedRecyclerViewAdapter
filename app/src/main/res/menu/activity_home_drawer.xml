@@ -40,4 +40,9 @@
         android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
         android:title="@string/nav_example8" />
 
+    <item
+        android:id="@+id/example9Fragment"
+        android:icon="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:title="@string/nav_example9" />
+
 </menu>

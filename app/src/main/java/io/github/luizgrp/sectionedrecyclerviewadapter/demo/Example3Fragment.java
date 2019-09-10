@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,16 +24,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
+import io.github.luizgrp.sectionedrecyclerviewadapter.utils.EmptyViewHolder;
 
 public class Example3Fragment extends Fragment {
 
-    private final Handler mHandler = new Handler();
+    private final Handler handler = new Handler();
 
     private SectionedRecyclerViewAdapter sectionedAdapter;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ex3, container, false);
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
@@ -61,19 +63,19 @@ public class Example3Fragment extends Fragment {
 
     @Override
     public void onDetach() {
-        mHandler.removeCallbacksAndMessages(null);
+        handler.removeCallbacksAndMessages(null);
 
         super.onDetach();
     }
 
     private void loadNews(final NewsSection section) {
-        int timeInMills = new Random().nextInt((7000 - 3000) + 1) + 3000;
+        int timeInMillis = new Random().nextInt((7000 - 3000) + 1) + 3000;
 
         section.setState(Section.State.LOADING);
         section.setHasFooter(false);
         sectionedAdapter.notifyDataSetChanged();
 
-        mHandler.postDelayed(() -> {
+        handler.postDelayed(() -> {
             int failed = new Random().nextInt((3 - 1) + 1) + 1;
 
             if (failed == 1) {
@@ -102,7 +104,7 @@ public class Example3Fragment extends Fragment {
             }
 
             sectionedAdapter.notifyDataSetChanged();
-        }, timeInMills);
+        }, timeInMillis);
     }
 
     private List<String> getNews(int arrayResource) {
@@ -111,16 +113,17 @@ public class Example3Fragment extends Fragment {
 
     private class NewsSection extends Section {
 
-        final static int WORLD = 0;
-        final static int BUSINESS = 1;
-        final static int TECHNOLOGY = 2;
-        final static int SPORTS = 3;
+        private final static int WORLD = 0;
+        private final static int BUSINESS = 1;
+        private final static int TECHNOLOGY = 2;
+        private final static int SPORTS = 3;
 
-        final int topic;
+        private final int topic;
 
-        String title;
-        List<String> list;
-        int imgPlaceholderResId;
+        private String title;
+        private List<String> list;
+        @DrawableRes
+        private int imagePlaceholder;
 
         NewsSection(int topic) {
             super(SectionParameters.builder()
@@ -137,28 +140,28 @@ public class Example3Fragment extends Fragment {
             switch (topic) {
                 case WORLD:
                     this.title = getString(R.string.world_topic);
-                    this.imgPlaceholderResId = R.drawable.ic_public_black_48dp;
+                    this.imagePlaceholder = R.drawable.ic_public_black_48dp;
                     break;
                 case BUSINESS:
                     this.title = getString(R.string.biz_topic);
-                    this.imgPlaceholderResId = R.drawable.ic_business_black_48dp;
+                    this.imagePlaceholder = R.drawable.ic_business_black_48dp;
                     break;
                 case TECHNOLOGY:
                     this.title = getString(R.string.tech_topic);
-                    this.imgPlaceholderResId = R.drawable.ic_devices_other_black_48dp;
+                    this.imagePlaceholder = R.drawable.ic_devices_other_black_48dp;
                     break;
                 case SPORTS:
                     this.title = getString(R.string.sports_topic);
-                    this.imgPlaceholderResId = R.drawable.ic_directions_run_black_48dp;
+                    this.imagePlaceholder = R.drawable.ic_directions_run_black_48dp;
                     break;
             }
         }
 
-        int getTopic() {
+        private int getTopic() {
             return topic;
         }
 
-        void setList(List<String> list) {
+        private void setList(List<String> list) {
             this.list = list;
         }
 
@@ -180,7 +183,7 @@ public class Example3Fragment extends Fragment {
 
             itemHolder.tvHeader.setText(item[0]);
             itemHolder.tvDate.setText(item[1]);
-            itemHolder.imgItem.setImageResource(imgPlaceholderResId);
+            itemHolder.imgItem.setImageResource(imagePlaceholder);
 
             itemHolder.rootView.setOnClickListener(v ->
                     Toast.makeText(
@@ -226,6 +229,11 @@ public class Example3Fragment extends Fragment {
                             Toast.LENGTH_SHORT
                     ).show()
             );
+        }
+
+        @Override
+        public RecyclerView.ViewHolder getLoadingViewHolder(View view) {
+            return new EmptyViewHolder(view);
         }
 
         @Override
