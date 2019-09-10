@@ -95,7 +95,7 @@ public class SectionTest {
     }
 
     @Test
-    public void setState_withValidLoadingResId_succeeds() {
+    public void givenSectionWithValidLoadingResId_whenSetState_thenSucceeds() {
         // Given
         final int itemId = 1;
         final int loadingId = 2;
@@ -115,7 +115,7 @@ public class SectionTest {
     }
 
     @Test
-    public void setState_withLoadingViewProvided_succeeds() {
+    public void givenSectionWithLoadingViewProvided_whenSetState_thenSucceeds() {
         // Given
         final int itemId = 1;
 
@@ -134,7 +134,7 @@ public class SectionTest {
     }
 
     @Test
-    public void setState_withMissingLoadingParameter_throwsException() {
+    public void givenSectionWithMissingLoadingParameter_whenSetState_thenThrowsException() {
         // Given
         final int itemId = 1;
 
@@ -152,7 +152,7 @@ public class SectionTest {
     }
 
     @Test
-    public void setState_withMissingFailedResId_throwsException() {
+    public void givenSectionWithMissingFailedResId_whenSetState_thenThrowsException() {
         // Given
         final int itemId = 1;
 
@@ -170,7 +170,7 @@ public class SectionTest {
     }
 
     @Test
-    public void setState_withEmptyFailedResId_throwsException() {
+    public void givenSectionWithEmptyFailedResId_whenSetState_thenThrowsException() {
         // Given
         final int itemId = 1;
 

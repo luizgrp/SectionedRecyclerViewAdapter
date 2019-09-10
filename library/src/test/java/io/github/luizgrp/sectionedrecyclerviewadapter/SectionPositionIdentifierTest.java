@@ -95,4 +95,28 @@ public class SectionPositionIdentifierTest {
         // When
         cut.getFooterPosition();
     }
+
+    @Test
+    public void givenFirstSectionItemPositionInSection_whenGetPositionInAdapter_thenReturnsCorrectPositionInAdapter() {
+        // Given
+        int positionInAdapter = scenario.getFirstSectionItemPositionInSection();
+
+        // When
+        int result = cut.getPositionInAdapter(positionInAdapter);
+
+        // Then
+        assertThat(result, is(scenario.getFirstSectionContentItemPositionInAdapter()));
+    }
+
+    @Test
+    public void givenFirstSectionContentItemPositionInAdapter_whenGetPositionInSection_thenReturnsCorrectPositionInSection() {
+        // Given
+        int positionInAdapter = scenario.getFirstSectionContentItemPositionInAdapter();
+
+        // When
+        int result = cut.getPositionInSection(positionInAdapter);
+
+        // Then
+        assertThat(result, is(scenario.getFirstSectionItemPositionInSection()));
+    }
 }

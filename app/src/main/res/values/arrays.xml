@@ -86,4 +86,20 @@
         <item>10 Cloverfield Lane|Drama, Horror, Mystery</item>
         <item>Deadpool|Action, Adventure, Comedy</item>
     </string-array>
+
+    <string-array name="portfolio_coins">
+        <item>BTC|Bitcoin|1.59</item>
+        <item>XRP|Ripple|38.04</item>
+        <item>CSC|CasinoCoin|932.80</item>
+    </string-array>
+
+    <string-array name="watchlist_coins">
+        <item>ETH|Ethereum</item>
+        <item>BCH|Bitcoin Cash</item>
+        <item>LTC|Litecoin</item>
+        <item>XLM|Stellar</item>
+        <item>TRX|Tron</item>
+        <item>XTZ|Tezos</item>
+        <item>IOTA|IOTA</item>
+    </string-array>
 </resources>
