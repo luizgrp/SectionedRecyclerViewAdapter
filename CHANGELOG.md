@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.0.0 - 07/09/2019
+
+- Remove class `StatelessSection`
+- Add class `SectionAdapter`
+- Add class `SectionedRecyclerViewAdapterV2Compat`
+- Move inner class `EmptyViewHolder` to package `utils`
+
+### SectionedRecyclerViewAdapter class
+- Add method `getAdapterForSection`
+- Removed `notify*` and `get*Position*` methods
+- Remove `EmptyViewHolder` inner class 
+
+### SectionAdapter class
+- Add `notify*` and `get*Position*` methods from `SectionedRecyclerViewAdapter`
+ 
+### Section class
+- Remove method `onBindContentViewHolder`
+- Add overloaded methods `onBind*ViewHolder` with payloads as parameter
+- Change `getHeaderViewHolder`, `getFooterViewHolder`, `getLoadingViewHolder`, `getFailedViewHolder` and `getEmptyViewHolder` to throw `UnsupportedOperationException` instead of returning an `EmptyViewHolder` by default
+ 
+### SectionedRecyclerViewAdapterV2Compat 
+- Add `notify*` and `get*Position*` removed methods from `SectionedRecyclerViewAdapter`
+
 ## 2.1.0 - 09/06/2019
 
 - Set source and target compatibility to Java 8
