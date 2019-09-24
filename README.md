@@ -7,14 +7,13 @@ An Adapter that allows a RecyclerView to be split into Sections with headers and
 [![codecov](https://codecov.io/gh/luizgrp/SectionedRecyclerViewAdapter/branch/master/graph/badge.svg)](https://codecov.io/gh/luizgrp/SectionedRecyclerViewAdapter)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SectionedRecyclerViewAdapter-green.svg?style=true)](https://android-arsenal.com/details/1/3471)
 
-<img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc1.png" width="300" height="533" >
-<img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc4.png" width="300" height="533" >
-<br><br>
+![Linear](art/sc1.png)
+![Grid](art/sc4.png)
 
 In addition, each Section can have its state(Loading/Loaded/Failed/Empty) controlled individually.
 
-<img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc2.png" width="300" height="533" >
-<img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/sc3.png" width="300" height="533" >
+![Loading](art/sc2.png)
+![Loaded](art/sc3.png)
 
 ---
 
@@ -26,9 +25,13 @@ Add this to the `dependencies` section in your project-level **build.gradle** fi
 implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:x.y.z'
 ```
 
+Guide to upgrade to version 3.x [here](https://github.com/luizgrp/SectionedRecyclerViewAdapter/wiki/Upgrading-to-3.x)
+
+Latest version without AndroidX: `1.2.0`.
+
 ## Basic usage
 
-##### 1) Create a custom section class:
+##### 1) Create a custom Section class:
 
 ```java
 class MySection extends Section {
@@ -59,6 +62,12 @@ class MySection extends Section {
 
         // bind your view here
         itemHolder.tvItem.setText(itemList.get(position));
+    }
+    
+    @Override
+    public RecyclerView.ViewHolder getHeaderViewHolder(View view) {
+        // return an empty instance of ViewHolder for the headers of this section
+        return new EmptyViewHolder(view);
     }
 }
 ```
@@ -96,7 +105,7 @@ recyclerView.setAdapter(sectionAdapter);
 
 You can find a demo app [here](app).
 
-<img src="https://raw.githubusercontent.com/luizgrp/SectionedRecyclerViewAdapter/master/art/demosc.png" width="300" height="533" >
+![Demo](art/demosc.png)
 
 ## Examples
 
@@ -104,12 +113,13 @@ Please check the implementation of the examples:
 
 - [Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example1Fragment.java)
 - [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example2Fragment.java)
+- [Section with States](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
 - [Expandable Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example4Fragment.java)
 - [Grid Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example5Fragment.java)
 - [Expandable Grid Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example6Fragment.java)
 - [SearchView with Sections](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example7Fragment.java)
 - [Animations](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example8Fragment.java)
-- [Section with States](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
+- [Payloads](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example9/Example9Fragment.java)
 
 ## Apps on Google Play using this library
 
