@@ -1,7 +1,7 @@
 ext {
     PUBLISH_GROUP_ID = 'io.github.luizgrp.sectionedrecyclerviewadapter'
     PUBLISH_ARTIFACT_ID = 'sectionedrecyclerviewadapter'
-    PUBLISH_VERSION = '2.1.0'
+    PUBLISH_VERSION = '3.0.0'
 }
 
 ext.versions = [
