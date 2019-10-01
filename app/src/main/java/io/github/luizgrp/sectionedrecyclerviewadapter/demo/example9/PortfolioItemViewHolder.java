@@ -15,7 +15,7 @@ class PortfolioItemViewHolder extends RecyclerView.ViewHolder {
     final TextView tvPrice;
     final TextView tvDelta;
 
-    PortfolioItemViewHolder(@NonNull View view) {
+    PortfolioItemViewHolder(@NonNull final View view) {
         super(view);
 
         tvCode = view.findViewById(R.id.tvCode);
