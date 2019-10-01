@@ -5,6 +5,7 @@ import android.view.View;
 import java.util.List;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
@@ -15,7 +16,7 @@ class WatchListSection extends Section {
 
     private final List<WatchItem> list;
 
-    WatchListSection(List<WatchItem> list) {
+    WatchListSection(@NonNull List<WatchItem> list) {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.section_ex9_watchlist_item)
                 .headerResourceId(R.layout.section_ex9_watchlist_header)

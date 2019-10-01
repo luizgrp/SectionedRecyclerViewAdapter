@@ -25,7 +25,7 @@ Add this to the `dependencies` section in your project-level **build.gradle** fi
 implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:x.y.z'
 ```
 
-Guide to upgrade to version 3.x [here](https://github.com/luizgrp/SectionedRecyclerViewAdapter/wiki/Upgrading-to-3.x)
+Guide to upgrade to version 3.x [here](https://github.com/luizgrp/SectionedRecyclerViewAdapter/wiki/Upgrading-to-3.x).
 
 Latest version without AndroidX: `1.2.0`.
 
@@ -103,23 +103,19 @@ recyclerView.setAdapter(sectionAdapter);
 
 ## Demo app
 
-You can find a demo app [here](app).
+You can find a demo app [here](app) with many examples on how to implement:
+
+- [Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example1/)
+- [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example2/)
+- [Section with States](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example3/)
+- [Expandable Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example4/)
+- [Grid Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example5/)
+- [Expandable Grid Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example6/)
+- [SearchView with Sections](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example7/)
+- [Animations](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example8/)
+- [Payloads](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example9/)
 
 ![Demo](art/demosc.png)
-
-## Examples
-
-Please check the implementation of the examples:
-
-- [Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example1Fragment.java)
-- [Section with Header and Footer](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example2Fragment.java)
-- [Section with States](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example3Fragment.java)
-- [Expandable Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example4Fragment.java)
-- [Grid Section with Header](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example5Fragment.java)
-- [Expandable Grid Section](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example6Fragment.java)
-- [SearchView with Sections](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example7Fragment.java)
-- [Animations](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/Example8Fragment.java)
-- [Payloads](app/src/main/java/io/github/luizgrp/sectionedrecyclerviewadapter/demo/example9/Example9Fragment.java)
 
 ## Apps on Google Play using this library
 
