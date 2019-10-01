@@ -7,11 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
 
-public class PortfolioHeaderViewHolder extends RecyclerView.ViewHolder {
+class PortfolioHeaderViewHolder extends RecyclerView.ViewHolder {
 
     final TextView tvHoldingsPriceTotal;
 
-    public PortfolioHeaderViewHolder(@NonNull View view) {
+    PortfolioHeaderViewHolder(@NonNull final View view) {
         super(view);
 
         tvHoldingsPriceTotal = view.findViewById(R.id.tvHoldingsPriceTotal);

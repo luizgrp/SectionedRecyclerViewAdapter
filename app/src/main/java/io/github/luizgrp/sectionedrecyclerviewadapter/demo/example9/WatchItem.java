@@ -1,6 +1,7 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo.example9;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 class WatchItem {
     final String code;
@@ -9,7 +10,7 @@ class WatchItem {
     @ColorInt
     int deltaColor;
 
-    WatchItem(final String code, final String price, final String delta,
+    WatchItem(@NonNull final String code, @NonNull final String price, @NonNull final String delta,
               final @ColorInt int deltaColor) {
         this.code = code;
         this.price = price;

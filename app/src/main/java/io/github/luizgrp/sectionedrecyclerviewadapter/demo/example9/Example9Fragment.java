@@ -36,7 +36,7 @@ public class Example9Fragment extends Fragment {
     private PortfolioSection portfolioSection;
     private WatchListSection watchListSection;
 
-    private Runnable portfolioUpdatesRunnable = new Runnable() {
+    private final Runnable portfolioUpdatesRunnable = new Runnable() {
         @Override
         public void run() {
             getPortfolioUpdates();
@@ -44,7 +44,7 @@ public class Example9Fragment extends Fragment {
         }
     };
 
-    private Runnable watchListUpdatesRunnable = new Runnable() {
+    private final Runnable watchListUpdatesRunnable = new Runnable() {
         @Override
         public void run() {
             getWatchListUpdates();
