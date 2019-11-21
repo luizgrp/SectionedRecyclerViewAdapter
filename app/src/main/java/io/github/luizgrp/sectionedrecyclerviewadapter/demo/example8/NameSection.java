@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
+import io.github.luizgrp.sectionedrecyclerviewadapter.utils.EmptyViewHolder;
 
 class NameSection extends Section {
 
@@ -21,6 +22,9 @@ class NameSection extends Section {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.section_ex8_item)
                 .headerResourceId(R.layout.section_ex8_header)
+                .loadingResourceId(R.layout.section_ex8_loading)
+                .failedResourceId(R.layout.section_ex8_failed)
+                .emptyResourceId(R.layout.section_ex8_empty)
                 .build());
 
         this.title = title;
@@ -64,12 +68,32 @@ class NameSection extends Section {
 
         headerHolder.tvTitle.setText(title);
 
-        headerHolder.rootView.setOnClickListener(view ->
-                clickListener.onHeaderRootViewClicked(this, headerHolder.getAdapterPosition()));
-
         headerHolder.btnAdd.setOnClickListener(v -> clickListener.onHeaderAddButtonClicked(this));
 
         headerHolder.btnClear.setOnClickListener(v -> clickListener.onHeaderClearButtonClicked(this));
+
+        headerHolder.btnRemove.setOnClickListener(view ->
+                clickListener.onHeaderRemoveButtonClicked(this));
+
+        headerHolder.btnStateLoaded.setOnClickListener(v -> clickListener.onHeaderLoadedButtonClicked(this));
+        headerHolder.btnStateLoading.setOnClickListener(v -> clickListener.onHeaderLoadingButtonClicked(this));
+        headerHolder.btnStateFailed.setOnClickListener(v -> clickListener.onHeaderFailedButtonClicked(this));
+        headerHolder.btnStateEmpty.setOnClickListener(v -> clickListener.onHeaderEmptyButtonClicked(this));
+    }
+
+    @Override
+    public RecyclerView.ViewHolder getLoadingViewHolder(final View view) {
+        return new EmptyViewHolder(view);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder getFailedViewHolder(final View view) {
+        return new EmptyViewHolder(view);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder getEmptyViewHolder(final View view) {
+        return new EmptyViewHolder(view);
     }
 
     void add(final int position, @NonNull final Person person) {
@@ -88,10 +112,18 @@ class NameSection extends Section {
 
         void onItemRootViewClicked(@NonNull final NameSection section, final int itemAdapterPosition);
 
-        void onHeaderRootViewClicked(@NonNull final NameSection section, final int itemAdapterPosition);
-
         void onHeaderAddButtonClicked(@NonNull final NameSection section);
 
         void onHeaderClearButtonClicked(@NonNull final NameSection section);
+
+        void onHeaderRemoveButtonClicked(@NonNull final NameSection section);
+
+        void onHeaderLoadedButtonClicked(@NonNull final NameSection section);
+
+        void onHeaderLoadingButtonClicked(@NonNull final NameSection section);
+
+        void onHeaderFailedButtonClicked(@NonNull final NameSection section);
+
+        void onHeaderEmptyButtonClicked(@NonNull final NameSection section);
     }
 }

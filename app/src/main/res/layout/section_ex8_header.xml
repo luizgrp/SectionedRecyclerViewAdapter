@@ -30,6 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="@string/add"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -42,10 +44,97 @@
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="@string/clear"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btnRemove"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/remove"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
     </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnStateLoaded"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/loaded"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnStateLoading"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/loading"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnStateFailed"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/failed"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnStateEmpty"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/empty"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent" />
 
 </LinearLayout>
