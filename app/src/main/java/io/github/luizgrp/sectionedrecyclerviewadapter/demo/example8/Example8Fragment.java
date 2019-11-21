@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
 
@@ -33,10 +35,10 @@ public class Example8Fragment extends Fragment implements NameSection.ClickListe
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (sectionedAdapter.getSectionItemViewType(position) == SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER) {
-                    return 2;
+                if (sectionedAdapter.getSectionItemViewType(position) == SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED) {
+                    return 1;
                 }
-                return 1;
+                return 2;
             }
         });
 
@@ -48,7 +50,7 @@ public class Example8Fragment extends Fragment implements NameSection.ClickListe
 
         addNewSectionToAdapter();
 
-        view.findViewById(R.id.btnAdd).setOnClickListener(view1 -> addNewSectionToAdapter());
+        view.findViewById(R.id.fabAdd).setOnClickListener(view1 -> addNewSectionToAdapter());
 
         return view;
     }
@@ -85,23 +87,14 @@ public class Example8Fragment extends Fragment implements NameSection.ClickListe
     }
 
     @Override
-    public void onHeaderRootViewClicked(@NonNull final NameSection section, final int itemAdapterPosition) {
-        if (itemAdapterPosition != RecyclerView.NO_POSITION) {
-            int sectionItemsTotal = section.getSectionItemsTotal();
-
-            sectionedAdapter.removeSection(section);
-
-            sectionedAdapter.notifyItemRangeRemoved(itemAdapterPosition, sectionItemsTotal);
-        }
-    }
-
-    @Override
     public void onHeaderAddButtonClicked(@NonNull final NameSection section) {
         final int positionToInsertItemAt = 0;
 
         section.add(positionToInsertItemAt, createPerson());
 
-        sectionedAdapter.getAdapterForSection(section).notifyItemInserted(positionToInsertItemAt);
+        if (section.getState() == Section.State.LOADED) {
+            sectionedAdapter.getAdapterForSection(section).notifyItemInserted(positionToInsertItemAt);
+        }
     }
 
     @Override
@@ -110,7 +103,84 @@ public class Example8Fragment extends Fragment implements NameSection.ClickListe
 
         section.clear();
 
-        sectionedAdapter.getAdapterForSection(section).notifyItemRangeRemoved(0, contentItemsTotal);
+        if (section.getState() == Section.State.LOADED) {
+            sectionedAdapter.getAdapterForSection(section).notifyItemRangeRemoved(0, contentItemsTotal);
+        }
+    }
+
+    @Override
+    public void onHeaderRemoveButtonClicked(@NonNull final NameSection section) {
+        final int sectionItemsTotal = section.getSectionItemsTotal();
+        final int sectionPosition = sectionedAdapter.getAdapterForSection(section).getSectionPosition();
+
+        sectionedAdapter.removeSection(section);
+
+        if (section.getState() == Section.State.LOADED) {
+            sectionedAdapter.notifyItemRangeRemoved(
+                    sectionPosition,
+                    sectionItemsTotal
+            );
+        }
+    }
+
+    @Override
+    public void onHeaderLoadedButtonClicked(@NonNull final NameSection section) {
+        final Section.State previousState = section.getState();
+        if (previousState == Section.State.LOADED) return;
+
+        section.setState(Section.State.LOADED);
+        sectionedAdapter.getAdapterForSection(section).notifyStateChangedToLoaded(previousState);
+    }
+
+    @Override
+    public void onHeaderLoadingButtonClicked(@NonNull final NameSection section) {
+        final Section.State previousState = section.getState();
+        if (previousState == Section.State.LOADING) return;
+
+        final SectionAdapter sectionAdapter = sectionedAdapter.getAdapterForSection(section);
+        final int previousItemsQty = section.getContentItemsTotal();
+
+        section.setState(Section.State.LOADING);
+
+        if (previousState == Section.State.LOADED) {
+            sectionAdapter.notifyStateChangedFromLoaded(previousItemsQty);
+        } else {
+            sectionAdapter.notifyNotLoadedStateChanged(previousState);
+        }
+    }
+
+    @Override
+    public void onHeaderFailedButtonClicked(@NonNull final NameSection section) {
+        final Section.State previousState = section.getState();
+        if (previousState == Section.State.FAILED) return;
+
+        final SectionAdapter sectionAdapter = sectionedAdapter.getAdapterForSection(section);
+        final int previousItemsQty = section.getContentItemsTotal();
+
+        section.setState(Section.State.FAILED);
+
+        if (previousState == Section.State.LOADED) {
+            sectionAdapter.notifyStateChangedFromLoaded(previousItemsQty);
+        } else {
+            sectionAdapter.notifyNotLoadedStateChanged(previousState);
+        }
+    }
+
+    @Override
+    public void onHeaderEmptyButtonClicked(@NonNull final NameSection section) {
+        final Section.State previousState = section.getState();
+        if (previousState == Section.State.EMPTY) return;
+
+        final SectionAdapter sectionAdapter = sectionedAdapter.getAdapterForSection(section);
+        final int previousItemsQty = section.getContentItemsTotal();
+
+        section.setState(Section.State.EMPTY);
+
+        if (previousState == Section.State.LOADED) {
+            sectionAdapter.notifyStateChangedFromLoaded(previousItemsQty);
+        } else {
+            sectionAdapter.notifyNotLoadedStateChanged(previousState);
+        }
     }
 
     private Person createPerson() {

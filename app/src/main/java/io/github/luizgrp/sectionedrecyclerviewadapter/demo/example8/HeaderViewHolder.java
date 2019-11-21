@@ -10,17 +10,25 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
 
 class HeaderViewHolder extends RecyclerView.ViewHolder {
 
-    final View rootView;
     final TextView tvTitle;
     final Button btnAdd;
     final Button btnClear;
+    final Button btnRemove;
+    final Button btnStateLoaded;
+    final Button btnStateLoading;
+    final Button btnStateFailed;
+    final Button btnStateEmpty;
 
     HeaderViewHolder(@NonNull final View view) {
         super(view);
 
-        rootView = view;
         tvTitle = view.findViewById(R.id.tvTitle);
         btnAdd = view.findViewById(R.id.btnAdd);
         btnClear = view.findViewById(R.id.btnClear);
+        btnRemove = view.findViewById(R.id.btnRemove);
+        btnStateLoaded = view.findViewById(R.id.btnStateLoaded);
+        btnStateLoading = view.findViewById(R.id.btnStateLoading);
+        btnStateFailed = view.findViewById(R.id.btnStateFailed);
+        btnStateEmpty = view.findViewById(R.id.btnStateEmpty);
     }
 }
