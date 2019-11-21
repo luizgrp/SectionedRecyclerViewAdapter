@@ -5,13 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionAdapterListUpdateCallback;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
@@ -106,6 +111,21 @@ public class Example8Fragment extends Fragment implements NameSection.ClickListe
         if (section.getState() == Section.State.LOADED) {
             sectionedAdapter.getAdapterForSection(section).notifyItemRangeRemoved(0, contentItemsTotal);
         }
+    }
+
+    @Override
+    public void onHeaderShuffleButtonClicked(@NonNull final NameSection section) {
+        final SectionAdapterListUpdateCallback adapterListUpdateCallback = new SectionAdapterListUpdateCallback(sectionedAdapter.getAdapterForSection(section));
+        final List<Person> oldList = section.getList();
+        final List<Person> newList = new ArrayList<>(oldList);
+        Collections.shuffle(newList);
+
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new PersonListDiffCallback(oldList, newList));
+
+        section.clear();
+        section.addAll(newList);
+
+        diffResult.dispatchUpdatesTo(adapterListUpdateCallback);
     }
 
     @Override

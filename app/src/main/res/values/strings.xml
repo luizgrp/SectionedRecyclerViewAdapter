@@ -36,11 +36,12 @@
     <string name="more">MORE</string>
     <string name="see_more">See more..</string>
     <string name="failed_load">Failed to load, tap to try again.</string>
-    <string name="empty_list">This list is empty.</string>
+    <string name="empty_list">This section is empty.</string>
 
     <string name="add">ADD</string>
     <string name="clear">CLEAR</string>
     <string name="remove">REMOVE</string>
+    <string name="shuffle">SHUFFLE</string>
     <string name="loaded">LOADED</string>
     <string name="loading">LOADING</string>
     <string name="failed">FAILED</string>

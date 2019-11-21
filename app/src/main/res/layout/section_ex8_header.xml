@@ -51,6 +51,20 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btnShuffle"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/selector_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/shuffle"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/btnRemove"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
