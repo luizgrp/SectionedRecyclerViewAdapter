@@ -17,8 +17,8 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:contentDescription="@string/cd_android_icon"
-        android:src="@drawable/ic_android_black_48dp" />
+        android:contentDescription="@string/cd_avatar_icon"
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvHeader"

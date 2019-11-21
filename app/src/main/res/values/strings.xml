@@ -17,9 +17,9 @@
     <string name="action_search">Search</string>
 
     <string name="cd_app_icon">App icon</string>
-    <string name="cd_android_icon">Android icon</string>
+    <string name="cd_avatar_icon">Avatar icon</string>
     <string name="cd_movie_icon">Movie icon</string>
-    <string name="cd_cloud_crossed">Cloud crossed icon</string>
+    <string name="cd_cloud_off">Cloud off icon</string>
     <string name="cd_arrow_icon">Arrow icon</string>
     <string name="cd_currency_icon">Currency icon</string>
 

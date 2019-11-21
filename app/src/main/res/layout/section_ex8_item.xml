@@ -31,8 +31,8 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/cd_android_icon"
-                android:src="@drawable/ic_android_black_48dp" />
+                android:contentDescription="@string/cd_avatar_icon"
+                tools:src="@tools:sample/avatars" />
         </FrameLayout>
 
         <TextView
