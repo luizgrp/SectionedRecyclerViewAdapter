@@ -11,7 +11,7 @@ ext.versions = [
         'minSdk'                    : 14,
 
         'androidx_appcompat'        : '1.1.0',
-        'androidx_recyclerview'     : '1.0.0',
+        'androidx_recyclerview'     : '1.1.0',
         'apache_commons_collections': '4.3',
 
         'junit'                     : '4.12',
