@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/cd_cloud_crossed"
+        android:contentDescription="@string/cd_cloud_off"
         android:src="@drawable/ic_cloud_off_black_48dp" />
 
 </RelativeLayout>

@@ -18,6 +18,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:contentDescription="@string/cd_add_group"
-        android:src="@drawable/ic_add_white_24dp" />
+        android:src="@drawable/ic_add_white_48dp" />
 
 </RelativeLayout>
