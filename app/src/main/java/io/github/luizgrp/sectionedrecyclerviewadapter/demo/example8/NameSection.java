@@ -72,12 +72,17 @@ class NameSection extends Section {
 
         headerHolder.btnClear.setOnClickListener(v -> clickListener.onHeaderClearButtonClicked(this));
 
+        headerHolder.btnShuffle.setOnClickListener(v -> clickListener.onHeaderShuffleButtonClicked(this));
+
         headerHolder.btnRemove.setOnClickListener(view ->
                 clickListener.onHeaderRemoveButtonClicked(this));
 
         headerHolder.btnStateLoaded.setOnClickListener(v -> clickListener.onHeaderLoadedButtonClicked(this));
+
         headerHolder.btnStateLoading.setOnClickListener(v -> clickListener.onHeaderLoadingButtonClicked(this));
+
         headerHolder.btnStateFailed.setOnClickListener(v -> clickListener.onHeaderFailedButtonClicked(this));
+
         headerHolder.btnStateEmpty.setOnClickListener(v -> clickListener.onHeaderEmptyButtonClicked(this));
     }
 
@@ -96,8 +101,16 @@ class NameSection extends Section {
         return new EmptyViewHolder(view);
     }
 
+    @NonNull List<Person> getList() {
+        return list;
+    }
+
     void add(final int position, @NonNull final Person person) {
         list.add(position, person);
+    }
+
+    void addAll(@NonNull final List<Person> newList) {
+        list.addAll(newList);
     }
 
     void remove(final int position) {
@@ -115,6 +128,8 @@ class NameSection extends Section {
         void onHeaderAddButtonClicked(@NonNull final NameSection section);
 
         void onHeaderClearButtonClicked(@NonNull final NameSection section);
+
+        void onHeaderShuffleButtonClicked(@NonNull final NameSection section);
 
         void onHeaderRemoveButtonClicked(@NonNull final NameSection section);
 
