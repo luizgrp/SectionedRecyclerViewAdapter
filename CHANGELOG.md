@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0 - 21/11/2019
+
+- Add class `SectionAdapterListUpdateCallback`
+
 ## 3.0.0 - 07/09/2019
 
 - Remove class `StatelessSection`
