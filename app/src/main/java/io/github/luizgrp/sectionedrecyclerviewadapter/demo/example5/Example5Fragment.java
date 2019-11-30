@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionInfoFactory;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoDialog;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoFactory;
 
 public class Example5Fragment extends Fragment implements MovieSection.ClickListener {
+
+    private static final String DIALOG_TAG = "SectionItemInfoDialogTag";
 
     private SectionedRecyclerViewAdapter sectionedAdapter;
 
@@ -52,27 +56,20 @@ public class Example5Fragment extends Fragment implements MovieSection.ClickList
     }
 
     @Override
-    public void onHeaderRootViewClicked(@NonNull final String sectionTitle, @NonNull final MovieSection section) {
-        Toast.makeText(
-                getContext(),
-                String.format(
-                        "Clicked on more button from the header of Section %s",
-                        sectionTitle
-                ),
-                Toast.LENGTH_SHORT
-        ).show();
+    public void onHeaderMoreButtonClicked(@NonNull final MovieSection section, int itemAdapterPosition) {
+        final SectionItemInfoDialog dialog = SectionItemInfoDialog.getInstance(
+                SectionItemInfoFactory.create(itemAdapterPosition, sectionedAdapter),
+                SectionInfoFactory.create(section, sectionedAdapter.getAdapterForSection(section))
+        );
+        dialog.show(getParentFragmentManager(), DIALOG_TAG);
     }
 
     @Override
-    public void onItemRootViewClicked(@NonNull final String sectionTitle, final int itemAdapterPosition) {
-        Toast.makeText(
-                getContext(),
-                String.format(
-                        "Clicked on position #%s of Section %s",
-                        sectionedAdapter.getPositionInSection(itemAdapterPosition),
-                        sectionTitle
-                ),
-                Toast.LENGTH_SHORT
-        ).show();
+    public void onItemRootViewClicked(@NonNull final MovieSection section, final int itemAdapterPosition) {
+        final SectionItemInfoDialog dialog = SectionItemInfoDialog.getInstance(
+                SectionItemInfoFactory.create(itemAdapterPosition, sectionedAdapter),
+                SectionInfoFactory.create(section, sectionedAdapter.getAdapterForSection(section))
+        );
+        dialog.show(getParentFragmentManager(), DIALOG_TAG);
     }
 }

@@ -1,7 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter.demo.example6;
 
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -13,9 +12,9 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
 
 final class ExpandableMovieSection extends Section {
 
-    final String title;
-    final List<Movie> list;
-    final ClickListener clickListener;
+    private final String title;
+    private final List<Movie> list;
+    private final ClickListener clickListener;
 
     private boolean expanded = true;
 
@@ -51,7 +50,7 @@ final class ExpandableMovieSection extends Section {
         itemHolder.tvSubItem.setText(movie.category);
 
         itemHolder.rootView.setOnClickListener(v ->
-                clickListener.onItemRootViewClicked(title, itemHolder.getAdapterPosition())
+                clickListener.onItemRootViewClicked(this, itemHolder.getAdapterPosition())
         );
     }
 
@@ -70,7 +69,7 @@ final class ExpandableMovieSection extends Section {
         );
 
         headerHolder.rootView.setOnClickListener(v ->
-                clickListener.onHeaderRootViewClicked(title, this)
+                clickListener.onHeaderRootViewClicked(this)
         );
     }
 
@@ -84,8 +83,8 @@ final class ExpandableMovieSection extends Section {
 
     interface ClickListener {
 
-        void onHeaderRootViewClicked(@NonNull final String sectionTitle, @NonNull final ExpandableMovieSection section);
+        void onHeaderRootViewClicked(@NonNull final ExpandableMovieSection section);
 
-        void onItemRootViewClicked(@NonNull final String sectionTitle, final int itemAdapterPosition);
+        void onItemRootViewClicked(@NonNull final ExpandableMovieSection section, final int itemAdapterPosition);
     }
 }

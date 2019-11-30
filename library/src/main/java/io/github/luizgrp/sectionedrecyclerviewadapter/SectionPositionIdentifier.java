@@ -6,7 +6,7 @@ package io.github.luizgrp.sectionedrecyclerviewadapter;
  * - the section components in the adapter
  * - section items in the section itself
  */
-interface SectionPositionIdentifier {
+/* default */ interface SectionPositionIdentifier {
 
     /**
      * Helper method that returns the position of header in the adapter.

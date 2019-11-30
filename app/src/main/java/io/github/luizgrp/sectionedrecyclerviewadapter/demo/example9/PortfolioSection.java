@@ -2,10 +2,12 @@ package io.github.luizgrp.sectionedrecyclerviewadapter.demo.example9;
 
 import android.view.View;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-import androidx.annotation.ColorInt;
-import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
@@ -13,8 +15,9 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
 class PortfolioSection extends Section {
 
     private final List<PortfolioItem> list;
+    private final ClickListener clickListener;
 
-    PortfolioSection(List<PortfolioItem> list) {
+    PortfolioSection(List<PortfolioItem> list, ClickListener clickListener) {
         super(SectionParameters.builder()
                 .headerResourceId(R.layout.section_ex9_portfolio_header)
                 .itemResourceId(R.layout.section_ex9_portfolio_item)
@@ -23,6 +26,7 @@ class PortfolioSection extends Section {
         setHasHeader(true);
 
         this.list = list;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -64,6 +68,10 @@ class PortfolioSection extends Section {
                 itemHolder.tvDelta.setTextColor(item.deltaColor);
             }
         }
+
+        itemHolder.rootView.setOnClickListener(v ->
+                clickListener.onItemRootViewClicked(this, itemHolder.getAdapterPosition())
+        );
     }
 
     @Override
@@ -89,5 +97,10 @@ class PortfolioSection extends Section {
     }
 
     static class ItemPriceUpdate {
+    }
+
+    interface ClickListener {
+
+        void onItemRootViewClicked(@NonNull final PortfolioSection section, final int itemAdapterPosition);
     }
 }

@@ -188,7 +188,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Add a section to this recyclerview with a random tag.
+     * Add a section to this adapter with a random tag.
      *
      * @param section section to be added
      * @return generated tag
@@ -202,7 +202,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Add a section to this recyclerview.
+     * Add a section to this adapter.
      *
      * @param tag     unique identifier of the section
      * @param section section to be added
@@ -212,7 +212,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Add a section to this recyclerview at the specific index.
+     * Add a section to this adapter at the specific index.
      *
      * @param index   the index at which the section should be inserted
      * @param tag     unique identifier of the section
@@ -225,7 +225,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Add a section at the specific position to this recyclerview with a random tag.
+     * Add a section at the specific position to this adapter with a random tag.
      *
      * @param index   the index at which the section should be inserted
      * @param section section should be added
@@ -259,7 +259,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Remove section from this recyclerview.
+     * Remove section from this adapter.
      *
      * @param section section to be removed
      */
@@ -277,7 +277,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Remove section from this recyclerview.
+     * Remove section from this adapter.
      *
      * @param tag unique identifier of the section
      */
@@ -288,7 +288,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Remove all sections from this recyclerview.
+     * Remove all sections from this adapter.
      */
     public void removeAllSections() {
         this.sections.clear();

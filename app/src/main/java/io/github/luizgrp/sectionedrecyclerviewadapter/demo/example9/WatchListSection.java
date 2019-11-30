@@ -15,8 +15,9 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.utils.EmptyViewHolder;
 class WatchListSection extends Section {
 
     private final List<WatchItem> list;
+    private final ClickListener clickListener;
 
-    WatchListSection(@NonNull List<WatchItem> list) {
+    WatchListSection(@NonNull List<WatchItem> list, ClickListener clickListener) {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.section_ex9_watchlist_item)
                 .headerResourceId(R.layout.section_ex9_watchlist_header)
@@ -25,6 +26,7 @@ class WatchListSection extends Section {
         setHasHeader(true);
 
         this.list = list;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -63,6 +65,10 @@ class WatchListSection extends Section {
                 itemHolder.tvDelta.setTextColor(item.deltaColor);
             }
         }
+
+        itemHolder.rootView.setOnClickListener(v ->
+                clickListener.onItemRootViewClicked(this, itemHolder.getAdapterPosition())
+        );
     }
 
     @Override
@@ -80,5 +86,10 @@ class WatchListSection extends Section {
     }
 
     static class ItemPriceUpdate {
+    }
+
+    interface ClickListener {
+
+        void onItemRootViewClicked(@NonNull final WatchListSection section, final int itemAdapterPosition);
     }
 }

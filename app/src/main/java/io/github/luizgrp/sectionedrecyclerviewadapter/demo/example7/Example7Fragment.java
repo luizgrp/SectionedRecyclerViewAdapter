@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
@@ -21,9 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionInfoFactory;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoDialog;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoFactory;
 
 public class Example7Fragment extends Fragment implements SearchView.OnQueryTextListener,
         ContactsSection.ClickListener {
+
+    private static final String DIALOG_TAG = "SectionItemInfoDialogTag";
 
     private SectionedRecyclerViewAdapter sectionedAdapter;
 
@@ -85,15 +89,11 @@ public class Example7Fragment extends Fragment implements SearchView.OnQueryText
     }
 
     @Override
-    public void onItemRootViewClicked(@NonNull final String sectionTitle, final int itemAdapterPosition) {
-        Toast.makeText(
-                getContext(),
-                String.format(
-                        "Clicked on position #%s of Section %s",
-                        sectionedAdapter.getPositionInSection(itemAdapterPosition),
-                        sectionTitle
-                ),
-                Toast.LENGTH_SHORT
-        ).show();
+    public void onItemRootViewClicked(@NonNull final ContactsSection section, final int itemAdapterPosition) {
+        final SectionItemInfoDialog dialog = SectionItemInfoDialog.getInstance(
+                SectionItemInfoFactory.create(itemAdapterPosition, sectionedAdapter),
+                SectionInfoFactory.create(section, sectionedAdapter.getAdapterForSection(section))
+        );
+        dialog.show(getParentFragmentManager(), DIALOG_TAG);
     }
 }

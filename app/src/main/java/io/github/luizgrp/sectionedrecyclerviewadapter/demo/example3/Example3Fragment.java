@@ -5,22 +5,27 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import java.util.List;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+import java.util.Random;
+
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionInfoFactory;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoDialog;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoFactory;
 
 public class Example3Fragment extends Fragment implements NewsSection.ClickListener {
+
+    private static final String DIALOG_TAG = "SectionItemInfoDialogTag";
 
     private final Handler handler = new Handler();
 
@@ -69,28 +74,21 @@ public class Example3Fragment extends Fragment implements NewsSection.ClickListe
     }
 
     @Override
-    public void onItemRootViewClicked(final String title, final int itemAdapterPosition) {
-        Toast.makeText(
-                getContext(),
-                String.format(
-                        "Clicked on position #%s of Section %s",
-                        sectionedAdapter.getPositionInSection(itemAdapterPosition),
-                        title
-                ),
-                Toast.LENGTH_SHORT
-        ).show();
+    public void onItemRootViewClicked(final NewsSection section, final int itemAdapterPosition) {
+        final SectionItemInfoDialog dialog = SectionItemInfoDialog.getInstance(
+                SectionItemInfoFactory.create(itemAdapterPosition, sectionedAdapter),
+                SectionInfoFactory.create(section, sectionedAdapter.getAdapterForSection(section))
+        );
+        dialog.show(getParentFragmentManager(), DIALOG_TAG);
     }
 
     @Override
-    public void onFooterRootViewClicked(final String title) {
-        Toast.makeText(
-                getContext(),
-                String.format(
-                        "Clicked on footer of Section %s",
-                        title
-                ),
-                Toast.LENGTH_SHORT
-        ).show();
+    public void onFooterRootViewClicked(final NewsSection section, final int itemAdapterPosition) {
+        final SectionItemInfoDialog dialog = SectionItemInfoDialog.getInstance(
+                SectionItemInfoFactory.create(itemAdapterPosition, sectionedAdapter),
+                SectionInfoFactory.create(section, sectionedAdapter.getAdapterForSection(section))
+        );
+        dialog.show(getParentFragmentManager(), DIALOG_TAG);
     }
 
     @Override
