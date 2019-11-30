@@ -52,7 +52,7 @@ class ContactsSection extends Section implements FilterableSection {
         itemHolder.imgItem.setImageResource(contact.profileImage);
 
         itemHolder.rootView.setOnClickListener(v ->
-                clickListener.onItemRootViewClicked(title, itemHolder.getAdapterPosition())
+                clickListener.onItemRootViewClicked(this, itemHolder.getAdapterPosition())
         );
     }
 
@@ -89,6 +89,6 @@ class ContactsSection extends Section implements FilterableSection {
 
     interface ClickListener {
 
-        void onItemRootViewClicked(@NonNull final String sectionTitle, final int itemAdapterPosition);
+        void onItemRootViewClicked(@NonNull final ContactsSection section, final int itemAdapterPosition);
     }
 }

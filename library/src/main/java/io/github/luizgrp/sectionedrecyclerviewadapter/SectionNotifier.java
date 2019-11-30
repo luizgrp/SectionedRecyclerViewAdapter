@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter;
 /**
  * Collection of helper methods to notify the adapter of changes in the section items.
  */
-interface SectionNotifier {
+/* default */ interface SectionNotifier {
 
     /**
      * Helper method that receives position in relation to the section, calculates the relative

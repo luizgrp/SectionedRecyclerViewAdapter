@@ -9,6 +9,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
 
 class WatchItemViewHolder extends RecyclerView.ViewHolder {
 
+    final View rootView;
     final TextView tvCode;
     final TextView tvPrice;
     final TextView tvDelta;
@@ -16,6 +17,7 @@ class WatchItemViewHolder extends RecyclerView.ViewHolder {
     WatchItemViewHolder(@NonNull final View view) {
         super(view);
 
+        rootView = view;
         tvCode = view.findViewById(R.id.tvCode);
         tvPrice = view.findViewById(R.id.tvPrice);
         tvDelta = view.findViewById(R.id.tvDelta);

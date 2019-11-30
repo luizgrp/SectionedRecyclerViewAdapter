@@ -48,7 +48,7 @@ final class MovieSection extends Section {
         itemHolder.tvSubItem.setText(movie.category);
 
         itemHolder.rootView.setOnClickListener(v ->
-                clickListener.onItemRootViewClicked(title, itemHolder.getAdapterPosition())
+                clickListener.onItemRootViewClicked(this, itemHolder.getAdapterPosition())
         );
     }
 
@@ -64,14 +64,14 @@ final class MovieSection extends Section {
         headerHolder.tvTitle.setText(title);
 
         headerHolder.btnMore.setOnClickListener(v ->
-                clickListener.onHeaderRootViewClicked(title, this)
+                clickListener.onHeaderMoreButtonClicked(this, headerHolder.getAdapterPosition())
         );
     }
 
     interface ClickListener {
 
-        void onHeaderRootViewClicked(@NonNull final String sectionTitle, @NonNull final MovieSection section);
+        void onHeaderMoreButtonClicked(@NonNull final MovieSection section, int itemAdapterPosition);
 
-        void onItemRootViewClicked(@NonNull final String sectionTitle, final int itemAdapterPosition);
+        void onItemRootViewClicked(@NonNull final MovieSection section, final int itemAdapterPosition);
     }
 }

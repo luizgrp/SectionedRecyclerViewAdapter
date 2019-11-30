@@ -51,7 +51,7 @@ final class NewsSection extends Section {
         itemHolder.imgItem.setImageResource(news.icon);
 
         itemHolder.rootView.setOnClickListener(v ->
-                clickListener.onItemRootViewClicked(title, itemHolder.getAdapterPosition())
+                clickListener.onItemRootViewClicked(this, itemHolder.getAdapterPosition())
         );
     }
 
@@ -76,13 +76,13 @@ final class NewsSection extends Section {
     public void onBindFooterViewHolder(final RecyclerView.ViewHolder holder) {
         final FooterViewHolder footerHolder = (FooterViewHolder) holder;
 
-        footerHolder.rootView.setOnClickListener(v -> clickListener.onFooterRootViewClicked(title));
+        footerHolder.rootView.setOnClickListener(v -> clickListener.onFooterRootViewClicked(this, footerHolder.getAdapterPosition()));
     }
 
     interface ClickListener {
 
-        void onItemRootViewClicked(@NonNull final String sectionTitle, final int itemAdapterPosition);
+        void onItemRootViewClicked(@NonNull final NewsSection section, final int itemAdapterPosition);
 
-        void onFooterRootViewClicked(@NonNull final String sectionTitle);
+        void onFooterRootViewClicked(@NonNull final NewsSection section, final int itemAdapterPosition);
     }
 }

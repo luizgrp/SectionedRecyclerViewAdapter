@@ -9,6 +9,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
 
 class PortfolioItemViewHolder extends RecyclerView.ViewHolder {
 
+    final View rootView;
     final TextView tvCode;
     final TextView tvHoldingQty;
     final TextView tvHoldingPrice;
@@ -18,6 +19,7 @@ class PortfolioItemViewHolder extends RecyclerView.ViewHolder {
     PortfolioItemViewHolder(@NonNull final View view) {
         super(view);
 
+        rootView = view;
         tvCode = view.findViewById(R.id.tvCode);
         tvHoldingQty = view.findViewById(R.id.tvHoldingQty);
         tvHoldingPrice = view.findViewById(R.id.tvHoldingPrice);

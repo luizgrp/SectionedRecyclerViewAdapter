@@ -49,7 +49,7 @@ final class ContactsSection extends Section {
         itemHolder.imgItem.setImageResource(contact.profileImage);
 
         itemHolder.rootView.setOnClickListener(v ->
-                clickListener.onItemRootViewClicked(title, itemHolder.getAdapterPosition())
+                clickListener.onItemRootViewClicked(this, itemHolder.getAdapterPosition())
         );
     }
 
@@ -67,6 +67,6 @@ final class ContactsSection extends Section {
 
     interface ClickListener {
 
-        void onItemRootViewClicked(@NonNull final String sectionTitle, final int itemAdapterPosition);
+        void onItemRootViewClicked(@NonNull final ContactsSection section, final int itemAdapterPosition);
     }
 }

@@ -22,8 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.demo.R;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionInfoFactory;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoDialog;
+import io.github.luizgrp.sectionedrecyclerviewadapter.demo.info.SectionItemInfoFactory;
 
-public class Example9Fragment extends Fragment {
+public class Example9Fragment extends Fragment implements PortfolioSection.ClickListener,
+        WatchListSection.ClickListener {
+
+    private static final String DIALOG_TAG = "SectionItemInfoDialogTag";
 
     private final Handler handler = new Handler();
     private final Locale locale = Locale.US;
@@ -54,12 +60,13 @@ public class Example9Fragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_ex9, container, false);
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
-        portfolioSection = new PortfolioSection(getPortfolio());
-        watchListSection = new WatchListSection(getWatchList());
+        portfolioSection = new PortfolioSection(getPortfolio(), this);
+        watchListSection = new WatchListSection(getWatchList(), this);
 
         sectionedAdapter.addSection(portfolioSection);
         sectionedAdapter.addSection(watchListSection);
@@ -150,7 +157,8 @@ public class Example9Fragment extends Fragment {
         final int index = new Random().nextInt(list.size());
         final PortfolioItem portfolioItem = list.get(index);
 
-        portfolioSection.updateItemPrice(index, portfolioItem.price, portfolioItem.delta, portfolioItem.deltaColor, portfolioItem.holdingPrice);
+        portfolioSection.updateItemPrice(index, portfolioItem.price, portfolioItem.delta,
+                portfolioItem.deltaColor, portfolioItem.holdingPrice);
 
         SectionAdapter sectionAdapter = sectionedAdapter.getAdapterForSection(portfolioSection);
 
@@ -190,5 +198,23 @@ public class Example9Fragment extends Fragment {
 
     private double getRandomDouble(final double min, final double max) {
         return min + (max - min) * new Random().nextDouble();
+    }
+
+    @Override
+    public void onItemRootViewClicked(@NonNull PortfolioSection section, int itemAdapterPosition) {
+        final SectionItemInfoDialog dialog = SectionItemInfoDialog.getInstance(
+                SectionItemInfoFactory.create(itemAdapterPosition, sectionedAdapter),
+                SectionInfoFactory.create(section, sectionedAdapter.getAdapterForSection(section))
+        );
+        dialog.show(getParentFragmentManager(), DIALOG_TAG);
+    }
+
+    @Override
+    public void onItemRootViewClicked(@NonNull WatchListSection section, int itemAdapterPosition) {
+        final SectionItemInfoDialog dialog = SectionItemInfoDialog.getInstance(
+                SectionItemInfoFactory.create(itemAdapterPosition, sectionedAdapter),
+                SectionInfoFactory.create(section, sectionedAdapter.getAdapterForSection(section))
+        );
+        dialog.show(getParentFragmentManager(), DIALOG_TAG);
     }
 }

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+@SuppressWarnings({"WeakerAccess", "RedundantSuppression"}) // this fragment needs to be public
 public class HomeFragment extends Fragment {
 
     @Nullable

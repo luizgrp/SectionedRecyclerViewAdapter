@@ -48,6 +48,18 @@
     <string name="empty">EMPTY</string>
     <string name="cd_add_group">Add group</string>
 
+    <string name="info">INFO</string>
+    <string name="item_info_title">[Section Item Info]</string>
+    <string name="pos_in_section">Position in section:</string>
+    <string name="pos_in_adapter">Position in adapter:</string>
+    <string name="view_type">View type:</string>
+    <string name="has_header">Has header?</string>
+    <string name="has_footer">Has footer?</string>
+    <string name="header_pos">"Header position:</string>
+    <string name="footer_pos">"Footer position:</string>
+    <string name="section_info_title">[Section Info]</string>
+    <string name="close">CLOSE</string>
+
     <string name="my_portfolio">MY PORTFOLIO</string>
     <string name="watchlist">WATCHLIST</string>
     <string name="coin">COIN</string>
