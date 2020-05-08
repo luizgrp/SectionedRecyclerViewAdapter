@@ -573,7 +573,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
             // check if position is in this section
             if (position >= currentPos && position <= (currentPos + sectionTotal - 1)) {
-                return position - currentPos - (section.hasHeader() ? 1 : 0);
+                final int result = position - currentPos - (section.hasHeader() ? 1 : 0);
+                if (result == -1 || result == section.getContentItemsTotal()) {
+                    throw new IllegalArgumentException("This method is not applicable for header or footer position");
+                }
+                return result;
             }
 
             currentPos += sectionTotal;
