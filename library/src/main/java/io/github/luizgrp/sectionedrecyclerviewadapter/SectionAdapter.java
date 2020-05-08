@@ -26,7 +26,7 @@ public class SectionAdapter implements SectionPositionIdentifier, SectionNotifie
     }
 
     @VisibleForTesting
-        /* default */ Section getSection() {
+    /* default */ Section getSection() {
         return section;
     }
 

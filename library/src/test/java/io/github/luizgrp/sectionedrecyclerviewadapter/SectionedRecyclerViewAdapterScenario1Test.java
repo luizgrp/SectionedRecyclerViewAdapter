@@ -84,6 +84,16 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         assertNull(sectionedRecyclerViewAdapter.getSection(tag));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void givenExistingSection_whenAddSectionWithSection_thenThrowsException() {
+        // Given
+        final Section section = mock(Section.class);
+        sectionedRecyclerViewAdapter.addSection(section);
+
+        // When
+        sectionedRecyclerViewAdapter.addSection(section);
+    }
+
     @Test
     public void givenScenario_whenRemoveSectionWithTag_thenSucceeds() {
         // Given
