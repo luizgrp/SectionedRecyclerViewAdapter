@@ -264,7 +264,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
 
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
@@ -276,7 +276,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeFooter = 1;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
@@ -288,7 +288,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeItemLoaded = 2;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
@@ -300,7 +300,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeLoading = 3;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
@@ -312,7 +312,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeFailed = 4;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
@@ -324,7 +324,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeEmpty = 5;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
@@ -336,7 +336,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeHeader = 12;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
@@ -348,7 +348,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeFooter = 13;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
@@ -360,7 +360,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeItemLoaded = 14;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
@@ -372,7 +372,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeLoading = 15;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
@@ -384,7 +384,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeFailed = 16;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
@@ -396,7 +396,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeEmpty = 17;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));
@@ -408,7 +408,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeHeader = SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeHeader);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER));
@@ -420,7 +420,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeFooter = SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFooter);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER));
@@ -432,7 +432,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeItemLoaded = SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeItemLoaded);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED));
@@ -444,7 +444,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeLoading = SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeLoading);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING));
@@ -456,7 +456,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeFailed = SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeFailed);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED));
@@ -468,7 +468,7 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         final int viewTypeEmpty = SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY;
 
         // When
-        final int result = sectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
+        final int result = SectionedRecyclerViewAdapter.getSectionItemViewTypeForAdapterViewType(viewTypeEmpty);
 
         // Then
         assertThat(result, is(SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY));

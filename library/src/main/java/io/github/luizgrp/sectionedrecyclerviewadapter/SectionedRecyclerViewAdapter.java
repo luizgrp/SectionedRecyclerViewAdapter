@@ -497,7 +497,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * <li>SectionedRecyclerViewAdapter.VIEW_TYPE_EMPTY</li>
      * </ul>
      */
-    public int getSectionItemViewTypeForAdapterViewType(final int itemViewType) {
+    public static int getSectionItemViewTypeForAdapterViewType(final int itemViewType) {
         return itemViewType % VIEW_TYPE_QTY;
     }
 
