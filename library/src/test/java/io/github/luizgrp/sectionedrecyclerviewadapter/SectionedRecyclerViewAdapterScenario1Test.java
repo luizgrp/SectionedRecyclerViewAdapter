@@ -44,6 +44,18 @@ public class SectionedRecyclerViewAdapterScenario1Test {
         assertThat(result2, is(scenario.getLastSectionItemPositionInSection()));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void givenScenario_whenGetPositionInSectionForHeader_thenThrowsException() {
+        // When
+        sectionedRecyclerViewAdapter.getPositionInSection(scenario.getSectionHeaderPositionInAdapter());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void givenScenario_whenGetPositionInSectionForFooter_thenThrowsException() {
+        // When
+        sectionedRecyclerViewAdapter.getPositionInSection(scenario.getSectionFooterPositionInAdapter());
+    }
+
     @Test
     public void givenTagAndIndex_whenAddSectionWithTagAndIndex_thenSucceeds() {
         // Given
