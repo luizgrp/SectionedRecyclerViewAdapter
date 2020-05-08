@@ -221,7 +221,11 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public void addSection(final int index, final String tag, final Section section) {
         this.sections.put(index, tag, section);
         addSectionViewTypeNumbers(tag);
-        sectionAdapters.put(section, new SectionAdapter(this, section));
+
+        final SectionAdapter result = sectionAdapters.put(section, new SectionAdapter(this, section));
+        if (result != null) {
+            throw new IllegalArgumentException("This adapter already contains this Section");
+        }
     }
 
     /**
