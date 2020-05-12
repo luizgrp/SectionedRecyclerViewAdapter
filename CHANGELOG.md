@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.2.0 - 12/05/2020
+
+### SectionedRecyclerViewAdapter class
+
+- Change method `getSectionItemViewTypeForAdapterViewType` to static
+- Change method `addSection` to throw exception when adding an existing section
+- Change method `getPositionInSection` to throw exception when passing header or footer position
+
 ## 3.1.0 - 21/11/2019
 
 - Add class `SectionAdapterListUpdateCallback`
