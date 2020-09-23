@@ -448,6 +448,8 @@ public abstract class Section {
         this.onBindFooterViewHolder(holder);
     }
 
+    public void onRecycled(final RecyclerView.ViewHolder holder) { }
+
     /**
      * Creates the View for the Loading state. This must be implemented if and only if
      * {@link #isLoadingViewWillBeProvided()} is true.

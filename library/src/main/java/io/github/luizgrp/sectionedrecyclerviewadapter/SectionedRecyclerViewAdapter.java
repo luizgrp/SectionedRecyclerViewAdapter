@@ -318,6 +318,13 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         internalOnBindViewHolder(holder, position, payloads);
     }
 
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        for (final Map.Entry<String, Section> entry : sections.entrySet()) {
+            entry.getValue().onRecycled(holder);
+        }
+    }
+
     private void internalOnBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,
                                           final int position, final List<Object> payloads) {
 
