@@ -1,3 +1,5 @@
+:warning: **Archived**: this repository is no longer going to be maintained.
+
 # SectionedRecyclerViewAdapter
 
 An Adapter that allows a RecyclerView to be split into Sections with headers and/or footers.
