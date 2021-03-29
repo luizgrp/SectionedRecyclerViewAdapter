@@ -22,10 +22,23 @@ In addition, each Section can have its state(Loading/Loaded/Failed/Empty) contro
 
 ## Gradle Dependency
 
-Add this to the `dependencies` section in your project-level **build.gradle** file:
+##### Step 1: Add jitpack repository to the [top-level](https://developer.android.com/studio/build#top-level) build.gradle file: 
+```groovy
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+##### Step 2: Add this library to the [module-level](https://developer.android.com/studio/build#module-level) build.gradle file:
 
 ```groovy
-implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:x.y.z'
+dependencies {
+	...
+	implementation 'com.github.luizgrp:SectionedRecyclerViewAdapter:v3.2.0'
+}
 ```
 
 Guide to upgrade to version 3.x [here](https://github.com/luizgrp/SectionedRecyclerViewAdapter/wiki/Upgrading-to-3.x).
